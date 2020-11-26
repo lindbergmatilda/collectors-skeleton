@@ -1,7 +1,7 @@
 <template>
   <div class="center">
     <div>
-      <h1>Collectors</h1>
+      <h1>Want to play Collectors?</h1>
       <ul>
         <li v-for="i in 3" :key="i">
           <a @click="setupCollectors(i+1, 'en')">Set up a game of Collectors for {{i+1}} players</a>.
@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     setupCollectors: function (playerCount, lang="en") {
-      this.$store.commit('SETUP_GAME', {roomId: this.$store.state.roomId, 
+      this.$store.commit('SETUP_GAME', {roomId: this.$store.state.roomId,
         playerCount: playerCount,
         lang: lang });
       this.$router.push("/room/" + this.$store.state.roomId);

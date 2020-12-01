@@ -31,7 +31,6 @@ export default {
     labels: Object,
     player: Object,
     skillsOnSale: Array,
-    marketValues: Object,
     placement: Array
   },
   methods: {
@@ -55,15 +54,11 @@ export default {
 
     highlightAvailableCards: function(cost = 100) {
       for (let i = 0; i < this.skillsOnSale.length; i += 1) {
-        if (this.marketValues[this.skillsOnSale[i].item] <= this.player.money - cost) {
           this.$set(this.skillsOnSale[i], "available", true);
-        } else {
-          this.$set(this.skillsOnSale[i], "available", false);
         }
         this.chosenPlacementCost = cost;
-      }
+      },
 
-    },
     buySkill: function(card) {
       if (card.available) {
         console.log("hejsan buyskill funkar");

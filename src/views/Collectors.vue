@@ -1,14 +1,14 @@
 <template>
   <div>
     <main>
-      {{buyPlacement}} {{chosenPlacementCost}}
-      <CollectorsBuyActions v-if="players[playerId]"
+      {{itemPlacement}} {{chosenPlacementCost}}
+      <collectorsBuyItem v-if="players[playerId]"
         :labels="labels"
         :player="players[playerId]"
         :itemsOnSale="itemsOnSale"
         :marketValues="marketValues"
-        :placement="buyPlacement"
-        @buyCard="buyCard($event)"
+        :placement="itemPlacement"
+        @buyItem="buyItem($event)"
         @placeBottle="placeBottle('buy', $event)"/>
 
       <CollectorsBuySkill v-if="players[playerId]"
@@ -35,7 +35,7 @@
       </div>
       Hand
       <div class="cardslots" v-if="players[playerId]">
-        <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="buyCard(card)" :key="index"/>
+        <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="buyItem(card)" :key="index"/>
       </div>
       Items
       <div class="cardslots" v-if="players[playerId]">
@@ -64,14 +64,14 @@
 /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "[iI]gnored" }]*/
 
 import CollectorsCard from '@/components/CollectorsCard.vue'
-import CollectorsBuyActions from '@/components/CollectorsBuyActions.vue'
+import CollectorsBuyItem from '@/components/CollectorsBuyItem.vue'
 import CollectorsBuySkill from '@/components/CollectorsBuySkill.vue'
 
 export default {
   name: 'Collectors',
   components: {
     CollectorsCard,
-    CollectorsBuyActions,
+    CollectorsBuyItem,
     CollectorsBuySkill
   },
   data: function () {
@@ -91,7 +91,7 @@ export default {
       //   income: [],
       //   secret: []
       // }
-      buyPlacement: [],
+      itemPlacement: [],
       skillPlacement: [],
       auctionPlacement: [],
       marketPlacement: [],
@@ -141,7 +141,7 @@ export default {
         this.marketValues = d.marketValues;
         this.skillsOnSale = d.skillsOnSale;
         this.auctionCards = d.auctionCards;
-        this.buyPlacement = d.placements.buyPlacement;
+        this.itemPlacement = d.placements.itemPlacement;
         this.skillPlacement = d.placements.skillPlacement;
         this.marketPlacement = d.placements.marketPlacement;
         this.auctionPlacement = d.placements.auctionPlacement;
@@ -149,7 +149,7 @@ export default {
 
     this.$store.state.socket.on('collectorsBottlePlaced',
       function(d) {
-        this.buyPlacement = d.buyPlacement;
+        this.itemPlacement = d.itemPlacement;
         this.skillPlacement = d.skillPlacement;
         this.marketPlacement = d.marketPlacement;
         this.auctionPlacement = d.auctionPlacement;
@@ -165,7 +165,7 @@ export default {
       }.bind(this)
     );
 
-    this.$store.state.socket.on('collectorsCardBought',
+    this.$store.state.socket.on('collectorsItemBought',
       function(d) {
         console.log(d.playerId, "bought a card");
         this.players = d.players;
@@ -203,9 +203,9 @@ export default {
         }
       );
     },
-    buyCard: function (card) {
-      console.log("buyCard", card);
-      this.$store.state.socket.emit('collectorsBuyCard', {
+    buyItem: function (card) {
+      console.log("buyItem", card);
+      this.$store.state.socket.emit('collectorsBuyItem', {
           roomId: this.$route.params.id,
           playerId: this.playerId,
           card: card,
@@ -219,7 +219,7 @@ export default {
         roomId: this.$route.params.id,
         playerId:this.playerId,
         card: card,
-        cost: this.marketValues[card.market] + this.chosenPlacementCost
+        cost: this.chosenPlacementCost // this.marketValues[card.market] tog bort detta,det var adderat
       }
     );
     }

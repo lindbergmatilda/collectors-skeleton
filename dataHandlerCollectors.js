@@ -64,7 +64,7 @@ Data.prototype.createRoom = function(roomId, playerCount, lang="en") {
   room.skillsOnSale = room.deck.splice(0, 5);
   room.auctionCards = room.deck.splice(0, 4);
   room.market = [];
-  room.buyPlacement = [ {cost:1, playerId: null},
+  room.itemPlacement = [ {cost:1, playerId: null},
                         {cost:1, playerId: null},
                         {cost:2, playerId: null},
                         {cost:2, playerId: null},
@@ -144,7 +144,7 @@ Data.prototype.drawCard = function (roomId, playerId) {
 }
 
 /* moves card from itemsOnSale to a player's hand */
-Data.prototype.buyCard = function (roomId, playerId, card, cost) {
+Data.prototype.buyItem = function (roomId, playerId, card, cost) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
     let c = null;
@@ -212,7 +212,7 @@ Data.prototype.placeBottle = function (roomId, playerId, action, cost) {
   if (typeof room !== 'undefined') {
     let activePlacement = [];
     if (action === "buy") {
-      activePlacement = room.buyPlacement;
+      activePlacement = room.itemPlacement;
     }
     else if (action === "skill") {
       activePlacement = room.skillPlacement;
@@ -245,7 +245,7 @@ Data.prototype.getCards = function (roomId, playerId) {
 Data.prototype.getPlacements = function(roomId){
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
-    return { buyPlacement: room.buyPlacement,
+    return { itemPlacement: room.itemPlacement,
              skillPlacement: room.skillPlacement,
              auctionPlacement: room.auctionPlacement,
              marketPlacement: room.marketPlacement }

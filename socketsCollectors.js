@@ -22,9 +22,9 @@ function sockets(io, socket, data) {
         data.drawCard(d.roomId, d.playerId)
       );
     });
-    socket.on('collectorsBuyCard', function(d) {
-      data.buyCard(d.roomId, d.playerId, d.card, d.cost)
-      io.to(d.roomId).emit('collectorsCardBought', {
+    socket.on('collectorsBuyItem', function(d) {
+      data.buyItem(d.roomId, d.playerId, d.card, d.cost)
+      io.to(d.roomId).emit('collectorsItemBought', {
           playerId: d.playerId,
           players: data.getPlayers(d.roomId),
           itemsOnSale: data.getItemsOnSale(d.roomId)

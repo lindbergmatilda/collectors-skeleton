@@ -1,6 +1,11 @@
 <template>
   <div>
     <main>
+
+      <div id="gameboard">
+        <img src="images/spelplan.png" alt="Collectors" title="Collectors">
+      </div>
+
       {{buyPlacement}} {{chosenPlacementCost}}
       <CollectorsBuyActions v-if="players[playerId]"
         :labels="labels"
@@ -11,7 +16,7 @@
         @buyCard="buyCard($event)"
         @placeBottle="placeBottle('buy', $event)"/>
 
-      <CollectorsBuySkill v-if="players[playerId]"
+      <CollectorsBuySkill id="skillCards" v-if="players[playerId]"
         :labels="labels"
         :player="players[playerId]"
         :skillsOnSale="skillsOnSale"
@@ -234,9 +239,11 @@ export default {
     pointer-events: none;
   }
   main {
+    margin: 20px 20px;
     user-select: none;
   }
   footer {
+    margin: 20px 20px;
     margin-top: 5em auto;
   }
   footer a {
@@ -246,6 +253,14 @@ export default {
   footer a:visited {
     color:ivory;
   }
+
+  #gameboard img{
+    margin: 250px 75px;
+    height: 400px;
+    position: absolute;
+    z-index: 1;
+  }
+
   .cardslots {
     display: grid;
     grid-template-columns: repeat(auto-fill, 130px);

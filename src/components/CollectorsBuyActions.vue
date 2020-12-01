@@ -90,8 +90,22 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .buy-cards, .buttons {
+
+  .buy-cards {
+      position: relative;
+      transform: scale(0.7)translate(-10%,-20%);
+      z-index: 0;
+
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 130px);
+    }
+
+  .buttons {
+    position: relative;
+    z-index: 1;
+    height: 50px;
+
     display: grid;
-    grid-template-columns: repeat(auto-fill, 130px);
+    grid-template-columns: repeat(auto-fill,50px);
   }
 </style>

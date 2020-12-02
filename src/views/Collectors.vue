@@ -1,17 +1,9 @@
 <template>
   <div>
     <main>
-      <div id="gameboard">
-        <img src="/spelplan.png" alt="Collectors" title="Collectors">
         <div class="itemcards" v-for="card in theCards">
           {{card}}
         </div>
-        <!--<div class="item_cards"> </div>-->
-        <!--<div class="box item"></div>
-        <div class="box skills"></div>
-        <div class="box work"></div>
-        <div class="box auction"></div>
-        <div class="box market"></div>-->
       </div>
       <div class="buttons">
         <button @click="drawCard">
@@ -117,51 +109,6 @@ export default {
   footer a:visited {
     color:ivory;
   }
-  #gameboard img{
-    height: 400px;
-  }
-
-  /*{
-    display: grid;
-    grid-gap: 2px;
-    grid-template-columns: 50px 200px 300px;
-    background-color: #000000;
-    height: 420px;
-    width: 620px;
-  }
-  .box {
-      border-radius: 5px;
-      padding: 10px;
-  }
-  .item{
-    grid-column: 1/span 3;
-    background-color: #F08080;
-    height: 35px;
-  }
-  .skills{
-    grid-row: 2;
-    grid-column: 1;
-    background-color: #8FBC8F;
-    height: 290px;
-  }
-  .work{
-    grid-row: 2;
-    grid-column: 2;
-    background-color: #F5F5DC;
-    height: 290px;
-  }
-  .auction{
-    grid-row: 2;
-    grid-column: 3;
-    background-color: #DEB887;
-    height: 290px;
-  }
-  .market{
-    grid-row: 3;
-    grid-column: 1/span 3;
-    background-color: #F0F8FF;
-    height: 35px;
-  }*/
   .my-cards {
     display: grid;
     grid-template-columns: repeat(auto-fill, 130px);

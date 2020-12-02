@@ -80,9 +80,6 @@ export default {
     drawCard: function () {
       this.$store.state.socket.emit('collectorsDrawCard', { roomId: this.$route.params.id,
            playerId: this.$store.state.playerId });
-    },
-    hello: function(){
-      console.log("hejhopp");
     }
   },
 }
@@ -95,11 +92,9 @@ export default {
     pointer-events: none;
   }
   main {
-    margin: 20px 20px;
     user-select: none;
   }
   footer {
-    margin: 20px 20px;
     margin-top: 5em auto;
   }
   footer a {
@@ -121,7 +116,7 @@ export default {
     z-index: 0;
   }
   .my-cards div:hover {
-    transform: scale(0.7)translate(-15%,0);
+    transform: scale(1)translate(-25%,0);
     z-index: 1;
   }
   @media screen and (max-width: 800px) {

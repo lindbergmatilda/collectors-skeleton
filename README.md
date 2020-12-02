@@ -1,4 +1,4 @@
-# wavelength
+# Collectors
 
 ## Project setup
 ```

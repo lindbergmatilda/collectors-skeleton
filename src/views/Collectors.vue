@@ -200,6 +200,7 @@ export default {
       this.$store.state.socket.emit('collectorsDrawCard', {
           roomId: this.$route.params.id,
           playerId: this.playerId
+          console.log("hej");
         }
       );
     },

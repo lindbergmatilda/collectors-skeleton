@@ -174,6 +174,26 @@ Data.prototype.buyItem = function (roomId, playerId, card, cost) {
   }
 }
 
+Data.prototype.raiseValue = function (roomId, playerId, card, cost) {
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+    let c = null;
+    /// check first if the card is among the items on sale
+    }
+    // ...then check if it is in the hand. It cannot be in both so it's safe
+    for (let i = 0; i < room.players[playerId].hand.length; i += 1) {
+      // since card comes from the client, it is NOT the same object (reference)
+      // so we need to compare properties for determining equality
+      if (room.players[playerId].hand[i].x === card.x &&
+          room.players[playerId].hand[i].y === card.y) {
+        c = room.players[playerId].hand.splice(i,1);
+        break;
+      }
+    }
+    room.marketCards.push(...c);
+    room.players[playerId].money -= cost;
+  }
+
 Data.prototype.buySkill = function (roomId, playerId, card, cost) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
@@ -211,7 +231,7 @@ Data.prototype.placeBottle = function (roomId, playerId, action, cost) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
     let activePlacement = [];
-    if (action === "buy") {
+    if (action === "item") {
       activePlacement = room.itemPlacement;
     }
     else if (action === "skill") {

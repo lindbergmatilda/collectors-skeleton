@@ -43,6 +43,16 @@ function sockets(io, socket, data) {
       );
     });
 
+    socket.on('collectorsRaiseValue', function(d) {
+      data.raiseValue(d.roomId, d.playerId, d.card, d.cost)
+      io.to(d.roomId).emit('CollectorsRaisedValue', {
+          playerId: d.playerId,
+          players: data.getPlayers(d.roomId),
+          marketValues: data.getMarketValues(d.roomId)
+        }
+      );
+    });
+
     socket.on('collectorsPlaceBottle', function(d) {
       data.placeBottle(d.roomId, d.playerId, d.action, d.cost);
       io.to(d.roomId).emit('collectorsBottlePlaced', data.getPlacements(d.roomId)

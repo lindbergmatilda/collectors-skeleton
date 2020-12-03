@@ -1,9 +1,9 @@
 <template>
 <div>
-  <h1>{{ labels.buySkill }}</h1>
-  <div class="buy-skill">
-    <div v-for="(card, index) in skillsOnSale" :key="index">
-      <CollectorsCard :card="card" :availableAction="card.available" @doAction="buySkill(card)" />
+  <h1>{{ labels.raiseValue }}</h1>
+  <div class="raise-value">
+    <div v-for="(card, index) in marketCards" :key="index">
+        <CollectorsCard :card="card" :availableAction="card.available"/>
     </div>
   </div>
   <div>
@@ -23,14 +23,14 @@
 import CollectorsCard from '@/components/CollectorsCard.vue'
 
 export default {
-  name: 'CollectorsBuySkill',
+  name: 'CollectorsRaiseValue',
   components: {
     CollectorsCard
   },
   props: {
     labels: Object,
     player: Object,
-    skillsOnSale: Array,
+    marketCards: Array,
     placement: Array
   },
   methods: {
@@ -49,20 +49,21 @@ export default {
     placeBottle: function(p) {
       this.$emit('placeBottle', p.cost);
       this.highlightAvailableCards(p.cost);
+      this.chosenAction = "marketAction";
       console.log(" kostnaden är " + p.cost);
     },
 
     highlightAvailableCards: function(cost = 100) {
-      for (let i = 0; i < this.skillsOnSale.length; i += 1) {
-        this.$set(this.skillsOnSale[i], "available", true);
+      for (let i = 0; i < this.player.hand.length; i += 1) {
+        this.$set(this.player.hand[i], "available", true);
       }
       this.chosenPlacementCost = cost;
     },
 
-    buySkill: function(card) {
+    raiseValue: function(card) {
       if (card.available) {
-        console.log("hejsan buyskill funkar");
-        this.$emit('buySkill', card)
+        console.log("hejsan raiseValue funkar");
+        this.$emit('raiseValue', card)
         this.highlightAvailableCards()
       }
     }
@@ -72,7 +73,7 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.buy-skill,
+.raise-value,
 .buttons {
   display: grid;
   grid-template-columns: repeat(auto-fill, 130px);

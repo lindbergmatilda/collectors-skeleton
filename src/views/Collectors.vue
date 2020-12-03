@@ -43,7 +43,7 @@
     </div>
     Market
     <div class="cardslots">
-      <CollectorsCard v-for="(card, index) in marketCards" :card="card" :key="index" />
+      <CollectorsCard v-for="(card, index) in market" :card="card" :key="index" />
     </div>
     Hand
       <div class="cardslots" v-if="players[playerId]">
@@ -120,7 +120,7 @@ export default {
         figures: 0,
         music: 0
       },
-      marketCards: [],
+      market: [],
       itemsOnSale: [],
       skillsOnSale: [],
       auctionCards: [],

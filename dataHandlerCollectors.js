@@ -179,22 +179,21 @@ Data.prototype.raiseValue = function (roomId, playerId, card, cost) {
   if (typeof room !== 'undefined') {
     let c = null;
     /// check first if the card is among the items on sale
-    }
     // ...then check if it is in the hand. It cannot be in both so it's safe
     for (let i = 0; i < room.players[playerId].hand.length; i += 1) {
       // since card comes from the client, it is NOT the same object (reference)
       // so we need to compare properties for determining equality
       if (room.players[playerId].hand[i].x === card.x &&
           room.players[playerId].hand[i].y === card.y) {
+        console.log("knasigt");
         c = room.players[playerId].hand.splice(i,1);
         break;
       }
     }
-    console.log("försöker få datahandler att fungera för raisevalue");
-    room.marketValues += 1;
-    room.marketCards.push(...c);
+    room.market.push(...c);
     room.players[playerId].money -= cost;
   }
+}
 
 Data.prototype.buySkill = function (roomId, playerId, card, cost) {
   let room = this.rooms[roomId];
@@ -283,17 +282,20 @@ Data.prototype.getItemsOnSale = function(roomId){
   else return [];
 }
 
-Data.prototype.getMarketValues = function(roomId){
+Data.prototype.getMarketValues = function(roomId) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
-    return room.market.reduce(function(acc, curr) {
-      acc[curr.market] += 1;
-    },
-    { fastaval: 0,
+    let mv = {
+      fastaval: 0,
       movie: 0,
       technology: 0,
       figures: 0,
-      music: 0 });
+      music: 0
+    };
+    for (let cardIndex in room.market) {
+      mv[room.market[cardIndex].market] += 1;
+    }
+    return mv;
   }
   else return [];
 }

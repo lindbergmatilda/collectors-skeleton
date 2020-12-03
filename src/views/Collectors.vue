@@ -255,7 +255,7 @@ export default {
   }
 
   #gameboard img{
-    margin: 250px 75px;
+    margin: 180px 65px;
     height: 400px;
     position: absolute;
     z-index: 1;

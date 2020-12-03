@@ -1,6 +1,6 @@
 <template>
     <div>
-      <h1>{{ labels.buyCard }}</h1>
+      <!--h1>{{ labels.buyCard }}</h1-->
       <div class="buy-cards">
         <div v-for="(card, index) in itemsOnSale" :key="index">
           <CollectorsCard
@@ -103,9 +103,12 @@ export default {
   .buttons {
     position: relative;
     z-index: 1;
-    height: 50px;
 
     display: grid;
-    grid-template-columns: repeat(auto-fill,50px);
+    grid-template-rows: repeat(auto-fill, 50px);
+
+    margin: -60px 60px;
+    /*grid-template-columns: auto 100px 10% 1fr 2fr;
+    grid-template-rows: 50px 50px;*/
   }
 </style>

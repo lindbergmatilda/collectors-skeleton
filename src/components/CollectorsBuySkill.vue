@@ -1,6 +1,6 @@
 <template>
     <div>
-      <h1>{{ labels.buySkill }}</h1>
+      <!--h1>{{ labels.buySkill }}</h1-->
       <div class="buy-skill">
         <div v-for="(card, index) in skillsOnSale" :key="index">
           <CollectorsCard

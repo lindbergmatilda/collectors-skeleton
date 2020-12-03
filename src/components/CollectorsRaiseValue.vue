@@ -3,7 +3,7 @@
   <h1>{{ labels.raiseValue }}</h1>
   <div class="raise-value">
     <div v-for="(card, index) in marketCards" :key="index">
-        <CollectorsCard :card="card" :availableAction="card.available"/>
+        <CollectorsCard :card="card" :availableAction="card.available" @doAction="raiseValue(card)"/>
     </div>
   </div>
   <div>
@@ -31,6 +31,7 @@ export default {
     labels: Object,
     player: Object,
     marketCards: Array,
+    marketValues: Object,
     placement: Array
   },
   methods: {

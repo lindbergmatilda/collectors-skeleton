@@ -1,6 +1,12 @@
 <template>
 <div>
   <main>
+    <div class="buttons">
+      <button @click="drawCard">
+        {{ labels.draw }}
+      </button>
+    </div>
+
     {{itemPlacement}} {{chosenPlacementCost}}
     <collectorsBuyItem v-if="players[playerId]"
     :labels="labels"
@@ -30,12 +36,6 @@
     <!--<div class="cardslots">
         <CollectorsCard v-for="(card, index) in skillsOnSale" :card="card" :key="index"/>
       </div>-->
-
-    <div class="buttons">
-      <button @click="drawCard">
-        {{ labels.draw }}
-      </button>
-    </div>
 
     Auction
     <div class="cardslots">
@@ -256,7 +256,7 @@ export default {
 
     handleAction: function(card){
       console.log(this.chosenAction);
-      if (this.chosenAction === "buy") {
+      if (this.chosenAction === "item") {
         console.log("inne i if i handleaction");
         this.buyItem(card);
       }

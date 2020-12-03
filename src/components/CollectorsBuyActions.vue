@@ -12,7 +12,7 @@
       </div>
       <div>
         <div class="buttons" v-for="(p, index) in placement" :key="index">
-          <button
+          <button class="theButton"
             v-if="p.playerId===null"
             :disabled="cannotAfford(p.cost)"
             @click="placeBottle(p)" >
@@ -93,7 +93,7 @@ export default {
 
   .buy-cards {
       position: relative;
-      transform: scale(0.7)translate(-10%,-20%);
+      transform: scale(0.6)translate(-10%,-20%);
       z-index: 0;
 
       display: grid;
@@ -102,13 +102,16 @@ export default {
 
   .buttons {
     position: relative;
+    left: 160px;
+    bottom: 205px;
     z-index: 1;
 
-    display: grid;
-    grid-template-rows: repeat(auto-fill, 50px);
+    display: inline-block;
+    margin-right: 60px;
+  }
 
-    margin: -60px 60px;
-    /*grid-template-columns: auto 100px 10% 1fr 2fr;
-    grid-template-rows: 50px 50px;*/
+  .theButton{
+    width: 40px;
+    height: 40px;
   }
 </style>

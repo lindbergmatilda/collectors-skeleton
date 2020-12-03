@@ -255,10 +255,11 @@ export default {
   }
 
   #gameboard img{
-    margin: 180px 65px;
+    margin: 180px 50px;
     height: 400px;
     position: absolute;
     z-index: 1;
+    display: grid;
   }
 
   .cardslots {

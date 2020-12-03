@@ -50,7 +50,6 @@ export default {
     placeBottle: function(p) {
       this.$emit('placeBottle', p.cost);
       this.highlightAvailableCards(p.cost);
-      this.chosenAction = "itemAction";
     },
     highlightAvailableCards: function(cost = 100) {
       for (let i = 0; i < this.itemsOnSale.length; i += 1) {

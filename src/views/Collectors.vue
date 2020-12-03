@@ -46,14 +46,9 @@
       <CollectorsCard v-for="(card, index) in marketCards" :card="card" :key="index" />
     </div>
     Hand
-    <div class="cardslots" v-if="players[playerId]">
-      <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" :key="index">
-        <div v-if="chosenAction='itemAction'" @doAction="buyItem(card)">
+      <div class="cardslots" v-if="players[playerId]">
+        <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="handleAction(card)" :key="index"/>
       </div>
-        <div v-if="chosenAction='marketAction'" @doAction="raiseValue(card)">
-      </div>
-    </CollectorsCard>
-    </div>
     Items
     <div class="cardslots" v-if="players[playerId]">
       <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index" />
@@ -209,7 +204,7 @@ export default {
       }.bind(this)
     );
 
-    this.$store.state.socket.on('CollectorsRaisedValue',
+    this.$store.state.socket.on('collectorsRaisedValue',
       function(d) {
         console.log(d.playerId, "raised a value");
         this.players = d.players;
@@ -225,6 +220,7 @@ export default {
     },
     placeBottle: function(action, cost) {
       this.chosenPlacementCost = cost;
+      this.chosenAction = action;
       this.$store.state.socket.emit('collectorsPlaceBottle', {
         roomId: this.$route.params.id,
         playerId: this.playerId,
@@ -250,12 +246,29 @@ export default {
 
     raiseValue: function(card) {
       console.log("raiseValue", card);
-      this.$store.state.socket.emit('CollectorsRaiseValue', {
+      this.$store.state.socket.emit('collectorsRaiseValue', {
         roomId: this.$route.params.id,
         playerId: this.playerId,
         card: card,
         cost: this.chosenPlacementCost
       });
+    },
+
+    handleAction: function(card){
+      console.log(this.chosenAction);
+      if (this.chosenAction === "buy") {
+        console.log("inne i if i handleaction");
+        this.buyItem(card);
+      }
+      else if (this.chosenAction === "skill") {
+        this.getSkill(card);
+      }
+      else if (this.chosenAction === "auction") {
+        this.makeAuction(card);
+      }
+      else if (this.chosenAction === "market") {
+        this.raiseValue(card);
+      }
     },
 
     buySkill: function(card) {

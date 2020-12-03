@@ -190,7 +190,9 @@ Data.prototype.raiseValue = function (roomId, playerId, card, cost) {
         break;
       }
     }
-    room.marketCards.push(...c);
+    console.log("försöker få datahandler att fungera för raisevalue");
+    room.marketValues += 1;
+    //room.marketCards.push(...c);
     room.players[playerId].money -= cost;
   }
 

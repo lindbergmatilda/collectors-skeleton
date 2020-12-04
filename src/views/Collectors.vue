@@ -56,10 +56,15 @@
     <div class="cardslots">
       <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
     </div>
-    <div class="buttons">
+    <!--div class="buttons">
       <button @click="claimAuctionCard">
         {{ labels.claim }}
       </button>
+    </div-->
+    <div class="altButtons">
+      <button @click="claimAuctionCard('item')">Place in item</button>
+      <button @click="claimAuctionCard('skill')">Place in skill</button>
+      <button @click="claimAuctionCard('market')">Add to market</button>
     </div>
     <hr>
     Market
@@ -224,6 +229,8 @@ export default {
         //better to update the state of all cards
         this.players = d.players;
         this.theAuctionItem = d.theAuctionItem;
+        this.market = d.market;
+        this.marketValues = d.marketValues;
       }.bind(this)
     );
 
@@ -284,11 +291,11 @@ export default {
       });
     },
 
-    claimAuctionCard: function() {
+    claimAuctionCard: function(buttonAction) {
       this.$store.state.socket.emit('collectorsClaimCard', {
         roomId: this.$route.params.id,
         playerId: this.playerId,
-        card: this.theAuctionItem[0]
+        buttonAction: buttonAction
       });
     },
 

@@ -144,12 +144,16 @@ Data.prototype.drawCard = function (roomId, playerId) {
   else return [];
 }
 
-Data.prototype.claimAuctionCard = function (roomId, playerId) {
+Data.prototype.claimAuctionCard = function (roomId, playerId, buttonAction) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
-    console.log("vi kommer hit");
     let card = room.theAuctionItem.pop();
-    room.players[playerId].items.push(card);
+    if(buttonAction === 'item'){
+      room.players[playerId].items.push(card);}
+    if(buttonAction === 'skill'){
+      room.players[playerId].skills.push(card);}
+    if(buttonAction === 'market'){
+      room.market.push(card);}
     room.theAuctionItem = [];
     return room.players;
   }

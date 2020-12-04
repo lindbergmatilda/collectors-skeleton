@@ -25,11 +25,13 @@ function sockets(io, socket, data) {
     });
 
     socket.on('collectorsClaimCard', function(d) {
-      data.claimAuctionCard(d.roomId, d.playerId, d.card)
+      data.claimAuctionCard(d.roomId, d.playerId, d.buttonAction)
       io.to(d.roomId).emit('collectorsClaimedCard', {
         playerId: d.playerId,
         players: data.getPlayers(d.roomId),
-        theAuctionItem: data.getAuctionItem(d.roomId)
+        theAuctionItem: data.getAuctionItem(d.roomId),
+        market: data.getMarketCards(d.roomId),
+        marketValues: data.getMarketValues(d.roomId)
       }
       );
     });

@@ -209,6 +209,7 @@ export default {
         console.log(d.playerId, "raised a value");
         this.players = d.players;
         this.marketValues = d.marketValues;
+        this.market = d.market;
       }.bind(this)
     );
 

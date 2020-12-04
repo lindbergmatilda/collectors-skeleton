@@ -48,7 +48,8 @@ function sockets(io, socket, data) {
       io.to(d.roomId).emit('collectorsRaisedValue', {
           playerId: d.playerId,
           players: data.getPlayers(d.roomId),
-          marketValues: data.getMarketValues(d.roomId)
+          marketValues: data.getMarketValues(d.roomId),
+          market: data.getMarketCards(d.roomId)
         }
       );
     });

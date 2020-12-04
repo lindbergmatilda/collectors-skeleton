@@ -300,6 +300,14 @@ Data.prototype.getMarketValues = function(roomId) {
   else return [];
 }
 
+Data.prototype.getMarketCards = function(roomId){
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+    return room.market;
+  }
+  else return [];
+}
+
 Data.prototype.getSkillsOnSale = function(roomId){
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {

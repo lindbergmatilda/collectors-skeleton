@@ -76,5 +76,6 @@ export default {
 .buttons {
   display: grid;
   grid-template-columns: repeat(auto-fill, 130px);
+  transform: scale(0.4)translate(-25%, 0);
 }
 </style>

@@ -1,56 +1,67 @@
 <template>
 <div>
   <main>
+
+          <div class="gamezone">
+
+            <div class="box item">ITEM
+              <collectorsBuyItem v-if="players[playerId]"
+              :labels="labels"
+              :player="players[playerId]"
+              :itemsOnSale="itemsOnSale"
+              :marketValues="marketValues"
+              :placement="itemPlacement"
+              @buyItem="buyItem($event)"
+              @placeBottle="placeBottle('item', $event)" />
+            </div>
+
+            <div class="box skill">SKILL
+              <CollectorsBuySkill v-if="players[playerId]"
+              :labels="labels"
+              :player="players[playerId]"
+              :skillsOnSale="skillsOnSale"
+              :marketValues="marketValues"
+              :placement="skillPlacement"
+              @buySkill="buySkill($event)"
+              @placeBottle="placeBottle('skill', $event)" />
+            </div>
+
+            <div class="box value">VALUE
+              <CollectorsRaiseValue v-if="players[playerId]"
+              :labels="labels"
+              :player="players[playerId]"
+              :marketValues="marketValues"
+              :placement="marketPlacement"
+              @raiseValue="raiseValue($event)"
+              @placeBottle="placeBottle('market', $event)" />
+            </div>
+
+            <div class="box auction">AUCTION
+              <CollectorsAuctionItem v-if="players[playerId]"
+              :labels="labels"
+              :player="players[playerId]"
+              :auctionCards="auctionCards"
+              :placement="auctionPlacement"
+              @auctionItem="auctionItem($event)"
+              @placeBottle="placeBottle('auction', $event)" />
+            </div>
+
+            <div class="box work">WORK</div>
+
+          </div>
+
+
+
+
+
     <div class="buttons">
       <button @click="drawCard">
         {{ labels.draw }}
       </button>
     </div>
-    <hr>
 
-    {{itemPlacement}} {{chosenPlacementCost}}
-    <collectorsBuyItem v-if="players[playerId]"
-    :labels="labels"
-    :player="players[playerId]"
-    :itemsOnSale="itemsOnSale"
-    :marketValues="marketValues"
-    :placement="itemPlacement"
-    @buyItem="buyItem($event)"
-    @placeBottle="placeBottle('item', $event)" />
-    <hr>
-    <CollectorsBuySkill v-if="players[playerId]"
-    :labels="labels"
-    :player="players[playerId]"
-    :skillsOnSale="skillsOnSale"
-    :marketValues="marketValues"
-    :placement="skillPlacement"
-    @buySkill="buySkill($event)"
-    @placeBottle="placeBottle('skill', $event)" />
-    <hr>
-    <CollectorsRaiseValue v-if="players[playerId]"
-    :labels="labels"
-    :player="players[playerId]"
-    :marketValues="marketValues"
-    :placement="marketPlacement"
-    @raiseValue="raiseValue($event)"
-    @placeBottle="placeBottle('market', $event)" />
-    <!--<div class="cardslots">
-        <CollectorsCard v-for="(card, index) in skillsOnSale" :card="card" :key="index"/>
-      </div>-->
-      <hr>
-      <CollectorsAuctionItem v-if="players[playerId]"
-      :labels="labels"
-      :player="players[playerId]"
-      :auctionCards="auctionCards"
-      :placement="auctionPlacement"
-      @auctionItem="auctionItem($event)"
-      @placeBottle="placeBottle('auction', $event)" />
+    <!--{{itemPlacement}} {{chosenPlacementCost}}-->
 
-    <!--hr>
-    Auction
-    <div class="cardslots">
-      <CollectorsCard v-for="(card, index) in auctionCards" :card="card" :key="index" />
-    </div-->
     <hr>
     Auction Area
     <div class="cardslots">
@@ -382,6 +393,51 @@ footer a {
 footer a:visited {
   color: ivory;
 }
+
+
+.gamezone {
+       display: grid;
+       grid-template-areas:
+       'item item item item item item'
+       'skill work work auction auction auction'
+       'skill work work auction auction auction'
+       'skill value value value value value';
+       width: auto;
+       height: 500px;
+       margin:90px;
+   }
+
+   .box {
+       border-radius: 1px;
+       border-color: white;
+       padding: 50px;
+
+
+     }
+
+   .item {
+       grid-area: item;
+       background-color: red;
+
+   }
+   .skill {
+       grid-area: skill;
+       background-color: green;
+   }
+   .value {
+       grid-area: value;
+       background-color: blue;
+   }
+
+   .auction {
+       grid-area: auction;
+       background-color: yellow;
+   }
+
+   .work {
+       grid-area: work;
+       background-color: brown;
+   }
 
 .cardslots {
   display: grid;

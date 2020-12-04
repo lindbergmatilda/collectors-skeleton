@@ -1,7 +1,7 @@
 <template>
     <div v-if="card.x>0" :class="['card', {'available-to-choose': availableAction}]" :style="{'background-position': (-(card.x-1)*250)+'px ' + (-(card.y-1)*350)+'px'}" @click="doAction">
 
-      {{card.item}} 
+      {{card.item}}
       {{card.skill}}
       {{card.market}}
     </div>

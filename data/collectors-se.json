@@ -4,5 +4,6 @@
 	"endTurn": "Avsluta runda",
 	"buyItem": "Köp ett item",
 	"buySkill": "Köp en skill",
-	"raiseValue": "Höj ett värde"
+	"raiseValue": "Höj ett värde",
+	"auctionItem": "Starta en auction"
 }

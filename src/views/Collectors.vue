@@ -26,6 +26,14 @@
     @buySkill="buySkill($event)"
     @placeBottle="placeBottle('skill', $event)" />
 
+    <CollectorsAuctionItem v-if="players[playerId]"
+    :labels="labels"
+    :player="players[playerId]"
+    :auctionCards="auctionCards"
+    :placement="auctionPlacement"
+    @auctionItem="auctionItem($event)"
+    @placeBottle="placeBottle('auction', $event)" />
+
     <CollectorsRaiseValue v-if="players[playerId]"
     :labels="labels"
     :player="players[playerId]"
@@ -41,6 +49,12 @@
     <div class="cardslots">
       <CollectorsCard v-for="(card, index) in auctionCards" :card="card" :key="index" />
     </div>
+
+    Auction Area
+    <div class="cardslots">
+      <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
+    </div>
+
     Market
     <div class="cardslots">
       <CollectorsCard v-for="(card, index) in market" :card="card" :key="index" />
@@ -79,6 +93,7 @@ import CollectorsCard from '@/components/CollectorsCard.vue'
 import CollectorsBuyItem from '@/components/CollectorsBuyItem.vue'
 import CollectorsBuySkill from '@/components/CollectorsBuySkill.vue'
 import CollectorsRaiseValue from '@/components/CollectorsRaiseValue.vue'
+import CollectorsAuctionItem from '@/components/CollectorsAuctionItem.vue'
 
 export default {
   name: 'Collectors',
@@ -86,7 +101,8 @@ export default {
     CollectorsCard,
     CollectorsBuyItem,
     CollectorsBuySkill,
-    CollectorsRaiseValue
+    CollectorsRaiseValue,
+    CollectorsAuctionItem
   },
   data: function() {
     return {
@@ -124,6 +140,7 @@ export default {
       itemsOnSale: [],
       skillsOnSale: [],
       auctionCards: [],
+      theAuctionItem: [],
       playerid: 0
     }
   },
@@ -164,6 +181,7 @@ export default {
         this.marketValues = d.marketValues;
         this.skillsOnSale = d.skillsOnSale;
         this.auctionCards = d.auctionCards;
+        this.theAuctionItem = d.theAuctionItem;
         this.itemPlacement = d.placements.itemPlacement;
         this.skillPlacement = d.placements.skillPlacement;
         this.marketPlacement = d.placements.marketPlacement;
@@ -213,6 +231,15 @@ export default {
       }.bind(this)
     );
 
+    this.$store.state.socket.on('collectorsItemAuctioned',
+      function(d) {
+        console.log(d.playerId, "auctioned a card");
+        this.players = d.players;
+        this.auctionCards = d.auctionCards;
+        this.theAuctionItem = d.theAuctionItem;
+      }.bind(this)
+    );
+
 
   },
   methods: {
@@ -245,6 +272,16 @@ export default {
       });
     },
 
+    auctionItem: function(card) {
+      console.log("auctionItem", card);
+      this.$store.state.socket.emit('collectorsAuctionItem', {
+        roomId: this.$route.params.id,
+        playerId: this.playerId,
+        card: card,
+        cost: this.chosenPlacementCost
+      });
+    },
+
     raiseValue: function(card) {
       console.log("raiseValue", card);
       this.$store.state.socket.emit('collectorsRaiseValue', {
@@ -265,7 +302,7 @@ export default {
         this.getSkill(card);
       }
       else if (this.chosenAction === "auction") {
-        this.makeAuction(card);
+        this.auctionItem(card);
       }
       else if (this.chosenAction === "market") {
         this.raiseValue(card);

@@ -12,6 +12,7 @@ function sockets(io, socket, data) {
             marketValues: data.getMarketValues(d.roomId),
             skillsOnSale: data.getSkillsOnSale(d.roomId),
             auctionCards: data.getAuctionCards(d.roomId),
+            auctionItem: data.getAuctionItem(d.roomId),
             placements: data.getPlacements(d.roomId)
           }
         );
@@ -50,6 +51,16 @@ function sockets(io, socket, data) {
           players: data.getPlayers(d.roomId),
           marketValues: data.getMarketValues(d.roomId),
           market: data.getMarketCards(d.roomId)
+        }
+      );
+    });
+
+    socket.on('collectorsAuctionItem', function(d) {
+      data.auctionItem(d.roomId, d.playerId, d.card, d.cost)
+      io.to(d.roomId).emit('collectorsItemAuctioned', {
+          playerId: d.playerId,
+          players: data.getPlayers(d.roomId),
+          auctionItem: data.getAuctionItem(d.roomId)
         }
       );
     });

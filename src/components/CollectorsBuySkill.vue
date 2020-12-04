@@ -72,10 +72,15 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.buy-skill,
-.buttons {
+.buy-skill {
   display: grid;
   grid-template-columns: repeat(auto-fill, 130px);
   transform: scale(0.4)translate(-25%, 0);
 }
+.buttons {
+  height: 50px;
+  width: 500px;
+  display: grid;
+}
+
 </style>

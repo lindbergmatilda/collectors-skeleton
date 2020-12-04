@@ -6,6 +6,7 @@
         {{ labels.draw }}
       </button>
     </div>
+    <hr>
 
     {{itemPlacement}} {{chosenPlacementCost}}
     <collectorsBuyItem v-if="players[playerId]"
@@ -16,7 +17,7 @@
     :placement="itemPlacement"
     @buyItem="buyItem($event)"
     @placeBottle="placeBottle('item', $event)" />
-
+    <hr>
     <CollectorsBuySkill v-if="players[playerId]"
     :labels="labels"
     :player="players[playerId]"
@@ -25,15 +26,7 @@
     :placement="skillPlacement"
     @buySkill="buySkill($event)"
     @placeBottle="placeBottle('skill', $event)" />
-
-    <CollectorsAuctionItem v-if="players[playerId]"
-    :labels="labels"
-    :player="players[playerId]"
-    :auctionCards="auctionCards"
-    :placement="auctionPlacement"
-    @auctionItem="auctionItem($event)"
-    @placeBottle="placeBottle('auction', $event)" />
-
+    <hr>
     <CollectorsRaiseValue v-if="players[playerId]"
     :labels="labels"
     :player="players[playerId]"
@@ -44,39 +37,53 @@
     <!--<div class="cardslots">
         <CollectorsCard v-for="(card, index) in skillsOnSale" :card="card" :key="index"/>
       </div>-->
+      <hr>
+      <CollectorsAuctionItem v-if="players[playerId]"
+      :labels="labels"
+      :player="players[playerId]"
+      :auctionCards="auctionCards"
+      :placement="auctionPlacement"
+      @auctionItem="auctionItem($event)"
+      @placeBottle="placeBottle('auction', $event)" />
 
+    <!--hr>
     Auction
     <div class="cardslots">
       <CollectorsCard v-for="(card, index) in auctionCards" :card="card" :key="index" />
-    </div>
-
+    </div-->
+    <hr>
     Auction Area
     <div class="cardslots">
       <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
     </div>
-
+    <hr>
     Market
     <div class="cardslots">
       <CollectorsCard v-for="(card, index) in market" :card="card" :key="index" />
     </div>
+    <hr>
     Hand
       <div class="cardslots" v-if="players[playerId]">
         <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="handleAction(card)" :key="index"/>
       </div>
+      <hr>
     Items
     <div class="cardslots" v-if="players[playerId]">
       <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index" />
     </div>
+    <hr>
     Your Skills
     <div class="cardslots" v-if="players[playerId]">
       <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index" />
     </div>
+    <hr>
   </main>
   {{players}}
   {{marketValues}}
   <button v-if="players[playerId]" @click="players[playerId].money += 1">
     fake more money
   </button>
+  <hr>
   <footer>
     <p>
       {{ labels.invite }}

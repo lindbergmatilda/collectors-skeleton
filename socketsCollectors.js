@@ -60,7 +60,8 @@ function sockets(io, socket, data) {
       io.to(d.roomId).emit('collectorsItemAuctioned', {
           playerId: d.playerId,
           players: data.getPlayers(d.roomId),
-          auctionItem: data.getAuctionItem(d.roomId)
+          theAuctionItem: data.getAuctionItem(d.roomId),
+          auctionCards: data.getAuctionCards(d.roomId)
         }
       );
     });

@@ -6,6 +6,16 @@
         <img src="images/spelplan.png" alt="Collectors" title="Collectors">
       </div>
 
+      <div class="gamezone">
+        <div class="box item">ITEM</div>
+        <div class="box skill">SKILL</div>
+        <div class="box value">VALUE</div>
+        <div class="box auction">AUCTION</div>
+        <div class="box work">WORK</div>
+      </div>
+
+
+
       {{buyPlacement}} {{chosenPlacementCost}}
       <CollectorsBuyActions v-if="players[playerId]"
         :labels="labels"
@@ -253,6 +263,52 @@ export default {
   footer a:visited {
     color:ivory;
   }
+
+  .gamezone {
+       display: grid;
+       grid-template-areas:
+       'item item item item item item'
+       'skill work work auction auction auction'
+       'skill work work auction auction auction'
+       'skill value value value value value';
+       width: auto;
+       height: 500px;
+
+
+
+   }
+
+   .box {
+       border-radius: 1px;
+       border-color: white;
+
+
+
+     }
+
+   .item {
+       grid-area: item;
+       background-color: red;
+
+   }
+   .skill {
+       grid-area: skill;
+       background-color: green;
+   }
+   .value {
+       grid-area: value;
+       background-color: blue;
+   }
+
+   .auction {
+       grid-area: auction;
+       background-color: yellow;
+   }
+
+   .work {
+       grid-area: work;
+       background-color: brown;
+   }
 
   #gameboard img{
     margin: 180px 50px;

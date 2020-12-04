@@ -108,7 +108,9 @@ Data.prototype.joinGame = function (roomId, playerId) {
                                  skills: [],
                                  items: [],
                                  income: [],
-                                 secret: [] };
+                                 secret: [],
+                                 myTurn: false,
+                                 bottles: 2 };
       return true;
     }
     console.log("Player", playerId, "was declined due to player limit");
@@ -137,8 +139,13 @@ Data.prototype.updatePoints = function (roomId, player, points) {
 Data.prototype.drawCard = function (roomId, playerId) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
+  console.log("spelaren har flaskor", room.players[playerId].bottles );
     let card = room.deck.pop();
-    room.players[playerId].hand.push(card);
+    if(room.players[playerId].bottles != 0){
+       room.players[playerId].hand.push(card);
+       room.players[playerId].bottles -=1;
+       console.log("spelaren har flaskor", room.players[playerId].bottles );
+     }
     return room.players;
   }
   else return [];

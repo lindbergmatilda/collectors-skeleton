@@ -144,6 +144,18 @@ Data.prototype.drawCard = function (roomId, playerId) {
   else return [];
 }
 
+Data.prototype.claimAuctionCard = function (roomId, playerId) {
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+    console.log("vi kommer hit");
+    let card = room.theAuctionItem.pop();
+    room.players[playerId].items.push(card);
+    room.theAuctionItem = [];
+    return room.players;
+  }
+  else return [];
+}
+
 /* moves card from itemsOnSale to a player's hand */
 Data.prototype.buyItem = function (roomId, playerId, card, cost) {
   let room = this.rooms[roomId];

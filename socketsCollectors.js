@@ -23,6 +23,17 @@ function sockets(io, socket, data) {
         data.drawCard(d.roomId, d.playerId)
       );
     });
+
+    socket.on('collectorsClaimCard', function(d) {
+      data.claimAuctionCard(d.roomId, d.playerId, d.card)
+      io.to(d.roomId).emit('collectorsClaimedCard', {
+        playerId: d.playerId,
+        players: data.getPlayers(d.roomId),
+        theAuctionItem: data.getAuctionItem(d.roomId)
+      }
+      );
+    });
+
     socket.on('collectorsBuyItem', function(d) {
       data.buyItem(d.roomId, d.playerId, d.card, d.cost)
       io.to(d.roomId).emit('collectorsItemBought', {

@@ -56,6 +56,11 @@
     <div class="cardslots">
       <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
     </div>
+    <div class="buttons">
+      <button @click="claimAuctionCard">
+        {{ labels.claim }}
+      </button>
+    </div>
     <hr>
     Market
     <div class="cardslots">
@@ -213,6 +218,15 @@ export default {
       }.bind(this)
     );
 
+    this.$store.state.socket.on('collectorsClaimedCard',
+      function(d) {
+        //this has been refactored to not single out one player's cards
+        //better to update the state of all cards
+        this.players = d.players;
+        this.theAuctionItem = d.theAuctionItem;
+      }.bind(this)
+    );
+
     this.$store.state.socket.on('collectorsItemBought',
       function(d) {
         console.log(d.playerId, "bought a card");
@@ -269,6 +283,15 @@ export default {
         playerId: this.playerId
       });
     },
+
+    claimAuctionCard: function() {
+      this.$store.state.socket.emit('collectorsClaimCard', {
+        roomId: this.$route.params.id,
+        playerId: this.playerId,
+        card: this.theAuctionItem[0]
+      });
+    },
+
     buyItem: function(card) {
       console.log("buyItem", card);
       this.$store.state.socket.emit('collectorsBuyItem', {

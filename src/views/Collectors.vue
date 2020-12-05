@@ -44,72 +44,110 @@
               :placement="auctionPlacement"
               @auctionItem="auctionItem($event)"
               @placeBottle="placeBottle('auction', $event)" />
+
+              Auction Area
+              <div class="cardslots">
+                <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
+              </div>
+              <!--div class="buttons">
+                <button @click="claimAuctionCard">
+                  {{ labels.claim }}
+                </button>
+              </div-->
+              <div class="altButtons">
+                <button @click="claimAuctionCard('item')">Place in item</button>
+                <button @click="claimAuctionCard('skill')">Place in skill</button>
+                <button @click="claimAuctionCard('market')">Add to market</button>
+              </div>
+
+
+
+
+
             </div>
 
             <div class="box work">WORK</div>
 
+
+
+
+
+         <div class="thehand">
+
+           Hand
+           <hr>
+             <div class="cardslots" v-if="players[playerId]">
+               <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="handleAction(card)" :key="index"/>
+             </div>
+             <hr>
+           Items
+           <hr>
+           <div class="cardslots" v-if="players[playerId]">
+             <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index" />
+           </div>
+           <hr>
+           Your Skills
+           <hr>
+           <div class="cardslots" v-if="players[playerId]">
+             <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index" />
+           </div>
+           <hr>
+
+        </div>
+
+        <div class="theRest">
+          <hr>
+          <div class="buttons">
+            <button @click="drawCard">
+              {{ labels.draw }}
+            </button>
           </div>
 
+          <hr>
+
+          Market
+          <div class="cardslots">
+            <CollectorsCard v-for="(card, index) in market" :card="card" :key="index" />
+          </div>
+
+          <hr>
+
+          {{players}}
+          {{marketValues}}
+          <button v-if="players[playerId]" @click="players[playerId].money += 1">
+            fake more money
+          </button>
+
+          <hr>
+
+          <p>
+            {{ labels.invite }}
+            <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
+          </p>
+
+       </div>
+
+         </div>
 
 
 
 
-    <div class="buttons">
-      <button @click="drawCard">
-        {{ labels.draw }}
-      </button>
-    </div>
+
+
 
     <!--{{itemPlacement}} {{chosenPlacementCost}}-->
 
-    <hr>
-    Auction Area
-    <div class="cardslots">
-      <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
-    </div>
-    <!--div class="buttons">
-      <button @click="claimAuctionCard">
-        {{ labels.claim }}
-      </button>
-    </div-->
-    <div class="altButtons">
-      <button @click="claimAuctionCard('item')">Place in item</button>
-      <button @click="claimAuctionCard('skill')">Place in skill</button>
-      <button @click="claimAuctionCard('market')">Add to market</button>
-    </div>
-    <hr>
-    Market
-    <div class="cardslots">
-      <CollectorsCard v-for="(card, index) in market" :card="card" :key="index" />
-    </div>
-    <hr>
-    Hand
-      <div class="cardslots" v-if="players[playerId]">
-        <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="handleAction(card)" :key="index"/>
-      </div>
-      <hr>
-    Items
-    <div class="cardslots" v-if="players[playerId]">
-      <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index" />
-    </div>
-    <hr>
-    Your Skills
-    <div class="cardslots" v-if="players[playerId]">
-      <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index" />
-    </div>
-    <hr>
+
+
+
+
+
+
   </main>
-  {{players}}
-  {{marketValues}}
-  <button v-if="players[playerId]" @click="players[playerId].money += 1">
-    fake more money
-  </button>
-  <hr>
+
+
   <footer>
-    <p>
-      {{ labels.invite }}
-      <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
-    </p>
+
   </footer>
 </div>
 </template>
@@ -401,14 +439,21 @@ footer a:visited {
        'item item item item item item'
        'skill work work auction auction auction'
        'skill work work auction auction auction'
-       'skill value value value value value';
+       'skill value value value value value'
+       'thehand thehand thehand thehand thehand thehand'
+       'thehand thehand thehand thehand thehand thehand'
+       'thehand thehand thehand thehand thehand thehand'
+       'rest rest rest rest rest rest'
+       'rest rest rest rest rest rest'
+       'rest rest rest rest rest rest';
+       ;
        width: auto;
-       height: 500px;
-       margin:90px;
+       height: 100px;
+       margin:110px;
    }
 
    .box {
-       border-radius: 1px;
+       border-radius: 5px;
        border-color: white;
        padding: 50px;
 
@@ -439,10 +484,22 @@ footer a:visited {
        background-color: brown;
    }
 
+   .thehand {
+     grid-area: thehand;
+
+   }
+
+   .theRest {
+     grid-area: rest;
+     border: 10px;
+
+   }
+
+
 .cardslots {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 130px);
-  grid-template-rows: repeat(auto-fill, 180px);
+  grid-template-columns: repeat(auto-fill, 30px);
+  grid-template-rows: repeat(auto-fill, 80px);
 }
 
 .cardslots div {

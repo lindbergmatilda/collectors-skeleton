@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h1>{{ labels.auctionItem }}</h1>
+  <h3>{{ labels.auctionItem }}</h3>
   <div class="auction-item">
     <div v-for="(card, index) in auctionCards" :key="index">
       <CollectorsCard :card="card" :availableAction="card.available" @doAction="auctionItem(card)" />

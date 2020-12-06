@@ -34,6 +34,13 @@
               :placement="marketPlacement"
               @raiseValue="raiseValue($event)"
               @placeBottle="placeBottle('market', $event)" />
+
+              Market
+              <div class="cardslots">
+                <CollectorsCard v-for="(card, index) in market" :card="card" :key="index" />
+              </div>
+
+
             </div>
 
             <div class="box auction">AUCTION
@@ -74,24 +81,26 @@
 
          <div class="thehand">
 
+           <h2>Your Player Board</h2>
+
            Hand
            <hr>
              <div class="cardslots" v-if="players[playerId]">
                <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="handleAction(card)" :key="index"/>
              </div>
-             <hr>
-           Items
+
+           Your Items
            <hr>
            <div class="cardslots" v-if="players[playerId]">
              <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index" />
            </div>
-           <hr>
+
            Your Skills
            <hr>
            <div class="cardslots" v-if="players[playerId]">
              <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index" />
            </div>
-           <hr>
+
 
         </div>
 
@@ -105,15 +114,21 @@
 
           <hr>
 
-          Market
-          <div class="cardslots">
-            <CollectorsCard v-for="(card, index) in market" :card="card" :key="index" />
-          </div>
 
-          <hr>
 
-          {{players}}
-          {{marketValues}}
+
+
+         Players:  {{players}}
+
+
+
+         <h5>Market Values</h5>
+         Fastaval: {{marketValues.fastaval}} <br>
+         Movie: {{marketValues.movie}} <br>
+         Technology: {{marketValues.technology}} <br>
+         Figures: {{marketValues.figures}} <br>
+         Music: {{marketValues.music}} <br>
+
           <button v-if="players[playerId]" @click="players[playerId].money += 1">
             fake more money
           </button>
@@ -448,14 +463,14 @@ footer a:visited {
        'rest rest rest rest rest rest';
        ;
        width: auto;
-       height: 100px;
-       margin:110px;
+       height: 50px;
+       margin: 60px;
    }
 
    .box {
        border-radius: 5px;
        border-color: white;
-       padding: 50px;
+       padding: 30px;
 
 
      }
@@ -463,7 +478,7 @@ footer a:visited {
    .item {
        grid-area: item;
        background-color: red;
-      
+
 
    }
    .skill {
@@ -482,11 +497,15 @@ footer a:visited {
 
    .work {
        grid-area: work;
-       background-color: brown;
+       background-color: beige;
    }
 
    .thehand {
      grid-area: thehand;
+     background-color: darkgrey;
+     border-radius: 100px;
+     padding: 60px;
+     margin: 20px;
 
    }
 

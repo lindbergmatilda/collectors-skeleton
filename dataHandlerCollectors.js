@@ -110,7 +110,8 @@ Data.prototype.joinGame = function (roomId, playerId) {
                                  income: [],
                                  secret: [],
                                  myTurn: false,
-                                 bottles: 2 };
+                                 bottles: [1, 1, 0, 0, 0],
+                                 bottleAmount: 2};
       return true;
     }
     console.log("Player", playerId, "was declined due to player limit");
@@ -139,12 +140,18 @@ Data.prototype.updatePoints = function (roomId, player, points) {
 Data.prototype.drawCard = function (roomId, playerId) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
-  console.log("spelaren har flaskor", room.players[playerId].bottles );
+  console.log("spelaren har flaskor", room.players[playerId].bottleAmount);
     let card = room.deck.pop();
-    if(room.players[playerId].bottles != 0){
+    if(room.players[playerId].bottleAmount != 0){
        room.players[playerId].hand.push(card);
-       room.players[playerId].bottles -=1;
-       console.log("spelaren har flaskor", room.players[playerId].bottles );
+       for (let i=0; i<room.players[playerId].bottles.length; i++){
+         if(room.players[playerId].bottles[i] === 1){
+           room.players[playerId].bottles[i] = 0;
+           room.players[playerId].bottleAmount -= 1;
+           break;
+         }
+       }
+       console.log("spelaren har flaskor", room.players[playerId].bottleAmount);
      }
     return room.players;
   }
@@ -172,20 +179,15 @@ Data.prototype.buyItem = function (roomId, playerId, card, cost) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
     let c = null;
-    /// check first if the card is among the items on sale
     for (let i = 0; i < room.itemsOnSale.length; i += 1) {
-      // since card comes from the client, it is NOT the same object (reference)
-      // so we need to compare properties for determining equality
       if (room.itemsOnSale[i].x === card.x &&
           room.itemsOnSale[i].y === card.y) {
         c = room.itemsOnSale.splice(i,1, {});
         break;
       }
     }
-    // ...then check if it is in the hand. It cannot be in both so it's safe
     for (let i = 0; i < room.players[playerId].hand.length; i += 1) {
-      // since card comes from the client, it is NOT the same object (reference)
-      // so we need to compare properties for determining equality
+
       if (room.players[playerId].hand[i].x === card.x &&
           room.players[playerId].hand[i].y === card.y) {
         c = room.players[playerId].hand.splice(i,1);
@@ -194,7 +196,7 @@ Data.prototype.buyItem = function (roomId, playerId, card, cost) {
     }
     room.players[playerId].items.push(...c);
     room.players[playerId].money -= cost;
-
+    console.log("spelaren har flaskor", room.players[playerId].bottleAmount);
   }
 }
 
@@ -212,6 +214,7 @@ Data.prototype.raiseValue = function (roomId, playerId, card, cost) {
     }
     room.market.push(...c);
     room.players[playerId].money -= cost;
+    console.log("spelaren har flaskor", room.players[playerId].bottleAmount);
   }
 }
 
@@ -233,10 +236,9 @@ Data.prototype.buySkill = function (roomId, playerId, card, cost) {
         break;
       }
     }
-    console.log("hejhopp");
     room.players[playerId].skills.push(...c);
     room.players[playerId].money -= cost;
-
+    console.log("spelaren har flaskor", room.players[playerId].bottleAmount);
   }
 }
 
@@ -262,7 +264,7 @@ Data.prototype.auctionItem = function (roomId, playerId, card, cost) {
     console.log("tjenes penes!");
     room.theAuctionItem.push(...c);
     room.players[playerId].money -= cost;
-
+    console.log("spelaren har flaskor", room.players[playerId].bottleAmount);
   }
 }
 
@@ -270,6 +272,15 @@ Data.prototype.auctionItem = function (roomId, playerId, card, cost) {
 
 Data.prototype.placeBottle = function (roomId, playerId, action, cost) {
   let room = this.rooms[roomId];
+
+  for (let i=0; i<room.players[playerId].bottles.length; i++){
+    if(room.players[playerId].bottles[i] === 1){
+      room.players[playerId].bottles[i] = 0;
+      room.players[playerId].bottleAmount -= 1;
+      break;
+    }
+}
+
   if (typeof room !== 'undefined') {
     let activePlacement = [];
     if (action === "item") {

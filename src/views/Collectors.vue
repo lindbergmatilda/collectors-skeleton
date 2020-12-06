@@ -463,6 +463,7 @@ footer a:visited {
    .item {
        grid-area: item;
        background-color: red;
+      
 
    }
    .skill {

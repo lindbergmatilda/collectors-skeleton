@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h1>{{ labels.buyItem }}</h1>
+  <h3>{{ labels.buyItem }}</h3>
   <div class="buy-item">
     <div v-for="(card, index) in itemsOnSale" :key="index">
       <CollectorsCard :card="card" :availableAction="card.available" @doAction="buyItem(card)" />
@@ -84,11 +84,11 @@ export default {
 <style scoped>
 .buy-item {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 130px);
+  grid-template-columns: repeat(auto-fill, 20%);
   transform: scale(0.4)translate(-25%, 0);
 }
 .buttons {
-  height: 50px;
+  height: 70px;
   width: 500px;
-  display: grid; }
+  display: inline; }
 </style>

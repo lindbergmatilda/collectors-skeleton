@@ -1,6 +1,18 @@
 <template>
 <div>
   <main>
+
+    <p>
+      {{ labels.invite }}
+      <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
+    </p>
+
+    <div class="buttons">
+      <button @click="claimFirstPlayer">
+        {{ labels.firstPlayer }}
+      </button>
+    </div>
+    <hr>
     <div class="buttons">
       <button @click="drawCard">
         {{ labels.draw }}
@@ -215,6 +227,13 @@ export default {
 
     this.$store.state.socket.on('collectorsPointsUpdated', (d) => this.points = d);
 
+    this.$store.state.socket.on('collectorsClaimedFirstPlayer',
+      function(d) {
+        this.players = d;
+        console.log("first player:");
+      }.bind(this)
+    );
+
     this.$store.state.socket.on('collectorsCardDrawn',
       function(d) {
         //this has been refactored to not single out one player's cards
@@ -284,6 +303,14 @@ export default {
         cost: cost,
       });
     },
+
+    claimFirstPlayer: function() {
+      this.$store.state.socket.emit('collectorsFirstPlayer', {
+        roomId: this.$route.params.id,
+        playerId: this.playerId
+      });
+    },
+
     drawCard: function() {
       this.$store.state.socket.emit('collectorsDrawCard', {
         roomId: this.$route.params.id,

@@ -6,5 +6,6 @@
 	"buyItem": "Köp ett item",
 	"buySkill": "Köp en skill",
 	"raiseValue": "Höj ett värde",
-	"auctionItem": "Starta en auction"
+	"auctionItem": "Starta en auction",
+	"firstPlayer": "JAG BÖRJAR"
 }

@@ -18,6 +18,13 @@ function sockets(io, socket, data) {
         );
       }
     });
+
+    socket.on('collectorsFirstPlayer', function(d) {
+      io.to(d.roomId).emit('collectorsClaimedFirstPlayer',
+        data.claimedFirst(d.roomId, d.playerId)
+      );
+    });
+
     socket.on('collectorsDrawCard', function(d) {
       io.to(d.roomId).emit('collectorsCardDrawn',
         data.drawCard(d.roomId, d.playerId)

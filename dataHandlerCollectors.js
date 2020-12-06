@@ -136,6 +136,15 @@ Data.prototype.updatePoints = function (roomId, player, points) {
   else return {};
 }
 
+Data.prototype.claimedFirst = function (roomId, playerId){
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+    room.players[playerId].myTurn = true;
+    return room.players;
+  }
+  else return {};
+}
+
 /* returns players after a new card is drawn */
 Data.prototype.drawCard = function (roomId, playerId) {
   let room = this.rooms[roomId];
@@ -277,6 +286,7 @@ Data.prototype.placeBottle = function (roomId, playerId, action, cost) {
     if(room.players[playerId].bottles[i] === 1){
       room.players[playerId].bottles[i] = 0;
       room.players[playerId].bottleAmount -= 1;
+      room.players[playerId].myTurn = false;
       break;
     }
 }

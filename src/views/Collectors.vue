@@ -2,9 +2,27 @@
 <div>
   <main>
 
+    <div class="buttons">
+      <button @click="drawCard">
+        {{ labels.draw }}
+      </button>
+    </div>
+
+    <button v-if="players[playerId]" @click="players[playerId].money += 1">
+      fake more money
+    </button>
+    <p>
+      {{ labels.invite }}
+      <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
+    </p>
+
+
+          <center>
           <div class="gamezone">
 
-            <div class="box item">ITEM
+
+
+            <div class="item">ITEM
               <collectorsBuyItem v-if="players[playerId]"
               :labels="labels"
               :player="players[playerId]"
@@ -15,7 +33,7 @@
               @placeBottle="placeBottle('item', $event)" />
             </div>
 
-            <div class="box skill">SKILL
+            <div class="skill">SKILL
               <CollectorsBuySkill v-if="players[playerId]"
               :labels="labels"
               :player="players[playerId]"
@@ -26,7 +44,7 @@
               @placeBottle="placeBottle('skill', $event)" />
             </div>
 
-            <div class="box value">VALUE
+            <div class="value">VALUE
               <CollectorsRaiseValue v-if="players[playerId]"
               :labels="labels"
               :player="players[playerId]"
@@ -41,9 +59,16 @@
               </div>
 
 
+              <h5>Market Values</h5>
+              Fastaval: {{marketValues.fastaval}} <br>
+              Movie: {{marketValues.movie}} <br>
+              Technology: {{marketValues.technology}} <br>
+              Figures: {{marketValues.figures}} <br>
+              Music: {{marketValues.music}} <br>
+
             </div>
 
-            <div class="box auction">AUCTION
+            <div class="auction">AUCTION
               <CollectorsAuctionItem v-if="players[playerId]"
               :labels="labels"
               :player="players[playerId]"
@@ -73,7 +98,7 @@
 
             </div>
 
-            <div class="box work">WORK</div>
+            <div class="work">WORK</div>
 
 
 
@@ -106,54 +131,41 @@
 
         <div class="theRest">
           <hr>
-          <div class="buttons">
-            <button @click="drawCard">
-              {{ labels.draw }}
-            </button>
-          </div>
-
-          <hr>
 
 
 
 
 
-         Players:  {{players}} <br>
 
-         SpelarID: {{players[playerId]}}
+         <div class="opponentsBoard">
+
+       <h3>Samtliga Spelare</h3>
+
+        <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
+
+        <h5>Player ID: {{playerId}}</h5>
 
 
-         <div id="opponentsBoard">
-           <h3>Spelar ID /</h3>
-           Items:
-           Coins:
-           Skills:
-           Income:
-           Bottles:
-           Points:(Vi borde kanske ej ha med detta?Dåligt för spänningen)
+        Items: {{players[playerId].items}} <br>
+        Skills: {{players[playerId].skills}} <br>
+        Bottles: {{players[playerId].bottles}} <br>
+
+        SLUT PÅ DENNA SPELARE <br>
+
+
+      </div>
 
 
          </div>
 
 
 
-         <h5>Market Values</h5>
-         Fastaval: {{marketValues.fastaval}} <br>
-         Movie: {{marketValues.movie}} <br>
-         Technology: {{marketValues.technology}} <br>
-         Figures: {{marketValues.figures}} <br>
-         Music: {{marketValues.music}} <br>
 
-          <button v-if="players[playerId]" @click="players[playerId].money += 1">
-            fake more money
-          </button>
+
+
 
           <hr>
 
-          <p>
-            {{ labels.invite }}
-            <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
-          </p>
 
        </div>
 
@@ -172,7 +184,7 @@
 
 
 
-
+</center>
   </main>
 
 
@@ -466,30 +478,24 @@ footer a:visited {
 .gamezone {
        display: grid;
        grid-template-areas:
-       'item item item item item item'
-       'skill work work auction auction auction'
-       'skill work work auction auction auction'
-       'skill value value value value value'
-       'thehand thehand thehand thehand thehand thehand'
-       'thehand thehand thehand thehand thehand thehand'
-       'thehand thehand thehand thehand thehand thehand'
-       'rest rest rest rest rest rest'
-       'rest rest rest rest rest rest'
-       'rest rest rest rest rest rest';
-       ;
-       width: auto;
-       height: 50px;
+       'item item item '
+       'skill work auction'
+       'skill value value'
+       'thehand thehand thehand'
+       'rest rest rest' ;
+
+       max-width: 600px;
+       grid-template-columns: 1fr 2fr 1fr;
+       grid-template-rows: 1fr 2fr 1fr 1fr 1fr;
+       height: 500px;
        margin: 60px;
+       color: black;
+       margin-right: auto;
+
    }
 
-   .box {
-       border-radius: 1px;
-       border-color: white;
-       padding: 30px;
-      
 
 
-     }
 
    .item {
        grid-area: item;
@@ -522,12 +528,29 @@ footer a:visited {
      border-radius: 100px;
      padding: 60px;
      margin: 20px;
+     color: black;
 
    }
 
    .theRest {
      grid-area: rest;
      border: 10px;
+     color: white;
+
+   }
+
+   .opponentsBoard {
+     display: grid;
+     grid-gap: 40px;
+     grid-template-columns: auto;
+
+
+   }
+
+   .box {
+    background-color: purple;
+    border: 5px solid orange;
+    border-radius: 50px;
 
    }
 

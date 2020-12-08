@@ -206,6 +206,7 @@ Data.prototype.buyItem = function (roomId, playerId, card, cost) {
     room.players[playerId].items.push(...c);
     room.players[playerId].money -= cost;
     console.log("spelaren har flaskor", room.players[playerId].bottleAmount);
+    console.log(room.itemsOnSale);
   }
 }
 

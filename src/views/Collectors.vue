@@ -483,41 +483,42 @@ footer a:visited {
    }
 
    .box {
-       border-radius: 5px;
+       border-radius: 1px;
        border-color: white;
        padding: 30px;
+      
 
 
      }
 
    .item {
        grid-area: item;
-       background-color: red;
+       background-color: #FFDBDB;
 
 
    }
    .skill {
        grid-area: skill;
-       background-color: green;
+       background-color: #EDFFDB;
    }
    .value {
        grid-area: value;
-       background-color: blue;
+       background-color: #DBFFED;
    }
 
    .auction {
        grid-area: auction;
-       background-color: yellow;
+       background-color: #FFFFDB;
    }
 
    .work {
        grid-area: work;
-       background-color: beige;
+       background-color: #FFEDDB;
    }
 
    .thehand {
      grid-area: thehand;
-     background-color: darkgrey;
+     background-color: #EEECE2;
      border-radius: 100px;
      padding: 60px;
      margin: 20px;

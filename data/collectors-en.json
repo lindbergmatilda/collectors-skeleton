@@ -7,5 +7,6 @@
 	"buySkill": "Buy a skill",
 	"raiseValue": "Raise a value",
 	"auctionItem": "Start an auction",
-	"firstPlayer": "I GO FIRST"
+	"firstPlayer": "I GO FIRST",
+	"refill": "Next round"
 }

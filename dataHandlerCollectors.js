@@ -228,6 +228,37 @@ Data.prototype.raiseValue = function (roomId, playerId, card, cost) {
   }
 }
 
+Data.prototype.refill = function (roomId) {
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+    let c = null;
+
+    for (let i = 0; i < room.itemsOnSale.length -2; i += 1) {
+      console.log(room.itemsOnSale[i], "tjabba");
+      if (room.itemsOnSale[i] == {} ) {  //hittar flrsta tomma platsen
+        console.log("hejsan det är {} xd");
+        for (let j = i+1; j < room.itemsOnSale.length -1; j += 1){
+          if ( room.itemsOnSale[j] != {} ){
+            room.itemsOnSale[i] = push(...room.itemsOnSale[j]);
+              //ger den tomma platsen första kortet
+            break;
+        }
+      }
+    }
+  }
+    for( let i = 0; i < room.itemsOnSale.length -1; i += 1){
+      if( room.itemsOnSale[i] == {} ){
+          let card = room.deck.pop();
+          room.itemsOnSale[i].push(...card);
+      }
+    }
+  }
+  for(let i=0; i<room.itemsOnSale.length; i += 1){
+    console.log(room.itemsOnSale[i]);
+  }
+}
+
+
 Data.prototype.buySkill = function (roomId, playerId, card, cost) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {

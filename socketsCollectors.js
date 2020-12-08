@@ -25,6 +25,19 @@ function sockets(io, socket, data) {
       );
     });
 
+    socket.on('collectorsRefill', function(d) {
+      data.refill(d.roomId)
+      io.to(d.roomId).emit('collectorsRefilled', {
+        players: data.getPlayers(d.roomId),
+        itemsOnSale: data.getItemsOnSale(d.roomId),
+      //  marketValues: data.getMarketValues(d.roomId),
+      //  skillsOnSale: data.getSkillsOnSale(d.roomId),
+      //  auctionCards: data.getAuctionCards(d.roomId),
+      //  placements: data.getPlacements(d.roomId)
+        }
+      );
+    });
+
     socket.on('collectorsDrawCard', function(d) {
       io.to(d.roomId).emit('collectorsCardDrawn',
         data.drawCard(d.roomId, d.playerId)

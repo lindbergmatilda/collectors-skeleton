@@ -18,6 +18,11 @@
         {{ labels.draw }}
       </button>
     </div>
+    <div class="buttons">
+      <button @click="refill">
+        {{ labels.refill }}
+      </button>
+    </div>
     <hr>
 
     {{itemPlacement}} {{chosenPlacementCost}}
@@ -278,6 +283,16 @@ export default {
       }.bind(this)
     );
 
+    this.$store.state.socket.on('collectorsRefilled',
+      function(d) {
+        console.log("refilled items lol");
+        this.players = d.players;
+        this.itemsOnSale = d.itemsOnSale;
+        //console.log(d.itemsOnSale);
+      }.bind(this)
+    );
+
+
     this.$store.state.socket.on('collectorsItemAuctioned',
       function(d) {
         console.log(d.playerId, "auctioned a card");
@@ -310,6 +325,13 @@ export default {
         playerId: this.playerId
       });
     },
+
+    refill: function() {
+      this.$store.state.socket.emit('collectorsRefill', {
+        roomId: this.$route.params.id,
+      });
+    },
+
 
     drawCard: function() {
       this.$store.state.socket.emit('collectorsDrawCard', {

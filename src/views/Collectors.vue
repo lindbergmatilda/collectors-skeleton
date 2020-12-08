@@ -118,7 +118,22 @@
 
 
 
-         Players:  {{players}}
+         Players:  {{players}} <br>
+
+         SpelarID: {{players[playerId]}}
+
+
+         <div id="opponentsBoard">
+           <h3>Spelar ID /</h3>
+           Items:
+           Coins:
+           Skills:
+           Income:
+           Bottles:
+           Points:(Vi borde kanske ej ha med detta?Dåligt för spänningen)
+
+
+         </div>
 
 
 

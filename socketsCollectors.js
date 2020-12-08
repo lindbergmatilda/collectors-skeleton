@@ -30,10 +30,10 @@ function sockets(io, socket, data) {
       io.to(d.roomId).emit('collectorsRefilled', {
         players: data.getPlayers(d.roomId),
         itemsOnSale: data.getItemsOnSale(d.roomId),
-      //  marketValues: data.getMarketValues(d.roomId),
-      //  skillsOnSale: data.getSkillsOnSale(d.roomId),
-      //  auctionCards: data.getAuctionCards(d.roomId),
-      //  placements: data.getPlacements(d.roomId)
+        skillsOnSale: data.getSkillsOnSale(d.roomId),
+        marketValues: data.getMarketValues(d.roomId),
+        market: data.getMarketCards(d.roomId),
+        auctionCards: data.getAuctionCards(d.roomId)
         }
       );
     });

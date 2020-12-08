@@ -103,7 +103,7 @@ Data.prototype.joinGame = function (roomId, playerId) {
     else if (Object.keys(room.players).length < room.playerCount) {
       console.log("Player", playerId, "joined for the first time");
       room.players[playerId] = { hand: [],
-                                 money: 1,
+                                 money: 100,
                                  points: 0,
                                  skills: [],
                                  items: [],
@@ -140,7 +140,7 @@ Data.prototype.claimedFirst = function (roomId, playerId){
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
     room.players[playerId].myTurn = true;
-    return room.players;
+    return playerId;
   }
   else return {};
 }
@@ -206,7 +206,6 @@ Data.prototype.buyItem = function (roomId, playerId, card, cost) {
     room.players[playerId].items.push(...c);
     room.players[playerId].money -= cost;
     console.log("spelaren har flaskor", room.players[playerId].bottleAmount);
-    console.log(room.itemsOnSale);
   }
 }
 
@@ -228,36 +227,72 @@ Data.prototype.raiseValue = function (roomId, playerId, card, cost) {
   }
 }
 
-Data.prototype.refill = function (roomId) {
+Data.prototype.refill = function(roomId) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
-    let c = null;
 
-    for (let i = 0; i < room.itemsOnSale.length -2; i += 1) {
-      console.log(room.itemsOnSale[i], "tjabba");
-      if (room.itemsOnSale[i] == {} ) {  //hittar flrsta tomma platsen
-        console.log("hejsan det är {} xd");
-        for (let j = i+1; j < room.itemsOnSale.length -1; j += 1){
-          if ( room.itemsOnSale[j] != {} ){
-            room.itemsOnSale[i] = push(...room.itemsOnSale[j]);
-              //ger den tomma platsen första kortet
-            break;
+//tar kort från skill till market
+    if (room.skillsOnSale.length != 0){
+      for(let i=0; i< room.skillsOnSale.length; i += 1){
+        if (room.skillsOnSale[i].item != undefined) {
+          let card = room.skillsOnSale.splice(i, 1);
+          room.market.push(...card);
+          break;
         }
       }
     }
-  }
-    for( let i = 0; i < room.itemsOnSale.length -1; i += 1){
-      if( room.itemsOnSale[i] == {} ){
-          let card = room.deck.pop();
-          room.itemsOnSale[i].push(...card);
+
+//tar kort från auction till till market
+    if (room.auctionCards.length != 0){
+      for(let i=0; i< room.auctionCards.length; i += 1){
+        if (room.auctionCards[i].item != undefined) {
+          let card = room.auctionCards.splice(i, 1);
+          room.market.push(...card);
+          break;
+        }
       }
     }
-  }
-  for(let i=0; i<room.itemsOnSale.length; i += 1){
-    console.log(room.itemsOnSale[i]);
+
+    // trycker ihop skillsOnSale
+    for (let i = 0; i < room.skillsOnSale.length; i += 1) {
+      if (room.skillsOnSale[i].item == undefined) {
+        room.skillsOnSale.splice(i, 1);
+        i -= 1;
+      }
+    }
+
+    // trycker ihop itemsOnSale
+    for (let i = 0; i < room.itemsOnSale.length; i += 1) {
+      if (room.itemsOnSale[i].item == undefined) {
+        room.itemsOnSale.splice(i, 1);
+        i -= 1;
+      }
+    }
+
+    //fyller på skills med i första hand items, annars högen
+    for (let i = room.skillsOnSale.length; i < 5; i += 1) {
+      if (room.itemsOnSale.length == 0) {
+        let card = room.deck.pop();
+        room.skillsOnSale.push(card);
+      } else {
+        let card = room.itemsOnSale.splice(0, 1);
+        room.skillsOnSale.push(...card);
+      }
+    }
+
+    // fyller på items från högen!
+    for (let i = room.itemsOnSale.length; i < 5; i += 1) {
+      let card = room.deck.pop();
+      room.itemsOnSale.push(card);
+    }
+
+// fyller på auction
+    for (let i = room.auctionCards.length; i < 4; i += 1){
+      let card = room.deck.pop();
+      room.auctionCards.push(card);
+    }
   }
 }
-
 
 Data.prototype.buySkill = function (roomId, playerId, card, cost) {
   let room = this.rooms[roomId];

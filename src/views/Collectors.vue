@@ -234,8 +234,7 @@ export default {
 
     this.$store.state.socket.on('collectorsClaimedFirstPlayer',
       function(d) {
-        this.players = d;
-        console.log("first player:"); /*hjälp oss micke*/
+        console.log("first player:", d);
       }.bind(this)
     );
 
@@ -288,7 +287,10 @@ export default {
         console.log("refilled items lol");
         this.players = d.players;
         this.itemsOnSale = d.itemsOnSale;
-        //console.log(d.itemsOnSale);
+        this.skillsOnSale = d.skillsOnSale;
+        this.market = d.market;
+        this.marketValues = d.marketValues;
+        this.auctionCards = d.auctionCards;
       }.bind(this)
     );
 

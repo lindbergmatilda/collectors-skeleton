@@ -17,114 +17,90 @@
     </p>
 
 
-          <center>
-          <div class="gamezone">
+
+      <div class="gamezone">
 
 
 
-            <div class="item">ITEM
-              <collectorsBuyItem v-if="players[playerId]"
-              :labels="labels"
-              :player="players[playerId]"
-              :itemsOnSale="itemsOnSale"
-              :marketValues="marketValues"
-              :placement="itemPlacement"
-              @buyItem="buyItem($event)"
-              @placeBottle="placeBottle('item', $event)" />
-            </div>
+        <div class="item">ITEM
+          <collectorsBuyItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :itemsOnSale="itemsOnSale" :marketValues="marketValues" :placement="itemPlacement" @buyItem="buyItem($event)"
+            @placeBottle="placeBottle('item', $event)" />
+        </div>
 
-            <div class="skill">SKILL
-              <CollectorsBuySkill v-if="players[playerId]"
-              :labels="labels"
-              :player="players[playerId]"
-              :skillsOnSale="skillsOnSale"
-              :marketValues="marketValues"
-              :placement="skillPlacement"
-              @buySkill="buySkill($event)"
-              @placeBottle="placeBottle('skill', $event)" />
-            </div>
+        <div class="skill">SKILL
+          <CollectorsBuySkill v-if="players[playerId]" :labels="labels" :player="players[playerId]" :skillsOnSale="skillsOnSale" :marketValues="marketValues" :placement="skillPlacement" @buySkill="buySkill($event)"
+            @placeBottle="placeBottle('skill', $event)" />
+        </div>
 
-            <div class="value">VALUE
-              <CollectorsRaiseValue v-if="players[playerId]"
-              :labels="labels"
-              :player="players[playerId]"
-              :marketValues="marketValues"
-              :placement="marketPlacement"
-              @raiseValue="raiseValue($event)"
-              @placeBottle="placeBottle('market', $event)" />
+        <div class="value">VALUE
+          <CollectorsRaiseValue v-if="players[playerId]" :labels="labels" :player="players[playerId]" :marketValues="marketValues" :placement="marketPlacement" @raiseValue="raiseValue($event)" @placeBottle="placeBottle('market', $event)" />
 
-              Market
-              <div class="cardslots">
-                <CollectorsCard v-for="(card, index) in market" :card="card" :key="index" />
-              </div>
+          Market
+          <div class="cardslots">
+            <CollectorsCard v-for="(card, index) in market" :card="card" :key="index" />
+          </div>
 
 
-              <h5>Market Values</h5>
-              Fastaval: {{marketValues.fastaval}} <br>
-              Movie: {{marketValues.movie}} <br>
-              Technology: {{marketValues.technology}} <br>
-              Figures: {{marketValues.figures}} <br>
-              Music: {{marketValues.music}} <br>
+          <h5>Market Values</h5>
+          Fastaval: {{marketValues.fastaval}} <br>
+          Movie: {{marketValues.movie}} <br>
+          Technology: {{marketValues.technology}} <br>
+          Figures: {{marketValues.figures}} <br>
+          Music: {{marketValues.music}} <br>
 
-            </div>
+        </div>
 
-            <div class="auction">AUCTION
-              <CollectorsAuctionItem v-if="players[playerId]"
-              :labels="labels"
-              :player="players[playerId]"
-              :auctionCards="auctionCards"
-              :placement="auctionPlacement"
-              @auctionItem="auctionItem($event)"
-              @placeBottle="placeBottle('auction', $event)" />
+        <div class="auction">AUCTION
+          <CollectorsAuctionItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :auctionCards="auctionCards" :placement="auctionPlacement" @auctionItem="auctionItem($event)" @placeBottle="placeBottle('auction', $event)" />
 
-              Auction Area
-              <div class="cardslots">
-                <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
-              </div>
-              <!--div class="buttons">
+          Auction Area
+          <div class="cardslots">
+            <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
+          </div>
+          <!--div class="buttons">
                 <button @click="claimAuctionCard">
                   {{ labels.claim }}
                 </button>
               </div-->
-              <div class="altButtons">
-                <button @click="claimAuctionCard('item')">Place in item</button>
-                <button @click="claimAuctionCard('skill')">Place in skill</button>
-                <button @click="claimAuctionCard('market')">Add to market</button>
-              </div>
+          <div class="altButtons">
+            <button @click="claimAuctionCard('item')">Place in item</button>
+            <button @click="claimAuctionCard('skill')">Place in skill</button>
+            <button @click="claimAuctionCard('market')">Add to market</button>
+          </div>
 
 
 
 
 
-            </div>
+        </div>
 
-            <div class="work">WORK</div>
-
-
+        <div class="work">WORK</div>
 
 
 
-         <div class="thehand">
 
-           <h2>Your Player Board</h2>
 
-           Hand
-           <hr>
-             <div class="cardslots" v-if="players[playerId]">
-               <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="handleAction(card)" :key="index"/>
-             </div>
+        <div class="thehand">
 
-           Your Items
-           <hr>
-           <div class="cardslots" v-if="players[playerId]">
-             <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index" />
-           </div>
+          <h2>Your Player Board</h2>
 
-           Your Skills
-           <hr>
-           <div class="cardslots" v-if="players[playerId]">
-             <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index" />
-           </div>
+          Hand
+          <hr>
+          <div class="cardslots" v-if="players[playerId]">
+            <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="handleAction(card)" :key="index" />
+          </div>
+
+          Your Items
+          <hr>
+          <div class="cardslots" v-if="players[playerId]">
+            <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index" />
+          </div>
+
+          Your Skills
+          <hr>
+          <div class="cardslots" v-if="players[playerId]">
+            <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index" />
+          </div>
 
 
         </div>
@@ -137,54 +113,36 @@
 
 
 
-         <div class="opponentsBoard">
+          <div class="opponentsBoard">
 
-       <h3>Samtliga Spelare</h3>
+            <h3>Samtliga Spelare</h3>
 
-        <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
+            <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
 
-        <h5>Player ID: {{playerId}}</h5>
+              <h5>Player ID: {{playerId}}</h5>
 
-
-        Items: {{players[playerId].items}} <br>
-        Skills: {{players[playerId].skills}} <br>
-        Bottles: {{players[playerId].bottles}} <br>
-
-        SLUT PÅ DENNA SPELARE <br>
+              <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
+              Items: {{item}} </div> <!-- HÄR BEHÖVER VI HÄMTA TYP AV ITEM EJ HELA LISTAN; HUR?   {{players[playerId].items}} -->
 
 
+
+
+              Skills: {{players[playerId].skills}} <br>
+              Bottles: {{players[playerId].bottles}} <br>
+
+
+            </div>
+            <hr>
+
+
+          </div>
+        </div>
       </div>
 
-
-         </div>
-
+      <!---->
 
 
 
-
-
-
-          <hr>
-
-
-       </div>
-
-         </div>
-
-
-
-
-
-
-
-    <!--{{itemPlacement}} {{chosenPlacementCost}}-->
-
-
-
-
-
-
-</center>
   </main>
 
 
@@ -420,19 +378,16 @@ export default {
       });
     },
 
-    handleAction: function(card){
+    handleAction: function(card) {
       console.log(this.chosenAction);
       if (this.chosenAction === "item") {
         console.log("inne i if i handleaction");
         this.buyItem(card);
-      }
-      else if (this.chosenAction === "skill") {
+      } else if (this.chosenAction === "skill") {
         this.getSkill(card);
-      }
-      else if (this.chosenAction === "auction") {
+      } else if (this.chosenAction === "auction") {
         this.auctionItem(card);
-      }
-      else if (this.chosenAction === "market") {
+      } else if (this.chosenAction === "market") {
         this.raiseValue(card);
       }
     },
@@ -449,6 +404,9 @@ export default {
   }
 }
 </script>
+
+
+
 <style scoped>
 header {
   user-select: none;
@@ -463,6 +421,8 @@ main {
 
 footer {
   margin-top: 5em auto;
+  margin-bottom: 10px;
+
 }
 
 footer a {
@@ -476,83 +436,99 @@ footer a:visited {
 
 
 .gamezone {
-       display: grid;
-       grid-template-areas:
-       'item item item '
-       'skill work auction'
-       'skill value value'
-       'thehand thehand thehand'
-       'rest rest rest' ;
-
-       max-width: 600px;
-       grid-template-columns: 1fr 2fr 1fr;
-       grid-template-rows: 1fr 2fr 1fr 1fr 1fr;
-       height: 500px;
-       margin: 60px;
-       color: black;
-       margin-right: auto;
-
-   }
 
 
+  display: grid;
+  grid-template-areas:
+    'item item item '
+    'skill work auction'
+    'skill value value'
+    'thehand thehand thehand'
+    'rest rest rest';
+  max-width: 900px;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 2fr 1fr 1fr 1fr;
+
+  height: 300px;
+  margin: 60px;
+  color: black;
+  margin-right: auto;
+
+}
 
 
-   .item {
-       grid-area: item;
-       background-color: #FFDBDB;
 
 
-   }
-   .skill {
-       grid-area: skill;
-       background-color: #EDFFDB;
-   }
-   .value {
-       grid-area: value;
-       background-color: #DBFFED;
-   }
-
-   .auction {
-       grid-area: auction;
-       background-color: #FFFFDB;
-   }
-
-   .work {
-       grid-area: work;
-       background-color: #FFEDDB;
-   }
-
-   .thehand {
-     grid-area: thehand;
-     background-color: #EEECE2;
-     border-radius: 100px;
-     padding: 60px;
-     margin: 20px;
-     color: black;
-
-   }
-
-   .theRest {
-     grid-area: rest;
-     border: 10px;
-     color: white;
-
-   }
-
-   .opponentsBoard {
-     display: grid;
-     grid-gap: 40px;
-     grid-template-columns: auto;
+.item {
+  grid-area: item;
+  background-color: #FFDBDB;
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
 
 
-   }
+}
 
-   .box {
-    background-color: purple;
-    border: 5px solid orange;
-    border-radius: 50px;
+.skill {
+  grid-area: skill;
+  background-color: #EDFFDB;
+  border-left: 2px solid black;
+  border-bottom: 2px solid black;
+}
 
-   }
+.value {
+  grid-area: value;
+  background-color: #DBFFED;
+  border-bottom: 2px solid black;
+  border-right: 2px solid black;
+}
+
+.auction {
+  grid-area: auction;
+  background-color: #FFFFDB;
+  border-right: 2px solid black;
+}
+
+.work {
+  grid-area: work;
+  background-color: #FFEDDB;
+}
+
+.thehand {
+  grid-area: thehand;
+  background-color: #EEECE2;
+  border-radius: 100px;
+  padding: 60px;
+  margin: 20px;
+  color: black;
+  border: 2px solid black;
+
+}
+
+.theRest {
+  grid-area: rest;
+  border: 10px;
+  color: white;
+
+}
+
+.opponentsBoard {
+  display: grid;
+  grid-gap: 40px;
+  grid-template-columns: auto;
+
+
+
+}
+
+.box {
+background-color: lightgrey;
+  border-radius: 40px;
+  color: black;
+  padding: 15px;
+  border: 2px solid black;
+
+}
 
 
 .cardslots {

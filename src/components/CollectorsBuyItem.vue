@@ -9,9 +9,11 @@
   </div>
   <div>
     <div class="buttons" v-for="(p, index) in placement" :key="index">
-      <button v-if="p.playerId===null" :disabled="cannotAfford(p.cost)" @click="placeBottle(p)">
+
+      <button  id="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost)" @click="placeBottle(p)">
         ${{p.cost}}
       </button>
+
       <div id='placedBottle' v-if="p.playerId !== null">
         {{p.playerId}}
       </div>
@@ -88,7 +90,11 @@ export default {
   transform: scale(0.4)translate(-25%, 0);
 }
 .buttons {
-  height: 70px;
-  width: 500px;
   display: inline; }
+
+#button {
+  color: green;
+  
+}
+
 </style>

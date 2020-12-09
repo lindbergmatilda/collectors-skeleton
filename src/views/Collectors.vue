@@ -20,7 +20,8 @@
 
   <div class="your-playerboard">
 
-        <h2>Your Player Board</h2>
+      <center>  <h2>Your Player Board</h2> </center>
+
 
         Hand
         <hr>

@@ -55,6 +55,14 @@
         <CollectorsCard v-for="(card, index) in skillsOnSale" :card="card" :key="index"/>
       </div>-->
       <hr>
+      <CollectorsWorkArea v-if="players[playerId]"
+      :labels="labels"
+      :player="players[playerId]"
+      :placement="workPlacement"
+      @workAction="workAction($event)"
+      @placeBottle="placeBottle('work', $event)" />
+      <hr>
+
       <CollectorsAuctionItem v-if="players[playerId]"
       :labels="labels"
       :player="players[playerId]"
@@ -128,6 +136,7 @@ import CollectorsBuyItem from '@/components/CollectorsBuyItem.vue'
 import CollectorsBuySkill from '@/components/CollectorsBuySkill.vue'
 import CollectorsRaiseValue from '@/components/CollectorsRaiseValue.vue'
 import CollectorsAuctionItem from '@/components/CollectorsAuctionItem.vue'
+import CollectorsWorkArea from '@/components/CollectorsWorkArea.vue'
 
 export default {
   name: 'Collectors',
@@ -136,7 +145,8 @@ export default {
     CollectorsBuyItem,
     CollectorsBuySkill,
     CollectorsRaiseValue,
-    CollectorsAuctionItem
+    CollectorsAuctionItem,
+    CollectorsWorkArea
   },
   data: function() {
     return {
@@ -161,6 +171,7 @@ export default {
       skillPlacement: [],
       auctionPlacement: [],
       marketPlacement: [],
+      workPlacement: [],
       chosenPlacementCost: null,
       chosenAction: null,
       marketValues: {
@@ -220,6 +231,7 @@ export default {
         this.skillPlacement = d.placements.skillPlacement;
         this.marketPlacement = d.placements.marketPlacement;
         this.auctionPlacement = d.placements.auctionPlacement;
+        this.workPlacement = d.placements.workPlacement;
       }.bind(this));
 
     this.$store.state.socket.on('collectorsBottlePlaced',
@@ -228,6 +240,7 @@ export default {
         this.skillPlacement = d.skillPlacement;
         this.marketPlacement = d.marketPlacement;
         this.auctionPlacement = d.auctionPlacement;
+        this.workPlacement = d.workPlacement;
       }.bind(this));
 
     this.$store.state.socket.on('collectorsPointsUpdated', (d) => this.points = d);
@@ -265,6 +278,13 @@ export default {
       }.bind(this)
     );
 
+    this.$store.state.socket.on('collectorsWorkedArea',
+      function(d) {
+        console.log(d.playerId, "worked an area!");
+        this.players = d.players;
+      }.bind(this)
+    );
+
     this.$store.state.socket.on('collectorsSkillBought',
       function(d) {
         console.log(d.playerId, "bought a skill");
@@ -291,6 +311,12 @@ export default {
         this.market = d.market;
         this.marketValues = d.marketValues;
         this.auctionCards = d.auctionCards;
+
+        this.itemPlacement = d.itemPlacement;
+        //this.skillPlacement = d.skillPlacement;
+        //this.marketPlacement = d.marketPlacement;
+        //this.auctionPlacement = d.auctionPlacement;
+
       }.bind(this)
     );
 
@@ -358,6 +384,15 @@ export default {
         playerId: this.playerId,
         card: card,
         cost: this.marketValues[card.market] + this.chosenPlacementCost
+      });
+    },
+
+    workAction: function() {
+      console.log("work Action");
+      this.$store.state.socket.emit('CollectorsWorkArea', {
+        roomId: this.$route.params.id,
+        playerId: this.playerId,
+        cost: this.chosenPlacementCost
       });
     },
 

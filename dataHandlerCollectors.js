@@ -139,6 +139,27 @@ Data.prototype.createRoom = function(roomId, playerCount, lang = "en") {
       playerId: null
     }
   ];
+  room.workPlacement = [{
+      cost: -3,
+      playerId: null
+    },
+    {
+      cost: -1,
+      playerId: null
+    },
+    {
+      cost: 1,
+      playerId: null
+    },
+    {
+      cost: 0,
+      playerId: null
+    },
+    {
+      cost: 0,
+      playerId: null
+    }
+  ];
   this.rooms[roomId] = room;
 }
 
@@ -201,7 +222,7 @@ Data.prototype.claimedFirst = function(roomId, playerId) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
     room.players[playerId].myTurn = true;
-    console.log(room.playerList)
+    console.log(room.playerList);
     return playerId;
   } else return {};
 }
@@ -372,6 +393,12 @@ Data.prototype.refillGameboard = function(roomId) {
       let card = room.deck.pop();
       room.auctionCards.push(card);
     }
+    for(let i = 0; i<room.itemPlacement.length; i++){
+        room.itemPlacement[i].playerId = null;
+        console.log("vi kom in sara");
+        // vi vill uppdatera knappen också!
+    }
+    console.log(room.itemPlacement);
   }
 }
 
@@ -395,6 +422,7 @@ Data.prototype.nextRoundPlayers = function(roomId, players) {
         room.playerList[i].money += 2;
       }
     }
+    console.log(room.playerList);
   }
 }
 
@@ -464,7 +492,13 @@ Data.prototype.auctionItem = function(roomId, playerId, card, cost) {
   }
 }
 
-
+Data.prototype.workArea = function(roomId, playerId, cost){
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+    let c = null;
+      console.log("hejsan, gå tillbaka till arbetet");
+  }
+}
 
 Data.prototype.placeBottle = function(roomId, playerId, action, cost) {
   let room = this.rooms[roomId];
@@ -487,6 +521,8 @@ Data.prototype.placeBottle = function(roomId, playerId, action, cost) {
       activePlacement = room.auctionPlacement;
     } else if (action === "market") {
       activePlacement = room.marketPlacement;
+    } else if (action === "work") {
+      activePlacement = room.workPlacement;
     }
     for (let i = 0; i < activePlacement.length; i += 1) {
       if (activePlacement[i].cost === cost &&
@@ -513,7 +549,8 @@ Data.prototype.getPlacements = function(roomId) {
       itemPlacement: room.itemPlacement,
       skillPlacement: room.skillPlacement,
       auctionPlacement: room.auctionPlacement,
-      marketPlacement: room.marketPlacement
+      marketPlacement: room.marketPlacement,
+      workPlacement: room.workPlacement
     }
   } else return {};
 }

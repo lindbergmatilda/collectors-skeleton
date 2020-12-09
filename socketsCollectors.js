@@ -34,7 +34,8 @@ function sockets(io, socket, data) {
         skillsOnSale: data.getSkillsOnSale(d.roomId),
         marketValues: data.getMarketValues(d.roomId),
         market: data.getMarketCards(d.roomId),
-        auctionCards: data.getAuctionCards(d.roomId)
+        auctionCards: data.getAuctionCards(d.roomId),
+        placements: data.getPlacements(d.roomId)
         }
       );
     });
@@ -74,6 +75,15 @@ function sockets(io, socket, data) {
           playerId: d.playerId,
           players: data.getPlayers(d.roomId),
           skillsOnSale: data.getSkillsOnSale(d.roomId)
+        }
+      );
+    });
+
+    socket.on('CollectorsWorkArea', function(d) {
+      data.workArea(d.roomId, d.playerId, d.cost)
+      io.to(d.roomId).emit('collectorsWorkedArea', {
+          playerId: d.playerId,
+          players: data.getPlayers(d.roomId)
         }
       );
     });

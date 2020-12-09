@@ -57,6 +57,7 @@ Data.prototype.getUILabels = function (roomId) {
 Data.prototype.createRoom = function(roomId, playerCount, lang="en") {
   let room = {};
   room.players = {};
+  room.playerList =[];
   room.lang = lang;
   room.deck = this.createDeck(lang);
   room.playerCount = playerCount;
@@ -112,6 +113,11 @@ Data.prototype.joinGame = function (roomId, playerId) {
                                  myTurn: false,
                                  bottles: [1, 1, 0, 0, 0],
                                  bottleAmount: 2};
+      room.playerList.push(room.players[playerId]);
+      for(let i=0; i<3; i+=1){
+        let card = room.deck.pop();
+        room.players[playerId].hand.push(card);
+      }
       return true;
     }
     console.log("Player", playerId, "was declined due to player limit");
@@ -151,6 +157,7 @@ Data.prototype.drawCard = function (roomId, playerId) {
   if (typeof room !== 'undefined') {
   console.log("spelaren har flaskor", room.players[playerId].bottleAmount);
     let card = room.deck.pop();
+    //inte sant längre, borde göra for-loop över bottles istället
     if(room.players[playerId].bottleAmount != 0){
        room.players[playerId].hand.push(card);
        for (let i=0; i<room.players[playerId].bottles.length; i++){
@@ -160,7 +167,6 @@ Data.prototype.drawCard = function (roomId, playerId) {
            break;
          }
        }
-       console.log("spelaren har flaskor", room.players[playerId].bottleAmount);
      }
     return room.players;
   }
@@ -205,7 +211,6 @@ Data.prototype.buyItem = function (roomId, playerId, card, cost) {
     }
     room.players[playerId].items.push(...c);
     room.players[playerId].money -= cost;
-    console.log("spelaren har flaskor", room.players[playerId].bottleAmount);
   }
 }
 
@@ -223,11 +228,10 @@ Data.prototype.raiseValue = function (roomId, playerId, card, cost) {
     }
     room.market.push(...c);
     room.players[playerId].money -= cost;
-    console.log("spelaren har flaskor", room.players[playerId].bottleAmount);
   }
 }
 
-Data.prototype.refill = function(roomId) {
+Data.prototype.refillGameboard = function(roomId) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
 
@@ -302,6 +306,29 @@ Data.prototype.refill = function(roomId) {
   }
 }
 
+Data.prototype.nextRoundPlayers = function(roomId, players){
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+    for(let i=0; i < room.playerList.length; i+= 1){
+      room.playerList[i].money += room.playerList[i].income.length;
+      for (let j=0; j<room.playerList[i].bottleAmount; j +=1){
+        room.playerList[i].bottles[j] = 1;
+      }
+      if (room.playerList[i].bottles[2] === 0){
+        let card = room.deck.pop();
+        room.playerList[i].hand.push(card);
+      }
+      if (room.playerList[i].bottles[3] === 0){
+        room.playerList[i].money += 1;
+      }
+      if (room.playerList[i].bottles[4] === 0){
+        room.playerList[i].money += 2;
+      }
+      console.log(room.playerList[i].bottles);
+    }
+  }
+}
+
 Data.prototype.buySkill = function (roomId, playerId, card, cost) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
@@ -322,7 +349,6 @@ Data.prototype.buySkill = function (roomId, playerId, card, cost) {
     }
     room.players[playerId].skills.push(...c);
     room.players[playerId].money -= cost;
-    console.log("spelaren har flaskor", room.players[playerId].bottleAmount);
   }
 }
 
@@ -348,7 +374,6 @@ Data.prototype.auctionItem = function (roomId, playerId, card, cost) {
     console.log("tjenes penes!");
     room.theAuctionItem.push(...c);
     room.players[playerId].money -= cost;
-    console.log("spelaren har flaskor", room.players[playerId].bottleAmount);
   }
 }
 
@@ -360,7 +385,6 @@ Data.prototype.placeBottle = function (roomId, playerId, action, cost) {
   for (let i=0; i<room.players[playerId].bottles.length; i++){
     if(room.players[playerId].bottles[i] === 1){
       room.players[playerId].bottles[i] = 0;
-      room.players[playerId].bottleAmount -= 1;
       room.players[playerId].myTurn = false;
       break;
     }

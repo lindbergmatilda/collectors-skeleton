@@ -331,6 +331,7 @@ export default {
     refill: function() {
       this.$store.state.socket.emit('collectorsRefill', {
         roomId: this.$route.params.id,
+        playerId: this.playerId
       });
     },
 

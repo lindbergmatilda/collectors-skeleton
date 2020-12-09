@@ -26,7 +26,8 @@ function sockets(io, socket, data) {
     });
 
     socket.on('collectorsRefill', function(d) {
-      data.refill(d.roomId)
+      data.refillGameboard(d.roomId),
+      data.nextRoundPlayers(d.roomId, d.playerId)
       io.to(d.roomId).emit('collectorsRefilled', {
         players: data.getPlayers(d.roomId),
         itemsOnSale: data.getItemsOnSale(d.roomId),

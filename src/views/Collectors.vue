@@ -51,13 +51,22 @@
 
         <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
 
-          <h5>Player ID: {{playerId}}</h5>
+          <h3>Player ID: {{playerId}}</h3>
 
+        <h5>  Items: </h5>
           <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
-          Items: {{item}} </div> <!-- HÄR BEHÖVER VI HÄMTA TYP AV ITEM EJ HELA LISTAN; HUR?   {{players[playerId].items}} -->
+           {{itemInfo.item}} </div>
 
-          Skills: {{players[playerId].skills}} <br>
-          Bottles: {{players[playerId].bottles}} <br>
+
+
+        <h5>  Skills: </h5>
+           <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
+            {{skillInfo.skill}} </div>
+
+
+            
+
+          <h5>  Energy: </h5> {{players[playerId].bottles}}
 
 
         </div>

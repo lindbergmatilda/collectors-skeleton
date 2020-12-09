@@ -269,6 +269,14 @@ Data.prototype.refill = function(roomId) {
       }
     }
 
+// trycker ihop auctionCards
+    for (let i = 0; i < room.auctionCards.length; i += 1) {
+      if (room.auctionCards[i].item == undefined) {
+        room.auctionCards.splice(i, 1);
+        i -= 1;
+      }
+    }
+
     //fyller på skills med i första hand items, annars högen
     for (let i = room.skillsOnSale.length; i < 5; i += 1) {
       if (room.itemsOnSale.length == 0) {

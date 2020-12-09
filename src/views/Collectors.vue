@@ -54,7 +54,7 @@
           <h5>Player ID: {{playerId}}</h5>
 
           <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
-          Items: {{item}} </div> <!-- HÄR BEHÖVER VI HÄMTA TYP AV ITEM EJ HELA LISTAN; HUR?   {{players[playerId].items}} -->
+          Items: {{itemInfo.item}} </div> <!-- HÄR BEHÖVER VI HÄMTA TYP AV ITEM EJ HELA LISTAN; HUR?   {{players[playerId].items}} -->
 
           Skills: {{players[playerId].skills}} <br>
           Bottles: {{players[playerId].bottles}} <br>
@@ -486,8 +486,10 @@ background-color: lightgrey;
     'thehand thehand thehand'
     'rest rest rest';
   max-width: 1000px;
+  width: 800px;
+
   grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows: 1fr 2fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 500px 1fr 1fr 1fr;
 
   height: 500px;
   margin: 60px;

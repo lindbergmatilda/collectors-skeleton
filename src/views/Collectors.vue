@@ -8,6 +8,8 @@
       </button>
     </div>
 
+
+
     <button v-if="players[playerId]" @click="players[playerId].money += 1">
       fake more money
     </button>
@@ -47,27 +49,24 @@
 
     <h3>Samtliga Spelare</h3>
 
-    <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
+        <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
 
-      <h5>Player ID: {{playerId}}</h5>
+          <h5>Player ID: {{playerId}}</h5>
 
-      <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
-      Items: {{item}} </div> <!-- HÄR BEHÖVER VI HÄMTA TYP AV ITEM EJ HELA LISTAN; HUR?   {{players[playerId].items}} -->
+          <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
+          Items: {{item}} </div> <!-- HÄR BEHÖVER VI HÄMTA TYP AV ITEM EJ HELA LISTAN; HUR?   {{players[playerId].items}} -->
 
-
-
-
-      Skills: {{players[playerId].skills}} <br>
-      Bottles: {{players[playerId].bottles}} <br>
+          Skills: {{players[playerId].skills}} <br>
+          Bottles: {{players[playerId].bottles}} <br>
 
 
-    </div>
-    <hr>
+        </div>
+
 
 
   </div>
 
-      <div class="gamezone">
+<div class="gamezone">
 
         <div class="item">ITEM
           <collectorsBuyItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :itemsOnSale="itemsOnSale" :marketValues="marketValues" :placement="itemPlacement" @buyItem="buyItem($event)"
@@ -438,7 +437,7 @@ footer a:visited {
   'gameboard other-boards'
   'bottom-grid bottom-grid';
   grid-template-columns: 3fr 2fr;
-  grid-template-rows: 4fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   max-width: 2000px;
 
 
@@ -483,7 +482,7 @@ background-color: lightgrey;
   grid-template-areas:
     'item item item '
     'skill work auction'
-    'skill value value'
+    'value value value'
     'thehand thehand thehand'
     'rest rest rest';
   max-width: 1000px;
@@ -514,13 +513,14 @@ background-color: lightgrey;
   grid-area: skill;
   background-color: #EDFFDB;
   border-left: 2px solid black;
-  border-bottom: 2px solid black;
+
 }
 
 .value {
   grid-area: value;
   background-color: #DBFFED;
   border-bottom: 2px solid black;
+  border-left: 2px solid black;
   border-right: 2px solid black;
 }
 

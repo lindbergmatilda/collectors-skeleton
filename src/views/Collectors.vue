@@ -311,8 +311,7 @@ export default {
         this.market = d.market;
         this.marketValues = d.marketValues;
         this.auctionCards = d.auctionCards;
-
-        this.itemPlacement = d.itemPlacement;
+        this.itemPlacement = d.placements.itemPlacement;
         //this.skillPlacement = d.skillPlacement;
         //this.marketPlacement = d.marketPlacement;
         //this.auctionPlacement = d.auctionPlacement;

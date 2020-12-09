@@ -398,7 +398,7 @@ Data.prototype.refillGameboard = function(roomId) {
         console.log("vi kom in sara");
         // vi vill uppdatera knappen också!
     }
-    console.log(room.itemPlacement);
+    console.log(room.itemPlacement); 
   }
 }
 

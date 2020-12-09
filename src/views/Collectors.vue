@@ -16,11 +16,57 @@
       <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
     </p>
 
+<div class="head">
 
+  <div class="your-playerboard">
+
+        <h2>Your Player Board</h2>
+
+        Hand
+        <hr>
+        <div class="cardslots" v-if="players[playerId]">
+          <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="handleAction(card)" :key="index" />
+        </div>
+
+        Your Items
+        <hr>
+        <div class="cardslots" v-if="players[playerId]">
+          <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index" />
+        </div>
+
+        Your Skills
+        <hr>
+        <div class="cardslots" v-if="players[playerId]">
+          <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index" />
+        </div>
+
+  </div>
+
+  <div class="opponentsBoard">
+
+    <h3>Samtliga Spelare</h3>
+
+    <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
+
+      <h5>Player ID: {{playerId}}</h5>
+
+      <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
+      Items: {{item}} </div> <!-- HÄR BEHÖVER VI HÄMTA TYP AV ITEM EJ HELA LISTAN; HUR?   {{players[playerId].items}} -->
+
+
+
+
+      Skills: {{players[playerId].skills}} <br>
+      Bottles: {{players[playerId].bottles}} <br>
+
+
+    </div>
+    <hr>
+
+
+  </div>
 
       <div class="gamezone">
-
-
 
         <div class="item">ITEM
           <collectorsBuyItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :itemsOnSale="itemsOnSale" :marketValues="marketValues" :placement="itemPlacement" @buyItem="buyItem($event)"
@@ -77,34 +123,6 @@
         <div class="work">WORK</div>
 
 
-
-
-
-        <div class="thehand">
-
-          <h2>Your Player Board</h2>
-
-          Hand
-          <hr>
-          <div class="cardslots" v-if="players[playerId]">
-            <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="handleAction(card)" :key="index" />
-          </div>
-
-          Your Items
-          <hr>
-          <div class="cardslots" v-if="players[playerId]">
-            <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index" />
-          </div>
-
-          Your Skills
-          <hr>
-          <div class="cardslots" v-if="players[playerId]">
-            <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index" />
-          </div>
-
-
-        </div>
-
         <div class="theRest">
           <hr>
 
@@ -113,35 +131,13 @@
 
 
 
-          <div class="opponentsBoard">
 
-            <h3>Samtliga Spelare</h3>
-
-            <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
-
-              <h5>Player ID: {{playerId}}</h5>
-
-              <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
-              Items: {{item}} </div> <!-- HÄR BEHÖVER VI HÄMTA TYP AV ITEM EJ HELA LISTAN; HUR?   {{players[playerId].items}} -->
-
-
-
-
-              Skills: {{players[playerId].skills}} <br>
-              Bottles: {{players[playerId].bottles}} <br>
-
-
-            </div>
-            <hr>
-
-
-          </div>
         </div>
       </div>
 
       <!---->
 
-
+</div>
 
   </main>
 
@@ -434,10 +430,54 @@ footer a:visited {
   color: ivory;
 }
 
+.head {
+  display: grid;
+  grid-template-areas:
+  'gameboard your-board'
+  'gameboard other-boards'
+  'bottom-grid bottom-grid';
+  grid-template-columns: 3fr 2fr;
+  grid-template-rows: 4fr 1fr;
+  max-width: 2000px;
+
+
+
+
+}
+
+.your-playerboard {
+  grid-area: your-board;
+  background-color: #EEECE2;
+  border-radius: 100px;
+  margin: 60px;
+  padding: 20px;
+  color: black;
+  border: 2px solid black;
+  max-height: 800px;
+
+
+}
+
+.opponentsBoard {
+  grid-area: other-boards;
+  margin: 60px;
+  padding: 20px;
+  display: grid;
+  grid-gap: 40px;
+  grid-template-columns: auto;
+}
+
+.box {
+background-color: lightgrey;
+  border-radius: 40px;
+  color: black;
+  padding: 15px;
+  border: 2px solid black;
+
+}
 
 .gamezone {
-
-
+  grid-area: gameboard;
   display: grid;
   grid-template-areas:
     'item item item '
@@ -445,14 +485,14 @@ footer a:visited {
     'skill value value'
     'thehand thehand thehand'
     'rest rest rest';
-  max-width: 900px;
+  max-width: 1000px;
   grid-template-columns: 1fr 2fr 1fr;
   grid-template-rows: 1fr 2fr 1fr 1fr 1fr;
 
-  height: 300px;
+  height: 500px;
   margin: 60px;
   color: black;
-  margin-right: auto;
+
 
 }
 
@@ -494,39 +534,11 @@ footer a:visited {
   background-color: #FFEDDB;
 }
 
-.thehand {
-  grid-area: thehand;
-  background-color: #EEECE2;
-  border-radius: 100px;
-  padding: 60px;
-  margin: 20px;
-  color: black;
-  border: 2px solid black;
-
-}
 
 .theRest {
   grid-area: rest;
   border: 10px;
   color: white;
-
-}
-
-.opponentsBoard {
-  display: grid;
-  grid-gap: 40px;
-  grid-template-columns: auto;
-
-
-
-}
-
-.box {
-background-color: lightgrey;
-  border-radius: 40px;
-  color: black;
-  padding: 15px;
-  border: 2px solid black;
 
 }
 

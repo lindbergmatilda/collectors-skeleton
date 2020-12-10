@@ -69,100 +69,117 @@ Data.prototype.createRoom = function(roomId, playerCount, lang = "en") {
   room.market = [];
   room.itemPlacement = [{
       cost: 1,
-      playerId: null
+      playerId: null,
+      position: 0
     },
     {
       cost: 1,
-      playerId: null
+      playerId: null,
+      position: 1
     },
     {
       cost: 2,
-      playerId: null
+      playerId: null,
+      position: 2
     },
     {
       cost: 2,
-      playerId: null
+      playerId: null,
+      position: 3
     },
     {
       cost: 3,
-      playerId: null
+      playerId: null,
+      position: 4
     }
   ];
   room.skillPlacement = [{
       cost: 0,
-      playerId: null
+      playerId: null,
+      position: 0
     },
     {
       cost: 0,
-      playerId: null
+      playerId: null,
+      position: 1
     },
     {
       cost: 0,
-      playerId: null
+      playerId: null,
+      position: 2
     },
     {
       cost: 1,
-      playerId: null
+      playerId: null,
+      position: 3
     },
     {
       cost: 1,
-      playerId: null
+      playerId: null,
+      position: 4
     }
   ];
   room.auctionPlacement = [{
       cost: -2,
-      playerId: null
+      playerId: null,
+      position: 0
     },
     {
       cost: -1,
-      playerId: null
+      playerId: null,
+      position: 1
     },
     {
       cost: 0,
-      playerId: null
+      playerId: null,
+      position: 2
     },
     {
       cost: 0,
-      playerId: null
+      playerId: null,
+      position: 3
     }
   ];
   room.marketPlacement = [{
       cost: 0,
-      playerId: null
+      playerId: null,
+      position: 0
     },
     {
       cost: -2,
-      playerId: null
+      playerId: null,
+      position: 1
     },
     {
       cost: 0,
-      playerId: null
+      playerId: null,
+      position: 2
     }
   ];
   room.workPlacement = [{
       cost: -3,
       playerId: null,
-      knapp: 0
+      position: 0
     },
     {
       cost: -1,
       playerId: null,
-      knapp: 1
+      position: 1
     },
     {
       cost: 1,
       playerId: null,
-      knapp: 2
+      position: 2
     },
     {
       cost: 0,
       playerId: null,
-      knapp: 3
+      position: 3
     },
     {
       cost: 0,
       playerId: null,
-      knapp: 4
+      position: 4
     }
   ];
   this.rooms[roomId] = room;
@@ -509,7 +526,7 @@ Data.prototype.workArea = function(roomId, playerId, cost){
   }
 }
 
-Data.prototype.placeBottle = function(roomId, playerId, action, cost) {
+Data.prototype.placeBottle = function(roomId, playerId, action, cost, position) {
   let room = this.rooms[roomId];
 
   if (typeof room !== 'undefined') {
@@ -534,7 +551,7 @@ Data.prototype.placeBottle = function(roomId, playerId, action, cost) {
       activePlacement = room.workPlacement;
     }
     for (let i = 0; i < activePlacement.length; i += 1) {
-      if (activePlacement[i].cost === cost &&
+      if (activePlacement[i].position === position &&
         activePlacement[i].playerId === null) {
         activePlacement[i].playerId = playerId;
         break;

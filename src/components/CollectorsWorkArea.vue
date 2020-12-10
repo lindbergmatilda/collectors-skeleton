@@ -42,7 +42,7 @@ export default {
         return false;
     },
     placeBottle: function(p) {
-      this.$emit('placeBottle', p.cost);
+      this.$emit('placeBottle', p);
     }
 
   }

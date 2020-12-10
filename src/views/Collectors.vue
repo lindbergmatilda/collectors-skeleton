@@ -323,8 +323,8 @@ export default {
     selectAll: function(n) {
       n.target.select();
     },
-    placeBottle: function(action, cost) {
-      this.chosenPlacementCost = cost;
+    placeBottle: function(action, $event) {
+      this.chosenPlacementCost = $event.cost;
       this.chosenAction = action;
       if(action == 'work'){
         this.workAction();
@@ -333,7 +333,8 @@ export default {
         roomId: this.$route.params.id,
         playerId: this.playerId,
         action: action,
-        cost: cost,
+        cost: $event.cost,
+        position: $event.position
       });
     },
 

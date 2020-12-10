@@ -111,7 +111,7 @@ function sockets(io, socket, data) {
     });
 
     socket.on('collectorsPlaceBottle', function(d) {
-      data.placeBottle(d.roomId, d.playerId, d.action, d.cost);
+      data.placeBottle(d.roomId, d.playerId, d.action, d.cost, d.position);
       io.to(d.roomId).emit('collectorsBottlePlaced', data.getPlacements(d.roomId)
       );
     });

@@ -324,8 +324,8 @@ export default {
     selectAll: function(n) {
       n.target.select();
     },
-    placeBottle: function(action, cost) {
-      this.chosenPlacementCost = cost;
+    placeBottle: function(action, $event) {
+      this.chosenPlacementCost = $event.cost;
       this.chosenAction = action;
       if(action == 'work'){
         this.workAction();
@@ -334,7 +334,8 @@ export default {
         roomId: this.$route.params.id,
         playerId: this.playerId,
         action: action,
-        cost: cost,
+        cost: $event.cost,
+        position: $event.position
       });
     },
 
@@ -374,7 +375,7 @@ export default {
         roomId: this.$route.params.id,
         playerId: this.playerId,
         card: card,
-        cost: this.marketValues[card.market] + this.chosenPlacementCost
+        cost: this.marketValues[card.item] + this.chosenPlacementCost
       });
     },
 
@@ -430,7 +431,7 @@ export default {
         roomId: this.$route.params.id,
         playerId: this.playerId,
         card: card,
-        cost: this.chosenPlacementCost // this.marketValues[card.market] tog bort detta,det var adderat
+        cost: this.chosenPlacementCost
       });
     }
   }

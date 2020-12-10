@@ -47,7 +47,7 @@ export default {
     },
 
     placeBottle: function(p) {
-      this.$emit('placeBottle', p.cost);
+      this.$emit('placeBottle', p);
       this.highlightAvailableCards(p.cost);
       console.log(" kostnaden är " + p.cost);
     },

@@ -54,7 +54,8 @@ export default {
         return false;
     },
     placeBottle: function(p) {
-      this.$emit('placeBottle', p.cost);
+      this.chosenPosition=p.position;
+      this.$emit('placeBottle', p);
       this.highlightAvailableCards(p.cost);
     },
     highlightAvailableCards: function(cost = 100) {

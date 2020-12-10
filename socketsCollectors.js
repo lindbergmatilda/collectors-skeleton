@@ -80,7 +80,7 @@ function sockets(io, socket, data) {
     });
 
     socket.on('CollectorsWorkArea', function(d) {
-      data.workArea(d.roomId, d.playerId, d.cost)
+      data.workArea(d.roomId, d.playerId, d.cost, d.position)
       io.to(d.roomId).emit('collectorsWorkedArea', {
           playerId: d.playerId,
           players: data.getPlayers(d.roomId)

@@ -157,7 +157,7 @@ Data.prototype.createRoom = function(roomId, playerCount, lang = "en") {
     }
   ];
   room.workPlacement = [{
-      cost: -3,
+      cost: -2,
       playerId: null,
       position: 0
     },
@@ -203,11 +203,11 @@ Data.prototype.joinGame = function(roomId, playerId) {
       console.log("Player", playerId, "joined for the first time");
       room.players[playerId] = {
         hand: [],
-        money: 100,
+        money: 2,
         points: 0,
         skills: [],
         items: [],
-        income: [],
+        income: 0,
         secret: [],
         myTurn: false,
         iStart: false,
@@ -246,8 +246,26 @@ Data.prototype.claimedFirst = function(roomId, playerId) {
   if (typeof room !== 'undefined') {
     room.players[playerId].myTurn = true;
     room.players[playerId].iStart = true;
-    return room.players;
-  } else return {};
+
+    for (let i=0; i<room.playerCount; i++){
+      if (room.players[playerId]===room.playerList[i]){
+        let startPosition =i;
+        let steps=0;
+
+        for (let j=startPosition; j<room.playerCount-1; j++){
+          steps +=1;
+          room.playerList[j+1].money+=steps;
+          }
+        for(let j=-1; j<startPosition-1; j++){
+          steps +=1;
+          room.playerList[j+1].money+=steps;
+        }
+        }
+      }
+      console.log(room.players);
+      return room.players;
+    }
+  else return {};
 }
 
 /* returns players after a new card is drawn */
@@ -344,7 +362,6 @@ Data.prototype.raiseValue = function(roomId, playerId, card, cost) {
     for (let i = 0; i < room.players[playerId].hand.length; i += 1) {
       if (room.players[playerId].hand[i].x === card.x &&
         room.players[playerId].hand[i].y === card.y) {
-        console.log("knasigt");
         c = room.players[playerId].hand.splice(i, 1);
         break;
       }
@@ -470,7 +487,7 @@ for(let i=0; i<room.playerList.length; i++){
 console.log(room.playerList);
 
     for (let i = 0; i < room.playerList.length; i += 1) {
-      room.playerList[i].money += room.playerList[i].income.length; //ger spelaren pengar
+      room.playerList[i].money += room.playerList[i].income; //ger spelaren pengar
 
       for (let j = 0; j < room.playerList[i].bottleAmount; j += 1) {
         room.playerList[i].bottles[j] = 1;
@@ -577,18 +594,59 @@ Data.prototype.auctionItem = function(roomId, playerId, card, cost) {
   }
 }
 
-Data.prototype.workArea = function(roomId, playerId, cost) {
+Data.prototype.workArea = function(roomId, playerId, cost, position) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
     let c = null;
-    for (let i = 0; i < room.workPlacement.length; i++) {
-      if (room.workPlacement[i].knapp === 0 && room.workPlacement[i].available === true) {
-        console.log("första knappen yooo");
-
-
-        room.workPlacement[i].available = false;
+      if (position === 0 ) {
+        room.players[playerId].income+=2;
       }
-    }
+
+      else if (position === 1 ) {
+        room.players[playerId].bottleAmount -=1;
+        for (let i=room.players[playerId].bottles.length; i>0; i--){
+          if (room.players[playerId].bottles[i]===1){
+            room.players[playerId].bottles[i]=0;
+            break;
+          }
+        }
+      }
+
+      else if (position === 2) {
+        let card1 = room.deck.pop();
+        let card2 = room.deck.pop();
+        room.players[playerId].hand.push(card1);
+        room.players[playerId].hand.push(card2);
+
+      }
+
+      else if (position === 3 ) {
+        let card = room.deck.pop();
+        room.players[playerId].hand.push(card);
+        for (let i=0; i<room.playerList.length; i++){
+          room.playerList[i].iStart=false;
+        }
+        room.players[playerId].iStart=true;
+      }
+
+      else if (position === 4 ) {
+        let card = room.deck.pop();
+        room.players[playerId].hand.push(card);
+        room.players[playerId].income+=1;
+      }
+      room.players[playerId].money -= cost;
+      room.players[playerId].myTurn = false;
+
+      for (let i = 0; i < room.playerList.length; i++) {
+        if (room.players[playerId] === room.playerList[i]) {
+
+          if (room.players[playerId] === room.playerList[room.playerList.length - 1]) {
+            room.playerList[0].myTurn = true; // om jag är den sista spelaren i listan, då ska första få myTurn
+          } else {
+            room.playerList[i + 1].myTurn = true;
+          }
+        }
+      }
   }
 }
 

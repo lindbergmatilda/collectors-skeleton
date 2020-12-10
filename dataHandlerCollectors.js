@@ -141,23 +141,28 @@ Data.prototype.createRoom = function(roomId, playerCount, lang = "en") {
   ];
   room.workPlacement = [{
       cost: -3,
-      playerId: null
+      playerId: null,
+      knapp: 0
     },
     {
       cost: -1,
-      playerId: null
+      playerId: null,
+      knapp: 1
     },
     {
       cost: 1,
-      playerId: null
+      playerId: null,
+      knapp: 2
     },
     {
       cost: 0,
-      playerId: null
+      playerId: null,
+      knapp: 3
     },
     {
       cost: 0,
-      playerId: null
+      playerId: null,
+      knapp: 4
     }
   ];
   this.rooms[roomId] = room;
@@ -496,7 +501,11 @@ Data.prototype.workArea = function(roomId, playerId, cost){
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
     let c = null;
-      console.log("hejsan, gå tillbaka till arbetet");
+    for (let i=0; i< room.workPlacement.length; i ++){
+      if (room.workPlacement[i].knapp === 0){
+        console.log("första knappen yooo");
+      }
+    }
   }
 }
 

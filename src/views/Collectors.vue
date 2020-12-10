@@ -374,7 +374,7 @@ export default {
         roomId: this.$route.params.id,
         playerId: this.playerId,
         card: card,
-        cost: this.marketValues[card.market] + this.chosenPlacementCost
+        cost: this.marketValues[card.item] + this.chosenPlacementCost
       });
     },
 
@@ -430,7 +430,7 @@ export default {
         roomId: this.$route.params.id,
         playerId: this.playerId,
         card: card,
-        cost: this.chosenPlacementCost // this.marketValues[card.market] tog bort detta,det var adderat
+        cost: this.chosenPlacementCost
       });
     }
   }

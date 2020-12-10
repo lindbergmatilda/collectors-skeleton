@@ -1,7 +1,7 @@
 <template>
 <div>
 
-  <h1>{{ labels.buySkill }}</h1>
+  <center><h1>{{ labels.buySkill }}</h1></center>
   <div class="item-left-right">
 
   <div class="left buy-skill">
@@ -10,13 +10,15 @@
     </div>
   </div>
 
-    <div class="right buttons" v-for="(p, index) in placement" :key="index">
+    <div class="right buttons">
+      <div v-for="(p, index) in placement" :key="index">
       <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost)" @click="placeBottle(p)">
         ${{p.cost}}
       </button>
       <div v-if="p.playerId !== null">
         {{p.playerId}}
       </div>
+</div>
 </div>
 </div>
 </div>
@@ -86,10 +88,16 @@ export default {
 }
 .buttons {
   width: 70px;
+
   display: grid;
-  grid-template-rows: repeat(auto-fill, 130px);
+  grid-template-rows: repeat(auto-fill, 90px);
 
 
+}
+
+.button {
+  width: 50px;
+  height: 50px;
 }
 .left {
 grid-area: left;
@@ -106,6 +114,7 @@ grid-area: left;
   display: grid;
   grid-template-rows: repeat(auto-fill, 130px);
   transform: scale(0.4)translate(-25%, 0);
+  transform-origin: top;
 }
 
 

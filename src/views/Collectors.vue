@@ -68,17 +68,17 @@
 
 <div class="gamezone">
 
-        <div class="item">ITEM
+        <div class="item">
           <collectorsBuyItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :itemsOnSale="itemsOnSale" :marketValues="marketValues" :placement="itemPlacement" @buyItem="buyItem($event)"
             @placeBottle="placeBottle('item', $event)" />
         </div>
 
-        <div class="skill">SKILL
+        <div class="skill">
           <CollectorsBuySkill v-if="players[playerId]" :labels="labels" :player="players[playerId]" :skillsOnSale="skillsOnSale" :marketValues="marketValues" :placement="skillPlacement" @buySkill="buySkill($event)"
             @placeBottle="placeBottle('skill', $event)" />
         </div>
 
-        <div class="value">VALUE
+        <div class="value">
           <CollectorsRaiseValue v-if="players[playerId]" :labels="labels" :player="players[playerId]" :marketValues="marketValues" :placement="marketPlacement" @raiseValue="raiseValue($event)" @placeBottle="placeBottle('market', $event)" />
 
           Market

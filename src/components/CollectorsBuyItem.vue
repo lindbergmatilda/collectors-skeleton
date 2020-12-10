@@ -18,6 +18,7 @@
         {{p.playerId}}
       </div>
     </div>
+
   </div>
 </div>
 </template>
@@ -88,12 +89,18 @@ export default {
   display: grid;
   grid-template-columns: repeat(auto-fill, 20%);
   transform: scale(0.4)translate(-25%, 0);
+  transform-origin: top;
 }
 .buttons {
-  display: inline; }
+  display: inline;
+ }
 
 #button {
   color: green;
+  transform-origin: top;
+  display: inline;
+
+
 
 }
 

@@ -1,7 +1,7 @@
 <template>
 <div>
-  <main>
 
+  <main>
     <div class="buttons">
       <button @click="drawCard">
         {{ labels.draw }}
@@ -52,7 +52,7 @@
         <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
 
           <h3>Player ID: {{playerId}}</h3>
-
+          <img src="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
         <h5>  Items: </h5>
           <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
            {{itemInfo.item}} </div>
@@ -64,7 +64,7 @@
             {{skillInfo.skill}} </div>
 
 
-            
+
 
           <h5>  Energy: </h5> {{players[playerId].bottles}}
 

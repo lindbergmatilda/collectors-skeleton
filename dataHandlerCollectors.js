@@ -142,27 +142,32 @@ Data.prototype.createRoom = function(roomId, playerCount, lang = "en") {
   room.workPlacement = [{
       cost: -3,
       playerId: null,
-      knapp: 0
+      knapp: 0,
+      available: true
     },
     {
       cost: -1,
       playerId: null,
-      knapp: 1
+      knapp: 1,
+      available: true
     },
     {
       cost: 1,
       playerId: null,
-      knapp: 2
+      knapp: 2,
+      available: true
     },
     {
       cost: 0,
       playerId: null,
-      knapp: 3
+      knapp: 3,
+      available: true
     },
     {
       cost: 0,
       playerId: null,
-      knapp: 4
+      knapp: 4,
+      available: true
     }
   ];
   this.rooms[roomId] = room;
@@ -193,6 +198,7 @@ Data.prototype.joinGame = function(roomId, playerId) {
         income: [],
         secret: [],
         myTurn: false,
+        iStart: false,
         bottles: [1, 1, 0, 0, 0],
         bottleAmount: 2
       };
@@ -227,8 +233,8 @@ Data.prototype.claimedFirst = function(roomId, playerId) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
     room.players[playerId].myTurn = true;
-    console.log(room.playerList);
-    return playerId;
+    room.players[playerId].iStart = true;
+    return room.players;
   } else return {};
 }
 
@@ -305,6 +311,17 @@ Data.prototype.buyItem = function(roomId, playerId, card, cost) {
     room.players[playerId].items.push(...c);
     room.players[playerId].money -= cost;
     room.players[playerId].myTurn = false;
+
+    for (let i = 0; i < room.playerList.length; i++) {
+      if (room.players[playerId] === room.playerList[i]) {
+
+        if (room.players[playerId] === room.playerList[room.playerList.length - 1]) {
+          room.playerList[0].myTurn = true; // om jag är den sista spelaren i listan, då ska första få myTurn
+        } else {
+          room.playerList[i + 1].myTurn = true;
+        }
+      }
+    }
   }
 }
 
@@ -323,6 +340,17 @@ Data.prototype.raiseValue = function(roomId, playerId, card, cost) {
     room.market.push(...c);
     room.players[playerId].money -= cost;
     room.players[playerId].myTurn = false;
+
+    for (let i = 0; i < room.playerList.length; i++) {
+      if (room.players[playerId] === room.playerList[i]) {
+
+        if (room.players[playerId] === room.playerList[room.playerList.length - 1]) {
+          room.playerList[0].myTurn = true; // om jag är den sista spelaren i listan, då ska första få myTurn
+        } else {
+          room.playerList[i + 1].myTurn = true;
+        }
+      }
+    }
   }
 }
 
@@ -398,18 +426,37 @@ Data.prototype.refillGameboard = function(roomId) {
       let card = room.deck.pop();
       room.auctionCards.push(card);
     }
-    for(let i = 0; i<room.itemPlacement.length; i++){
-        room.itemPlacement[i].playerId = null;
-        console.log("vi kom in sara");
-        // vi vill uppdatera knappen också!
+
+    // ställer om knapparna
+    for (let i = 0; i < room.itemPlacement.length; i++) {
+      room.itemPlacement[i].playerId = null;
     }
-    console.log(room.itemPlacement);
+    for (let i = 0; i < room.skillPlacement.length; i++) {
+      room.skillPlacement[i].playerId = null;
+    }
+    for (let i = 0; i < room.auctionPlacement.length; i++) {
+      room.auctionPlacement[i].playerId = null;
+    }
+    for (let i = 0; i < room.marketPlacement.length; i++) {
+      room.marketPlacement[i].playerId = null;
+    }
   }
 }
 
 Data.prototype.nextRoundPlayers = function(roomId, players) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
+
+for(let i=0; i<room.playerList.length; i++){
+    room.playerList[i].myTurn = false;
+    console.log(room.playerList[i].myTurn);
+    if(room.playerList[i].iStart){
+      room.playerList[i].myTurn = true;
+    }
+  }
+
+console.log(room.playerList);
+
     for (let i = 0; i < room.playerList.length; i += 1) {
       room.playerList[i].money += room.playerList[i].income.length; //ger spelaren pengar
 
@@ -427,7 +474,6 @@ Data.prototype.nextRoundPlayers = function(roomId, players) {
         room.playerList[i].money += 2;
       }
     }
-    console.log(room.playerList);
   }
 }
 
@@ -460,6 +506,17 @@ Data.prototype.buySkill = function(roomId, playerId, card, cost) {
     room.players[playerId].skills.push(...c);
     room.players[playerId].money -= cost;
     room.players[playerId].myTurn = false;
+
+    for (let i = 0; i < room.playerList.length; i++) {
+      if (room.players[playerId] === room.playerList[i]) {
+
+        if (room.players[playerId] === room.playerList[room.playerList.length - 1]) {
+          room.playerList[0].myTurn = true; // om jag är den sista spelaren i listan, då ska första få myTurn
+        } else {
+          room.playerList[i + 1].myTurn = true;
+        }
+      }
+    }
   }
 }
 
@@ -494,16 +551,30 @@ Data.prototype.auctionItem = function(roomId, playerId, card, cost) {
     room.theAuctionItem.push(...c);
     room.players[playerId].money -= cost;
     room.players[playerId].myTurn = false;
+
+    for (let i = 0; i < room.playerList.length; i++) {
+      if (room.players[playerId] === room.playerList[i]) {
+
+        if (room.players[playerId] === room.playerList[room.playerList.length - 1]) {
+          room.playerList[0].myTurn = true; // om jag är den sista spelaren i listan, då ska första få myTurn
+        } else {
+          room.playerList[i + 1].myTurn = true;
+        }
+      }
+    }
   }
 }
 
-Data.prototype.workArea = function(roomId, playerId, cost){
+Data.prototype.workArea = function(roomId, playerId, cost) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
     let c = null;
-    for (let i=0; i< room.workPlacement.length; i ++){
-      if (room.workPlacement[i].knapp === 0){
+    for (let i = 0; i < room.workPlacement.length; i++) {
+      if (room.workPlacement[i].knapp === 0 && room.workPlacement[i].available === true) {
         console.log("första knappen yooo");
+
+
+        room.workPlacement[i].available = false;
       }
     }
   }

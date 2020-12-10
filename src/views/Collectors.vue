@@ -235,7 +235,7 @@ export default {
 
     this.$store.state.socket.on('collectorsClaimedFirstPlayer',
       function(d) {
-        console.log("first player:", d);
+        this.players = d;
       }.bind(this)
     );
 
@@ -299,10 +299,11 @@ export default {
         this.market = d.market;
         this.marketValues = d.marketValues;
         this.auctionCards = d.auctionCards;
+
         this.itemPlacement = d.placements.itemPlacement;
-        //this.skillPlacement = d.skillPlacement;
-        //this.marketPlacement = d.marketPlacement;
-        //this.auctionPlacement = d.auctionPlacement;
+        this.skillPlacement = d.placements.skillPlacement;
+        this.marketPlacement = d.placements.marketPlacement;
+        this.auctionPlacement = d.placements.auctionPlacement;
 
       }.bind(this)
     );

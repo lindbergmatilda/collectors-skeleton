@@ -162,6 +162,7 @@ export default {
       workPlacement: [],
       chosenPlacementCost: null,
       chosenAction: null,
+      chosenPlacementPosition: null,
       marketValues: {
         fastaval: 0,
         movie: 0,
@@ -287,6 +288,7 @@ export default {
         this.players = d.players;
         this.marketValues = d.marketValues;
         this.market = d.market;
+        this.auctionCards = d.auctionCards;
       }.bind(this)
     );
 
@@ -327,6 +329,7 @@ export default {
     placeBottle: function(action, $event) {
       this.chosenPlacementCost = $event.cost;
       this.chosenAction = action;
+      this.chosenPosition = $event.position;
       if(action == 'work'){
         this.workAction($event.position);
       }
@@ -405,7 +408,8 @@ export default {
         roomId: this.$route.params.id,
         playerId: this.playerId,
         card: card,
-        cost: this.chosenPlacementCost
+        cost: this.chosenPlacementCost,
+        position: this.chosenPosition
       });
     },
 

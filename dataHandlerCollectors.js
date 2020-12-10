@@ -355,18 +355,45 @@ Data.prototype.buyItem = function(roomId, playerId, card, cost) {
   }
 }
 
-Data.prototype.raiseValue = function(roomId, playerId, card, cost) {
+Data.prototype.raiseValue = function(roomId, playerId, card, cost, position) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
     let c = null;
-    for (let i = 0; i < room.players[playerId].hand.length; i += 1) {
-      if (room.players[playerId].hand[i].x === card.x &&
-        room.players[playerId].hand[i].y === card.y) {
-        c = room.players[playerId].hand.splice(i, 1);
-        break;
+
+    if ( position === 0){
+      for (let i = 0; i < room.players[playerId].hand.length; i += 1) {
+        if (room.players[playerId].hand[i].x === card.x &&
+          room.players[playerId].hand[i].y === card.y) {
+          c = room.players[playerId].hand.splice(i, 1);
+          break;
+        }
+      }
+      room.market.push(...c);
+      for( let j = room.auctionCards.length; j>0; j--){
+        if(room.auctionCards[j] !== undefined){
+          let auctionCard = room.auctionCards.splice(j, 1);
+          room.market.push(...auctionCard);
+          break;
+        }
       }
     }
-    room.market.push(...c);
+
+    if ( position === 1){
+      for (let i = 0; i < room.players[playerId].hand.length; i += 1) {
+        if (room.players[playerId].hand[i].x === card.x &&
+          room.players[playerId].hand[i].y === card.y) {
+          c = room.players[playerId].hand.splice(i, 1);
+          break;
+        }
+      }
+      room.market.push(...c);
+    }
+    if ( position === 2){
+      let deckCard = room.deck.pop();
+      room.market.push(deckCard);
+    }
+
+
     room.players[playerId].money -= cost;
     room.players[playerId].myTurn = false;
 

@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import CollectorsCard from '@/components/CollectorsCard.vue'
+//import CollectorsCard from '@/components/CollectorsCard.vue'
 
 export default {
   name: 'CollectorsWorkArea',
-  components: {
+  /*components: {
     CollectorsCard
-  },
+  },*/
   props: {
     labels: Object,
     player: Object,
@@ -43,7 +43,7 @@ export default {
     },
     placeBottle: function(p) {
       this.$emit('placeBottle', p.cost);
-    },
+    }
 
   }
 }

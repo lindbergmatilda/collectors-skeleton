@@ -51,15 +51,12 @@
     :placement="marketPlacement"
     @raiseValue="raiseValue($event)"
     @placeBottle="placeBottle('market', $event)" />
-    <!--<div class="cardslots">
-        <CollectorsCard v-for="(card, index) in skillsOnSale" :card="card" :key="index"/>
-      </div>-->
+
       <hr>
       <CollectorsWorkArea v-if="players[playerId]"
       :labels="labels"
       :player="players[playerId]"
       :placement="workPlacement"
-      @workAction="workAction($event)"
       @placeBottle="placeBottle('work', $event)" />
       <hr>
 
@@ -71,21 +68,12 @@
       @auctionItem="auctionItem($event)"
       @placeBottle="placeBottle('auction', $event)" />
 
-    <!--hr>
-    Auction
-    <div class="cardslots">
-      <CollectorsCard v-for="(card, index) in auctionCards" :card="card" :key="index" />
-    </div-->
     <hr>
     Auction Area
     <div class="cardslots">
       <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
     </div>
-    <!--div class="buttons">
-      <button @click="claimAuctionCard">
-        {{ labels.claim }}
-      </button>
-    </div-->
+
     <div class="altButtons">
       <button @click="claimAuctionCard('item')">Place in item</button>
       <button @click="claimAuctionCard('skill')">Place in skill</button>
@@ -338,6 +326,9 @@ export default {
     placeBottle: function(action, cost) {
       this.chosenPlacementCost = cost;
       this.chosenAction = action;
+      if(action == 'work'){
+        this.workAction();
+      }
       this.$store.state.socket.emit('collectorsPlaceBottle', {
         roomId: this.$route.params.id,
         playerId: this.playerId,

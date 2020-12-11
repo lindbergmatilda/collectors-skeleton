@@ -78,6 +78,11 @@
       <button @click="claimAuctionCard('item')">Place in item</button>
       <button @click="claimAuctionCard('skill')">Place in skill</button>
       <button @click="claimAuctionCard('market')">Add to market</button>
+      <p>
+        <label for="number"> Place bid (you can place coins or cards) RÄKNA SJÄLV FÖR FAN </label> <br>
+        <input type="number" id="myBid" name="bid" placeholder="Place your bid">
+      </p>
+      <button @click="placeBid()">Place bid</button>
     </div>
     <hr>
     Market
@@ -248,6 +253,12 @@ export default {
       }.bind(this)
     );
 
+    this.$store.state.socket.on('collectorsPlacedBid',
+      function(d) {
+        this.players = d;
+      }.bind(this)
+    );
+
     this.$store.state.socket.on('collectorsClaimedCard',
       function(d) {
         //this has been refactored to not single out one player's cards
@@ -356,11 +367,19 @@ export default {
       });
     },
 
-
     drawCard: function() {
       this.$store.state.socket.emit('collectorsDrawCard', {
         roomId: this.$route.params.id,
         playerId: this.playerId
+      });
+    },
+
+    placeBid: function() {
+      var theBid = document.getElementById("myBid").value;
+      this.$store.state.socket.emit('collectorsPlaceBid', {
+        roomId: this.$route.params.id,
+        playerId: this.playerId,
+        theBid: theBid
       });
     },
 

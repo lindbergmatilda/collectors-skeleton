@@ -269,6 +269,7 @@ Data.prototype.claimedFirst = function(roomId, playerId) {
 }
 
 /* returns players after a new card is drawn */
+/*drawcard ej klar! */
 Data.prototype.drawCard = function(roomId, playerId) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
@@ -286,6 +287,13 @@ Data.prototype.drawCard = function(roomId, playerId) {
     }
     return room.players;
   } else return [];
+}
+
+Data.prototype.placeBid = function(roomId, playerId, theBid) {
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+    console.log(theBid);
+  }
 }
 
 Data.prototype.claimAuctionCard = function(roomId, playerId, buttonAction) {

@@ -46,6 +46,12 @@ function sockets(io, socket, data) {
       );
     });
 
+    socket.on('collectorsPlaceBid', function(d){
+      io.to(d.roomId).emit('collectorsPlacedBid',
+        data.placeBid(d.roomId, d.playerId, d.theBid)
+    );
+  });
+
     socket.on('collectorsClaimCard', function(d) {
       data.claimAuctionCard(d.roomId, d.playerId, d.buttonAction)
       io.to(d.roomId).emit('collectorsClaimedCard', {

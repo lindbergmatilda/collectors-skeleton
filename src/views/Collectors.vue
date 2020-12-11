@@ -92,13 +92,12 @@
         </div>
 
         <div class="value">VALUE
-          <CollectorsRaiseValue v-if="players[playerId]" :labels="labels" :player="players[playerId]" :marketValues="marketValues" :placement="marketPlacement" @raiseValue="raiseValue($event)" @placeBottle="placeBottle('market', $event)" />
 
-          Market
-          <div class="cardslots">
-            <CollectorsCard v-for="(card, index) in market" :card="card" :key="index" />
+          <div class="leftvalue">
+          <CollectorsRaiseValue v-if="players[playerId]" :labels="labels" :player="players[playerId]" :marketValues="marketValues" :placement="marketPlacement" @raiseValue="raiseValue($event)" @placeBottle="placeBottle('market', $event)" />
           </div>
 
+          <div class="rightvalue">
 
           <h5>Market Values</h5>
           Fastaval: {{marketValues.fastaval}} <br>
@@ -106,6 +105,8 @@
           Technology: {{marketValues.technology}} <br>
           Figures: {{marketValues.figures}} <br>
           Music: {{marketValues.music}} <br>
+
+          </div>
 
         </div>
 
@@ -545,6 +546,18 @@ footer a:visited {
   border-bottom: 2px solid black;
   border-left: 2px solid black;
   border-right: 2px solid black;
+  display: grid;
+  grid-template-areas: 'left right';
+  grid-template-columns: 1fr 1fr;
+}
+
+.leftvalue{
+  grid-area:left;
+}
+
+.rightvalue{
+  grid-area: right;
+
 }
 
 .auction {

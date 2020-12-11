@@ -94,7 +94,7 @@ export default {
 
 #button {
   color: green;
-  
+
 }
 
 </style>

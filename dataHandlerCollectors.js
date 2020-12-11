@@ -211,6 +211,7 @@ Data.prototype.joinGame = function(roomId, playerId) {
         secret: [],
         myTurn: false,
         iStart: false,
+        bid: 0,
         bottles: [1, 1, 0, 0, 0],
         bottleAmount: 2
       };
@@ -292,8 +293,19 @@ Data.prototype.drawCard = function(roomId, playerId) {
 Data.prototype.placeBid = function(roomId, playerId, theBid) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
-    console.log(theBid);
-  }
+    room.players[playerId].bid = theBid;
+    console.log(room.players[playerId], "budade", room.players[playerId].bid);
+    return room.players;
+  } else return [];
+}
+
+Data.prototype.passBid = function(roomId, playerId) {
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+    room.players[playerId].bid = 0;
+    console.log(room.players[playerId], "budade", room.players[playerId].bid);
+    return room.players;
+  } else return [];
 }
 
 Data.prototype.claimAuctionCard = function(roomId, playerId, buttonAction) {

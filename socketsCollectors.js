@@ -52,6 +52,12 @@ function sockets(io, socket, data) {
     );
   });
 
+  socket.on('collectorsPassBid', function(d){
+    io.to(d.roomId).emit('collectorsPassedBid',
+      data.passBid(d.roomId, d.playerId)
+  );
+});
+
     socket.on('collectorsClaimCard', function(d) {
       data.claimAuctionCard(d.roomId, d.playerId, d.buttonAction)
       io.to(d.roomId).emit('collectorsClaimedCard', {

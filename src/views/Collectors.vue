@@ -74,15 +74,17 @@
       <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
     </div>
 
+    <p>
+      <label for="number"> Place bid (you can place coins or cards) RÄKNA SJÄLV FÖR FAN </label> <br>
+      <input type="number" id="myBid" name="bid" placeholder="Place your bid">
+    </p>
+    <button :disabled="!canIBid()" @click="placeBid()" >Place bid</button>
+    <button @click="passBid()">Pass</button>
+
     <div class="altButtons">
       <button @click="claimAuctionCard('item')">Place in item</button>
       <button @click="claimAuctionCard('skill')">Place in skill</button>
       <button @click="claimAuctionCard('market')">Add to market</button>
-      <p>
-        <label for="number"> Place bid (you can place coins or cards) RÄKNA SJÄLV FÖR FAN </label> <br>
-        <input type="number" id="myBid" name="bid" placeholder="Place your bid">
-      </p>
-      <button @click="placeBid()">Place bid</button>
     </div>
     <hr>
     Market
@@ -259,6 +261,12 @@ export default {
       }.bind(this)
     );
 
+    this.$store.state.socket.on('collectorsPassedBid',
+      function(d) {
+        this.players = d;
+      }.bind(this)
+    );
+
     this.$store.state.socket.on('collectorsClaimedCard',
       function(d) {
         //this has been refactored to not single out one player's cards
@@ -376,11 +384,49 @@ export default {
 
     placeBid: function() {
       var theBid = document.getElementById("myBid").value;
-      this.$store.state.socket.emit('collectorsPlaceBid', {
+      var canI = this.canIBid();
+      if (canI) {
+        this.$store.state.socket.emit('collectorsPlaceBid', {
+          roomId: this.$route.params.id,
+          playerId: this.playerId,
+          theBid: theBid
+        });
+      }
+    },
+
+    passBid: function() {
+      this.$store.state.socket.emit('collectorsPassBid', {
         roomId: this.$route.params.id,
-        playerId: this.playerId,
-        theBid: theBid
+        playerId: this.playerId
       });
+    },
+
+    canIBid: function() {
+      let highestBid = 0;
+      for (let i=0; i<this.players.length; i++){
+        if (this.players[i].bid > highestBid){
+          highestBid = this.players[i].bid;
+        }
+      }
+      if (highestBid > this.moneyCard()){
+        return false;
+      }
+      else {
+        return true;
+      }
+    },
+
+    moneyCard: function() {
+      let money = this.players[this.playerId].money;
+      for (let i=0; i<this.players[this.playerId].hand.length; i++){
+        if (this.players[this.playerId].hand[i].skill.includes("VP")){
+          money += 2;
+        }
+        else {
+          money +=1;
+        }
+      }
+      return money;
     },
 
     claimAuctionCard: function(buttonAction) {

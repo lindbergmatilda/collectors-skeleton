@@ -578,7 +578,8 @@ footer a:visited {
   grid-area: lower-auction;
   display: grid;
   grid-template-areas: 'header header' 'auctioncard auctionbuttons';
-  grid-template-rows: 80px 200px;
+  grid-template-rows: 90px 240px;
+  grid-template-columns: 190px 100px;
 
 }
 
@@ -596,6 +597,7 @@ footer a:visited {
 .card-for-auction {
   grid-area: auctioncard;
   padding: 35px;
+  background-color: lightgrey;
 }
 
 .work {

@@ -81,17 +81,17 @@
 
       <div class="gamezone">
 
-        <div class="item">ITEM
+        <div class="item">
           <collectorsBuyItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :itemsOnSale="itemsOnSale" :marketValues="marketValues" :placement="itemPlacement" @buyItem="buyItem($event)"
             @placeBottle="placeBottle('item', $event)" />
         </div>
 
-        <div class="skill">SKILL
+        <div class="skill">
           <CollectorsBuySkill v-if="players[playerId]" :labels="labels" :player="players[playerId]" :skillsOnSale="skillsOnSale" :marketValues="marketValues" :placement="skillPlacement" @buySkill="buySkill($event)"
             @placeBottle="placeBottle('skill', $event)" />
         </div>
 
-        <div class="value">VALUE
+        <div class="value">
           <CollectorsRaiseValue v-if="players[playerId]" :labels="labels" :player="players[playerId]" :marketValues="marketValues" :placement="marketPlacement" @raiseValue="raiseValue($event)" @placeBottle="placeBottle('market', $event)" />
 
           Market
@@ -110,7 +110,7 @@
         </div>
 
 
-        AUCTION
+
         <div class="auction">
 
 
@@ -123,10 +123,10 @@
 
 
             <div class="altButtons">
-              <button @click="claimAuctionCard('item')">Place in item</button> <br>
+              <button @click="claimAuctionCard('item')">Add item</button> <br>
 
-              <button @click="claimAuctionCard('skill')">Place in skill</button> <br>
-              <button @click="claimAuctionCard('market')">Add to market</button> <br>
+              <button @click="claimAuctionCard('skill')">Add skill</button> <br>
+              <button @click="claimAuctionCard('market')">Raise value</button> <br>
             </div>
 
 

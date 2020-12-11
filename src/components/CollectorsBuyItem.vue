@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h3>{{ labels.buyItem }}</h3>
+  <center><h2>{{ "ITEM" }}</h2></center>
   <div class="buy-item">
     <div v-for="(card, index) in itemsOnSale" :key="index">
       <CollectorsCard :card="card" :availableAction="card.available" @doAction="buyItem(card)" />
@@ -10,7 +10,7 @@
   <div>
     <div class="buttons" v-for="(p, index) in placement" :key="index">
 
-      <button  id="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost)" @click="placeBottle(p)">
+      <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost)" @click="placeBottle(p)">
         ${{p.cost}}
       </button>
 
@@ -88,13 +88,31 @@ export default {
   display: grid;
   grid-template-columns: repeat(auto-fill, 20%);
   transform: scale(0.4)translate(-25%, 0);
+    transform-origin: top;
+    margin-left: 90px;
+
+
 }
 .buttons {
-  display: inline; }
+  display: inline;
+  margin-left: 30px;
 
-#button {
-  color: green;
-  
+
+
+
+}
+
+.button {
+  width: 50px;
+  height: 50px;
+  margin-top: -100px;
+
+
+
+
+
+
+
 }
 
 </style>

@@ -18,11 +18,13 @@
       <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
     </p>
 
-<div class="head">
+    <div class="head">
 
-  <div class="your-playerboard">
+      <div class="your-playerboard">
 
-      <center>  <h2>Your Player Board</h2> </center>
+        <center>
+          <h2>Your Player Board</h2>
+        </center>
 
 
         Hand
@@ -43,39 +45,41 @@
           <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index" />
         </div>
 
-  </div>
+      </div>
 
-  <div class="opponentsBoard">
+      <div class="opponentsBoard">
 
-    <h3>Samtliga Spelare</h3>
+        <h3>Samtliga Spelare</h3>
 
         <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
 
           <h3>Player ID: {{playerId}}</h3>
           <img src="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
-        <h5>  Items: </h5>
+          <h5> Items: </h5>
           <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
-           {{itemInfo.item}} </div>
+            {{itemInfo.item}}
+          </div>
 
 
 
-        <h5>  Skills: </h5>
-           <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
-            {{skillInfo.skill}} </div>
+          <h5> Skills: </h5>
+          <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
+            {{skillInfo.skill}}
+          </div>
 
 
 
 
-          <h5>  Energy: </h5> {{players[playerId].bottles}}
+          <h5> Energy: </h5> {{players[playerId].bottles}}
 
 
         </div>
 
 
 
-  </div>
+      </div>
 
-<div class="gamezone">
+      <div class="gamezone">
 
         <div class="item">ITEM
           <collectorsBuyItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :itemsOnSale="itemsOnSale" :marketValues="marketValues" :placement="itemPlacement" @buyItem="buyItem($event)"
@@ -105,29 +109,39 @@
 
         </div>
 
-        <div class="auction">AUCTION
-          <CollectorsAuctionItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :auctionCards="auctionCards" :placement="auctionPlacement" @auctionItem="auctionItem($event)" @placeBottle="placeBottle('auction', $event)" />
 
-          Auction Area
-          <div class="cardslots">
-            <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
-          </div>
-          <!--div class="buttons">
-                <button @click="claimAuctionCard">
-                  {{ labels.claim }}
-                </button>
-              </div-->
-          <div class="altButtons">
-            <button @click="claimAuctionCard('item')">Place in item</button>
-            <button @click="claimAuctionCard('skill')">Place in skill</button>
-            <button @click="claimAuctionCard('market')">Add to market</button>
+        AUCTION
+        <div class="auction">
+
+
+          <div class="upper-auction">
+            <CollectorsAuctionItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :auctionCards="auctionCards" :placement="auctionPlacement" @auctionItem="auctionItem($event)" @placeBottle="placeBottle('auction', $event)" />
           </div>
 
 
+          <div class="lower-auction">
 
 
+            <div class="altButtons">
+              <button @click="claimAuctionCard('item')">Place in item</button> <br>
+
+              <button @click="claimAuctionCard('skill')">Place in skill</button> <br>
+              <button @click="claimAuctionCard('market')">Add to market</button> <br>
+            </div>
+
+
+                <div class="head-auction">
+                  <h5>Card up for auction</h5>
+                </div>
+                <div class="cardslots card-for-auction">
+              <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
+            </div>
+
+          </div>
 
         </div>
+
+
 
         <div class="work">WORK</div>
 
@@ -146,7 +160,7 @@
 
       <!---->
 
-</div>
+    </div>
 
   </main>
 
@@ -442,9 +456,9 @@ footer a:visited {
 .head {
   display: grid;
   grid-template-areas:
-  'gameboard your-board'
-  'gameboard other-boards'
-  'bottom-grid bottom-grid';
+    'gameboard your-board'
+    'gameboard other-boards'
+    'bottom-grid bottom-grid';
   grid-template-columns: 3fr 2fr;
   grid-template-rows: 1fr 1fr 1fr;
   max-width: 2000px;
@@ -477,7 +491,7 @@ footer a:visited {
 }
 
 .box {
-background-color: lightgrey;
+  background-color: lightgrey;
   border-radius: 40px;
   color: black;
   padding: 15px;
@@ -495,8 +509,8 @@ background-color: lightgrey;
     'thehand thehand thehand'
     'rest rest rest';
   max-width: 1000px;
-  grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows: 1fr 2fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr 400px;
+  grid-template-rows: 1fr 1000px 1fr 1fr 1fr;
 
   height: 500px;
   margin: 60px;
@@ -535,8 +549,40 @@ background-color: lightgrey;
 
 .auction {
   grid-area: auction;
+  display: grid;
+  grid-template-areas: 'upper-auction' 'lower-auction';
+  grid-template-rows: 600px 300px;
   background-color: #FFFFDB;
   border-right: 2px solid black;
+}
+
+.upper-auction {
+  grid-area: upper-auction;
+  padding-left: 25px;
+}
+
+.lower-auction {
+  grid-area: lower-auction;
+  display: grid;
+  grid-template-areas: 'header header' 'auctioncard auctionbuttons';
+  grid-template-rows: 80px 200px;
+
+}
+
+.head-auction {
+  grid-area: header;
+  padding: 30px;
+}
+
+.altButtons {
+  grid-area: auctionbuttons;
+  padding: 25px;
+  padding-left: 120px;
+}
+
+.card-for-auction {
+  grid-area: auctioncard;
+  padding: 35px;
 }
 
 .work {

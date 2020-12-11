@@ -1,18 +1,23 @@
 <template>
 <div>
-  <h3>{{ labels.auctionItem }}</h3>
-  <div class="auction-item">
-    <div v-for="(card, index) in auctionCards" :key="index">
-      <CollectorsCard :card="card" :availableAction="card.available" @doAction="auctionItem(card)" />
+  <center>
+    <h2>{{ labels.auctionItem }}</h2>
+  </center>
+  <div class="item-left-right">
+
+    <div class="right auction-item">
+      <div v-for="(card, index) in auctionCards" :key="index">
+        <CollectorsCard :card="card" :availableAction="card.available" @doAction="auctionItem(card)" />
+      </div>
     </div>
-  </div>
-  <div>
-    <div class="buttons" v-for="(p, index) in placement" :key="index">
-      <button v-if="p.playerId===null" :disabled="cannotAfford(p.cost)" @click="placeBottle(p)">
-        ${{p.cost}}
-      </button>
-      <div v-if="p.playerId !== null">
-        {{p.playerId}}
+    <div class="left buttons">
+      <div v-for="(p, index) in placement" :key="index">
+        <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost)" @click="placeBottle(p)">
+          ${{p.cost}}
+        </button>
+        <div v-if="p.playerId !== null">
+          {{p.playerId}}
+        </div>
       </div>
     </div>
   </div>
@@ -55,13 +60,13 @@ export default {
 
     highlightAvailableCards: function(cost = 100) {
       for (let i = 0; i < this.auctionCards.length; i += 1) {
-          this.$set(this.auctionCards[i], "available", true);
-        }
+        this.$set(this.auctionCards[i], "available", true);
+      }
       for (let i = 0; i < this.player.hand.length; i += 1) {
-          this.$set(this.player.hand[i], "available", true);
-        }
-        this.chosenPlacementCost = cost;
-      },
+        this.$set(this.player.hand[i], "available", true);
+      }
+      this.chosenPlacementCost = cost;
+    },
 
     auctionItem: function(card) {
       if (card.available) {
@@ -76,15 +81,38 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.item-left-right {
+  display: grid;
+  grid-template-areas: 'left right';
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+
+
+.buttons {
+  width: 70px;
+  display: grid;
+  grid-template-rows: repeat(auto-fill, 90px);
+}
+
+.button {
+  width: 50px;
+  height: 50px;
+}
+
+.left {
+  grid-area: left;
+}
+
+.right {
+  grid-area: right;
+}
+
 .auction-item {
   display: grid;
   grid-template-columns: repeat(auto-fill, 130px);
   transform: scale(0.4)translate(-25%, 0);
-}
-.buttons {
-  height: 50px;
-  width: 500px;
-  display: grid;
-
+  transform-origin: top;
 }
 </style>

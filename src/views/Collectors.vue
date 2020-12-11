@@ -78,8 +78,8 @@
       <label for="number"> Place bid (you can place coins or cards) RÄKNA SJÄLV FÖR FAN </label> <br>
       <input type="number" id="myBid" name="bid" placeholder="Place your bid">
     </p>
-    <button :disabled="!canIBid()" @click="placeBid()" >Place bid</button>
-    <button @click="passBid()">Pass</button>
+    <button v-if="players[playerId]" :disabled="!isMyAuctionTurn()" @click="placeBid()" >Place bid</button>
+    <button v-if="players[playerId]" :disabled="!isMyAuctionTurn()" @click="passBid()">Pass</button>
 
     <div class="altButtons">
       <button @click="claimAuctionCard('item')">Place in item</button>
@@ -181,8 +181,7 @@ export default {
       itemsOnSale: [],
       skillsOnSale: [],
       auctionCards: [],
-      theAuctionItem: [],
-      playerid: 0
+      theAuctionItem: []
     }
   },
   computed: {
@@ -257,7 +256,7 @@ export default {
 
     this.$store.state.socket.on('collectorsPlacedBid',
       function(d) {
-        this.players = d;
+        this.players = d.players;
       }.bind(this)
     );
 
@@ -384,15 +383,12 @@ export default {
 
     placeBid: function() {
       var theBid = document.getElementById("myBid").value;
-      var canI = this.canIBid();
-      if (canI) {
         this.$store.state.socket.emit('collectorsPlaceBid', {
           roomId: this.$route.params.id,
           playerId: this.playerId,
           theBid: theBid
         });
-      }
-    },
+      },
 
     passBid: function() {
       this.$store.state.socket.emit('collectorsPassBid', {
@@ -401,32 +397,11 @@ export default {
       });
     },
 
-    canIBid: function() {
-      let highestBid = 0;
-      for (let i=0; i<this.players.length; i++){
-        if (this.players[i].bid > highestBid){
-          highestBid = this.players[i].bid;
-        }
-      }
-      if (highestBid > this.moneyCard()){
-        return false;
-      }
-      else {
+    isMyAuctionTurn: function(){
+      if(this.players[this.playerId].auctionTurn){
         return true;
       }
-    },
-
-    moneyCard: function() {
-      let money = this.players[this.playerId].money;
-      for (let i=0; i<this.players[this.playerId].hand.length; i++){
-        if (this.players[this.playerId].hand[i].skill.includes("VP")){
-          money += 2;
-        }
-        else {
-          money +=1;
-        }
-      }
-      return money;
+        return false;
     },
 
     claimAuctionCard: function(buttonAction) {
@@ -481,7 +456,6 @@ export default {
     handleAction: function(card){
       console.log(this.chosenAction);
       if (this.chosenAction === "item") {
-        console.log("inne i if i handleaction");
         this.buyItem(card);
       }
       else if (this.chosenAction === "skill") {

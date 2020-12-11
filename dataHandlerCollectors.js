@@ -211,7 +211,9 @@ Data.prototype.joinGame = function(roomId, playerId) {
         secret: [],
         myTurn: false,
         iStart: false,
-        bid: 0,
+        bid: null,
+        moneyCard: 0,
+        auctionTurn: false,
         bottles: [1, 1, 0, 0, 0],
         bottleAmount: 2
       };
@@ -231,6 +233,24 @@ Data.prototype.getPlayers = function(id) {
   let room = this.rooms[id]
   if (typeof room !== 'undefined') {
     return room.players;
+  } else return {};
+}
+
+Data.prototype.getMoneyCard = function(roomId) {
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+    for (let i=0; i<room.playerList.length; i++){
+      let money = room.playerList[i].money;
+      for (let j=0; j<room.playerList[i].hand.length; j++){
+        if (room.playerList[i].hand[j].skill.includes("VP")){
+          money +=2;
+        }
+        else{
+          money +=1;
+        }
+      }
+      room.playerList[i].moneyCard = money;
+    }
   } else return {};
 }
 
@@ -263,7 +283,6 @@ Data.prototype.claimedFirst = function(roomId, playerId) {
         }
         }
       }
-      console.log(room.players);
       return room.players;
     }
   else return {};
@@ -294,7 +313,17 @@ Data.prototype.placeBid = function(roomId, playerId, theBid) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
     room.players[playerId].bid = theBid;
-    console.log(room.players[playerId], "budade", room.players[playerId].bid);
+    room.players[playerId].auctionTurn = false;
+
+    for (let i = 0; i < room.playerList.length; i++) {
+      if (room.players[playerId] === room.playerList[i]) {
+        if (room.players[playerId] === room.playerList[room.playerList.length - 1]) {
+          room.playerList[0].auctionTurn = true;
+        } else {
+          room.playerList[i + 1].auctionTurn = true;
+        }
+      }
+    }
     return room.players;
   } else return [];
 }
@@ -303,7 +332,17 @@ Data.prototype.passBid = function(roomId, playerId) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
     room.players[playerId].bid = 0;
-    console.log(room.players[playerId], "budade", room.players[playerId].bid);
+    room.players[playerId].auctionTurn = false;
+
+    for (let i = 0; i < room.playerList.length; i++) {
+      if (room.players[playerId] === room.playerList[i]) {
+        if (room.players[playerId] === room.playerList[room.playerList.length - 1]) {
+          room.playerList[0].auctionTurn = true;
+        } else {
+          room.playerList[i + 1].auctionTurn = true;
+        }
+      }
+    }
     return room.players;
   } else return [];
 }
@@ -333,7 +372,6 @@ Data.prototype.claimAuctionCard = function(roomId, playerId, buttonAction) {
       room.market.push(card);
     }
     room.theAuctionItem = [];
-    console.log(room.playerList);
     return room.players;
   } else return [];
 }
@@ -525,13 +563,10 @@ Data.prototype.nextRoundPlayers = function(roomId, players) {
 
 for(let i=0; i<room.playerList.length; i++){
     room.playerList[i].myTurn = false;
-    console.log(room.playerList[i].myTurn);
     if(room.playerList[i].iStart){
       room.playerList[i].myTurn = true;
     }
   }
-
-console.log(room.playerList);
 
     for (let i = 0; i < room.playerList.length; i += 1) {
       room.playerList[i].money += room.playerList[i].income; //ger spelaren pengar
@@ -574,7 +609,6 @@ Data.prototype.buySkill = function(roomId, playerId, card, cost) {
     }
 
     if (c[0].skill == "bottle") {
-      console.log("du fick en flaska");
       room.players[playerId].bottleAmount += 1;
       room.players[playerId].bottles[0] = 1;
     }
@@ -620,13 +654,13 @@ Data.prototype.auctionItem = function(roomId, playerId, card, cost) {
       if (room.players[playerId].hand[i].x === card.x &&
         room.players[playerId].hand[i].y === card.y) {
         c = room.players[playerId].hand.splice(i, 1);
-        console.log(c);
         break;
       }
     }
     room.theAuctionItem.push(...c);
     room.players[playerId].money -= cost;
     room.players[playerId].myTurn = false;
+    room.players[playerId].auctionTurn = true;
 
     for (let i = 0; i < room.playerList.length; i++) {
       if (room.players[playerId] === room.playerList[i]) {

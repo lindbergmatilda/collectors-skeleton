@@ -47,8 +47,10 @@ function sockets(io, socket, data) {
     });
 
     socket.on('collectorsPlaceBid', function(d){
-      io.to(d.roomId).emit('collectorsPlacedBid',
-        data.placeBid(d.roomId, d.playerId, d.theBid)
+      data.placeBid(d.roomId, d.playerId, d.theBid)
+      io.to(d.roomId).emit('collectorsPlacedBid', {
+        players: data.getPlayers(d.roomId)
+      }
     );
   });
 
@@ -113,7 +115,8 @@ function sockets(io, socket, data) {
     });
 
     socket.on('collectorsAuctionItem', function(d) {
-      data.auctionItem(d.roomId, d.playerId, d.card, d.cost)
+      data.auctionItem(d.roomId, d.playerId, d.card, d.cost),
+      data.getMoneyCard(d.roomId)
       io.to(d.roomId).emit('collectorsItemAuctioned', {
           playerId: d.playerId,
           players: data.getPlayers(d.roomId),

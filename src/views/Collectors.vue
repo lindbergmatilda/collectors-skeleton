@@ -89,7 +89,7 @@
             @placeBottle="placeBottle('skill', $event)" />
         </div>
 
-        <div class="value">VALUE
+        <div class="value">
 
           <div class="leftvalue">
           <CollectorsRaiseValue v-if="players[playerId]" :labels="labels" :player="players[playerId]" :marketValues="marketValues" :placement="marketPlacement" @raiseValue="raiseValue($event)" @placeBottle="placeBottle('market', $event)" />

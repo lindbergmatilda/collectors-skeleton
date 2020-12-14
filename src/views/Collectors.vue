@@ -123,14 +123,14 @@
 
 
             <div class="altButtons">
-               <button class="altButton" @click="claimAuctionCard('item')">Add item</button> <br>
-               <button class="altButton" @click="claimAuctionCard('skill')">Add skill</button> <br>
-               <button class="altButton" @click="claimAuctionCard('market')">Raise value</button> <br>
+               <button class="altButton" @click="claimAuctionCard('item')">ADD ITEM</button> <br>
+               <button class="altButton" @click="claimAuctionCard('skill')">ADD SKILL</button> <br>
+               <button class="altButton" @click="claimAuctionCard('market')">RAISE VALUE</button> <br>
              </div>
 
 
                 <div class="head-auction">
-                  <h5>Card up for auction</h5>
+                  <h5>CARD UP FOR AUCTION</h5>
                 </div>
                 <div class="cardslots card-for-auction">
               <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
@@ -483,6 +483,8 @@ footer a:visited {
 }
 
 .opponentsBoard {
+  font-family: "Lexend Deca", sans-serif;
+  color:black;
   grid-area: other-boards;
   margin: 60px;
   padding: 20px;
@@ -501,6 +503,10 @@ background-color: lightgrey;
 }
 
 .gamezone {
+  font-family: "Lexend Deca", sans-serif;
+  font-weight: bold;
+  color: black;
+
   grid-area: gameboard;
   display: grid;
   grid-template-areas:
@@ -588,7 +594,7 @@ background-color: lightgrey;
 
 .head-auction {
   grid-area: header;
-  padding: 30px;
+  padding: 14px;
 }
 
 .altButtons {

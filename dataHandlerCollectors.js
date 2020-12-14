@@ -440,6 +440,32 @@ Data.prototype.buyItem = function(roomId, playerId, card, cost) {
   }
 }
 
+Data.prototype.payAuction= function(roomId, playerId, cost, card){
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+
+    let cardValue = 0;
+
+    for (let i = 0; i < room.players[playerId].hand.length; i += 1) {
+      if (room.players[playerId].hand[i].x === card.x &&
+        room.players[playerId].hand[i].y === card.y) {
+        room.players[playerId].hand.splice(i, 1);
+
+        if (card.skill.includes("VP")){
+          cardValue +=2;
+        }
+        else{
+          cardValue +=1;
+        }
+
+        room.players[playerId].bid -= cardValue;
+        break;
+      }
+    }
+
+  }
+}
+
 Data.prototype.raiseValue = function(roomId, playerId, card, cost, position) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
@@ -652,7 +678,7 @@ Data.prototype.buySkill = function(roomId, playerId, card, cost) {
         } else {
           room.playerList[i + 1].myTurn = true;
         }
-      }
+      } //alla flaskor slut xd
     }
   }
 }
@@ -706,6 +732,17 @@ Data.prototype.workArea = function(roomId, playerId, cost, position) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
     let c = null;
+
+for(let i = 0; i<room.players[playerId].skills.length; i++){
+      if (room.players[playerId].skills[i].skill === "workerIncome"){
+        room.players[playerId].money += 2;
+      }
+      if (room.players[playerId].skills[i].skill === "workerCard"){
+        let cardFromDeck = room.deck.pop();
+        room.players[playerId].hand.push(cardFromDeck);
+    }
+  }
+
       if (position === 0 ) {
         room.players[playerId].income+=2;
       }

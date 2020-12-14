@@ -85,7 +85,7 @@
       <label for="number"> How many cards would you like to pay with?</label> <br>
       <input type="number" id="myPayment" name="pay" placeholder="Number of cards">
     </p>
-    <button :disabled="!winnerAuction()" @click="payAuctionCard()">Pay</button>
+    <button v-if="players[playerId]" :disabled="!winnerAuction()" @click="pressedPay()">Pay</button>
 
     <div class="altButtons">
       <button v-if="players[playerId]" :disabled="!winnerAuction()" @click="claimAuctionCard('item')">Place in item</button>
@@ -200,7 +200,7 @@ export default {
       console.log(newP, oldP)
       for (let p in this.players) {
         for (let c = 0; c < this.players[p].hand.length; c += 1) {
-          if (typeof this.players[p].hand[c].item !== "undefined")
+          if (typeof this.players[p].hand[c].item !== "undefined" )
             this.$set(this.players[p].hand[c], "available", false);
         }
       }
@@ -261,6 +261,12 @@ export default {
     );
 
     this.$store.state.socket.on('collectorsPlacedBid',
+      function(d) {
+        this.players = d.players;
+      }.bind(this)
+    );
+
+    this.$store.state.socket.on('collectorsPaidAuction',
       function(d) {
         this.players = d.players;
       }.bind(this)
@@ -403,6 +409,7 @@ export default {
       });
     },
 
+
     isMyAuctionTurn: function(){
       if(this.players[this.playerId].auctionTurn){
         return true;
@@ -412,9 +419,33 @@ export default {
 
     winnerAuction: function(){
       if(this.players[this.playerId].auctionWinner){
+
         return true;
       }
         return false;
+    },
+
+    payAuction: function(card) {
+
+      if (card.available) {
+        this.$store.state.socket.emit('payAuction', {
+          roomId: this.$route.params.id,
+          playerId: this.playerId,
+          cost: this.playerId.bid,
+          card: card
+      });
+    }
+},
+
+    pressedPay: function(){
+      let payNumberOfCards = document.getElementById("myPayment").value
+
+
+      for(let j = 0; j<payNumberOfCards; j++){
+      for (let i = 0; i < this.players[this.playerId].hand.length; i += 1) {
+          this.$set(this.players[this.playerId].hand[i], "available", true);
+        }
+      }
     },
 
     claimAuctionCard: function(buttonAction) {
@@ -468,11 +499,15 @@ export default {
 
     handleAction: function(card){
       console.log(this.chosenAction);
+
       if (this.chosenAction === "item") {
         this.buyItem(card);
       }
       else if (this.chosenAction === "skill") {
         this.getSkill(card);
+      }
+      else if (this.chosenAction === "pay") {
+        this.payAuction(card);
       }
       else if (this.chosenAction === "auction") {
         this.auctionItem(card);

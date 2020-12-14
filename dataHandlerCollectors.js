@@ -62,6 +62,7 @@ Data.prototype.createRoom = function(roomId, playerCount, lang = "en") {
   room.lang = lang;
   room.deck = this.createDeck(lang);
   room.playerCount = playerCount;
+  console.log("vi väntar på ", playerCount);
   room.itemsOnSale = room.deck.splice(0, 5);
   room.skillsOnSale = room.deck.splice(0, 5);
   room.auctionCards = room.deck.splice(0, 4);
@@ -214,6 +215,7 @@ Data.prototype.joinGame = function(roomId, playerId) {
         bid: null,
         moneyCard: 0,
         auctionTurn: false,
+        auctionWinner: false,
         bottles: [1, 1, 0, 0, 0],
         bottleAmount: 2
       };
@@ -343,6 +345,22 @@ Data.prototype.passBid = function(roomId, playerId) {
         }
       }
     }
+
+    let bidders = 0;
+    for (let j=0; j< room.playerList.length; j++){
+      if (room.playerList[j].bid !== 0){
+        bidders +=1;
+      }
+    }
+
+    if(bidders === 1){
+      for (let k=0; k< room.playerList.length; k++){
+        if (room.playerList[k].bid !== 0){
+          room.playerList[k].auctionWinner = true;
+        }
+      }
+    }
+
     return room.players;
   } else return [];
 }
@@ -372,6 +390,15 @@ Data.prototype.claimAuctionCard = function(roomId, playerId, buttonAction) {
       room.market.push(card);
     }
     room.theAuctionItem = [];
+
+    for (let i=0; i<room.playerList.length; i++){
+      room.playerList[i].bid = null;
+      room.playerList[i].auctionTurn = false;
+      room.playerList[i].auctionWinner = false;
+    }
+
+    console.log("från data efter claim:", room.players);
+
     return room.players;
   } else return [];
 }

@@ -81,10 +81,16 @@
     <button v-if="players[playerId]" :disabled="!isMyAuctionTurn()" @click="placeBid()" >Place bid</button>
     <button v-if="players[playerId]" :disabled="!isMyAuctionTurn()" @click="passBid()">Pass</button>
 
+    <p>
+      <label for="number"> How many cards would you like to pay with?</label> <br>
+      <input type="number" id="myPayment" name="pay" placeholder="Number of cards">
+    </p>
+    <button :disabled="!winnerAuction()" @click="payAuctionCard()">Pay</button>
+
     <div class="altButtons">
-      <button @click="claimAuctionCard('item')">Place in item</button>
-      <button @click="claimAuctionCard('skill')">Place in skill</button>
-      <button @click="claimAuctionCard('market')">Add to market</button>
+      <button v-if="players[playerId]" :disabled="!winnerAuction()" @click="claimAuctionCard('item')">Place in item</button>
+      <button v-if="players[playerId]" :disabled="!winnerAuction()" @click="claimAuctionCard('skill')">Place in skill</button>
+      <button v-if="players[playerId]" :disabled="!winnerAuction()" @click="claimAuctionCard('market')">Add to market</button>
     </div>
     <hr>
     Market
@@ -262,7 +268,7 @@ export default {
 
     this.$store.state.socket.on('collectorsPassedBid',
       function(d) {
-        this.players = d;
+        this.players = d.players;
       }.bind(this)
     );
 
@@ -399,6 +405,13 @@ export default {
 
     isMyAuctionTurn: function(){
       if(this.players[this.playerId].auctionTurn){
+        return true;
+      }
+        return false;
+    },
+
+    winnerAuction: function(){
+      if(this.players[this.playerId].auctionWinner){
         return true;
       }
         return false;

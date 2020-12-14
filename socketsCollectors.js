@@ -55,8 +55,10 @@ function sockets(io, socket, data) {
   });
 
   socket.on('collectorsPassBid', function(d){
-    io.to(d.roomId).emit('collectorsPassedBid',
-      data.passBid(d.roomId, d.playerId)
+    data.passBid(d.roomId, d.playerId)
+    io.to(d.roomId).emit('collectorsPassedBid', {
+      players: data.getPlayers(d.roomId)
+    }
   );
 });
 

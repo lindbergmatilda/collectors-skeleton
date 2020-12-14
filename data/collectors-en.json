@@ -6,5 +6,15 @@
 	"buyItem": "Buy an item",
 	"buySkill": "Buy a skill",
 	"raiseValue": "Raise a value",
-	"auctionItem": "Start an auction"
+	"auctionItem": "Start an auction",
+	"yourPlayerBoard": "YOUR PLAYER BOARD",
+	"hand": "HAND: ",
+	"items": "ITEMS: ",
+	"skills": "SKILLS: ",
+	"allPlayers": "ALL PLAYERS",
+	"playerID": "PLAYER ID: ",
+	"bottles":"MOVES: ",
+	"cardUp":"CARD UP FOR AUCTION",
+	"marketValues":"MARKET VALUES"
+
 }

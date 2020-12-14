@@ -1,7 +1,9 @@
 <template>
 <div>
   <center>
-    <h2>{{ "AUCTION" }}</h2> <br>
+    <div class="label-auction">
+    <h2>{{ "AUCTION" }}</h2></div> <br>
+
   </center>
   <div class="item-left-right">
 
@@ -147,4 +149,5 @@ button[disabled]{
   transform: scale(0.4)translate(-25%, 0);
   transform-origin: top;
 }
+
 </style>

@@ -22,22 +22,22 @@
 
   <div class="your-playerboard">
 
-      <center>  <h2>YOUR PLAYER BOARD</h2> </center>
+      <center>  <h2>{{ labels.yourPlayerBoard }}</h2> </center>
 
 
-        HAND
+        {{ labels.hand }}
         <hr>
         <div class="cardslots" v-if="players[playerId]">
           <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="handleAction(card)" :key="index" />
         </div>
 
-        YOUR ITEMS
+        {{ labels.items }}
         <hr>
         <div class="cardslots" v-if="players[playerId]">
           <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index" />
         </div>
 
-        YOUR SKILLS
+        {{ labels.skills }}
         <hr>
         <div class="cardslots" v-if="players[playerId]">
           <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index" />
@@ -47,28 +47,28 @@
 
   <div class="opponentsBoard">
 
-        <h3>ALL PLAYER</h3>
+        <h3> {{ labels.allPlayers }} </h3>
 
         <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
 
-          <h3>PLAYER ID: {{playerId}}</h3>
+          <h3>{{ labels.playerID }}{{playerId}}</h3>
           <img src="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
-          <h5> Items: </h5>
+          <h5> {{ labels.items }} </h5>
           <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
             {{itemInfo.item}}
           </div>
 
 
 
-          <h5> SKILLS: </h5>
+          <h5> {{ labels.skills }} </h5>
           <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
             {{skillInfo.skill}}
-          </div>
+</div>
 
 
 
 
-          <h5> MOVES: </h5> {{players[playerId].bottles}}
+          <h5> {{ labels.bottles }}{{players[playerId].bottles}} </h5>
 
 
         </div>
@@ -97,7 +97,7 @@
 
           <div class="rightvalue">
 
-          <h5>MARKET VALUES</h5>
+          <h5>{{ labels.marketValues }} </h5>
           <img src="/images/movie.png" width="50"> x {{marketValues.movie}}<hr class="blueline">
            <img src="/images/music.png" width="50"> x {{marketValues.music}}<hr class="blueline">
            <img src="/images/penguin.png" width="50"> x {{marketValues.fastaval}}<hr class="blueline">
@@ -130,7 +130,7 @@
 
 
                 <div class="head-auction">
-                  <h5>CARD UP FOR AUCTION</h5>
+                  <h5>{{ labels.cardUp }}</h5>
                 </div>
                 <div class="cardslots card-for-auction">
               <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
@@ -146,7 +146,7 @@
 
 
         <div class="theRest">
-          
+
 
 
 

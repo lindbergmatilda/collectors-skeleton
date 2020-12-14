@@ -97,12 +97,12 @@
 
           <div class="rightvalue">
 
-          <h5>Market Values</h5>
-          <img src="/images/movie.png" width="50"> : {{marketValues.movie}}<hr class="blueline">
-           <img src="/images/music.png" width="50">: {{marketValues.music}}<hr class="blueline">
-           <img src="/images/penguin.png" width="50">: {{marketValues.fastaval}}<hr class="blueline">
-           <img src="/images/robot.png" width="50">: {{marketValues.figures}}<hr class="blueline">
-           <img src="/images/tech.png" width="50">: {{marketValues.technology}}<br>
+          <h5>MARKET VALUES</h5>
+          <img src="/images/movie.png" width="50"> x {{marketValues.movie}}<hr class="blueline">
+           <img src="/images/music.png" width="50"> x {{marketValues.music}}<hr class="blueline">
+           <img src="/images/penguin.png" width="50"> x {{marketValues.fastaval}}<hr class="blueline">
+           <img src="/images/robot.png" width="50"> x {{marketValues.figures}}<hr class="blueline">
+           <img src="/images/tech.png" width="50"> x {{marketValues.technology}}<br>
 
           </div>
 

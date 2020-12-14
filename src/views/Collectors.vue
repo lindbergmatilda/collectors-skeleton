@@ -47,24 +47,35 @@
 
   <div class="opponentsBoard">
 
-    <h3>Samtliga Spelare</h3>
+        <h3>Samtliga Spelare</h3>
 
         <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
 
-          <h5>Player ID: {{playerId}}</h5>
-
+          <h3>Player ID: {{playerId}}</h3>
+          <img src="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
+          <h5> Items: </h5>
           <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
-          Items: {{itemInfo.item}} </div> <!-- HÄR BEHÖVER VI HÄMTA TYP AV ITEM EJ HELA LISTAN; HUR?   {{players[playerId].items}} -->
+            {{itemInfo.item}}
+          </div>
 
-          Skills: {{players[playerId].skills}} <br>
-          Bottles: {{players[playerId].bottles}} <br>
+
+
+          <h5> Skills: </h5>
+          <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
+            {{skillInfo.skill}}
+          </div>
+
+
+
+
+          <h5> Energy: </h5> {{players[playerId].bottles}}
 
 
         </div>
 
 
 
-  </div>
+      </div>
 
 <div class="gamezone">
 
@@ -78,50 +89,60 @@
             @placeBottle="placeBottle('skill', $event)" />
         </div>
 
-        <div class="value">
-          <CollectorsRaiseValue v-if="players[playerId]" :labels="labels" :player="players[playerId]" :marketValues="marketValues" :placement="marketPlacement" @raiseValue="raiseValue($event)" @placeBottle="placeBottle('market', $event)" />
+        <div class="value">VALUE
 
-          Market
-          <div class="cardslots">
-            <CollectorsCard v-for="(card, index) in market" :card="card" :key="index" />
-            test
+          <div class="leftvalue">
+          <CollectorsRaiseValue v-if="players[playerId]" :labels="labels" :player="players[playerId]" :marketValues="marketValues" :placement="marketPlacement" @raiseValue="raiseValue($event)" @placeBottle="placeBottle('market', $event)" />
           </div>
 
-br
+          <div class="rightvalue">
+
           <h5>Market Values</h5>
-          Fastaval: {{marketValues.fastaval}} <br>
-          Movie: {{marketValues.movie}} <br>
-          Technology: {{marketValues.technology}} <br>
-          Figures: {{marketValues.figures}} <br>
-          Music: {{marketValues.music}} <br>
+          <img src="/images/movie.png" width="50"> : {{marketValues.movie}}<hr class="blueline">
+           <img src="/images/music.png" width="50">: {{marketValues.music}}<hr class="blueline">
+           <img src="/images/penguin.png" width="50">: {{marketValues.fastaval}}<hr class="blueline">
+           <img src="/images/robot.png" width="50">: {{marketValues.figures}}<hr class="blueline">
+           <img src="/images/tech.png" width="50">: {{marketValues.technology}}<br>
+
+          </div>
 
         </div>
 
-        <div class="auction">AUCTION
-          <CollectorsAuctionItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :auctionCards="auctionCards" :placement="auctionPlacement" @auctionItem="auctionItem($event)" @placeBottle="placeBottle('auction', $event)" />
 
-          Auction Area
-          <div class="cardslots">
-            <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
-          </div>
-          <!--div class="buttons">
-                <button @click="claimAuctionCard">
-                  {{ labels.claim }}
-                </button>
-              </div-->
-          <div class="altButtons">
-            <button @click="claimAuctionCard('item')">Place in item</button>
-            <button @click="claimAuctionCard('skill')">Place in skill</button>
-            <button @click="claimAuctionCard('market')">Add to market</button>
+
+
+        <div class="auction">
+
+
+          <div class="upper-auction">
+            <CollectorsAuctionItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :auctionCards="auctionCards" :placement="auctionPlacement" @auctionItem="auctionItem($event)" @placeBottle="placeBottle('auction', $event)" />
           </div>
 
 
+          <div class="lower-auction">
 
 
+            <div class="altButtons">
+               <button class="altButton" @click="claimAuctionCard('item')">Add item</button> <br>
+               <button class="altButton" @click="claimAuctionCard('skill')">Add skill</button> <br>
+               <button class="altButton" @click="claimAuctionCard('market')">Raise value</button> <br>
+             </div>
+
+
+                <div class="head-auction">
+                  <h5>Card up for auction</h5>
+                </div>
+                <div class="cardslots card-for-auction">
+              <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
+            </div>
+
+          </div>
 
         </div>
 
         <div class="work">WORK</div>
+
+
 
 
         <div class="theRest">
@@ -488,10 +509,10 @@ background-color: lightgrey;
     'rest rest rest';
   max-width: 1000px;
   width: 800px;
-  
 
-  grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows: 1fr 500px 1fr 1fr 1fr;
+
+  grid-template-columns: 1fr 2fr 400px;
+  grid-template-rows: 1fr 1000px 1fr 1fr 1fr;
 
   height: 500px;
   margin: 60px;
@@ -526,12 +547,82 @@ background-color: lightgrey;
   border-bottom: 2px solid black;
   border-left: 2px solid black;
   border-right: 2px solid black;
+  display: grid;
+  grid-template-areas: 'left right';
+  grid-template-columns: 1fr 1fr;
+}
+
+.leftvalue{
+  grid-area:left;
+}
+
+.rightvalue{
+  grid-area: right;
+
 }
 
 .auction {
   grid-area: auction;
+  display: grid;
+  grid-template-areas: 'upper-auction' 'lower-auction';
+  grid-template-rows: 600px 300px;
   background-color: #FFFFDB;
   border-right: 2px solid black;
+}
+
+.upper-auction {
+  grid-area: upper-auction;
+  padding-left: 25px;
+}
+
+.lower-auction {
+  grid-area: lower-auction;
+  display: grid;
+  grid-template-areas: 'header header' 'auctioncard auctionbuttons';
+  grid-template-rows: 90px 240px;
+  grid-template-columns: 190px 100px;
+
+}
+
+.head-auction {
+  grid-area: header;
+  padding: 30px;
+}
+
+.altButtons {
+  grid-area: auctionbuttons;
+  padding: 25px;
+  padding-left: 20px;
+  
+}
+
+.altButton {
+  width: 50px;
+  height: 50px;
+  margin:40px;
+  margin-top: -100px;
+  color: white;
+  text-transform:capitalize;
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 10px;
+  background: orange;
+  border-radius: 20px;
+  border: none;
+  transition: all 0.4s ease 0s;
+}
+.altButton:hover {
+  text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  transition: all 0.4s ease 0.2s;
+  background: #ffc34d;
+  width: 100px;
+}
+
+.card-for-auction {
+  grid-area: auctioncard;
+  padding: 35px;
+  background-color: lightgrey;
 }
 
 .work {

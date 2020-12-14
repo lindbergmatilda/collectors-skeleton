@@ -511,7 +511,7 @@ background-color: lightgrey;
   width: 800px;
 
 
-  grid-template-columns: 1fr 2fr 400px;
+  grid-template-columns: 380px 2fr 400px;
   grid-template-rows: 300px 1000px 1fr 1fr 1fr;
 
   height: 500px;

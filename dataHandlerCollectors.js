@@ -208,6 +208,7 @@ Data.prototype.joinGame = function(roomId, playerId) {
         points: 0,
         skills: [],
         items: [],
+        discard: [],
         income: 0,
         secret: [],
         myTurn: false,
@@ -394,7 +395,6 @@ Data.prototype.claimAuctionCard = function(roomId, playerId, buttonAction) {
     for (let i=0; i<room.playerList.length; i++){
       room.playerList[i].bid = null;
       room.playerList[i].auctionTurn = false;
-      room.playerList[i].auctionWinner = false;
     }
 
     console.log("från data efter claim:", room.players);
@@ -443,13 +443,13 @@ Data.prototype.buyItem = function(roomId, playerId, card, cost) {
 Data.prototype.payAuction= function(roomId, playerId, cost, card){
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
-
+    let c = null;
     let cardValue = 0;
 
     for (let i = 0; i < room.players[playerId].hand.length; i += 1) {
       if (room.players[playerId].hand[i].x === card.x &&
         room.players[playerId].hand[i].y === card.y) {
-        room.players[playerId].hand.splice(i, 1);
+        c = room.players[playerId].hand.splice(i, 1);
 
         if (card.skill.includes("VP")){
           cardValue +=2;
@@ -457,12 +457,23 @@ Data.prototype.payAuction= function(roomId, playerId, cost, card){
         else{
           cardValue +=1;
         }
-
+        room.players[playerId].discard.push(...c);
         room.players[playerId].bid -= cardValue;
         break;
       }
     }
 
+  }
+}
+
+Data.prototype.payAuctionCard = function(roomId, playerId, cost){
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+    room.players[playerId].money -= cost;
+    room.players[playerId].bid -= cost;
+    room.players[playerId].auctionWinner = false;
+    console.log(cost, " status ", room.players[playerId]);
+    return room.players;
   }
 }
 

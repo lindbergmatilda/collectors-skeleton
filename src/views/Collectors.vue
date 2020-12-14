@@ -8,7 +8,7 @@
     </p>
 
     <div class="buttons">
-      <button @click="claimFirstPlayer">
+      <button v-if="players[playerId]" @click="claimFirstPlayer">
         {{ labels.firstPlayer }}
       </button>
     </div>
@@ -19,7 +19,7 @@
       </button>
     </div>
     <div class="buttons">
-      <button @click="refill">
+      <button v-if="players[playerId]" :disabled="!nextRound()" @click="refill">
         {{ labels.refill }}
       </button>
     </div>
@@ -76,21 +76,17 @@
 
     <p>
       <label for="number"> Place bid (you can place coins or cards) RÄKNA SJÄLV FÖR FAN </label> <br>
-      <input type="number" id="myBid" name="bid" placeholder="Place your bid">
+      <input type="number" v-model="myBid" name="bid" placeholder="Place your bid">
     </p>
-    <button v-if="players[playerId]" :disabled="!isMyAuctionTurn()" @click="placeBid()" >Place bid</button>
-    <button v-if="players[playerId]" :disabled="!isMyAuctionTurn()" @click="passBid()">Pass</button>
+    <button v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction()" @click="placeBid()" >Place bid</button>
+    <button v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction()" @click="passBid()">Pass</button>
 
-    <p>
-      <label for="number"> How many cards would you like to pay with?</label> <br>
-      <input type="number" id="myPayment" name="pay" placeholder="Number of cards">
-    </p>
-    <button v-if="players[playerId]" :disabled="!winnerAuction()" @click="pressedPay()">Pay</button>
+    <button v-if="players[playerId]" :disabled="!winnerAuction()" @click="payRestCoins()">Pay rest in coins</button>
 
     <div class="altButtons">
-      <button v-if="players[playerId]" :disabled="!winnerAuction()" @click="claimAuctionCard('item')">Place in item</button>
-      <button v-if="players[playerId]" :disabled="!winnerAuction()" @click="claimAuctionCard('skill')">Place in skill</button>
-      <button v-if="players[playerId]" :disabled="!winnerAuction()" @click="claimAuctionCard('market')">Add to market</button>
+      <button v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('item')">Place in item</button>
+      <button v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('skill')">Place in skill</button>
+      <button v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('market')">Add to market</button>
     </div>
     <hr>
     Market
@@ -175,6 +171,7 @@ export default {
       workPlacement: [],
       chosenPlacementCost: null,
       chosenAction: null,
+      canIClaim: false,
       chosenPlacementPosition: null,
       marketValues: {
         fastaval: 0,
@@ -187,7 +184,8 @@ export default {
       itemsOnSale: [],
       skillsOnSale: [],
       auctionCards: [],
-      theAuctionItem: []
+      theAuctionItem: [],
+      myBid: 0
     }
   },
   computed: {
@@ -269,6 +267,18 @@ export default {
     this.$store.state.socket.on('collectorsPaidAuction',
       function(d) {
         this.players = d.players;
+        if (this.players[this.playerId].bid >0){
+          this.highlightHand(true);
+        }
+      }.bind(this)
+    );
+
+    this.$store.state.socket.on('paidAuctionRestCoins',
+      function(d) {
+        this.players = d.players;
+        if (this.players[this.playerId].bid === 0){
+          this.highlightHand(false);
+        }
       }.bind(this)
     );
 
@@ -286,6 +296,7 @@ export default {
         this.theAuctionItem = d.theAuctionItem;
         this.market = d.market;
         this.marketValues = d.marketValues;
+        this.canIClaim = false;
       }.bind(this)
     );
 
@@ -349,9 +360,8 @@ export default {
         this.theAuctionItem = d.theAuctionItem;
       }.bind(this)
     );
-
-
   },
+
   methods: {
     selectAll: function(n) {
       n.target.select();
@@ -379,6 +389,17 @@ export default {
       });
     },
 
+    nextRound: function(){
+      for(let i=0; i<Object.keys(this.players).length; i++){
+        for (let j=0; j<5; j++){
+          if (this.players[Object.keys(this.players)[i]].bottles[j] === 1){
+            return false;
+          }
+        }
+      }
+      return true;
+    },
+
     refill: function() {
       this.$store.state.socket.emit('collectorsRefill', {
         roomId: this.$route.params.id,
@@ -394,7 +415,7 @@ export default {
     },
 
     placeBid: function() {
-      var theBid = document.getElementById("myBid").value;
+      var theBid = this.myBid;
         this.$store.state.socket.emit('collectorsPlaceBid', {
           roomId: this.$route.params.id,
           playerId: this.playerId,
@@ -419,14 +440,14 @@ export default {
 
     winnerAuction: function(){
       if(this.players[this.playerId].auctionWinner){
-
+        this.highlightHand(true);
+        this.chosenAction = "pay";
         return true;
       }
         return false;
     },
 
     payAuction: function(card) {
-
       if (card.available) {
         this.$store.state.socket.emit('payAuction', {
           roomId: this.$route.params.id,
@@ -437,16 +458,21 @@ export default {
     }
 },
 
-    pressedPay: function(){
-      let payNumberOfCards = document.getElementById("myPayment").value
+payRestCoins: function(){
+  this.chosenAction = null;
+  this.$store.state.socket.emit('payAuctionRestCoins', {
+    roomId: this.$route.params.id,
+    playerId: this.playerId,
+    cost: this.players[this.playerId].bid
+});
+  this.canIClaim = true;
+},
 
-
-      for(let j = 0; j<payNumberOfCards; j++){
-      for (let i = 0; i < this.players[this.playerId].hand.length; i += 1) {
-          this.$set(this.players[this.playerId].hand[i], "available", true);
-        }
-      }
-    },
+highlightHand: function(boolean){
+  for (let i = 0; i < this.players[this.playerId].hand.length; i += 1) {
+    this.$set(this.players[this.playerId].hand[i], "available", boolean);
+  }
+},
 
     claimAuctionCard: function(buttonAction) {
       this.$store.state.socket.emit('collectorsClaimCard', {
@@ -478,6 +504,7 @@ export default {
 
     auctionItem: function(card) {
       console.log("auctionItem", card);
+      this.chosenAction = null;
       this.$store.state.socket.emit('collectorsAuctionItem', {
         roomId: this.$route.params.id,
         playerId: this.playerId,
@@ -488,6 +515,7 @@ export default {
 
     raiseValue: function(card) {
       console.log("raiseValue", card);
+      this.chosenAction = null;
       this.$store.state.socket.emit('collectorsRaiseValue', {
         roomId: this.$route.params.id,
         playerId: this.playerId,

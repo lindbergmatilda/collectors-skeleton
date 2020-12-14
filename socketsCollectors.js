@@ -70,6 +70,14 @@ socket.on('payAuction', function(d){
 );
 });
 
+socket.on('payAuctionRestCoins', function(d){
+  data.payAuctionCard(d.roomId, d.playerId, d.cost)
+  io.to(d.roomId).emit('paidAuctionRestCoins', {
+    players: data.getPlayers(d.roomId)
+  }
+);
+});
+
     socket.on('collectorsClaimCard', function(d) {
       data.claimAuctionCard(d.roomId, d.playerId, d.buttonAction)
       io.to(d.roomId).emit('collectorsClaimedCard', {

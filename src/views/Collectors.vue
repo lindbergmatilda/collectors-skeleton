@@ -462,6 +462,8 @@ footer a:visited {
   grid-template-rows: 1fr 1fr 1fr;
   max-width: 2000px;
 
+  font-family: "Lexend Deca", sans-serif;
+
 
 
 
@@ -601,7 +603,7 @@ background-color: lightgrey;
   height: 50px;
   margin:40px;
   margin-top: -100px;
-  color: white;
+  color: black;
   text-transform:capitalize;
   font-family: "Lexend Deca", sans-serif;
   font-size: 10px;

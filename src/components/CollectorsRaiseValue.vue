@@ -91,7 +91,7 @@ export default {
   height: 50px;
   margin-top: -100px;
 
-  color: white;
+  color: black;
   text-transform:capitalize;
   font-family: "Lexend Deca", sans-serif;
   font-size: 20px;

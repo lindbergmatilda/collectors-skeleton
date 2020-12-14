@@ -113,7 +113,7 @@ export default {
   width: 90px;
   height: 50px;
   display: inline-block;
-  color: white;
+  color: black;
   text-transform:capitalize;
   font-family: "Lexend Deca", sans-serif;
   font-size: 20px;

@@ -512,7 +512,7 @@ background-color: lightgrey;
 
 
   grid-template-columns: 1fr 2fr 400px;
-  grid-template-rows: 1fr 1000px 1fr 1fr 1fr;
+  grid-template-rows: 300px 1000px 1fr 1fr 1fr;
 
   height: 500px;
   margin: 60px;
@@ -593,7 +593,7 @@ background-color: lightgrey;
   grid-area: auctionbuttons;
   padding: 25px;
   padding-left: 20px;
-  
+
 }
 
 .altButton {

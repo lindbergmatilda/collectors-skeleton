@@ -2,7 +2,7 @@
 <div>
 
   <center>
-    <h2>{{ labels.buySkill }}</h2>
+    <h2>{{ "SKILL" }}</h2>
   </center>
   <div class="item-left-right">
 

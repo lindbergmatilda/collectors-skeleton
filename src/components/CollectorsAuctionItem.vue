@@ -1,7 +1,7 @@
 <template>
 <div>
   <center>
-    <h2>{{ labels.auctionItem }}</h2> <br>
+    <h2>{{ "AUCTION" }}</h2> <br>
   </center>
   <div class="item-left-right">
 

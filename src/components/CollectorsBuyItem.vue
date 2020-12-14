@@ -1,14 +1,18 @@
 <template>
 <div>
   <center><h2>{{ "ITEM" }}</h2></center>
+<div class="item-placement">
+<div class="upper-grid">
   <div class="buy-item">
     <div v-for="(card, index) in itemsOnSale" :key="index">
       <CollectorsCard :card="card" :availableAction="card.available" @doAction="buyItem(card)" />
       {{ ItemCost(card) }}
     </div>
   </div>
-  <div>
-    <div class="buttons" v-for="(p, index) in placement" :key="index">
+</div>
+<div class="lower-grid">
+    <div class="buttons">
+      <div v-for="(p, index) in placement" :key="index">
 
       <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost)" @click="placeBottle(p)">
         ${{p.cost}}
@@ -19,6 +23,8 @@
       </div>
     </div>
   </div>
+</div>
+</div>
 </div>
 </template>
 
@@ -87,40 +93,32 @@ export default {
 
 @import url('https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap');
 
-.buy-item {
+.item-placement {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 20%);
-  transform: scale(0.4)translate(-25%, 0);
-    transform-origin: top;
-    margin-left: 90px;
-
-
+  grid-template-areas: 'hej' 'down';
+  grid-template-columns: 1fr;
+  grid-template-rows: 170px 170px;
 }
+
 .buttons {
-  display: inline;
-  margin: 30px;
-  align-self: top;
-
-
-
-
-
-
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  margin-left: 170px;
 }
 
 .button {
   width: 90px;
   height: 50px;
-  margin-top: -100px;
-
+  display: inline-block;
   color: white;
   text-transform:capitalize;
   font-family: "Lexend Deca", sans-serif;
   font-size: 20px;
-
   background: pink;
   border-radius: 20px;
-  display: inline-block;
   border: none;
   transition: all 0.4s ease 0s;
 
@@ -137,5 +135,26 @@ background: #ff9999;
 
 
 }
+
+.upper-grid {
+
+  grid-area: hej;
+}
+
+.lower-grid {
+
+  grid-area: down;
+}
+
+.buy-item {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 20%);
+  transform: scale(0.4)translate(-25%, 0);
+  transform-origin: top;
+  margin-left: 90px;
+
+
+}
+
 
 </style>

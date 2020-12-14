@@ -1,6 +1,6 @@
 <template>
 <div>
-<center>  <h2>{{ labels.raiseValue }}</h2> </center> <br>
+<center>  <h2>{{ "MARKET" }}</h2> </center> <br>
   <div class="raise-value">
     <div v-for="(card, index) in market" :key="index">
         <CollectorsCard :card="card" :availableAction="card.available" @doAction="raiseValue(card)"/>

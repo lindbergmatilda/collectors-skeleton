@@ -105,7 +105,7 @@ export default {
 
 }
 
-.button:hover {
+.button:hover:enabled {
   text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
   -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
   -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
@@ -114,6 +114,12 @@ export default {
   width: 110px;
 
 
+}
+
+button:disabled,
+button[disabled]{
+  color: grey;
+  opacity: 0.5;
 }
 
 </style>

@@ -610,13 +610,19 @@ background-color: lightgrey;
   border: none;
   transition: all 0.4s ease 0s;
 }
-.altButton:hover {
+.altButton:hover:enabled {
   text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
   -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
   -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
   transition: all 0.4s ease 0.2s;
   background: #ffc34d;
   width: 100px;
+}
+
+button:disabled,
+button[disabled]{
+  color: grey;
+  opacity: 0.5;
 }
 
 .card-for-auction {

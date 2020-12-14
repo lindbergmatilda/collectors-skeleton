@@ -54,7 +54,7 @@
         <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
 
           <h3>Player ID: {{playerId}}</h3>
-          <img src="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
+          <img url="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
           <h5> Items: </h5>
           <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
             {{itemInfo.item}}
@@ -91,7 +91,7 @@
             @placeBottle="placeBottle('skill', $event)" />
         </div>
 
-        <div class="value">VALUE
+        <div class="value">
 
           <div class="leftvalue">
           <CollectorsRaiseValue v-if="players[playerId]" :labels="labels" :player="players[playerId]" :marketValues="marketValues" :placement="marketPlacement" @raiseValue="raiseValue($event)" @placeBottle="placeBottle('market', $event)" />
@@ -100,11 +100,14 @@
           <div class="rightvalue">
 
           <h5>Market Values</h5>
-          Fastaval: {{marketValues.fastaval}} <br>
-          Movie: {{marketValues.movie}} <br>
-          Technology: {{marketValues.technology}} <br>
-          Figures: {{marketValues.figures}} <br>
-          Music: {{marketValues.music}} <br>
+
+
+          <img src="/images/movie.png" width="50"> : {{marketValues.movie}}<hr class="blueline">
+          <img src="/images/music.png" width="50">: {{marketValues.music}}<hr class="blueline">
+          <img src="/images/penguin.png" width="50">: {{marketValues.fastaval}}<hr class="blueline">
+          <img src="/images/robot.png" width="50">: {{marketValues.figures}}<hr class="blueline">
+          <img src="/images/tech.png" width="50">: {{marketValues.technology}}<br>
+
 
           </div>
 
@@ -124,10 +127,10 @@
 
 
             <div class="altButtons">
-              <button @click="claimAuctionCard('item')">Add item</button> <br>
+              <button class="altButton" @click="claimAuctionCard('item')">Add item</button> <br>
 
-              <button @click="claimAuctionCard('skill')">Add skill</button> <br>
-              <button @click="claimAuctionCard('market')">Raise value</button> <br>
+              <button class="altButton" @click="claimAuctionCard('skill')">Add skill</button> <br>
+              <button class="altButton" @click="claimAuctionCard('market')">Raise value</button> <br>
             </div>
 
 
@@ -437,6 +440,7 @@ header {
 
 main {
   user-select: none;
+
 }
 
 footer {
@@ -467,6 +471,12 @@ footer a:visited {
 
 
 
+
+
+}
+
+.blueline {
+  border-top: 5px solid lightblue;
 }
 
 .your-playerboard {
@@ -557,6 +567,8 @@ footer a:visited {
 
 .rightvalue{
   grid-area: right;
+  font-family: "Lexend Deca", sans-serif;
+
 
 }
 
@@ -590,8 +602,38 @@ footer a:visited {
 
 .altButtons {
   grid-area: auctionbuttons;
-  padding: 25px;
-  padding-left: 120px;
+  padding: 40px;
+
+
+}
+
+.altButton {
+  width: 50px;
+  height: 50px;
+  margin:40px;
+  margin-top: -100px;
+
+  color: white;
+  text-transform:capitalize;
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 10px;
+
+  background: orange;
+  border-radius: 20px;
+
+  border: none;
+  transition: all 0.4s ease 0s;
+
+
+}
+
+.altButton:hover {
+  text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  transition: all 0.4s ease 0.2s;
+  background: #ffc34d;
+  width: 100px;
 }
 
 .card-for-auction {

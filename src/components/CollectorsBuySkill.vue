@@ -91,15 +91,43 @@ export default {
 .buttons {
   width: 70px;
   display: grid;
+  margin: 15px;
   grid-template-rows: repeat(auto-fill, 90px);
+
 
 
 }
 
 .button {
-  width: 50px;
+  width: 90px;
   height: 50px;
+  margin-top: -100px;
+
+  color: white;
+  text-transform:capitalize;
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 20px;
+
+  background: lightgreen;
+  border-radius: 20px;
+  display: inline-block;
+  border: none;
+  transition: all 0.4s ease 0s;
+
+
 }
+
+.button:hover {
+  text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  transition: all 0.4s ease 0.2s;
+  background: #2eb82e;
+  width: 110px;
+
+
+}
+
 
 .left {
   grid-area: left;
@@ -113,7 +141,7 @@ export default {
 
 .buy-skill {
   display: grid;
-  grid-template-rows: repeat(auto-fill, 130px);
+  grid-template-rows: repeat(auto-fill, 300px);
   transform: scale(0.4)translate(-25%, 0);
   transform-origin: top;
 }

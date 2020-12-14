@@ -84,6 +84,9 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+@import url('https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap');
+
 .buy-item {
   display: grid;
   grid-template-columns: repeat(auto-fill, 20%);
@@ -95,7 +98,10 @@ export default {
 }
 .buttons {
   display: inline;
-  margin-left: 30px;
+  margin: 30px;
+  align-self: top;
+
+
 
 
 
@@ -103,14 +109,31 @@ export default {
 }
 
 .button {
-  width: 50px;
+  width: 90px;
   height: 50px;
   margin-top: -100px;
 
+  color: white;
+  text-transform:capitalize;
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 20px;
+
+  background: pink;
+  border-radius: 20px;
+  display: inline-block;
+  border: none;
+  transition: all 0.4s ease 0s;
 
 
+}
 
-
+.button:hover {
+  text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  transition: all 0.4s ease 0.2s;
+background: #ff9999;
+  width: 110px;
 
 
 }

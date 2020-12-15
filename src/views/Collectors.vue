@@ -7,98 +7,31 @@
       <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
     </p>
 
-    <div class="buttons">
+    <div class="firstbuttons">
       <button v-if="players[playerId]" @click="claimFirstPlayer">
         {{ labels.firstPlayer }}
       </button>
     </div>
-    <hr>
-    <div class="buttons">
-      <button @click="drawCard">
-        {{ labels.draw }}
-      </button>
-    </div>
-    <div class="buttons">
+
+    <div class="refillbuttons">
       <button v-if="players[playerId]" @click="refill">
         {{ labels.refill }}
       </button>
     </div>
-    <hr>
-    <div class="buttons">
+
+    <div class="nextbuttons">
       <button v-if="players[playerId]" :disabled="!endGame()" @click="countPoints">
         {{ labels.theEnd }}
       </button>
     </div>
-    <hr>
 
-    {{itemPlacement}} {{chosenPlacementCost}}
-    <collectorsBuyItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :itemsOnSale="itemsOnSale" :marketValues="marketValues" :placement="itemPlacement" @buyItem="buyItem($event)" @placeBottle="placeBottle('item', $event)" />
-    <hr>
-    <CollectorsBuySkill v-if="players[playerId]" :labels="labels" :player="players[playerId]" :skillsOnSale="skillsOnSale" :marketValues="marketValues" :placement="skillPlacement" @buySkill="buySkill($event)"
-      @placeBottle="placeBottle('skill', $event)" />
-    <hr>
-    <CollectorsRaiseValue v-if="players[playerId]" :labels="labels" :player="players[playerId]" :marketValues="marketValues" :placement="marketPlacement" @raiseValue="raiseValue($event)" @placeBottle="placeBottle('market', $event)" />
 
-    <hr>
-    <CollectorsWorkArea v-if="players[playerId]" :labels="labels" :player="players[playerId]" :placement="workPlacement" @placeBottle="placeBottle('work', $event)" />
-    <hr>
 
-    <CollectorsAuctionItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :auctionCards="auctionCards" :placement="auctionPlacement" @auctionItem="auctionItem($event)" @placeBottle="placeBottle('auction', $event)" />
 
-    <hr>
-    Auction Area
-    <div class="cardslots">
-      <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
-    </div>
 
-    <p>
-      <label for="number"> Place bid (you can place coins or cards) RÄKNA SJÄLV FÖR FAN </label> <br>
-      <input type="number" v-model="myBid" name="bid" placeholder="Place your bid">
-    </p>
-    <button v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction()" @click="placeBid()">Place bid</button>
-    <button v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction()" @click="passBid()">Pass</button>
-
-    <button v-if="players[playerId]" :disabled="!winnerAuction()" @click="payRestCoins()">Pay rest in coins</button>
-
-    <div class="altButtons">
-      <button v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('item')">Place in item</button>
-      <button v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('skill')">Place in skill</button>
-      <button v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('market')">Add to market</button>
-    </div>
-    <hr>
-    Market
-    <div class="cardslots">
-      <CollectorsCard v-for="(card, index) in market" :card="card" :key="index" />
-    </div>
-    <hr>
-    Hand
-    <div class="cardslots" v-if="players[playerId]">
-      <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="handleAction(card)" :key="index" />
-    </div>
-    <hr>
-    Items
-    <div class="cardslots" v-if="players[playerId]">
-      <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index" />
-    </div>
-    <hr>
-    Your Skills
-    <div class="cardslots" v-if="players[playerId]">
-      <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index" />
-    </div>
-    <hr>
-  </main>
-  {{players}}
-  {{marketValues}}
   <button v-if="players[playerId]" @click="players[playerId].money += 1">
     fake more money
   </button>
-  <hr>
-  <footer>
-    <p>
-      {{ labels.invite }}
-      <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
-    </p>
-  </footer>
 
   <div class="head">
 
@@ -211,9 +144,21 @@
 
 
           <div class="altButtons">
-            <button class="altButton" @click="claimAuctionCard('item')">ADD ITEM</button> <br>
-            <button class="altButton" @click="claimAuctionCard('skill')">ADD SKILL</button> <br>
-            <button class="altButton" @click="claimAuctionCard('market')">RAISE VALUE</button> <br>
+
+              <button class="altButton" v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('item')">Place in item</button><br>
+              <button class="altButton" v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('skill')">Place in skill</button><br>
+              <button class="altButton" v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('market')">Add to market</button><br>
+              <p>
+                <label for="number"> Place bid (you can place coins or cards) RÄKNA SJÄLV FÖR FAN </label> <br>
+                <input type="number" v-model="myBid" name="bid" placeholder="Place your bid">
+              </p>
+              <button v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction()" @click="placeBid()">Place bid</button>
+              <button v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction()" @click="passBid()">Pass</button>
+
+              <button v-if="players[playerId]" :disabled="!winnerAuction()" @click="payRestCoins()">Pay rest in coins</button>
+
+            </div>
+
           </div>
 
 
@@ -222,16 +167,21 @@
           </div>
           <div class="cardslots card-for-auction">
             <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
+            <div class="cardslots">
+              <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
+            </div>
+
+
+
+
           </div>
 
         </div>
 
-      </div>
 
       <div class="work">WORK</div>
 
-
-
+<CollectorsWorkArea v-if="players[playerId]" :labels="labels" :player="players[playerId]" :placement="workPlacement" @placeBottle="placeBottle('work',$event)" />
 
       <div class="theRest">
 
@@ -244,15 +194,12 @@
 
       </div>
     </div>
-
-    <!---->
-
   </div>
 
-  </main>
-
-
+</main>
+    <!---->
 </div>
+
 </template>
 
 <script>

@@ -11,16 +11,6 @@
         <CollectorsCard :card="card" :availableAction="card.available" @doAction="buySkill(card)" />
       </div>
     </div>
-<<<<<<< HEAD
-  </div>
-  <div>
-    <div class="buttons" v-for="(p, index) in placement" :key="index">
-      <button v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn()" @click="placeBottle(p)">
-        ${{p.cost}}
-      </button>
-      <div v-if="p.playerId !== null">
-        {{p.playerId}}
-=======
 
     <div class="right buttons">
       <div v-for="(p, index) in placement" :key="index">
@@ -30,7 +20,6 @@
         <div v-if="p.playerId !== null">
           {{p.playerId}}
         </div>
->>>>>>> css4
       </div>
     </div>
   </div>
@@ -65,7 +54,7 @@ export default {
     },
 
     placeBottle: function(p) {
-      this.$emit('placeBottle', p);
+      this.$emit('placeBottle', p.cost);
       this.highlightAvailableCards(p.cost);
       console.log(" kostnaden är " + p.cost);
     },
@@ -75,13 +64,6 @@ export default {
         this.$set(this.skillsOnSale[i], "available", true);
       }
       this.chosenPlacementCost = cost;
-    },
-
-    isMyTurn: function() {
-      if(this.player.myTurn){
-        return true;
-      }
-        return false;
     },
 
     buySkill: function(card) {

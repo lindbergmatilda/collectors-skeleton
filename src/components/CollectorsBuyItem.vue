@@ -1,22 +1,33 @@
 <template>
 <div>
-  <h1>{{ labels.buyItem }}</h1>
+  <center><h2>{{ "ITEM" }}</h2></center>
+<div class="item-placement">
+<div class="upper-grid">
   <div class="buy-item">
     <div v-for="(card, index) in itemsOnSale" :key="index">
       <CollectorsCard :card="card" :availableAction="card.available" @doAction="buyItem(card)" />
       {{ ItemCost(card) }}
     </div>
   </div>
-  <div>
-    <div class="buttons" v-for="(p, index) in placement" :key="index">
-      <button v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn()" @click="placeBottle(p)">
+<div class="lower-grid">
+    <div class="buttons">
+      <div v-for="(p, index) in placement" :key="index">
+      <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn()" @click="placeBottle(p)">
         ${{p.cost}}
       </button>
-      <div v-if="p.playerId !== null">
+
+      <div id='placedBottle' v-if="p.playerId !== null">
         {{p.playerId}}
       </div>
     </div>
   </div>
+<div class="popupItem" @click='helpItem()'> ? <span class="itemhelp-text" id="ItemPopup"> Här kommer hjälptext :) </span>
+
+</div>
+
+</div>
+</div>
+</div>
 </div>
 </template>
 
@@ -36,6 +47,13 @@ export default {
     placement: Array
   },
   methods: {
+
+    helpItem: function() {
+      var popupItem = document.getElementById('ItemPopup');
+      popupItem.classList.toggle('show');
+
+    },
+
     cannotAfford: function(cost) {
       let minCost = 100;
       for (let key in this.marketValues) {
@@ -89,9 +107,127 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.buy-item,
-.buttons {
+
+@import url('https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap');
+
+.item-placement {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 130px);
+  grid-template-areas: 'hej' 'down';
+  grid-template-columns: 1fr;
+  grid-template-rows: 170px 170px;
 }
+
+.buttons {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  margin-left: 170px;
+}
+
+.button {
+  width: 90px;
+  height: 50px;
+  display: inline-block;
+  color: black;
+  text-transform:capitalize;
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 20px;
+  background: pink;
+  border-radius: 20px;
+  border: none;
+  transition: all 0.4s ease 0s;
+
+
+}
+
+.button:hover:enabled {
+  text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  transition: all 0.4s ease 0.2s;
+background: #ff9999;
+  width: 110px;
+
+}
+
+button:disabled,
+button[disabled]{
+  color: grey;
+  opacity: 0.5;
+}
+
+.upper-grid {
+
+  grid-area: hej;
+}
+
+.lower-grid {
+
+  grid-area: down;
+}
+
+.buy-item {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 20%);
+  transform: scale(0.4)translate(-25%, 0);
+  transform-origin: top;
+  margin-left: 90px;
+
+
+}
+
+
+
+.popupItem {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 20px;
+  font-size: 30px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.popupItem .itemhelp-text {
+
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    font-size: 15px;
+
+}
+
+.popupItem .itemhelp-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.popupItem .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+
+
+
 </style>

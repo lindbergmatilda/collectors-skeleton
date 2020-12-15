@@ -10,5 +10,14 @@
 	"firstPlayer": "JAG BÖRJAR",
 	"refill": "Nästa runda",
 	"workArea": "Arbetsplats",
-	"theEnd": "Avsluta spelet och räkna poäng"
+	"theEnd": "Avsluta spelet och räkna poäng",
+	"yourPlayerBoard": "DITT SPELBRÄDE",
+	"hand": "HAND: ",
+	"items": "ITEMS: ",
+	"skills": "SKILLS: ",
+	"allPlayers": "ALLA SPELARE",
+	"playerID": "SPELAR ID: ",
+	"bottles":"ANTAL DRAG: ",
+	"cardUp":"KORT FÖR AUKTION",
+	"marketValues": "MARKNADSVÄRDEN"
 }

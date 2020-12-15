@@ -1,13 +1,20 @@
 <template>
 <div>
-  <h1>{{ labels.auctionItem }}</h1>
-  <div class="auction-item">
-    <div v-for="(card, index) in auctionCards" :key="index">
-      <CollectorsCard :card="card" :availableAction="card.available" @doAction="auctionItem(card)" />
+  <center>
+    <div class="label-auction">
+    <h2>{{ "AUCTION" }}</h2></div> <br>
+
+  </center>
+  <div class="item-left-right">
+
+    <div class="right auction-item">
+      <div v-for="(card, index) in auctionCards" :key="index">
+        <CollectorsCard :card="card" :availableAction="card.available" @doAction="auctionItem(card)" />
+      </div>
     </div>
-  </div>
-  <div>
-    <div class="buttons" v-for="(p, index) in placement" :key="index">
+
+  <div class="left buttons">
+    <div class="button" v-for="(p, index) in placement" :key="index">
       <button v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn()" @click="placeBottle(p)">
         ${{p.cost}}
       </button>
@@ -15,6 +22,7 @@
         {{p.playerId}}
       </div>
     </div>
+  </div>
   </div>
 </div>
 </template>
@@ -62,13 +70,13 @@ export default {
 
     highlightAvailableCards: function(cost = 100) {
       for (let i = 0; i < this.auctionCards.length; i += 1) {
-          this.$set(this.auctionCards[i], "available", true);
-        }
+        this.$set(this.auctionCards[i], "available", true);
+      }
       for (let i = 0; i < this.player.hand.length; i += 1) {
-          this.$set(this.player.hand[i], "available", true);
-        }
-        this.chosenPlacementCost = cost;
-      },
+        this.$set(this.player.hand[i], "available", true);
+      }
+      this.chosenPlacementCost = cost;
+    },
 
     auctionItem: function(card) {
       if (card.available) {
@@ -83,9 +91,71 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.auction-item,
+.item-left-right {
+  display: grid;
+  grid-template-areas: 'left right';
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+
+
 .buttons {
+  width: 70px;
+  display: grid;
+  grid-template-rows: repeat(auto-fill, 90px);
+}
+
+
+.button {
+  width: 90px;
+  height: 50px;
+  margin-top: -100px;
+
+  color: black;
+  text-transform:capitalize;
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 20px;
+
+  background: #ffdd99;
+  border-radius: 20px;
+  display: inline-block;
+  border: none;
+  transition: all 0.4s ease 0s;
+
+
+}
+
+.button:hover:enabled {
+  text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  transition: all 0.4s ease 0.2s;
+  background: #ffc34d;
+  width: 110px;
+
+
+}
+
+button:disabled,
+button[disabled]{
+  color: grey;
+  opacity: 0.5;
+}
+
+.left {
+  grid-area: left;
+}
+
+.right {
+  grid-area: right;
+}
+
+.auction-item {
   display: grid;
   grid-template-columns: repeat(auto-fill, 130px);
+  transform: scale(0.4)translate(-25%, 0);
+  transform-origin: top;
 }
+
 </style>

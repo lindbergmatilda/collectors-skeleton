@@ -10,5 +10,15 @@
 	"firstPlayer": "I GO FIRST",
 	"refill": "Next round",
 	"workArea": "Work Area",
-	"theEnd": "End Game and count points"
+	"theEnd": "End Game and count points",
+	"yourPlayerBoard": "YOUR PLAYER BOARD",
+	"hand": "HAND: ",
+	"items": "ITEMS: ",
+	"skills": "SKILLS: ",
+	"allPlayers": "ALL PLAYERS",
+	"playerID": "PLAYER ID: ",
+	"bottles":"MOVES: ",
+	"cardUp":"CARD UP FOR AUCTION",
+	"marketValues":"MARKET VALUES"
+
 }

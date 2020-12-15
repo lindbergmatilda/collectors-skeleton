@@ -427,13 +427,21 @@ Data.prototype.buyItem = function(roomId, playerId, card, cost) {
     room.players[playerId].money -= cost;
     room.players[playerId].myTurn = false;
 
-    for (let i = 0; i < room.playerList.length; i++) {
+    nextplayer: for (let i = 0; i < room.playerCount; i++) {
       if (room.players[playerId] === room.playerList[i]) {
+        let startPosition = i;
 
-        if (room.players[playerId] === room.playerList[room.playerList.length - 1]) {
-          room.playerList[0].myTurn = true; // om jag är den sista spelaren i listan, då ska första få myTurn
-        } else {
-          room.playerList[i + 1].myTurn = true;
+        for (let j = startPosition; j < room.playerCount - 1; j++) {
+          if (room.playerList[j + 1].bottles.includes(1)) {
+            room.playerList[j + 1].myTurn = true;
+            break nextplayer;
+          }
+        }
+        for (let j = -1; j < startPosition - 1; j++) {
+          if (room.playerList[j + 1].bottles.includes(1)) {
+            room.playerList[j + 1].myTurn = true;
+            break nextplayer;
+          }
         }
       }
     }
@@ -510,27 +518,35 @@ Data.prototype.raiseValue = function(roomId, playerId, card, cost, position) {
       }
       room.market.push(...c);
     }
+
     if ( position === 2){
       let deckCard = room.deck.pop();
       room.market.push(deckCard);
     }
 
-
     room.players[playerId].money -= cost;
     room.players[playerId].myTurn = false;
 
-    for (let i = 0; i < room.playerList.length; i++) {
+    nextplayer: for (let i = 0; i < room.playerCount; i++) {
       if (room.players[playerId] === room.playerList[i]) {
+        let startPosition = i;
 
-        if (room.players[playerId] === room.playerList[room.playerList.length - 1]) {
-          room.playerList[0].myTurn = true; // om jag är den sista spelaren i listan, då ska första få myTurn
-        } else {
-          room.playerList[i + 1].myTurn = true;
+        for (let j = startPosition; j < room.playerCount - 1; j++) {
+          if (room.playerList[j + 1].bottles.includes(1)) {
+            room.playerList[j + 1].myTurn = true;
+            break nextplayer;
+          }
+        }
+        for (let j = -1; j < startPosition - 1; j++) {
+          if (room.playerList[j + 1].bottles.includes(1)) {
+            room.playerList[j + 1].myTurn = true;
+            break nextplayer;
+          }
         }
       }
     }
+    }
   }
-}
 
 Data.prototype.refillGameboard = function(roomId) {
   let room = this.rooms[roomId];
@@ -681,15 +697,23 @@ Data.prototype.buySkill = function(roomId, playerId, card, cost) {
     room.players[playerId].money -= cost;
     room.players[playerId].myTurn = false;
 
-    for (let i = 0; i < room.playerList.length; i++) {
+    nextplayer: for (let i = 0; i < room.playerCount; i++) {
       if (room.players[playerId] === room.playerList[i]) {
+        let startPosition = i;
 
-        if (room.players[playerId] === room.playerList[room.playerList.length - 1]) {
-          room.playerList[0].myTurn = true; // om jag är den sista spelaren i listan, då ska första få myTurn
-        } else {
-          room.playerList[i + 1].myTurn = true;
+        for (let j = startPosition; j < room.playerCount - 1; j++) {
+          if (room.playerList[j + 1].bottles.includes(1)) {
+            room.playerList[j + 1].myTurn = true;
+            break nextplayer;
+          }
         }
-      } //alla flaskor slut xd
+        for (let j = -1; j < startPosition - 1; j++) {
+          if (room.playerList[j + 1].bottles.includes(1)) {
+            room.playerList[j + 1].myTurn = true;
+            break nextplayer;
+          }
+        }
+      }
     }
   }
 }

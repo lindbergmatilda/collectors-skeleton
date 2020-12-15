@@ -308,7 +308,7 @@ Data.prototype.claimedFirst = function(roomId, playerId) {
   if (typeof room !== 'undefined') {
     room.players[playerId].myTurn = true;
     room.players[playerId].iStart = true;
-    
+
     for (let i=0; i<room.playerCount; i++){
       if (room.players[playerId]===room.playerList[i]){
         let startPosition =i;
@@ -475,7 +475,7 @@ Data.prototype.buyItem = function(roomId, playerId, card, cost) {
             break nextplayer;
           }
         }
-        for (let j = -1; j < startPosition - 1; j++) {
+        for (let j = -1; j < startPosition; j++) {
           if (room.playerList[j + 1].bottles.includes(1)) {
             room.playerList[j + 1].myTurn = true;
             break nextplayer;
@@ -575,7 +575,7 @@ Data.prototype.raiseValue = function(roomId, playerId, card, cost, position) {
             break nextplayer;
           }
         }
-        for (let j = -1; j < startPosition - 1; j++) {
+        for (let j = -1; j < startPosition; j++) {
           if (room.playerList[j + 1].bottles.includes(1)) {
             room.playerList[j + 1].myTurn = true;
             break nextplayer;
@@ -746,7 +746,7 @@ Data.prototype.buySkill = function(roomId, playerId, card, cost) {
             break nextplayer;
           }
         }
-        for (let j = -1; j < startPosition - 1; j++) {
+        for (let j = -1; j < startPosition; j++) {
           if (room.playerList[j + 1].bottles.includes(1)) {
             room.playerList[j + 1].myTurn = true;
             break nextplayer;
@@ -799,7 +799,7 @@ Data.prototype.auctionItem = function(roomId, playerId, card, cost) {
             break nextplayer;
           }
         }
-        for (let j = -1; j < startPosition - 1; j++) {
+        for (let j = -1; j < startPosition; j++) {
           if (room.playerList[j + 1].bottles.includes(1)) {
             room.playerList[j + 1].myTurn = true;
             break nextplayer;
@@ -874,7 +874,7 @@ for(let i = 0; i<room.players[playerId].skills.length; i++){
               break nextplayer;
             }
           }
-          for (let j = -1; j < startPosition - 1; j++) {
+          for (let j = -1; j < startPosition; j++) {
             if (room.playerList[j + 1].bottles.includes(1)) {
               room.playerList[j + 1].myTurn = true;
               break nextplayer;

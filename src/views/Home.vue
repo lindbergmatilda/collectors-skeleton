@@ -187,7 +187,7 @@ letter-spacing: -1px;
 
 @-webkit-keyframes colorchange {
   0% {
-    color: blue;
+    color: #26A69A;
   }
   10% {
     color: #8e44ad;
@@ -199,13 +199,13 @@ letter-spacing: -1px;
     color: #d35400;
   }
   40% {
-    color: blue;
+    color: #26A69A;
   }
   50% {
-    color: #34495e;
+    color: #lightgrey;
   }
   60% {
-    color: blue;
+    color: #26A69A;
   }
   70% {
     color: #2980b9;

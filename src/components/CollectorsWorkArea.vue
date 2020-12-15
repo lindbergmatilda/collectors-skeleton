@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h1>{{ labels.workArea }}</h1>
+  <h1>{{ "WORK" }}</h1>
     <div class="buttons" v-for="(p, index) in placement" :key="index">
       <button v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn()" @click="placeBottle(p)">
         ${{p.cost}}

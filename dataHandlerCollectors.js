@@ -223,10 +223,11 @@ Data.prototype.joinGame = function(roomId, playerId) {
         bottleAmount: 2
       };
       room.playerList.push(room.players[playerId]);
-      for (let i = 0; i < 3; i += 1) {
+      for (let i = 0; i < 4; i += 1) {
         let card = room.deck.pop();
         room.players[playerId].hand.push(card);
       }
+    
       return true;
     }
     console.log("Player", playerId, "was declined due to player limit");

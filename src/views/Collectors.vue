@@ -13,6 +13,12 @@
       </button>
     </div>
 
+    <div class="secretButton">
+      <button v-if="players[playerId]" @click="chooseSecret()">
+        {{ labels.chooseSecret }}
+      </button>
+    </div>
+
     <div class="refillbuttons">
       <button v-if="players[playerId]" :disabled="!nextRound()" @click="refill">
         {{ labels.refill }}
@@ -430,8 +436,10 @@ export default {
         }
       }
       return true;
+    },
 
-
+    chooseSecret: function (){
+      console.log("hejsan, hemligt kort här");
     },
 
     endGame: function() {

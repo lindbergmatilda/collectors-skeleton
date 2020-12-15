@@ -19,6 +19,8 @@
 	"playerID": "PLAYER ID: ",
 	"bottles":"MOVES: ",
 	"cardUp":"CARD UP FOR AUCTION",
-	"marketValues":"MARKET VALUES"
+	"marketValues":"MARKET VALUES",
+	"chooseSecret": "Choose your secret card"
+
 
 }

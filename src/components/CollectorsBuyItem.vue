@@ -2,13 +2,16 @@
 <div>
   <center><h2>{{ "ITEM" }}</h2></center>
 <div class="item-placement">
+
 <div class="upper-grid">
   <div class="buy-item">
+
     <div v-for="(card, index) in itemsOnSale" :key="index">
       <CollectorsCard :card="card" :availableAction="card.available" @doAction="buyItem(card)" />
       {{ ItemCost(card) }}
     </div>
   </div>
+</div>
 <div class="lower-grid">
     <div class="buttons">
       <div v-for="(p, index) in placement" :key="index">
@@ -25,7 +28,6 @@
 
 </div>
 
-</div>
 </div>
 </div>
 </div>
@@ -115,6 +117,7 @@ export default {
   grid-template-areas: 'hej' 'down';
   grid-template-columns: 1fr;
   grid-template-rows: 170px 170px;
+  transform-origin: top;
 }
 
 .buttons {

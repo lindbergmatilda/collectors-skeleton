@@ -178,10 +178,10 @@
         </div>
 
 
-      <div class="work">WORK</div>
+      <div class="work">
 
 <CollectorsWorkArea v-if="players[playerId]" :labels="labels" :player="players[playerId]" :placement="workPlacement" @placeBottle="placeBottle('work',$event)" />
-
+</div>
       <div class="theRest">
 
 

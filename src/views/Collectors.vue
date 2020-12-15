@@ -14,12 +14,12 @@
     </div>
 
     <div class="refillbuttons">
-      <button v-if="players[playerId]" @click="refill">
+      <button v-if="players[playerId]" :disabled="!nextRound()" @click="refill">
         {{ labels.refill }}
       </button>
     </div>
 
-    <div class="nextbuttons">
+    <div class="endGame">
       <button v-if="players[playerId]" :disabled="!endGame()" @click="countPoints">
         {{ labels.theEnd }}
       </button>

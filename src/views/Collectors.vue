@@ -482,6 +482,8 @@ export default {
         }
       }
       return true;
+
+
     },
 
     endGame: function() {

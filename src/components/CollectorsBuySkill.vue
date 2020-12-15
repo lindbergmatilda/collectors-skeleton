@@ -14,7 +14,7 @@
 
     <div class="right buttons">
       <div v-for="(p, index) in placement" :key="index">
-        <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost)" @click="placeBottle(p)">
+        <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn()" @click="placeBottle(p)">
           ${{p.cost}}
         </button>
         <div v-if="p.playerId !== null">
@@ -51,6 +51,13 @@ export default {
 
     cardCost: function(card) {
       return card.cost
+    },
+
+    isMyTurn: function() {
+      if(this.player.myTurn){
+        return true;
+      }
+        return false;
     },
 
     placeBottle: function(p) {

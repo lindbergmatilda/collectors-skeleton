@@ -205,11 +205,12 @@ Data.prototype.joinGame = function(roomId, playerId) {
       console.log("Player", playerId, "joined for the first time");
       room.players[playerId] = {
         hand: [],
-        money: 10,
+        money: 2,
         points: 0,
         skills: [],
         items: [],
         discard: [],
+        colour: null,
         income: 0,
         secret: [],
         myTurn: false,
@@ -307,7 +308,7 @@ Data.prototype.claimedFirst = function(roomId, playerId) {
   if (typeof room !== 'undefined') {
     room.players[playerId].myTurn = true;
     room.players[playerId].iStart = true;
-
+    
     for (let i=0; i<room.playerCount; i++){
       if (room.players[playerId]===room.playerList[i]){
         let startPosition =i;

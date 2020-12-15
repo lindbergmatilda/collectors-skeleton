@@ -8,6 +8,7 @@
       <div id="holder">
 
         <div class="left">
+            <center><img src="https://upload.wikimedia.org/wikipedia/commons/a/ae/Flag_of_the_United_Kingdom.svg" width="110"></center>
           <div class="button" @click="setupCollectors(2, 'en')">
             <p class="btnText">2 PLAYERS</p>
             <div class="btnTwo">
@@ -34,6 +35,7 @@
 
       <div id="holder">
         <div class="right">
+          <center><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Flag_of_Sweden.svg/2560px-Flag_of_Sweden.svg.png" width="90"></center>
           <div class="button" @click="setupCollectors(2, 'se')">
             <p class="btnText">2 SPELARE</p>
             <div class="btnTwo">

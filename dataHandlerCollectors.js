@@ -750,13 +750,21 @@ Data.prototype.auctionItem = function(roomId, playerId, card, cost) {
     room.players[playerId].myTurn = false;
     room.players[playerId].auctionTurn = true;
 
-    for (let i = 0; i < room.playerList.length; i++) {
+    nextplayer: for (let i = 0; i < room.playerCount; i++) {
       if (room.players[playerId] === room.playerList[i]) {
+        let startPosition = i;
 
-        if (room.players[playerId] === room.playerList[room.playerList.length - 1]) {
-          room.playerList[0].myTurn = true; // om jag är den sista spelaren i listan, då ska första få myTurn
-        } else {
-          room.playerList[i + 1].myTurn = true;
+        for (let j = startPosition; j < room.playerCount - 1; j++) {
+          if (room.playerList[j + 1].bottles.includes(1)) {
+            room.playerList[j + 1].myTurn = true;
+            break nextplayer;
+          }
+        }
+        for (let j = -1; j < startPosition - 1; j++) {
+          if (room.playerList[j + 1].bottles.includes(1)) {
+            room.playerList[j + 1].myTurn = true;
+            break nextplayer;
+          }
         }
       }
     }
@@ -817,13 +825,21 @@ for(let i = 0; i<room.players[playerId].skills.length; i++){
       room.players[playerId].money -= cost;
       room.players[playerId].myTurn = false;
 
-      for (let i = 0; i < room.playerList.length; i++) {
+      nextplayer: for (let i = 0; i < room.playerCount; i++) {
         if (room.players[playerId] === room.playerList[i]) {
+          let startPosition = i;
 
-          if (room.players[playerId] === room.playerList[room.playerList.length - 1]) {
-            room.playerList[0].myTurn = true; // om jag är den sista spelaren i listan, då ska första få myTurn
-          } else {
-            room.playerList[i + 1].myTurn = true;
+          for (let j = startPosition; j < room.playerCount - 1; j++) {
+            if (room.playerList[j + 1].bottles.includes(1)) {
+              room.playerList[j + 1].myTurn = true;
+              break nextplayer;
+            }
+          }
+          for (let j = -1; j < startPosition - 1; j++) {
+            if (room.playerList[j + 1].bottles.includes(1)) {
+              room.playerList[j + 1].myTurn = true;
+              break nextplayer;
+            }
           }
         }
       }

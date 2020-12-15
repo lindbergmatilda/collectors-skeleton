@@ -19,8 +19,14 @@
       </button>
     </div>
     <div class="buttons">
-      <button v-if="players[playerId]" :disabled="!nextRound()" @click="refill">
+      <button v-if="players[playerId]" @click="refill">
         {{ labels.refill }}
+      </button>
+    </div>
+    <hr>
+    <div class="buttons">
+      <button v-if="players[playerId]" :disabled="!endGame()" @click="countPoints">
+        {{ labels.theEnd }}
       </button>
     </div>
     <hr>
@@ -185,7 +191,8 @@ export default {
       skillsOnSale: [],
       auctionCards: [],
       theAuctionItem: [],
-      myBid: 0
+      myBid: 0,
+      rounds: 1
     }
   },
   computed: {
@@ -242,7 +249,11 @@ export default {
         this.workPlacement = d.workPlacement;
       }.bind(this));
 
-    this.$store.state.socket.on('collectorsPointsUpdated', (d) => this.points = d);
+    this.$store.state.socket.on('collectorsDonePlayed',
+    function(d) {
+      this.players = d.players;
+    }.bind(this)
+  );
 
     this.$store.state.socket.on('collectorsClaimedFirstPlayer',
       function(d) {
@@ -335,7 +346,7 @@ export default {
 
     this.$store.state.socket.on('collectorsRefilled',
       function(d) {
-        console.log("refilled items lol");
+        console.log("refill: ", this.rounds);
         this.players = d.players;
         this.itemsOnSale = d.itemsOnSale;
         this.skillsOnSale = d.skillsOnSale;
@@ -347,6 +358,8 @@ export default {
         this.skillPlacement = d.placements.skillPlacement;
         this.marketPlacement = d.placements.marketPlacement;
         this.auctionPlacement = d.placements.auctionPlacement;
+
+        this.rounds = d.rounds;
 
       }.bind(this)
     );
@@ -398,6 +411,27 @@ export default {
         }
       }
       return true;
+    },
+
+    endGame: function(){
+      for(let i=0; i<Object.keys(this.players).length; i++){
+        for (let j=0; j<5; j++){
+          if (this.players[Object.keys(this.players)[i]].bottles[j] === 1){
+            return false;
+          }
+        }
+      }
+      if(this.rounds === 4){
+        return true;
+      }
+    },
+
+    countPoints: function(){
+      this.$store.state.socket.emit('collectorsDonePlaying', {
+        roomId: this.$route.params.id,
+        playerId: this.playerId,
+        marketValues: this.marketValues
+      });
     },
 
     refill: function() {

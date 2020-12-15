@@ -59,6 +59,7 @@ Data.prototype.createRoom = function(roomId, playerCount, lang = "en") {
   let room = {};
   room.players = {};
   room.playerList = [];
+  room.rounds = 1;
   room.lang = lang;
   room.deck = this.createDeck(lang);
   room.playerCount = playerCount;
@@ -204,7 +205,7 @@ Data.prototype.joinGame = function(roomId, playerId) {
       console.log("Player", playerId, "joined for the first time");
       room.players[playerId] = {
         hand: [],
-        money: 2,
+        money: 10,
         points: 0,
         skills: [],
         items: [],
@@ -239,6 +240,13 @@ Data.prototype.getPlayers = function(id) {
   } else return {};
 }
 
+Data.prototype.getRound = function(id) {
+  let room = this.rooms[id]
+  if (typeof room !== 'undefined') {
+    return room.rounds;
+  } else return {};
+}
+
 Data.prototype.getMoneyCard = function(roomId) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
@@ -257,12 +265,41 @@ Data.prototype.getMoneyCard = function(roomId) {
   } else return {};
 }
 
-Data.prototype.updatePoints = function(roomId, player, points) {
+Data.prototype.countPoints = function(roomId, playerId, marketValues) {
   let room = this.rooms[roomId]
   if (typeof room !== 'undefined') {
-    room.points[player] += points;
-    return room.points;
-  } else return {};
+    for (let i = 0; i < room.playerList.length; i++) {
+      let valuePoints = 0;
+      let dict = {music: 0, fastaval:0, technology:0, movie: 0, figures:0};
+      let allItems = false;
+      for (let j = 0; j < room.playerList[i].items.length; j++) {
+        let theItem = room.playerList[i].items[j].item;
+        dict[theItem] += 1;
+        valuePoints += marketValues[theItem];
+
+        if (room.playerList[i].skills.length != 0) {
+          for (let k = 0; k < room.playerList[i].skills.length; k++) {
+            if (room.playerList[i].skills[k].skill.includes(theItem)) {
+              valuePoints += 1;
+            }
+            if (room.playerList[i].skills[k].skill.includes("all")) {
+              if (Object.keys(dict).includes(0)){
+                break;
+              }
+              else{
+                allItems = true;
+              }
+            }
+          }
+        }
+      }
+      if(allItems){
+        valuePoints +=5;
+      }
+      valuePoints += Math.floor(room.playerList[i].money / 3);
+      room.playerList[i].points = valuePoints;
+    }
+  }
 }
 
 Data.prototype.claimedFirst = function(roomId, playerId) {
@@ -634,6 +671,7 @@ Data.prototype.refillGameboard = function(roomId) {
     for (let i = 0; i < room.marketPlacement.length; i++) {
       room.marketPlacement[i].playerId = null;
     }
+    room.rounds +=1;
   }
 }
 
@@ -724,7 +762,7 @@ Data.prototype.auctionItem = function(roomId, playerId, card, cost) {
     let c = null;
 
     for (let i = 0; i < room.playerList.length; i += 1) {
-      for (let j = 0; j < room.playerList[i].skills.length; i += 1) {
+      for (let j = 0; j < room.playerList[i].skills.length; j += 1) {
         if (room.playerList[i].skills[j].skill === "auctionIncome") {
           room.playerList[i].money += 1;
         }

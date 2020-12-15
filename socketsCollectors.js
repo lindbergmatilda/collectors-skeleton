@@ -35,7 +35,8 @@ function sockets(io, socket, data) {
         marketValues: data.getMarketValues(d.roomId),
         market: data.getMarketCards(d.roomId),
         auctionCards: data.getAuctionCards(d.roomId),
-        placements: data.getPlacements(d.roomId)
+        placements: data.getPlacements(d.roomId),
+        rounds: data.getRound(d.roomId)
         }
       );
     });
@@ -45,6 +46,14 @@ function sockets(io, socket, data) {
         data.drawCard(d.roomId, d.playerId)
       );
     });
+
+    socket.on('collectorsDonePlaying', function(d){
+      data.countPoints(d.roomId, d.playerId, d.marketValues)
+      io.to(d.roomId).emit('collectorsDonePlayed', {
+        players: data.getPlayers(d.roomId)
+      }
+    );
+  });
 
     socket.on('collectorsPlaceBid', function(d){
       data.placeBid(d.roomId, d.playerId, d.theBid)

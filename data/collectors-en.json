@@ -9,5 +9,6 @@
 	"auctionItem": "Start an auction",
 	"firstPlayer": "I GO FIRST",
 	"refill": "Next round",
-	"workArea": "Work Area"
+	"workArea": "Work Area",
+	"theEnd": "End Game and count points"
 }

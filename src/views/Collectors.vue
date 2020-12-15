@@ -25,124 +25,91 @@
       </button>
     </div>
 
-
-
-
-
-  <button v-if="players[playerId]" @click="players[playerId].money += 1">
-    fake more money
-  </button>
-
-  <div class="head">
-
-    <div class="your-playerboard">
-
-      <center>
-        <h2>{{ labels.yourPlayerBoard }}</h2>
-      </center>
-
-
-      {{ labels.hand }}
-      <hr>
-      <div class="cardslots" v-if="players[playerId]">
-        <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="handleAction(card)" :key="index" />
+    <button v-if="players[playerId]" @click="players[playerId].money += 1">
+      fake more money
+    </button>
+    <div class="head">
+      <div class="your-playerboard">
+        <center>
+          <h2>{{ labels.yourPlayerBoard }}</h2>
+        </center>
+        {{ labels.hand }}
+        <hr>
+        <div class="cardslots" v-if="players[playerId]">
+          <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="handleAction(card)" :key="index" />
+        </div>
+        {{ labels.items }}
+        <hr>
+        <div class="cardslots" v-if="players[playerId]">
+          <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index" />
+        </div>
+        {{ labels.skills }}
+        <hr>
+        <div class="cardslots" v-if="players[playerId]">
+          <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index" />
+        </div>
       </div>
 
-      {{ labels.items }}
-      <hr>
-      <div class="cardslots" v-if="players[playerId]">
-        <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index" />
+      <div class="opponentsBoard">
+        <h3> {{ labels.allPlayers }} </h3>
+        <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
+
+          <h3>{{ labels.playerID }}{{playerId}}</h3>
+          <img src="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
+          <h5> {{ labels.items }} </h5>
+
+          <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
+            {{itemInfo.item}}
+          </div>
+
+          <h5> {{ labels.skills }} </h5>
+
+          <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
+            {{skillInfo.skill}}
+          </div>
+
+          <h5> {{ labels.bottles }}{{players[playerId].bottles}} </h5>
+        </div>
       </div>
 
-      {{ labels.skills }}
-      <hr>
-      <div class="cardslots" v-if="players[playerId]">
-        <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index" />
-      </div>
-  </div>
-
-    <div class="opponentsBoard">
-
-      <h3> {{ labels.allPlayers }} </h3>
-
-      <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
-
-        <h3>{{ labels.playerID }}{{playerId}}</h3>
-        <img src="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
-        <h5> {{ labels.items }} </h5>
-        <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
-          {{itemInfo.item}}
+      <div class="gamezone">
+        <div class="item">
+          <collectorsBuyItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :itemsOnSale="itemsOnSale" :marketValues="marketValues" :placement="itemPlacement" @buyItem="buyItem($event)"
+            @placeBottle="placeBottle('item', $event)" />
         </div>
 
-
-
-        <h5> {{ labels.skills }} </h5>
-        <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
-          {{skillInfo.skill}}
+        <div class="skill">
+          <CollectorsBuySkill v-if="players[playerId]" :labels="labels" :player="players[playerId]" :skillsOnSale="skillsOnSale" :marketValues="marketValues" :placement="skillPlacement" @buySkill="buySkill($event)"
+            @placeBottle="placeBottle('skill', $event)" />
         </div>
 
+        <div class="value">
+          <div class="leftvalue">
+            <CollectorsRaiseValue v-if="players[playerId]" :labels="labels" :player="players[playerId]" :marketValues="marketValues" :placement="marketPlacement" @raiseValue="raiseValue($event)" @placeBottle="placeBottle('market', $event)" />
+          </div>
+          <div class="rightvalue">
 
+            <h5>{{ labels.marketValues }} </h5>
+            <img src="/images/movie.png" width="50"> x {{marketValues.movie}}
+            <hr class="blueline">
+            <img src="/images/music.png" width="50"> x {{marketValues.music}}
+            <hr class="blueline">
+            <img src="/images/penguin.png" width="50"> x {{marketValues.fastaval}}
+            <hr class="blueline">
+            <img src="/images/robot.png" width="50"> x {{marketValues.figures}}
+            <hr class="blueline">
+            <img src="/images/tech.png" width="50"> x {{marketValues.technology}}<br>
 
-
-        <h5> {{ labels.bottles }}{{players[playerId].bottles}} </h5>
-
-
-      </div>
-
-
-
-    </div>
-
-    <div class="gamezone">
-
-      <div class="item">
-        <collectorsBuyItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :itemsOnSale="itemsOnSale" :marketValues="marketValues" :placement="itemPlacement" @buyItem="buyItem($event)"
-          @placeBottle="placeBottle('item', $event)" />
-      </div>
-
-      <div class="skill">
-        <CollectorsBuySkill v-if="players[playerId]" :labels="labels" :player="players[playerId]" :skillsOnSale="skillsOnSale" :marketValues="marketValues" :placement="skillPlacement" @buySkill="buySkill($event)"
-          @placeBottle="placeBottle('skill', $event)" />
-      </div>
-
-      <div class="value">
-
-        <div class="leftvalue">
-          <CollectorsRaiseValue v-if="players[playerId]" :labels="labels" :player="players[playerId]" :marketValues="marketValues" :placement="marketPlacement" @raiseValue="raiseValue($event)" @placeBottle="placeBottle('market', $event)" />
+          </div>
         </div>
+        <div class="auction">
 
-        <div class="rightvalue">
+          <div class="upper-auction">
+            <CollectorsAuctionItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :auctionCards="auctionCards" :placement="auctionPlacement" @auctionItem="auctionItem($event)" @placeBottle="placeBottle('auction', $event)" />
+          </div>
 
-          <h5>{{ labels.marketValues }} </h5>
-          <img src="/images/movie.png" width="50"> x {{marketValues.movie}}
-          <hr class="blueline">
-          <img src="/images/music.png" width="50"> x {{marketValues.music}}
-          <hr class="blueline">
-          <img src="/images/penguin.png" width="50"> x {{marketValues.fastaval}}
-          <hr class="blueline">
-          <img src="/images/robot.png" width="50"> x {{marketValues.figures}}
-          <hr class="blueline">
-          <img src="/images/tech.png" width="50"> x {{marketValues.technology}}<br>
-
-        </div>
-
-      </div>
-
-
-
-
-      <div class="auction">
-
-
-        <div class="upper-auction">
-          <CollectorsAuctionItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :auctionCards="auctionCards" :placement="auctionPlacement" @auctionItem="auctionItem($event)" @placeBottle="placeBottle('auction', $event)" />
-        </div>
-
-
-        <div class="lower-auction">
-
-
-          <div class="altButtons">
+          <div class="lower-auction">
+            <div class="altButtons">
 
               <button class="altButton" v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('item')">Place in item</button><br>
               <button class="altButton" v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('skill')">Place in skill</button><br>
@@ -157,53 +124,35 @@
               <button v-if="players[playerId]" :disabled="!winnerAuction()" @click="payRestCoins()">Pay rest in coins</button>
 
             </div>
-
           </div>
-
 
           <div class="head-auction">
             <h5>{{ labels.cardUp }}</h5>
           </div>
+
           <div class="cardslots card-for-auction">
             <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
             <div class="cardslots">
               <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
             </div>
-
-
-
-
           </div>
-
         </div>
 
-
-      <div class="work">
-
-<CollectorsWorkArea v-if="players[playerId]" :labels="labels" :player="players[playerId]" :placement="workPlacement" @placeBottle="placeBottle('work',$event)" />
-</div>
-      <div class="theRest">
+        <div class="work">
+          <CollectorsWorkArea v-if="players[playerId]" :labels="labels" :player="players[playerId]" :placement="workPlacement" @placeBottle="placeBottle('work',$event)" />
+        </div>
+        <div class="theRest">
 
 
-
-
-
-
-
-
+        </div>
       </div>
     </div>
-  </div>
 
-</main>
-    <!---->
+  </main>
 </div>
-
 </template>
 
 <script>
-/*eslint no-unused-vars: ["error", { "varsIgnorePattern": "[iI]gnored" }]*/
-
 import CollectorsCard from '@/components/CollectorsCard.vue'
 import CollectorsBuyItem from '@/components/CollectorsBuyItem.vue'
 import CollectorsBuySkill from '@/components/CollectorsBuySkill.vue'

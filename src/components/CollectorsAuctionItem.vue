@@ -12,17 +12,16 @@
         <CollectorsCard :card="card" :availableAction="card.available" @doAction="auctionItem(card)" />
       </div>
     </div>
-
-  <div class="left buttons">
-    <div class="button" v-for="(p, index) in placement" :key="index">
-      <button v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn()" @click="placeBottle(p)">
+    <div class="left buttons">
+    <div v-for="(p, index) in placement" :key="index">
+      <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn()" @click="placeBottle(p)">
         ${{p.cost}}
       </button>
       <div v-if="p.playerId !== null">
         {{p.playerId}}
       </div>
     </div>
-  </div>
+    </div>
   </div>
 </div>
 </template>
@@ -104,6 +103,7 @@ export default {
   width: 70px;
   display: grid;
   grid-template-rows: repeat(auto-fill, 90px);
+
 }
 
 

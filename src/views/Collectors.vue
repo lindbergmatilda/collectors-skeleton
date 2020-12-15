@@ -707,7 +707,7 @@ footer a:visited {
 
 
   grid-template-columns: 380px 2fr 400px;
-  grid-template-rows: 300px 1000px 1fr 1fr 1fr;
+  grid-template-rows: 300px 1200px 1fr 1fr 1fr;
 
   height: 500px;
   margin: 60px;

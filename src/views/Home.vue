@@ -103,7 +103,7 @@ body {
   align-items: center;
   justify-content: center;
   grid-template-areas: 'up''down';
-
+  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
 }
 
 #holder {
@@ -176,11 +176,49 @@ body {
 
 .upper-grid {
   grid-area: up;
-  padding:100px;
-  padding-left: 192px;
-  font-family: "Lexend Deca", sans-serif;
-  font-size: 30px;
-  color: white;
+  padding:70px;
+font-family: 'Helvetica Neue', sans-serif;
+font-size: 48px;
+font-weight: bold;
+letter-spacing: -1px;
+  color: #313131;
+  -webkit-animation: colorchange 15s infinite alternate;
+}
+
+@-webkit-keyframes colorchange {
+  0% {
+    color: blue;
+  }
+  10% {
+    color: #8e44ad;
+  }
+  20% {
+    color: #1abc9c;
+  }
+  30% {
+    color: #d35400;
+  }
+  40% {
+    color: blue;
+  }
+  50% {
+    color: #34495e;
+  }
+  60% {
+    color: blue;
+  }
+  70% {
+    color: #2980b9;
+  }
+  80% {
+    color: #f1c40f;
+  }
+  90% {
+    color: #2980b9;
+  }
+  100% {
+    color: pink;
+  }
 }
 
 

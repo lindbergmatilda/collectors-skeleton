@@ -14,12 +14,12 @@
     </div>
 
     <div class="refillbuttons">
-      <button v-if="players[playerId]" @click="refill">
+      <button v-if="players[playerId]" :disabled="!nextRound()" @click="refill">
         {{ labels.refill }}
       </button>
     </div>
 
-    <div class="nextbuttons">
+    <div class="endGame">
       <button v-if="players[playerId]" :disabled="!endGame()" @click="countPoints">
         {{ labels.theEnd }}
       </button>
@@ -59,8 +59,7 @@
       <div class="cardslots" v-if="players[playerId]">
         <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index" />
       </div>
-
-    </div>
+  </div>
 
     <div class="opponentsBoard">
 
@@ -513,6 +512,7 @@ export default {
         playerId: this.playerId
       });
     },
+
 
     drawCard: function() {
       this.$store.state.socket.emit('collectorsDrawCard', {

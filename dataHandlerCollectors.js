@@ -227,7 +227,7 @@ Data.prototype.joinGame = function(roomId, playerId) {
         let card = room.deck.pop();
         room.players[playerId].hand.push(card);
       }
-    
+      
       return true;
     }
     console.log("Player", playerId, "was declined due to player limit");

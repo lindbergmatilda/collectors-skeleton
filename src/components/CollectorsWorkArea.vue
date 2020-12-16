@@ -19,6 +19,7 @@
         {{p.playerId}}
       </div>
     </div>
+    </div>
 
     <div class="pictures">
       <img class="workcard GET2" src="/images/GET2.png" width="120"><br>
@@ -29,9 +30,10 @@
     </div>
 
 
-    </div>
 
 
+
+</div>
 </div>
 </template>
 

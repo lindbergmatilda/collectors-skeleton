@@ -205,6 +205,7 @@ Data.prototype.joinGame = function(roomId, playerId) {
     } else if (Object.keys(room.players).length < room.playerCount) {
       console.log("Player", playerId, "joined for the first time");
       room.players[playerId] = {
+        name: "noName",
         hand: [],
         money: 2,
         points: 0,
@@ -249,6 +250,14 @@ Data.prototype.getPlayerCount = function(id) {
   let room = this.rooms[id]
   if (typeof room !== 'undefined') {
     return room.playerCount;
+  } else return {};
+}
+
+Data.prototype.nameChange = function(roomId, playerId, theName) {
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+    room.players[playerId].name = theName;
+    return room.players;
   } else return {};
 }
 

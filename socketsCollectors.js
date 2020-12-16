@@ -48,6 +48,12 @@ function sockets(io, socket, data) {
       );
     });
 
+    socket.on('collectorsChangeName', function(d) {
+      io.to(d.roomId).emit('collectorsChangedName',
+        data.nameChange(d.roomId, d.playerId, d.theName)
+      );
+    });
+
     socket.on('collectorsDonePlaying', function(d){
       data.countPoints(d.roomId, d.playerId, d.marketValues)
       io.to(d.roomId).emit('collectorsDonePlayed', {

@@ -35,10 +35,15 @@
       </span>
     </div>
 
+    <hr>
+    <input v-if="players[playerId]" type="text" v-model="myName" name="name" placeholder="Game Name">
+    <button v-if="players[playerId]" @click="enterName()">CHANGE</button>
+    <hr>
+
     <div class="head">
       <div class="your-playerboard">
         <center>
-          <h2>{{ labels.yourPlayerBoard }}</h2>
+          <h2 v-if="players[playerId]">{{ labels.yourPlayerBoard}} {{players[playerId].name}}</h2>
         </center>
 
         {{ labels.hand }}
@@ -74,7 +79,7 @@
       <div class="opponentsBoard">
         <h3> {{ labels.allPlayers }} </h3>
         <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
-          <h3>{{ labels.playerID }}{{playerId}}</h3>
+          <h3>{{ labels.playerID }}{{playerId}} ({{players[playerId].name}})</h3>
           <img src="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
           <h5> {{ labels.items }} </h5>
           <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
@@ -258,7 +263,8 @@ export default {
       auctionRunning: false,
       highestBid: null,
       myBid: 0,
-      rounds: 1
+      rounds: 1,
+      myName: ""
     }
   },
   computed: {
@@ -332,6 +338,12 @@ export default {
       function(d) {
         //this has been refactored to not single out one player's cards
         //better to update the state of all cards
+        this.players = d;
+      }.bind(this)
+    );
+
+    this.$store.state.socket.on('collectorsChangedName',
+      function(d) {
         this.players = d;
       }.bind(this)
     );
@@ -560,6 +572,15 @@ export default {
       this.$store.state.socket.emit('collectorsDrawCard', {
         roomId: this.$route.params.id,
         playerId: this.playerId
+      });
+    },
+
+    enterName: function(){
+      var theName = this.myName;
+      this.$store.state.socket.emit('collectorsChangeName', {
+        roomId: this.$route.params.id,
+        playerId: this.playerId,
+        theName: theName
       });
     },
 

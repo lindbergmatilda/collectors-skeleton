@@ -55,10 +55,11 @@ Data.prototype.getUILabels = function(roomId) {
   } else return {};
 }
 
-Data.prototype.createRoom = function(roomId, playerCount, lang = "en") {
+Data.prototype.createRoom = function(roomId, playerCount, lang) {
   let room = {};
   room.players = {};
   room.playerList = [];
+  room.colourList = ["#9D6FCD","#328EDA","#ED8E14","#49C528"];
   room.rounds = 1;
   room.lang = lang;
   room.deck = this.createDeck(lang);
@@ -222,12 +223,14 @@ Data.prototype.joinGame = function(roomId, playerId) {
         bottles: [1, 1, 0, 0, 0],
         bottleAmount: 2
       };
+
+
       room.playerList.push(room.players[playerId]);
       for (let i = 0; i < 4; i += 1) {
         let card = room.deck.pop();
         room.players[playerId].hand.push(card);
       }
-      
+
       return true;
     }
     console.log("Player", playerId, "was declined due to player limit");
@@ -436,8 +439,6 @@ Data.prototype.claimAuctionCard = function(roomId, playerId, buttonAction) {
       room.playerList[i].auctionTurn = false;
     }
 
-    console.log("från data efter claim:", room.players);
-
     return room.players;
   } else return [];
 }
@@ -510,6 +511,28 @@ Data.prototype.payAuction= function(roomId, playerId, cost, card){
       }
     }
 
+  }
+}
+
+Data.prototype.secretCard = function(roomId, playerId, card){
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+    let c = null;
+
+    for (let i = 0; i < room.players[playerId].hand.length; i += 1) {
+      if (room.players[playerId].hand[i].x === card.x &&
+        room.players[playerId].hand[i].y === card.y) {
+        c = room.players[playerId].hand.splice(i, 1);
+        break;
+      }
+    }
+
+    room.players[playerId].secret.push(...c);
+
+    for(let i = 0; i<room.playerList.length; i++){
+      room.playerList[i].colour = room.colourList[i];
+    }
+    console.log("spelarna: ", room.players);
   }
 }
 

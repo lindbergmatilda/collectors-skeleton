@@ -8,7 +8,7 @@
   </div>
   <div>
     <div class="buttons" v-for="(p, index) in placement" :key="index">
-      <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn()" @click="placeBottle(p)">
+      <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn() || auctionRunning" @click="placeBottle(p)">
         ${{p.cost}}
       </button>
       <div v-if="p.playerId !== null">
@@ -32,7 +32,8 @@ export default {
     player: Object,
     market: Array,
     marketValues: Object,
-    placement: Array
+    placement: Array,
+    auctionRunning: Boolean
   },
   methods: {
     cannotAfford: function(cost) {
@@ -49,9 +50,15 @@ export default {
 
     placeBottle: function(p) {
       this.$emit('placeBottle', p);
-      this.highlightAvailableCards(p.cost);
-      console.log(" kostnaden är " + p.cost);
+      if(p.position != 2){
+        this.highlightAvailableCards(p.cost);
+      }
+      else{
+        let card = null;
+        this.$emit('raiseValue', card);
+      }
     },
+
 
     isMyTurn: function() {
       if(this.player.myTurn){
@@ -69,7 +76,6 @@ export default {
 
     raiseValue: function(card) {
       if (card.available) {
-        console.log("hejsan raiseValue funkar");
         this.$emit('raiseValue', card)
         this.highlightAvailableCards()
       }

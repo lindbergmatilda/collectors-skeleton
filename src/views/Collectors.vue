@@ -152,14 +152,11 @@
               <button class="altButton" v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('market')">Add to market</button>
             </div>
 
-            <div class="highest-bid">
-              {{highestBid}}
-            </div>
             <div class="auction-place">
               <center>
                 <div for="number">
                   <h5 v-if="players[playerId]">{{ labels.placeBid }} </h5>
-                  <h5 v-if="players[playerId] && this.auctionRunning">{{ labels.maxBid }} {{players[playerId].moneyCard}}</h5>
+                  <h5 v-if="players[playerId] && this.auctionRunning">{{ labels.maxBid }} {{highestBid}}</h5>
                 </div>
                 <input v-if="players[playerId]" type="number" v-model="myBid" name="bid" :min="recentBid()" :max="playerMoney()" placeholder="Place your bid">
                 <div class="altbuttons2">

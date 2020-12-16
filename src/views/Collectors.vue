@@ -13,6 +13,12 @@
       </button>
     </div>
 
+    <div class="secretButton">
+      <button v-if="players[playerId]" @click="chooseSecret()">
+        {{ labels.chooseSecret }}
+      </button>
+    </div>
+
     <div class="refillbuttons">
       <button v-if="players[playerId]" :disabled="!nextRound()" @click="refill">
         {{ labels.refill }}
@@ -86,6 +92,9 @@
 
           <h5> {{ labels.bottles }}{{players[playerId].bottles}} </h5>
 
+      <div class="opponentsBoard">
+        <h3> {{ labels.allPlayers }} </h3>
+        <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
 
         </div>
 
@@ -133,15 +142,11 @@
 
         <div class="auction">
 
-
           <div class="upper-auction">
             <CollectorsAuctionItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :auctionCards="auctionCards" :placement="auctionPlacement" @auctionItem="auctionItem($event)" @placeBottle="placeBottle('auction', $event)" />
           </div>
 
-
           <div class="lower-auction">
-
-
             <div class="altButtons">
 
               <button class="altButton" v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('item')">Place in item</button><br>
@@ -161,14 +166,13 @@
 
           </div>
 
-
           <div class="head-auction">
             <h5>{{ labels.cardUp }}</h5>
           </div>
+
           <div class="cardslots card-for-auction">
             <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
           </div>
-
         </div>
 
 
@@ -195,8 +199,6 @@
 </template>
 
 <script>
-/*eslint no-unused-vars: ["error", { "varsIgnorePattern": "[iI]gnored" }]*/
-
 import CollectorsCard from '@/components/CollectorsCard.vue'
 import CollectorsBuyItem from '@/components/CollectorsBuyItem.vue'
 import CollectorsBuySkill from '@/components/CollectorsBuySkill.vue'
@@ -474,8 +476,10 @@ export default {
         }
       }
       return true;
+    },
 
-
+    chooseSecret: function (){
+      console.log("hejsan, hemligt kort här");
     },
 
     endGame: function() {

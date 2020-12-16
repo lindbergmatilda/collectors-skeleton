@@ -19,5 +19,6 @@
 	"playerID": "SPELAR ID: ",
 	"bottles":"ANTAL DRAG: ",
 	"cardUp":"KORT FÖR AUKTION",
-	"marketValues": "MARKNADSVÄRDEN"
+	"marketValues": "MARKNADSVÄRDEN",
+	"chooseSecret": "Välj ditt hemliga kort"
 }

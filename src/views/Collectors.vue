@@ -8,13 +8,13 @@
     </p>
 
     <div class="firstbuttons">
-      <button v-if="players[playerId]" @click="claimFirstPlayer">
+      <button v-if="players[playerId]" :disabled="disableIGoFirst()" @click="claimFirstPlayer">
         {{ labels.firstPlayer }}
       </button>
     </div>
 
     <div class="secretButton">
-      <button v-if="players[playerId]" @click="chooseSecret()">
+      <button v-if="players[playerId]" :disabled='this.chosenAction != "secretCard"' @click="chooseSecret()">
         {{ labels.chooseSecret }}
       </button>
     </div>
@@ -201,7 +201,7 @@ export default {
       marketPlacement: [],
       workPlacement: [],
       chosenPlacementCost: null,
-      chosenAction: null,
+      chosenAction: "secretCard",
       canIClaim: false,
       chosenPlacementPosition: null,
       marketValues: {
@@ -359,6 +359,12 @@ export default {
       }.bind(this)
     );
 
+    this.$store.state.socket.on("collectorsSecretChoosen",
+      function(d) {
+          this.players = d.players;
+        }.bind(this)
+      );
+
     this.$store.state.socket.on('collectorsRaisedValue',
       function(d) {
         console.log(d.playerId, "raised a value");
@@ -439,8 +445,18 @@ export default {
     },
 
     chooseSecret: function (){
-      console.log("hejsan, hemligt kort här");
+      this.highlightHand(true);
     },
+
+    disableIGoFirst: function (){
+        for (let i = 0; i < Object.keys(this.players).length; i++) {
+          if (this.players[Object.keys(this.players)[i]].iStart != false){
+            return true;
+          }
+        }
+        return false;
+    },
+
 
     endGame: function() {
       for (let i = 0; i < Object.keys(this.players).length; i++) {
@@ -577,6 +593,16 @@ export default {
       });
     },
 
+    secretCard: function(card){
+      this.chosenAction = null;
+      this.$store.state.socket.emit("collectorsSecretCard",{
+        roomId: this.$route.params.id,
+        playerId: this.playerId,
+        card: card
+
+      });
+    },
+
     raiseValue: function(card) {
       console.log("raiseValue", card);
       this.chosenAction = null;
@@ -602,6 +628,8 @@ export default {
         this.auctionItem(card);
       } else if (this.chosenAction === "market") {
         this.raiseValue(card);
+      } else if (this.chosenAction === "secretCard") {
+        this.secretCard(card);
       }
     },
 

@@ -27,7 +27,7 @@
       </button>
     </div>
 
-    <div class="yourSecret" @click='yourSecret()'> {{ labels.secretCard }}
+    <div class="yourSecret" v-if="players[playerId]" @click='yourSecret()'> {{ labels.secretCard }}
       <span class="secret-popUp" id="secretYours">
         <CollectorsCard v-for="(card, index) in players[playerId].secret"
         :card="card"
@@ -158,9 +158,10 @@
             <div class="auction-place">
               <center>
                 <div for="number">
-                  <h5 v-if="players[playerId]">{{ labels.placeBid }} {{players[playerId].moneyCard}}</h5>
+                  <h5 v-if="players[playerId]">{{ labels.placeBid }} </h5>
+                  <h5 v-if="players[playerId] && this.auctionRunning">{{ labels.maxBid }} {{players[playerId].moneyCard}}</h5>
                 </div>
-                <input type="number" v-model="myBid" name="bid" :min="recentBid()" :max="playerMoney()" placeholder="Place your bid">
+                <input v-if="players[playerId]" type="number" v-model="myBid" name="bid" :min="recentBid()" :max="playerMoney()" placeholder="Place your bid">
                 <div class="altbuttons2">
                   <button class="altbutton2" v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction() || canNotAfford()" @click="placeBid()">BID</button>
                   <button class="altbutton2" v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction()" @click="passBid()">PASS</button>

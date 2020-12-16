@@ -26,9 +26,14 @@
         {{ labels.theEnd }}
       </button>
     </div>
-    <button v-if="players[playerId]" @click="players[playerId].money += 1">
-      fake more money
-    </button>
+
+    <div class="yourSecret" @click='yourSecret()'> {{ labels.secretCard }}
+      <span class="secret-popUp" id="secretYours">
+        <CollectorsCard v-for="(card, index) in players[playerId].secret"
+        :card="card"
+        :key="index" />
+      </span>
+    </div>
 
     <div class="head">
       <div class="your-playerboard">
@@ -153,7 +158,7 @@
             <div class="auction-place">
               <center>
                 <div for="number">
-                  <h5>{{ labels.placeBid }} {{players[playerId].moneyCard}}</h5>
+                  <h5 v-if="players[playerId]">{{ labels.placeBid }} {{players[playerId].moneyCard}}</h5>
                 </div>
                 <input type="number" v-model="myBid" name="bid" placeholder="Place your bid">
                 <div class="altbuttons2">
@@ -496,6 +501,11 @@ export default {
       this.highlightHand(true);
     },
 
+    yourSecret: function(){
+      var secret = document.getElementById('secretYours');
+      secret.classList.toggle('show');
+    },
+
     disableIGoFirst: function() {
       for (let i = 0; i < Object.keys(this.players).length; i++) {
         if (this.players[Object.keys(this.players)[i]].iStart != false) {
@@ -723,6 +733,53 @@ main {
   max-width: 2000px;
 
   font-family: "Lexend Deca", sans-serif;
+}
+
+.yourSecret {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 20px;
+  font-size: 30px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.yourSecret .secret-popUp {
+
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    font-size: 15px;
+
+}
+
+.yourSecret .secret-popUp::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.yourSecret .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
 }
 
 .your-playerboard {

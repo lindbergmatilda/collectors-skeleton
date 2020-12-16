@@ -21,7 +21,8 @@
 	"cardUp":"CARD UP FOR AUCTION",
 	"marketValues":"MARKET VALUES",
 	"chooseSecret": "Choose your secret card",
-	"highestBid": "The highest current bid is: "
+	"highestBid": "THE HIGHEST BID: ",
+	"placeBid": "PLACE BID"
 
 
 }

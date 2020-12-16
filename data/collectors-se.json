@@ -21,5 +21,6 @@
 	"cardUp":"KORT FÖR AUKTION",
 	"marketValues": "MARKNADSVÄRDEN",
 	"chooseSecret": "Välj ditt hemliga kort",
-	"highestBid": "Det högsta budet är: "
+	"highestBid": "Det högsta budet är: ",
+	"placeBid": "BUDA"
 }

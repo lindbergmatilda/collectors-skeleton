@@ -94,8 +94,8 @@
 
 
 
+        </div>
       </div>
-    </div>
 
       <div class="gamezone">
 
@@ -144,32 +144,38 @@
           <div class="lower-auction">
             <div class="altButtons">
 
-              <button class="altButton" v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('item')">Place in item</button><br>
-              <button class="altButton" v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('skill')">Place in skill</button><br>
-              <button class="altButton" v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('market')">Add to market</button><br>
+              <button class="altButton" v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('item')">Place in item</button>
+              <button class="altButton" v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('skill')">Place in skill</button>
+              <button class="altButton" v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('market')">Add to market</button>
             </div>
-            <div class="auction-rest">
-              <div>
-                {{highestBid}}
+
+            <div class="highest-bid">
+              {{highestBid}}
+            </div>
+            <div class="auction-place">
+            <center>
+              <div for="number">
+                <h5>{{ labels.placeBid }}</h5>
               </div>
-              <label for="number"> Place bid (you can place coins or cards) RÄKNA SJÄLV FÖR FAN </label> <br>
               <input type="number" v-model="myBid" name="bid" placeholder="Place your bid">
+              <div class="altbuttons2">
+                <button class="altbutton2" v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction() || canNotAfford()" @click="placeBid()">BID</button>
+                <button class="altbutton2" v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction()" @click="passBid()">PASS</button>
 
-                <button v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction() || canNotAfford()" @click="placeBid()">Place bid</button>
-              <button v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction()" @click="passBid()">Pass</button>
-
-              <button v-if="players[playerId]" :disabled="!winnerAuction()" @click="payRestCoins()">Pay rest in coins</button>
+                <button class="altbutton2" v-if="players[playerId]" :disabled="!winnerAuction()" @click="payRestCoins()">PAYX</button>
+              </div>
+            </center>
             </div>
 
 
-          </div>
 
-          <div class="head-auction">
-            <h5>{{ labels.cardUp }}</h5>
-          </div>
+            <div class="head-auction">
+              <h5>{{ labels.cardUp }}</h5>
+            </div>
 
-          <div class="cardslots card-for-auction">
-            <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
+            <div class="cardslots card-for-auction">
+              <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
+            </div>
           </div>
         </div>
 
@@ -336,12 +342,12 @@ export default {
     this.$store.state.socket.on('collectorsPlacedBid',
       function(d) {
         this.players = d.players;
-        let highest=0;
-        for (let i=0; i<Object.keys(this.players).length; i++){
+        let highest = 0;
+        for (let i = 0; i < Object.keys(this.players).length; i++) {
           console.log("Här: ", );
-          if (this.players[Object.keys(this.players)[i]].bid>highest){
-            highest=this.players[Object.keys(this.players)[i]].bid;
-      }
+          if (this.players[Object.keys(this.players)[i]].bid > highest) {
+            highest = this.players[Object.keys(this.players)[i]].bid;
+          }
         }
         this.highestBid = highest;
       }.bind(this)
@@ -409,9 +415,9 @@ export default {
 
     this.$store.state.socket.on("collectorsSecretChoosen",
       function(d) {
-          this.players = d.players;
-        }.bind(this)
-      );
+        this.players = d.players;
+      }.bind(this)
+    );
 
     this.$store.state.socket.on('collectorsRaisedValue',
       function(d) {
@@ -492,17 +498,17 @@ export default {
       return true;
     },
 
-    chooseSecret: function (){
+    chooseSecret: function() {
       this.highlightHand(true);
     },
 
-    disableIGoFirst: function (){
-        for (let i = 0; i < Object.keys(this.players).length; i++) {
-          if (this.players[Object.keys(this.players)[i]].iStart != false){
-            return true;
-          }
+    disableIGoFirst: function() {
+      for (let i = 0; i < Object.keys(this.players).length; i++) {
+        if (this.players[Object.keys(this.players)[i]].iStart != false) {
+          return true;
         }
-        return false;
+      }
+      return false;
     },
 
 
@@ -551,11 +557,10 @@ export default {
       });
     },
 
-    canNotAfford: function(){
-      if(this.players[this.playerId].moneyCard < this.highestBid){
+    canNotAfford: function() {
+      if (this.players[this.playerId].moneyCard < this.highestBid) {
         return true;
-      }
-      else {
+      } else {
         return false;
       }
     },
@@ -649,9 +654,9 @@ export default {
       });
     },
 
-    secretCard: function(card){
+    secretCard: function(card) {
       this.chosenAction = null;
-      this.$store.state.socket.emit("collectorsSecretCard",{
+      this.$store.state.socket.emit("collectorsSecretCard", {
         roomId: this.$route.params.id,
         playerId: this.playerId,
         card: card
@@ -798,8 +803,8 @@ footer a:visited {
   width: 800px;
 
 
-  grid-template-columns: 380px 2fr 400px;
-  grid-template-rows: 300px 1200px 1fr 1fr 1fr;
+  grid-template-columns: 380px 200px 320px;
+  grid-template-rows: 300px 1090px 1fr 1fr 1fr;
 
   height: 500px;
   margin: 60px;
@@ -865,14 +870,21 @@ footer a:visited {
 .lower-auction {
   grid-area: lower-auction;
   display: grid;
-  grid-template-areas: 'header header''auctioncard auctionbuttons''card4auction bidbutton';
-  grid-template-rows: 90px 240px 300px;
+  grid-template-areas: 'header header''card4auction bidButtons''altButtons auction-info';
+  grid-template-rows: 90px 240px 100px;
   grid-template-columns: 190px 100px;
 
 }
 
-.auction-rest {
-  grid-area: auctionbuttons;
+
+
+.auction-place {
+  grid-area: altButtons;
+  margin:10px;
+}
+
+.highest-bid {
+  grid-area: altButtons;
 }
 
 .head-auction {
@@ -880,8 +892,27 @@ footer a:visited {
   padding: 14px;
 }
 
+.card-for-auction {
+  grid-area: card4auction;
+  background-color: lightgrey;
+  margin:10px;
+}
+
+.work {
+  grid-area: work;
+  background-color: #FFEDDB;
+}
+
+
+.theRest {
+  grid-area: rest;
+  border: 10px;
+  color: white;
+
+}
+
 .altButtons {
-  grid-area: auctioncard;
+  grid-area: bidButtons;
   padding: 25px;
   padding-left: 20px;
 
@@ -917,22 +948,33 @@ button[disabled] {
   opacity: 0.5;
 }
 
-.card-for-auction {
-  grid-area: card4auction;
-  background-color: lightgrey;
+.altbuttons2 {
+  grid-area: bidButtons;
+  padding: 25px;
+  padding-left: 20px;
+}
+.altbutton2 {
+  width: 40px;
+  height: 40px;
+  margin-top: -100px;
+
+  color: black;
+  text-transform: capitalize;
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 10px;
+  background: lightgrey;
+  border-radius: 20px;
+  border: none;
+  transition: all 0.4s ease 0s;
 }
 
-.work {
-  grid-area: work;
-  background-color: #FFEDDB;
-}
-
-
-.theRest {
-  grid-area: rest;
-  border: 10px;
-  color: white;
-
+.altbutton2:hover:enabled {
+  text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+  transition: all 0.4s ease 0.2s;
+  background: #ffc34d;
+  width: 100px;
 }
 
 

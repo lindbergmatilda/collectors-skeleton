@@ -22,6 +22,7 @@
 	"marketValues":"MARKET VALUES",
 	"chooseSecret": "Choose your secret card",
 	"highestBid": "THE HIGHEST BID: ",
-	"placeBid": "PLACE BID, your max bid is: ",
+	"placeBid": "PLACE BID",
+	"maxBid": "You can bid as highest: ",
 	"secretCard": "Show your secret card"
 }

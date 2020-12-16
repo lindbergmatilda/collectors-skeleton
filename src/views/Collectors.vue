@@ -120,6 +120,9 @@
               <button class="altButton" v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('item')">Place in item</button><br>
               <button class="altButton" v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('skill')">Place in skill</button><br>
               <button class="altButton" v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('market')">Add to market</button><br>
+              <div>
+                {{highestBid}}
+              </div>
               <p>
                 <label for="number"> Place bid (you can place coins or cards) RÄKNA SJÄLV FÖR FAN </label> <br>
                 <input type="number" v-model="myBid" name="bid" placeholder="Place your bid">
@@ -216,6 +219,7 @@ export default {
       skillsOnSale: [],
       auctionCards: [],
       theAuctionItem: [],
+      highestBid: null,
       myBid: 0,
       rounds: 1
     }
@@ -297,6 +301,7 @@ export default {
     this.$store.state.socket.on('collectorsPlacedBid',
       function(d) {
         this.players = d.players;
+        this.highestBid = this.players[this.playerId].bid;
       }.bind(this)
     );
 
@@ -333,6 +338,7 @@ export default {
         this.market = d.market;
         this.marketValues = d.marketValues;
         this.canIClaim = false;
+        this.highestBid = null;
       }.bind(this)
     );
 

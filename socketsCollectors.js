@@ -13,7 +13,8 @@ function sockets(io, socket, data) {
             skillsOnSale: data.getSkillsOnSale(d.roomId),
             auctionCards: data.getAuctionCards(d.roomId),
             auctionItem: data.getAuctionItem(d.roomId),
-            placements: data.getPlacements(d.roomId)
+            placements: data.getPlacements(d.roomId),
+            playerCount: data.getPlayerCount(d.roomId)
           }
         );
       }

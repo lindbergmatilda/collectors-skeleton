@@ -245,6 +245,13 @@ Data.prototype.getPlayers = function(id) {
   } else return {};
 }
 
+Data.prototype.getPlayerCount = function(id) {
+  let room = this.rooms[id]
+  if (typeof room !== 'undefined') {
+    return room.playerCount;
+  } else return {};
+}
+
 Data.prototype.getRound = function(id) {
   let room = this.rooms[id]
   if (typeof room !== 'undefined') {

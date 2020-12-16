@@ -7,7 +7,7 @@
       <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
     </p>
     <div class="firstbuttons">
-      <button v-if="players[playerId]" :disabled="disableIGoFirst()" @click="claimFirstPlayer">
+      <button v-if="players[playerId]" :disabled="disableIGoFirst() || !playersReady()" @click="claimFirstPlayer">
         {{ labels.firstPlayer }}
       </button>
     </div>
@@ -17,7 +17,7 @@
       </button>
     </div>
     <div class="refillbuttons">
-      <button v-if="players[playerId]" :disabled="!nextRound()" @click="refill">
+      <button v-if="players[playerId]" :disabled="!nextRound()"  @click="refill">
         {{ labels.refill }}
       </button>
     </div>
@@ -226,6 +226,7 @@ export default {
       },
       labels: {},
       players: {},
+      numberOfPlayers: 0,
       // playerId: {
       //   hand: [],
       //   money: 1,
@@ -305,6 +306,7 @@ export default {
         this.marketPlacement = d.placements.marketPlacement;
         this.auctionPlacement = d.placements.auctionPlacement;
         this.workPlacement = d.placements.workPlacement;
+        this.numberOfPlayers = d.playerCount;
       }.bind(this));
 
     this.$store.state.socket.on('collectorsBottlePlaced',
@@ -515,6 +517,13 @@ export default {
       return false;
     },
 
+    playersReady: function () {
+      while(Object.keys(this.players).length < this.numberOfPlayers){
+        return false;
+      }
+        return true;
+    },
+
     endGame: function() {
       for (let i = 0; i < Object.keys(this.players).length; i++) {
         for (let j = 0; j < 5; j++) {
@@ -544,6 +553,7 @@ export default {
     },
 
     drawCard: function() {
+      console.log("")
       this.$store.state.socket.emit('collectorsDrawCard', {
         roomId: this.$route.params.id,
         playerId: this.playerId

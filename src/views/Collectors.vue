@@ -301,7 +301,14 @@ export default {
     this.$store.state.socket.on('collectorsPlacedBid',
       function(d) {
         this.players = d.players;
-        this.highestBid = this.players[this.playerId].bid;
+        let highest=0;
+        for (let i=0; i<Object.keys(this.players).length; i++){
+          console.log("Här: ", );
+          if (this.players[Object.keys(this.players)[i]].bid>highest){
+            highest=this.players[Object.keys(this.players)[i]].bid;
+      }
+        }
+        this.highestBid = highest;
       }.bind(this)
     );
 

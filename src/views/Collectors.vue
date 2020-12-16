@@ -806,7 +806,7 @@ footer a:visited {
   width: 800px;
 
 
-  grid-template-columns: 380px 200px 320px;
+  grid-template-columns: 380px 210px 320px;
   grid-template-rows: 300px 1090px 1fr 1fr 1fr;
 
   height: 500px;
@@ -897,8 +897,11 @@ footer a:visited {
 
 .card-for-auction {
   grid-area: card4auction;
-  background-color: lightgrey;
+  background-color:  #ffe6b3;
+  padding-left: 10px;
+  padding-top: 10px;
   margin:10px;
+  border: 10px dashed white;
 }
 
 .work {
@@ -916,8 +919,9 @@ footer a:visited {
 
 .altButtons {
   grid-area: bidButtons;
-  padding: 25px;
-  padding-left: 20px;
+  padding: 45px;
+  padding-left: 1px;
+
 
 }
 
@@ -977,7 +981,7 @@ button[disabled] {
   -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
   transition: all 0.4s ease 0.2s;
   background: #ffc34d;
-  width: 100px;
+  font-size: 13px;
 }
 
 

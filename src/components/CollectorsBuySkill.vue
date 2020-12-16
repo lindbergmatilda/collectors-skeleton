@@ -2,6 +2,9 @@
 <div>
 
   <center>
+    <div class="popupSkill" @click='helpSkill()'>   ?   <span class="skillhelp-text" id="SkillPopup"> {{labels.skillHelp}} <img src="/images/skillInfo.png" > </span>
+
+    </div>
     <h2>{{ "SKILL" }}</h2>
   </center>
   <div class="item-left-right">
@@ -42,6 +45,12 @@ export default {
     auctionRunning: Boolean
   },
   methods: {
+
+    helpSkill: function() {
+      var popupSkill = document.getElementById('SkillPopup');
+      popupSkill.classList.toggle('show');
+
+    },
     cannotAfford: function(cost) {
       let minCost = 100;
       if (cost < minCost) {
@@ -159,4 +168,56 @@ button[disabled]{
   transform: scale(0.4)translate(-25%, 0);
   transform-origin: top;
 }
+
+.popupSkill {
+  left: -170px;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 20px;
+  font-size: 20px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+}
+
+.popupSkill .skillhelp-text {
+
+    visibility: hidden;
+
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    font-size: 15px;
+
+}
+
+.popupSkill .skillhelp-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+
+}
+
+.popupSkill .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+
 </style>

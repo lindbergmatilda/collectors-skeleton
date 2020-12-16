@@ -22,5 +22,7 @@
 	"marketValues": "MARKNADSVÄRDEN",
 	"chooseSecret": "Välj ditt hemliga kort",
 	"highestBid": "Det högsta budet är: ",
-	"placeBid": "BUDA"
+	"placeBid": "BUDA",
+	"skillHelp": "I Skill-området kan du köpa en grön skill från ett av korten i området, skillen kan hjälpa dig att kamma hem segern!"
+
 }

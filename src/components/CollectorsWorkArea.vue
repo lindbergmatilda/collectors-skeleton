@@ -1,16 +1,39 @@
 <template>
 <div>
-  <center><h2>{{ "WORK" }}</h2></center>
-    <div class="buttons">
-      <div v-for="(p, index) in placement" :key="index">
-      <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn()" @click="placeBottle(p)">
-        ${{p.cost}}
-      </button>
-      <div v-if="p.playerId !== null">
-        {{p.playerId}}
-      </div>
-    </div>
+  <div class="popupWork" @click='helpWork()'> ? <span class="workhelp-text" id="workPopup">Här kommer hjälptext :) </span>
+
   </div>
+  <center><h2>{{ "WORK" }}</h2></center>
+
+
+
+  <div class="work-area">
+
+
+    <div class="buttons">
+          <div v-for="(p, index) in placement" :key="index">
+
+          <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn()" @click="placeBottle(p)">
+            ${{p.cost}}
+          </button>
+          <div v-if="p.playerId !== null">
+            {{p.playerId}}
+          </div>
+        </div>
+    </div>
+
+    <div class="pictures">
+      <img class="workcard GET2" src="/images/GET2.png" width="120"><br>
+      <img class="workcard GET1" src="/images/GET1.png" width="120"><br>
+      <img class="workcard twocards" src="/images/TWOCARDS.png" width="120"><br>
+      <img class="workcard firstPLAYER" src="/images/1STPLAYER.png" width="120"><br>
+      <img class="workcard extracoin" src="/images/extra.png" width="120"><br>
+    </div>
+
+
+    </div>
+
+
 </div>
 </template>
 
@@ -29,6 +52,13 @@ export default {
     auctionRunning: Boolean
   },
   methods: {
+
+    helpWork: function() {
+      var popupWork = document.getElementById('workPopup');
+      popupWork.classList.toggle('show');
+
+    },
+
     cannotAfford: function(cost) {
       let minCost = 100;
 
@@ -46,7 +76,11 @@ export default {
     },
     placeBottle: function(p) {
       this.$emit('placeBottle', p);
-    }
+    },
+
+
+
+
 
   }
 }
@@ -54,27 +88,41 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-.buttons {
-  width: 70px;
-  display: grid;
-  margin: 15px;
-  grid-template-rows: repeat(auto-fill, 90px);
-
+.work-area {
+display: grid;
+grid-template-aeas: 'pictures buttons';
+grid-template-columns: 1fr 2fr;
 
 
 }
 
+.workcard {
+  margin-top: 90px;
+
+}
+
+
+
+.buttons {
+
+
+  display: grid;
+  margin-left: 30px;
+  margin-top: 90px;
+  grid-template-rows: repeat(auto-fill, 155px);
+}
+
 .button {
-  width: 120px;
-  height: 50px;
+  width:  42px;
+  height: 60px;
 
   color: black;
   text-transform:capitalize;
   font-family: "Lexend Deca", sans-serif;
-  font-size: 20px;
+  font-size: 15px;
 
-  background: brown;
-  border-radius: 20px;
+  background: #e0b3ff;
+  border-radius: 4px;
   display: inline-block;
   border: none;
   transition: all 0.4s ease 0s;
@@ -87,8 +135,9 @@ export default {
   -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
   -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
   transition: all 0.4s ease 0.2s;
-  background: #2eb82e;
-  width: 110px;
+  background: #cc80ff;
+  font-size: 20px;
+
 
 
 }
@@ -97,6 +146,57 @@ button:disabled,
 button[disabled]{
   color: grey;
   opacity: 0.5;
+}
+
+.workcard {
+border: 0.5px solid black;
+}
+
+.popupWork {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 20px;
+  font-size: 20px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.popupWork .workhelp-text {
+
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    font-size: 15px;
+
+}
+
+.popupWork .workhelp-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.popupWork .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
 }
 
 </style>

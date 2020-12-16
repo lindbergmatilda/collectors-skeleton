@@ -2,6 +2,9 @@
 <div>
   <center>
     <div class="label-auction">
+      <div class="popupAuction" @click='helpAuction()'>   ?   <span class="auctionhelp-text" id="auctionPopup"> Här kommer hjälptext :) </span>
+
+      </div>
     <h2>{{ "AUCTION" }}</h2></div> <br>
 
   </center>
@@ -43,6 +46,13 @@ export default {
     auctionRunning: Boolean
   },
   methods: {
+
+    helpAuction: function() {
+      var popupAuction = document.getElementById('auctionPopup');
+      popupAuction.classList.toggle('show');
+
+    },
+
     cannotAfford: function(cost) {
       let minCost = 100;
       if (cost < minCost) {
@@ -68,7 +78,7 @@ export default {
         return false;
     },
 
-  
+
 
     highlightAvailableCards: function(cost = 100) {
       for (let i = 0; i < this.auctionCards.length; i += 1) {
@@ -159,6 +169,55 @@ button[disabled]{
   grid-template-columns: repeat(auto-fill, 130px);
   transform: scale(0.4)translate(-25%, 0);
   transform-origin: top;
+}
+
+.popupAuction {
+  left: -150px;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 20px;
+  font-size: 20px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+}
+
+.popupAuction .auctionhelp-text {
+
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    font-size: 15px;
+
+}
+
+.popupAuction .auctionhelp-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.popupAuction .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
 }
 
 </style>

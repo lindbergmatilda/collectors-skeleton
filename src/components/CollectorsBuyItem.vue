@@ -1,6 +1,11 @@
 <template>
 <div>
   <center><h2>{{ "ITEM" }}</h2></center>
+  <div class="popupItem" @click='helpItem()'>   ?   <span class="itemhelp-text" id="ItemPopup"> Här kommer hjälptext :) </span>
+
+  </div>
+
+
 <div class="item-placement">
 
 <div class="upper-grid">
@@ -24,9 +29,7 @@
       </div>
     </div>
   </div>
-<div class="popupItem" @click='helpItem()'> ? <span class="itemhelp-text" id="ItemPopup"> Här kommer hjälptext :) </span>
 
-</div>
 
 </div>
 </div>
@@ -116,11 +119,13 @@ export default {
 
 @import url('https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap');
 
+
+
 .item-placement {
   display: grid;
   grid-template-areas: 'hej' 'down';
   grid-template-columns: 1fr;
-  grid-template-rows: 170px 170px;
+  grid-template-rows: 120px 170px;
   transform-origin: top;
 }
 
@@ -130,7 +135,7 @@ export default {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  margin-left: 170px;
+  margin-left: 200px;
 }
 
 .button {
@@ -176,10 +181,12 @@ button[disabled]{
 }
 
 .buy-item {
+  grid-area:hej;
   display: grid;
   grid-template-columns: repeat(auto-fill, 20%);
   transform: scale(0.4)translate(-25%, 0);
   transform-origin: top;
+  margin-top: -35px;
   margin-left: 90px;
 
 
@@ -192,11 +199,13 @@ button[disabled]{
   display: inline-block;
   cursor: pointer;
   margin-left: 20px;
-  font-size: 30px;
+  font-size: 20px;
+
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
 }
 
 .popupItem .itemhelp-text {

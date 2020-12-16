@@ -153,7 +153,7 @@
             <div class="auction-place">
               <center>
                 <div for="number">
-                  <h5>{{ labels.placeBid }}</h5>
+                  <h5>{{ labels.placeBid }} {{players[playerId].moneyCard}}</h5>
                 </div>
                 <input type="number" v-model="myBid" name="bid" placeholder="Place your bid">
                 <div class="altbuttons2">

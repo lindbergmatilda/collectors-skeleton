@@ -308,6 +308,7 @@ Data.prototype.countPoints = function(roomId, playerId, marketValues) {
 }
 
 Data.prototype.claimedFirst = function(roomId, playerId) {
+  try{
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
     room.players[playerId].myTurn = true;
@@ -331,6 +332,10 @@ Data.prototype.claimedFirst = function(roomId, playerId) {
       return room.players;
     }
   else return {};
+}
+catch(error){
+  console.log("Fel antal spelare")
+}
 }
 
 /* returns players after a new card is drawn */

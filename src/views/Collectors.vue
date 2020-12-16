@@ -480,10 +480,15 @@ export default {
     },
 
     claimFirstPlayer: function() {
-      this.$store.state.socket.emit('collectorsFirstPlayer', {
-        roomId: this.$route.params.id,
-        playerId: this.playerId
-      });
+      try{
+        this.$store.state.socket.emit('collectorsFirstPlayer', {
+          roomId: this.$route.params.id,
+          playerId: this.playerId
+        });
+      }
+      catch(error){
+        console.log("error")
+      }
     },
 
     nextRound: function() {

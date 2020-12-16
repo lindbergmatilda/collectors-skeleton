@@ -8,13 +8,13 @@
     </p>
 
     <div class="firstbuttons">
-      <button v-if="players[playerId]" @click="claimFirstPlayer">
+      <button v-if="players[playerId]" :disabled="disableIGoFirst()" @click="claimFirstPlayer">
         {{ labels.firstPlayer }}
       </button>
     </div>
 
     <div class="secretButton">
-      <button v-if="players[playerId]" @click="chooseSecret()">
+      <button v-if="players[playerId]" :disabled='this.chosenAction != "secretCard"' @click="chooseSecret()">
         {{ labels.chooseSecret }}
       </button>
     </div>
@@ -154,10 +154,13 @@
               <button class="altButton" v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('market')">Add to market</button><br>
             </div>
             <div class="auction-rest">
+              <div>
+                {{highestBid}}
+              </div>
               <label for="number"> Place bid (you can place coins or cards) RÄKNA SJÄLV FÖR FAN </label> <br>
               <input type="number" v-model="myBid" name="bid" placeholder="Place your bid">
 
-              <button v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction()" @click="placeBid()">Place bid</button>
+                <button v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction() || canNotAfford()" @click="placeBid()">Place bid</button>
               <button v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction()" @click="passBid()">Pass</button>
 
               <button v-if="players[playerId]" :disabled="!winnerAuction()" @click="payRestCoins()">Pay rest in coins</button>
@@ -241,7 +244,7 @@ export default {
       marketPlacement: [],
       workPlacement: [],
       chosenPlacementCost: null,
-      chosenAction: null,
+      chosenAction: "secretCard",
       canIClaim: false,
       chosenPlacementPosition: null,
       marketValues: {
@@ -256,6 +259,7 @@ export default {
       skillsOnSale: [],
       auctionCards: [],
       theAuctionItem: [],
+      highestBid: null,
       myBid: 0,
       rounds: 1
     }
@@ -337,6 +341,14 @@ export default {
     this.$store.state.socket.on('collectorsPlacedBid',
       function(d) {
         this.players = d.players;
+        let highest=0;
+        for (let i=0; i<Object.keys(this.players).length; i++){
+          console.log("Här: ", );
+          if (this.players[Object.keys(this.players)[i]].bid>highest){
+            highest=this.players[Object.keys(this.players)[i]].bid;
+      }
+        }
+        this.highestBid = highest;
       }.bind(this)
     );
 
@@ -373,6 +385,7 @@ export default {
         this.market = d.market;
         this.marketValues = d.marketValues;
         this.canIClaim = false;
+        this.highestBid = null;
       }.bind(this)
     );
 
@@ -398,6 +411,12 @@ export default {
         this.skillsOnSale = d.skillsOnSale;
       }.bind(this)
     );
+
+    this.$store.state.socket.on("collectorsSecretChoosen",
+      function(d) {
+          this.players = d.players;
+        }.bind(this)
+      );
 
     this.$store.state.socket.on('collectorsRaisedValue',
       function(d) {
@@ -479,8 +498,18 @@ export default {
     },
 
     chooseSecret: function (){
-      console.log("hejsan, hemligt kort här");
+      this.highlightHand(true);
     },
+
+    disableIGoFirst: function (){
+        for (let i = 0; i < Object.keys(this.players).length; i++) {
+          if (this.players[Object.keys(this.players)[i]].iStart != false){
+            return true;
+          }
+        }
+        return false;
+    },
+
 
     endGame: function() {
       for (let i = 0; i < Object.keys(this.players).length; i++) {
@@ -525,6 +554,15 @@ export default {
         playerId: this.playerId,
         theBid: theBid
       });
+    },
+
+    canNotAfford: function(){
+      if(this.players[this.playerId].moneyCard < this.highestBid){
+        return true;
+      }
+      else {
+        return false;
+      }
     },
 
     passBid: function() {
@@ -597,7 +635,6 @@ export default {
     },
 
     workAction: function(position) {
-      console.log("work Action");
       this.$store.state.socket.emit('CollectorsWorkArea', {
         roomId: this.$route.params.id,
         playerId: this.playerId,
@@ -614,6 +651,16 @@ export default {
         playerId: this.playerId,
         card: card,
         cost: this.chosenPlacementCost
+      });
+    },
+
+    secretCard: function(card){
+      this.chosenAction = null;
+      this.$store.state.socket.emit("collectorsSecretCard",{
+        roomId: this.$route.params.id,
+        playerId: this.playerId,
+        card: card
+
       });
     },
 
@@ -642,6 +689,8 @@ export default {
         this.auctionItem(card);
       } else if (this.chosenAction === "market") {
         this.raiseValue(card);
+      } else if (this.chosenAction === "secretCard") {
+        this.secretCard(card);
       }
     },
 

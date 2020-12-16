@@ -20,5 +20,6 @@
 	"bottles":"ANTAL DRAG: ",
 	"cardUp":"KORT FÖR AUKTION",
 	"marketValues": "MARKNADSVÄRDEN",
-	"chooseSecret": "Välj ditt hemliga kort"
+	"chooseSecret": "Välj ditt hemliga kort",
+	"highestBid": "Det högsta budet är: "
 }

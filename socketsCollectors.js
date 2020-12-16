@@ -120,6 +120,15 @@ socket.on('payAuctionRestCoins', function(d){
       );
     });
 
+    socket.on('collectorsSecretCard', function(d) {
+      data.secretCard(d.roomId, d.playerId, d.card)
+      io.to(d.roomId).emit('collectorsSecretChoosen', {
+          playerId: d.playerId,
+          players: data.getPlayers(d.roomId)
+        }
+      );
+    });
+
     socket.on('CollectorsWorkArea', function(d) {
       data.workArea(d.roomId, d.playerId, d.cost, d.position)
       io.to(d.roomId).emit('collectorsWorkedArea', {

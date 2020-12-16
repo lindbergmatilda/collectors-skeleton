@@ -80,18 +80,18 @@
 
       <div class="gamezone">
         <div class="item">
-          <collectorsBuyItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :itemsOnSale="itemsOnSale" :marketValues="marketValues" :placement="itemPlacement" @buyItem="buyItem($event)"
+          <collectorsBuyItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :itemsOnSale="itemsOnSale" :marketValues="marketValues" :placement="itemPlacement" :auctionRunning="auctionRunning" @buyItem="buyItem($event)"
             @placeBottle="placeBottle('item', $event)" />
         </div>
 
         <div class="skill">
-          <CollectorsBuySkill v-if="players[playerId]" :labels="labels" :player="players[playerId]" :skillsOnSale="skillsOnSale" :marketValues="marketValues" :placement="skillPlacement" @buySkill="buySkill($event)"
+          <CollectorsBuySkill v-if="players[playerId]" :labels="labels" :player="players[playerId]" :skillsOnSale="skillsOnSale" :marketValues="marketValues" :placement="skillPlacement" :auctionRunning="auctionRunning" @buySkill="buySkill($event)"
             @placeBottle="placeBottle('skill', $event)" />
         </div>
 
         <div class="value">
           <div class="leftvalue">
-            <CollectorsRaiseValue v-if="players[playerId]" :labels="labels" :player="players[playerId]" :marketValues="marketValues" :placement="marketPlacement" @raiseValue="raiseValue($event)" @placeBottle="placeBottle('market', $event)" />
+            <CollectorsRaiseValue v-if="players[playerId]" :labels="labels" :player="players[playerId]" :marketValues="marketValues" :placement="marketPlacement" :auctionRunning="auctionRunning" @raiseValue="raiseValue($event)"  @placeBottle="placeBottle('market', $event)" />
           </div>
           <div class="rightvalue">
 
@@ -111,7 +111,7 @@
         <div class="auction">
 
           <div class="upper-auction">
-            <CollectorsAuctionItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :auctionCards="auctionCards" :placement="auctionPlacement" @auctionItem="auctionItem($event)" @placeBottle="placeBottle('auction', $event)" />
+            <CollectorsAuctionItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :auctionCards="auctionCards" :placement="auctionPlacement" :auctionRunning="auctionRunning" @auctionItem="auctionItem($event)" @placeBottle="placeBottle('auction', $event)" />
           </div>
 
           <div class="lower-auction">
@@ -148,7 +148,7 @@
         </div>
 
         <div class="work">
-          <CollectorsWorkArea v-if="players[playerId]" :labels="labels" :player="players[playerId]" :placement="workPlacement" @placeBottle="placeBottle('work',$event)" />
+          <CollectorsWorkArea v-if="players[playerId]" :labels="labels" :player="players[playerId]" :placement="workPlacement" :auctionRunning="auctionRunning" @placeBottle="placeBottle('work',$event)" />
         </div>
         <div class="theRest">
 
@@ -219,6 +219,7 @@ export default {
       skillsOnSale: [],
       auctionCards: [],
       theAuctionItem: [],
+      auctionRunning: false,
       highestBid: null,
       myBid: 0,
       rounds: 1
@@ -346,6 +347,7 @@ export default {
         this.marketValues = d.marketValues;
         this.canIClaim = false;
         this.highestBid = null;
+        this.auctionRunning = false;
       }.bind(this)
     );
 
@@ -415,6 +417,7 @@ export default {
         this.players = d.players;
         this.auctionCards = d.auctionCards;
         this.theAuctionItem = d.theAuctionItem;
+        this.auctionRunning = true;
       }.bind(this)
     );
   },
@@ -577,6 +580,7 @@ export default {
     },
 
     claimAuctionCard: function(buttonAction) {
+      this.auctionRunning = false;
       this.$store.state.socket.emit('collectorsClaimCard', {
         roomId: this.$route.params.id,
         playerId: this.playerId,

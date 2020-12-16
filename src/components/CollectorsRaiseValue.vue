@@ -8,7 +8,7 @@
   </div>
   <div>
     <div class="buttons" v-for="(p, index) in placement" :key="index">
-      <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn()" @click="placeBottle(p)">
+      <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn() || auctionRunning" @click="placeBottle(p)">
         ${{p.cost}}
       </button>
       <div v-if="p.playerId !== null">
@@ -32,7 +32,8 @@ export default {
     player: Object,
     market: Array,
     marketValues: Object,
-    placement: Array
+    placement: Array,
+    auctionRunning: Boolean
   },
   methods: {
     cannotAfford: function(cost) {

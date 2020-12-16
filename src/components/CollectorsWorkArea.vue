@@ -2,7 +2,7 @@
 <div>
   <h1>{{ "WORK" }}</h1>
     <div class="buttons" v-for="(p, index) in placement" :key="index">
-      <button v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn()" @click="placeBottle(p)">
+      <button v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn() || auctionRunning" @click="placeBottle(p)">
         ${{p.cost}}
       </button>
       <div v-if="p.playerId !== null">
@@ -23,7 +23,8 @@ export default {
   props: {
     labels: Object,
     player: Object,
-    placement: Array
+    placement: Array,
+    auctionRunning: Boolean
   },
   methods: {
     cannotAfford: function(cost) {

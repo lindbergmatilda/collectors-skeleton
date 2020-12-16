@@ -127,7 +127,7 @@
                 <label for="number"> Place bid (you can place coins or cards) RÄKNA SJÄLV FÖR FAN </label> <br>
                 <input type="number" v-model="myBid" name="bid" placeholder="Place your bid">
               </p>
-              <button v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction()" @click="placeBid()">Place bid</button>
+              <button v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction() || canNotAfford()" @click="placeBid()">Place bid</button>
               <button v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction()" @click="passBid()">Pass</button>
 
               <button v-if="players[playerId]" :disabled="!winnerAuction()" @click="payRestCoins()">Pay rest in coins</button>
@@ -509,6 +509,15 @@ export default {
       });
     },
 
+    canNotAfford: function(){
+      if(this.players[this.playerId].moneyCard < this.highestBid){
+        return true;
+      }
+      else {
+        return false;
+      }
+    },
+
     passBid: function() {
       this.$store.state.socket.emit('collectorsPassBid', {
         roomId: this.$route.params.id,
@@ -579,7 +588,6 @@ export default {
     },
 
     workAction: function(position) {
-      console.log("work Action");
       this.$store.state.socket.emit('CollectorsWorkArea', {
         roomId: this.$route.params.id,
         playerId: this.playerId,

@@ -49,9 +49,15 @@ export default {
 
     placeBottle: function(p) {
       this.$emit('placeBottle', p);
-      this.highlightAvailableCards(p.cost);
-      console.log(" kostnaden är " + p.cost);
+      if(p.position != 2){
+        this.highlightAvailableCards(p.cost);
+      }
+      else{
+        let card = null;
+        this.$emit('raiseValue', card);
+      }
     },
+
 
     isMyTurn: function() {
       if(this.player.myTurn){
@@ -69,7 +75,6 @@ export default {
 
     raiseValue: function(card) {
       if (card.available) {
-        console.log("hejsan raiseValue funkar");
         this.$emit('raiseValue', card)
         this.highlightAvailableCards()
       }

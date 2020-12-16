@@ -27,7 +27,7 @@
       </button>
     </div>
 
-    <div class="yourSecret" @click='yourSecret()'> {{ labels.secretCard }}
+    <div class="yourSecret" v-if="players[playerId]" @click='yourSecret()'> {{ labels.secretCard }}
       <span class="secret-popUp" id="secretYours">
         <CollectorsCard v-for="(card, index) in players[playerId].secret"
         :card="card"
@@ -158,7 +158,7 @@
             <div class="auction-place">
               <center>
                 <div for="number">
-                  <h5 v-if="players[playerId]">{{ labels.placeBid }} {{players[playerId].moneyCard}}</h5>
+                  <h5 v-if="players[playerId]"> {{ labels.placeBid }} {{players[playerId].moneyCard}} </h5>
                 </div>
                 <input type="number" v-model="myBid" name="bid" :min="recentBid()" :max="playerMoney()" placeholder="Place your bid">
                 <div class="altbuttons2">

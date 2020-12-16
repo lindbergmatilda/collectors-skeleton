@@ -92,15 +92,10 @@
 
           <h5> {{ labels.bottles }}{{players[playerId].bottles}} </h5>
 
-      <div class="opponentsBoard">
-        <h3> {{ labels.allPlayers }} </h3>
-        <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
-
-        </div>
-
 
 
       </div>
+    </div>
 
       <div class="gamezone">
 

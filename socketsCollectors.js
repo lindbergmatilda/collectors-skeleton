@@ -13,7 +13,8 @@ function sockets(io, socket, data) {
             skillsOnSale: data.getSkillsOnSale(d.roomId),
             auctionCards: data.getAuctionCards(d.roomId),
             auctionItem: data.getAuctionItem(d.roomId),
-            placements: data.getPlacements(d.roomId)
+            placements: data.getPlacements(d.roomId),
+            playerCount: data.getPlayerCount(d.roomId)
           }
         );
       }
@@ -44,6 +45,12 @@ function sockets(io, socket, data) {
     socket.on('collectorsDrawCard', function(d) {
       io.to(d.roomId).emit('collectorsCardDrawn',
         data.drawCard(d.roomId, d.playerId)
+      );
+    });
+
+    socket.on('collectorsChangeName', function(d) {
+      io.to(d.roomId).emit('collectorsChangedName',
+        data.nameChange(d.roomId, d.playerId, d.theName)
       );
     });
 

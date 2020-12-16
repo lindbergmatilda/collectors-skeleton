@@ -11,15 +11,13 @@
 
 
     <div class="buttons">
-          <div v-for="(p, index) in placement" :key="index">
-
-          <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn()" @click="placeBottle(p)">
-            ${{p.cost}}
-          </button>
-          <div v-if="p.playerId !== null">
-            {{p.playerId}}
-          </div>
-        </div>
+      <div v-for="(p, index) in placement" :key="index">
+      <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn() ||auctionRunning" @click="placeBottle(p)">
+        ${{p.cost}}
+      </button>
+      <div v-if="p.playerId !== null">
+        {{p.playerId}}
+      </div>
     </div>
 
     <div class="pictures">

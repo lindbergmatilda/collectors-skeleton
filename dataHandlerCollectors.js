@@ -205,6 +205,7 @@ Data.prototype.joinGame = function(roomId, playerId) {
     } else if (Object.keys(room.players).length < room.playerCount) {
       console.log("Player", playerId, "joined for the first time");
       room.players[playerId] = {
+        name: "noName",
         hand: [],
         money: 2,
         points: 0,
@@ -241,6 +242,21 @@ Data.prototype.joinGame = function(roomId, playerId) {
 Data.prototype.getPlayers = function(id) {
   let room = this.rooms[id]
   if (typeof room !== 'undefined') {
+    return room.players;
+  } else return {};
+}
+
+Data.prototype.getPlayerCount = function(id) {
+  let room = this.rooms[id]
+  if (typeof room !== 'undefined') {
+    return room.playerCount;
+  } else return {};
+}
+
+Data.prototype.nameChange = function(roomId, playerId, theName) {
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+    room.players[playerId].name = theName;
     return room.players;
   } else return {};
 }
@@ -308,6 +324,7 @@ Data.prototype.countPoints = function(roomId, playerId, marketValues) {
 }
 
 Data.prototype.claimedFirst = function(roomId, playerId) {
+  try{
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
     room.players[playerId].myTurn = true;
@@ -331,6 +348,10 @@ Data.prototype.claimedFirst = function(roomId, playerId) {
       return room.players;
     }
   else return {};
+}
+catch(error){
+  console.log("Fel antal spelare")
+}
 }
 
 /* returns players after a new card is drawn */

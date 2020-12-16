@@ -17,6 +17,7 @@
     </div>
   </div>
 </div>
+
 <div class="lower-grid">
     <div class="buttons">
       <div v-for="(p, index) in placement" :key="index">
@@ -32,6 +33,7 @@
 
 
 </div>
+
 </div>
 </div>
 </template>

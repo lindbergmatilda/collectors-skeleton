@@ -22,5 +22,6 @@
 	"marketValues": "MARKNADSVÄRDEN",
 	"chooseSecret": "Välj ditt hemliga kort",
 	"highestBid": "Det högsta budet är: ",
-	"placeBid": "BUDA, du kan högst buda: "
+	"placeBid": "BUDA, du kan högst buda: ",
+	"secretCard": "Visa ditt hemliga kort"
 }

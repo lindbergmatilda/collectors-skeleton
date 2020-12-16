@@ -12,6 +12,7 @@
     </div>
   </div>
 </div>
+
 <div class="lower-grid">
     <div class="buttons">
       <div v-for="(p, index) in placement" :key="index">
@@ -24,11 +25,11 @@
       </div>
     </div>
   </div>
-<div class="popupItem" @click='helpItem()'> ? <span class="itemhelp-text" id="ItemPopup"> Här kommer hjälptext :) </span>
-
+<div class="popupItem" @click='helpItem()'> ?
+  <span class="itemhelp-text" id="ItemPopup"> Här kommer hjälptext :) </span>
+</div>
 </div>
 
-</div>
 </div>
 </div>
 </template>

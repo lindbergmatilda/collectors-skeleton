@@ -26,11 +26,11 @@ export default new Vuex.Store({
   mutations: {
     SETUP_GAME(state, d) {
       state.playerCount = d.playerCount;
-      state.socket.emit('setupCollectors', 
+      state.socket.emit('setupCollectors',
         {
-          playerCount: d.playerCount, 
+          playerCount: d.playerCount,
           roomId: state.roomId,
-          lang: state.lang });
+          lang: d.lang });
     },
     SET_PLAYER_COUNT(state, d) {
       state.playerCount = d;

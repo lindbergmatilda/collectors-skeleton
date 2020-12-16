@@ -155,7 +155,7 @@
                 <div for="number">
                   <h5>{{ labels.placeBid }} {{players[playerId].moneyCard}}</h5>
                 </div>
-                <input type="number" v-model="myBid" name="bid" placeholder="Place your bid">
+                <input type="number" v-model="myBid" name="bid" :min="recentBid()" :max="playerMoney()" placeholder="Place your bid">
                 <div class="altbuttons2">
                   <button class="altbutton2" v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction() || canNotAfford()" @click="placeBid()">BID</button>
                   <button class="altbutton2" v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction()" @click="passBid()">PASS</button>
@@ -548,6 +548,14 @@ export default {
         theBid: theBid
       });
     },
+
+    playerMoney: function(){
+    return this.players[this.playerId].moneyCard;
+  },
+
+  recentBid: function(){
+    return  this.highestBid;
+  },
 
     canNotAfford: function() {
       if (this.players[this.playerId].moneyCard < this.highestBid) {

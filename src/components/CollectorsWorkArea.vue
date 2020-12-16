@@ -25,7 +25,8 @@ export default {
   props: {
     labels: Object,
     player: Object,
-    placement: Array
+    placement: Array,
+    auctionRunning: Boolean
   },
   methods: {
     cannotAfford: function(cost) {

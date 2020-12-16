@@ -14,7 +14,7 @@
     </div>
     <div class="left buttons">
     <div v-for="(p, index) in placement" :key="index">
-      <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn()" @click="placeBottle(p)">
+      <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn() || auctionRunning" @click="placeBottle(p)">
         ${{p.cost}}
       </button>
       <div v-if="p.playerId !== null">
@@ -39,7 +39,8 @@ export default {
     player: Object,
     theAuctionItem: Array,
     auctionCards: Array,
-    placement: Array
+    placement: Array,
+    auctionRunning: Boolean
   },
   methods: {
     cannotAfford: function(cost) {
@@ -66,6 +67,8 @@ export default {
       }
         return false;
     },
+
+  
 
     highlightAvailableCards: function(cost = 100) {
       for (let i = 0; i < this.auctionCards.length; i += 1) {

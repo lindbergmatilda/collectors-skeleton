@@ -157,7 +157,8 @@ socket.on('payAuctionRestCoins', function(d){
           playerId: d.playerId,
           players: data.getPlayers(d.roomId),
           theAuctionItem: data.getAuctionItem(d.roomId),
-          auctionCards: data.getAuctionCards(d.roomId)
+          auctionCards: data.getAuctionCards(d.roomId),
+
         }
       );
     });

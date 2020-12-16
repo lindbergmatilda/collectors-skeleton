@@ -439,8 +439,6 @@ Data.prototype.claimAuctionCard = function(roomId, playerId, buttonAction) {
       room.playerList[i].auctionTurn = false;
     }
 
-    console.log("från data efter claim:", room.players);
-
     return room.players;
   } else return [];
 }

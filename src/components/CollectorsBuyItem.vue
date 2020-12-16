@@ -15,7 +15,7 @@
 <div class="lower-grid">
     <div class="buttons">
       <div v-for="(p, index) in placement" :key="index">
-      <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn()" @click="placeBottle(p)">
+      <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn() ||auctionRunning" @click="placeBottle(p)">
         ${{p.cost}}
       </button>
 
@@ -46,7 +46,8 @@ export default {
     player: Object,
     itemsOnSale: Array,
     marketValues: Object,
-    placement: Array
+    placement: Array,
+    auctionRunning: Boolean
   },
   methods: {
 
@@ -73,6 +74,9 @@ export default {
       }
         return false;
     },
+
+
+
     placeBottle: function(p) {
       this.chosenPosition=p.position;
       this.$emit('placeBottle', p);

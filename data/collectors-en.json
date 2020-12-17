@@ -9,6 +9,7 @@
 	"auctionItem": "Start an auction",
 	"firstPlayer": "I GO FIRST",
 	"refill": "Next round",
+	"roundOverMessage": "All players have used their bottles, start next round!",
 	"workArea": "Work Area",
 	"theEnd": "End Game and count points",
 	"yourPlayerBoard": "YOUR PLAYER BOARD",
@@ -21,9 +22,11 @@
 	"cardUp":"CARD UP FOR AUCTION",
 	"marketValues":"MARKET VALUES",
 	"chooseSecret": "Choose your secret card",
+	"secretCard": "SecretCard",
 	"highestBid": "THE HIGHEST BID: ",
 	"placeBid": "PLACE BID",
-	"skillHelp": "In the Skill Area you can buy a green skill from one of the cards in the area, it might get you one step closer to the great victory"
+	"skillHelp": "In the Skill Area you can buy a green skill from one of the cards in the area, it might get you one step closer to the great victory",
+	"currentPlayer": " is playing right now"
 
 
 }

@@ -9,6 +9,7 @@
 	"auctionItem": "Starta en auction",
 	"firstPlayer": "JAG BÖRJAR",
 	"refill": "Nästa runda",
+	"roundOverMessage": "Alla spelare har förbrukat sina flaskor, starta nästa runda!",
 	"workArea": "Arbetsplats",
 	"theEnd": "Avsluta spelet och räkna poäng",
 	"yourPlayerBoard": "DITT SPELBRÄDE",
@@ -22,7 +23,9 @@
 	"marketValues": "MARKNADSVÄRDEN",
 	"chooseSecret": "Välj ditt hemliga kort",
 	"highestBid": "Det högsta budet är: ",
+	"secretCard": "Hemliga kortet",
 	"placeBid": "BUDA",
-	"skillHelp": "I Skill-området kan du köpa en grön skill från ett av korten i området, skillen kan hjälpa dig att kamma hem segern!"
+	"skillHelp": "I Skill-området kan du köpa en grön skill från ett av korten i området, skillen kan hjälpa dig att kamma hem segern!",
+	"currentPlayer": " spelar just nu"
 
 }

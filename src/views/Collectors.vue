@@ -947,7 +947,7 @@ main {
   width: 800px;
 
 
-  grid-template-columns: 380px 210px 320px;
+  grid-template-columns: 380px 210px 300px;
   grid-template-rows: 300px 900px 1fr 1fr 1fr;
 
   height: 500px;
@@ -991,7 +991,7 @@ main {
   grid-area: auction;
   display: grid;
   grid-template-areas: 'upper-auction''lower-auction';
-  grid-template-rows: 600px 300px;
+  grid-template-rows: 630px 300px;
   background-color: #FFFFDB;
   border-right: 2px solid black;
   border-top: 2px solid black;
@@ -1005,7 +1005,7 @@ main {
 .lower-auction {
   grid-area: lower-auction;
   display: grid;
-  grid-template-areas: 'header header''card4auction bidButtons''altButtons auction-info';
+  grid-template-areas: 'header header''card4auction bidButtons''altButtons altButtons';
   grid-template-rows: 90px 240px 100px;
   grid-template-columns: 190px 100px;
 
@@ -1013,7 +1013,7 @@ main {
 
 .auction-place {
   grid-area: altButtons;
-  margin:10px;
+  padding-top: 20px;
 }
 
 .highest-bid {
@@ -1022,7 +1022,8 @@ main {
 
 .head-auction {
   grid-area: header;
-  padding: 14px;
+  padding-top: 30px;
+  padding-left: 28px;
 }
 
 .card-for-auction {
@@ -1049,8 +1050,6 @@ main {
 
 .altButtons {
   grid-area: bidButtons;
-  padding: 45px;
-  padding-left: 1px;
 
 
 }
@@ -1058,8 +1057,8 @@ main {
 .altButton {
   width: 50px;
   height: 50px;
-  margin: 40px;
-  margin-top: -100px;
+  margin: 25px;
+  margin-top: 10px;
   color: black;
   text-transform: capitalize;
   font-family: "Lexend Deca", sans-serif;

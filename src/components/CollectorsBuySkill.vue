@@ -99,7 +99,7 @@ export default {
 .item-left-right {
   display: grid;
   grid-template-areas: 'left right';
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 190px 1fr;
   grid-template-rows: 1fr;
 
 
@@ -108,8 +108,8 @@ export default {
 .buttons {
   width: 70px;
   display: grid;
-  margin: 15px;
-  grid-template-rows: repeat(auto-fill, 90px);
+  padding-top: 50px;
+  grid-template-rows: repeat(auto-fill, 130px);
 
 
 
@@ -118,7 +118,6 @@ export default {
 .button {
   width: 90px;
   height: 50px;
-  margin-top: -100px;
 
   color: black;
   text-transform:capitalize;
@@ -127,7 +126,6 @@ export default {
 
   background: lightgreen;
   border-radius: 20px;
-  display: inline-block;
   border: none;
   transition: all 0.4s ease 0s;
 
@@ -170,7 +168,7 @@ button[disabled]{
 }
 
 .popupSkill {
-  left: -170px;
+  left: -130px;
   position: relative;
     text-align: center;
     background-color: #BCDBEA;
@@ -201,15 +199,17 @@ button[disabled]{
     background-color: #555;
     color: #fff;
     text-align: center;
-    border-radius: 6px;
+    border-radius: 10px;
+    border: 2px solid black;
     padding: 8px 0;
-    position: absolute;
+    position: fixed;
     z-index: 1;
-    bottom: 125%;
+    top: 50%;
     left: 50%;
+    transform: translate(-50%, -50%);
     margin-left: -60px;
     font-size: 15px;
-
+    max-width: 80%;
 }
 
 .popupSkill .skillhelp-text::after {

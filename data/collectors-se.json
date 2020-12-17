@@ -9,6 +9,7 @@
 	"auctionItem": "Starta en auction",
 	"firstPlayer": "JAG BÖRJAR",
 	"refill": "Nästa runda",
+	"roundOverMessage": "Alla spelare har förbrukat sina flaskor, starta nästa runda!",
 	"workArea": "Arbetsplats",
 	"theEnd": "Avsluta spelet och räkna poäng",
 	"yourPlayerBoard": "DITT SPELBRÄDE",

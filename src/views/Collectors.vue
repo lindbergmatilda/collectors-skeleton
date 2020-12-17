@@ -12,7 +12,7 @@
       </button>
     </div>
     <div class="secretButton">
-      <button v-if="players[playerId]" :disabled='this.chosenAction != "secretCard"' @click="chooseSecret()">
+      <button v-if="players[playerId]" :disabled='this.chosenAction != "start"' @click="chooseSecret()">
         {{ labels.chooseSecret }}
       </button>
     </div>
@@ -291,7 +291,7 @@ export default {
       marketPlacement: [],
       workPlacement: [],
       chosenPlacementCost: null,
-      chosenAction: "secretCard",
+      chosenAction: "start",
       canIClaim: false,
       chosenPlacementPosition: null,
       marketValues: {
@@ -578,6 +578,7 @@ export default {
     },
 
     chooseSecret: function() {
+      this.chosenAction = "secretCard"
       this.highlightHand(true);
     },
 

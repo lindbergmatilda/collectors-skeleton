@@ -99,7 +99,7 @@ export default {
 .item-left-right {
   display: grid;
   grid-template-areas: 'left right';
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 190px 1fr;
   grid-template-rows: 1fr;
 
 
@@ -108,7 +108,7 @@ export default {
 .buttons {
   width: 70px;
   display: grid;
-  margin-top: 50px;
+  padding-top: 50px;
   grid-template-rows: repeat(auto-fill, 130px);
 
 
@@ -118,7 +118,6 @@ export default {
 .button {
   width: 90px;
   height: 50px;
-  margin-top: -100px;
 
   color: black;
   text-transform:capitalize;
@@ -127,7 +126,6 @@ export default {
 
   background: lightgreen;
   border-radius: 20px;
-  display: inline-block;
   border: none;
   transition: all 0.4s ease 0s;
 
@@ -170,7 +168,7 @@ button[disabled]{
 }
 
 .popupSkill {
-  left: -170px;
+  left: -130px;
   position: relative;
     text-align: center;
     background-color: #BCDBEA;

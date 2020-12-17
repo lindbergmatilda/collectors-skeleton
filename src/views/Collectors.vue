@@ -12,7 +12,7 @@
       </button>
     </div>
     <div class="secretButton">
-      <button v-if="players[playerId]" :disabled='this.chosenAction != "secretCard"' @click="chooseSecret()">
+      <button v-if="players[playerId]" :disabled='this.chosenAction != "start"' @click="chooseSecret()">
         {{ labels.chooseSecret }}
       </button>
     </div>
@@ -31,15 +31,13 @@
       <div v-if="theWinner" class="whoWon" id="whoWon"> GRATTIS {{theWinner.name}}</div>
       <div id="overlay"></div>
 
+    <div class="currentPlayer">
+      <h5 v-if="isPlaying !== null"> {{isPlaying}} {{ labels.currentPlayer }} </h5>
+    </div>
 
     <hr>
     <input v-if="players[playerId]" type="text" v-model="myName" name="name" placeholder="Game Name">
     <button v-if="players[playerId]" @click="enterName()">CHANGE</button>
-
-    <span class="hiddenMessege" id="roundOverMessage">
-      {{labels.roundOverMessage}}
-    </span>
-
     <hr>
 
     <div class="head">
@@ -217,7 +215,7 @@
                 <div class="altbuttons2">
                   <button class="altbutton2" v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction() || canNotAfford()" @click="placeBid()">BID</button>
                   <button class="altbutton2" v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction()" @click="passBid()">PASS</button>
-                  <button class="altbutton2" v-if="players[playerId]" :disabled="!winnerAuction()" @click="payRestCoins()">PAYX</button>
+                  <button class="altbutton2" v-if="players[playerId]" :disabled="!winnerAuction()" @click="payRestCoins()">PAY</button>
                 </div>
               </center>
             </div>
@@ -295,7 +293,7 @@ export default {
       marketPlacement: [],
       workPlacement: [],
       chosenPlacementCost: null,
-      chosenAction: "secretCard",
+      chosenAction: "start",
       canIClaim: false,
       chosenPlacementPosition: null,
       marketValues: {
@@ -315,7 +313,11 @@ export default {
       myBid: 0,
       rounds: 1,
       myName: "",
+<<<<<<< HEAD
       theWinner: null
+=======
+      isPlaying: null
+>>>>>>> 7161d857f0152eb2a88c45adae0cf9b3b5cb1cef
     }
   },
   computed: {
@@ -449,14 +451,16 @@ export default {
         this.canIClaim = false;
         this.highestBid = null;
         this.auctionRunning = false;
+        this.isPlaying = this.whoIsPlaying();
       }.bind(this)
     );
 
     this.$store.state.socket.on('collectorsItemBought',
       function(d) {
-        console.log(d.playerId, "bought a card");
+        console.log(this.players[d.playerId], "bought a card");
         this.players = d.players;
         this.itemsOnSale = d.itemsOnSale;
+        this.isPlaying = this.whoIsPlaying();
       }.bind(this)
     );
 
@@ -464,6 +468,7 @@ export default {
       function(d) {
         console.log(d.playerId, "worked an area!");
         this.players = d.players;
+        this.isPlaying = this.whoIsPlaying();
       }.bind(this)
     );
 
@@ -472,6 +477,7 @@ export default {
         console.log(d.playerId, "bought a skill");
         this.players = d.players;
         this.skillsOnSale = d.skillsOnSale;
+        this.isPlaying = this.whoIsPlaying();
       }.bind(this)
     );
 
@@ -488,6 +494,7 @@ export default {
         this.marketValues = d.marketValues;
         this.market = d.market;
         this.auctionCards = d.auctionCards;
+        this.isPlaying = this.whoIsPlaying();
       }.bind(this)
     );
 
@@ -507,6 +514,7 @@ export default {
         this.auctionPlacement = d.placements.auctionPlacement;
 
         this.rounds = d.rounds;
+        this.isPlaying = this.whoIsPlaying();
 
       }.bind(this)
     );
@@ -557,6 +565,14 @@ export default {
       }
     },
 
+    whoIsPlaying: function(){
+      for (let i=0;  i<Object.keys(this.players).length; i++ ){
+        if ( this.players[Object.keys(this.players)[i]].myTurn === true ){
+            return this.players[Object.keys(this.players)[i]].name;
+          }
+      }
+    },
+
     nextRound: function() {
       for (let i = 0; i < Object.keys(this.players).length; i++) {
         for (let j = 0; j < 5; j++) {
@@ -565,11 +581,11 @@ export default {
           }
         }
       }
-    document.getElementById("roundOverMessage").style.visibility = "visible";
       return true;
     },
 
     chooseSecret: function() {
+      this.chosenAction = "secretCard"
       this.highlightHand(true);
     },
 
@@ -628,7 +644,6 @@ export default {
     },
 
     refill: function() {
-      document.getElementById("roundOverMessage").style.visibility = "hidden";
       this.$store.state.socket.emit('collectorsRefill', {
         roomId: this.$route.params.id,
         playerId: this.playerId
@@ -845,13 +860,6 @@ main {
   font-family: "Lexend Deca", sans-serif;
 }
 
-.hiddenMessege{
-    visibility: hidden;
-    font-family: "Lexend Deca", sans-serif;
-    font-weight: bold;
-    color: black;
-}
-
 .yourSecret {
   position: relative;
   display: inline-block;
@@ -979,8 +987,8 @@ main {
   width: 800px;
 
 
-  grid-template-columns: 380px 210px 300px;
-  grid-template-rows: 300px 900px 1fr 1fr 1fr;
+  grid-template-columns: 300px 250px 300px;
+  grid-template-rows: 300px 840px 1fr 1fr 1fr;
 
   height: 500px;
   margin: 60px;

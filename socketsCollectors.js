@@ -57,7 +57,8 @@ function sockets(io, socket, data) {
     socket.on('collectorsDonePlaying', function(d){
       data.countPoints(d.roomId, d.playerId, d.marketValues)
       io.to(d.roomId).emit('collectorsDonePlayed', {
-        players: data.getPlayers(d.roomId)
+        players: data.getPlayers(d.roomId),
+        theWinner: data.whoWon(d.roomId)
       }
     );
   });

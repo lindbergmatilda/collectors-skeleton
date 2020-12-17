@@ -97,7 +97,7 @@ grid-template-columns: 1fr 2fr;
 }
 
 .workcard {
-  margin-top: 90px;
+  margin-top: 50px;
 
 }
 
@@ -108,13 +108,13 @@ grid-template-columns: 1fr 2fr;
 
   display: grid;
   margin-left: 30px;
-  margin-top: 90px;
-  grid-template-rows: repeat(auto-fill, 155px);
+  margin-top: 50px;
+  grid-template-rows: repeat(auto-fill, 114px);
 }
 
 .button {
-  width:  42px;
-  height: 60px;
+  width:  57px;
+  height: 58px;
 
   color: black;
   text-transform:capitalize;

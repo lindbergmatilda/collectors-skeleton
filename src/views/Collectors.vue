@@ -23,7 +23,6 @@
       </button>
     </div>
 
-
     <hr>
     <input v-if="players[playerId]" type="text" v-model="myName" name="name" placeholder="Game Name">
     <button v-if="players[playerId]" @click="enterName()">CHANGE</button>

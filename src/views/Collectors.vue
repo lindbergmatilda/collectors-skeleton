@@ -27,6 +27,9 @@
       </button>
     </div>
 
+    <div class="currentPlayer">
+      <h5 v-if="isPlaying !== null"> {{isPlaying}} {{ labels.currentPlayer }} </h5>
+    </div>
 
     <hr>
     <input v-if="players[playerId]" type="text" v-model="myName" name="name" placeholder="Game Name">
@@ -305,7 +308,8 @@ export default {
       highestBid: null,
       myBid: 0,
       rounds: 1,
-      myName: ""
+      myName: "",
+      isPlaying: null
     }
   },
   computed: {
@@ -418,6 +422,7 @@ export default {
         if (this.players[this.playerId].bid === 0) {
           this.highlightHand(false);
         }
+        this.isPlaying = this.whoIsPlaying();
       }.bind(this)
     );
 
@@ -443,9 +448,10 @@ export default {
 
     this.$store.state.socket.on('collectorsItemBought',
       function(d) {
-        console.log(d.playerId, "bought a card");
+        console.log(this.players[d.playerId], "bought a card");
         this.players = d.players;
         this.itemsOnSale = d.itemsOnSale;
+        this.isPlaying = this.whoIsPlaying();
       }.bind(this)
     );
 
@@ -453,6 +459,7 @@ export default {
       function(d) {
         console.log(d.playerId, "worked an area!");
         this.players = d.players;
+        this.isPlaying = this.whoIsPlaying();
       }.bind(this)
     );
 
@@ -461,6 +468,7 @@ export default {
         console.log(d.playerId, "bought a skill");
         this.players = d.players;
         this.skillsOnSale = d.skillsOnSale;
+        this.isPlaying = this.whoIsPlaying();
       }.bind(this)
     );
 
@@ -477,6 +485,7 @@ export default {
         this.marketValues = d.marketValues;
         this.market = d.market;
         this.auctionCards = d.auctionCards;
+        this.isPlaying = this.whoIsPlaying();
       }.bind(this)
     );
 
@@ -496,6 +505,7 @@ export default {
         this.auctionPlacement = d.placements.auctionPlacement;
 
         this.rounds = d.rounds;
+        this.isPlaying = this.whoIsPlaying();
 
       }.bind(this)
     );
@@ -543,6 +553,14 @@ export default {
       }
       catch(error){
         console.log("error")
+      }
+    },
+
+    whoIsPlaying: function(){
+      for (let i=0;  i<Object.keys(this.players).length; i++ ){
+        if ( this.players[Object.keys(this.players)[i]].myTurn === true ){
+            return this.players[Object.keys(this.players)[i]].name;
+          }
       }
     },
 

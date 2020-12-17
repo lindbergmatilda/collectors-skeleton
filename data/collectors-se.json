@@ -22,8 +22,8 @@
 	"cardUp":"KORT FÖR AUKTION",
 	"marketValues": "MARKNADSVÄRDEN",
 	"chooseSecret": "Välj ditt hemliga kort",
-	"highestBid": "Det högsta budet är: ",
-	"secretCard": "Hemliga kortet",
+	"highestBid": "HÖGSTA BUDET ÄR: ",
+	"secretCard": "HEMLIGA KORTET",
 	"placeBid": "BUDA",
 	"skillHelp": "I Skill-området kan du köpa en grön skill från ett av korten i området, skillen kan hjälpa dig att kamma hem segern!",
 	"currentPlayer": " spelar just nu"

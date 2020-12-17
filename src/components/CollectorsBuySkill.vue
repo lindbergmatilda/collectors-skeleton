@@ -2,10 +2,11 @@
 <div>
 
   <center>
+        <h2>{{ "SKILL" }}</h2>
     <div class="popupSkill" @click='helpSkill()'>   ?   <span class="skillhelp-text" id="SkillPopup"> {{labels.skillHelp}} <img src="/images/skillInfo.png" > </span>
 
     </div>
-    <h2>{{ "SKILL" }}</h2>
+
   </center>
   <div class="item-left-right">
 

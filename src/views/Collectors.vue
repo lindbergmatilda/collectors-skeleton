@@ -1187,8 +1187,5 @@ button[disabled] {
   pointer-events: all;
 }
 
-.firstbuttons {
-
-}
 
 </style>

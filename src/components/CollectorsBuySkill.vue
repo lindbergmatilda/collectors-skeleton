@@ -108,8 +108,8 @@ export default {
 .buttons {
   width: 70px;
   display: grid;
-  margin: 15px;
-  grid-template-rows: repeat(auto-fill, 90px);
+  margin-top: 50px;
+  grid-template-rows: repeat(auto-fill, 130px);
 
 
 

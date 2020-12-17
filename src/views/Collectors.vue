@@ -41,40 +41,83 @@
     <hr>
 
     <div class="head">
+
+
+
       <div class="your-playerboard">
-        <center>
-          <h2 v-if="players[playerId]">{{ labels.yourPlayerBoard}} {{players[playerId].name}}</h2>
-        </center>
 
-        {{ labels.hand }}
+            <div class="rubrik">
 
-        <hr>
-        <div class="cardslots" v-if="players[playerId]">
-          <CollectorsCard v-for="(card, index) in players[playerId].hand"
-          :card="card"
-          :availableAction="card.available"
-          @doAction="handleAction(card)"
-          :key="index" />
-        </div>
+              <center>
+                    <h2 v-if="players[playerId]">{{players[playerId].name}} <br>{{ labels.yourPlayerBoard}} </h2>
+              </center>
+              <hr>
 
-        {{ labels.items }}
+            </div>
 
-        <hr>
-        <div class="cardslots" v-if="players[playerId]">
-          <CollectorsCard v-for="(card, index) in players[playerId].items"
-          :card="card"
-          :key="index" />
-        </div>
+            <div class="hands">
 
-        {{ labels.skills }}
+                    {{ labels.hand }}
 
-        <hr>
-        <div class="cardslots" v-if="players[playerId]">
-          <CollectorsCard v-for="(card, index) in players[playerId].skills"
-          :card="card"
-          :key="index" />
-        </div>
+                    <div class="handcards cardslots" v-if="players[playerId]">
+                      <CollectorsCard v-for="(card, index) in players[playerId].hand"
+                      :card="card"
+                      :availableAction="card.available"
+                      @doAction="handleAction(card)"
+                      :key="index" />
+                    </div>
+
+            </div>
+
+
+
+            <div class="youritems">
+                    {{ labels.items }}
+
+                      <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
+                        {{itemInfo.item}}
+                      </div>
+              </div>
+
+            <div class="yourskills">
+                      {{ labels.skills }}
+                      <br>Har försökt lägga till bilder här ist för ord. Gick bajs. Har lagt in bilder med alla skills och döpt dem till rätt namn men får det ej att funka
+                      <img id="picskill" src="/images/bottle.png" width="60">
+                      <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
+                        {{skillInfo.skill}}
+                        <!--<img id="picskill" src="/images/{{skillInfo.skill}}.png" width="50"> -->
+
+
+                      </div>
+            </div>
+
+            <div class="other">
+              HEHO Här kanske vi ska snygga upp: *coins *knapp där man kan se sitt secretcard *den inkomst man får per runda 
+               *snyggare antal moves kvar :) :) :)<hr>
+             {{ labels.bottles }}{{players[playerId].bottles}} <br>
+             COINS: {{players[playerId].money}}<br>
+             SECRETCARD:
+         <div v-for="(itemInfo, item) in players[playerId].secret" :key="item">
+               {{itemInfo.item}}<br>
+             </div>
+
+             INCOME: {{players[playerId].income}}
+
+            </div>
+
+
+
+
+
+
+
       </div>
+
+
+
+
+
+
 
       <div class="opponentsBoard">
         <h3> {{ labels.allPlayers }} </h3>
@@ -472,6 +515,8 @@ export default {
   },
 
   methods: {
+
+
     selectAll: function(n) {
       n.target.select();
     },
@@ -826,14 +871,47 @@ main {
 
 .your-playerboard {
   grid-area: your-board;
-  background-color: #EEECE2;
-  border-radius: 100px;
-  margin: 60px;
-  padding: 20px;
-  color: black;
-  border: 2px solid black;
-  max-height: 800px;
+  display: grid;
+  grid-template-areas:
+ 'rubrik rubrik'
+ 'hands rest'
+ 'skills items';
+ grid-template-rows: 1fr 3fr 2fr;
+ grid-template-columns: 1fr 1fr;
+ background-color: #e6e6ff;
+ max-height: 500px;
+
+ border: 1px solid lightgrey;
+ margin-top: 60px;
+ padding: 20px;
+ border-radius: 70px;
+
+
 }
+
+.rubrik {
+  grid-area: rubrik;
+}
+
+.yourskills {
+  grid-area: skills;
+}
+
+.youritems {
+  grid-area: items;
+}
+
+.hands{
+  grid-area: hands;
+  margin-bottom: 40px;
+}
+
+.other{
+  grid-area: rest;
+}
+
+
+
 
 .opponentsBoard {
   font-family: "Lexend Deca", sans-serif;
@@ -1040,7 +1118,7 @@ button[disabled] {
 
 .cardslots {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 30px);
+  grid-template-columns: repeat(auto-fill, 70px);
   grid-template-rows: repeat(auto-fill, 80px);
 }
 

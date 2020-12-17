@@ -154,14 +154,26 @@ border: 0.5px solid black;
 
 .popupWork {
   position: relative;
-  display: inline-block;
-  cursor: pointer;
-  margin-left: 20px;
-  font-size: 20px;
+    text-align: center;
+    background-color: #BCDBEA;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 19px;
+    line-height: 26px;
+    cursor: default;
+    margin: 10px;
+
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
+}
+
+.popupWork:hover{
+  font-size: 30px;
 }
 
 .popupWork .workhelp-text {

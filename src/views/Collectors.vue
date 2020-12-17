@@ -31,11 +31,6 @@
     <hr>
     <input v-if="players[playerId]" type="text" v-model="myName" name="name" placeholder="Game Name">
     <button v-if="players[playerId]" @click="enterName()">CHANGE</button>
-
-    <span class="hiddenMessege" id="roundOverMessage">
-      {{labels.roundOverMessage}}
-    </span>
-
     <hr>
 
     <div class="head">
@@ -559,7 +554,6 @@ export default {
           }
         }
       }
-    document.getElementById("roundOverMessage").style.visibility = "visible";
       return true;
     },
 
@@ -610,7 +604,6 @@ export default {
     },
 
     refill: function() {
-      document.getElementById("roundOverMessage").style.visibility = "hidden";
       this.$store.state.socket.emit('collectorsRefill', {
         roomId: this.$route.params.id,
         playerId: this.playerId
@@ -827,13 +820,6 @@ main {
   font-family: "Lexend Deca", sans-serif;
 }
 
-.hiddenMessege{
-    visibility: hidden;
-    font-family: "Lexend Deca", sans-serif;
-    font-weight: bold;
-    color: black;
-}
-
 .yourSecret {
   position: relative;
   display: inline-block;
@@ -961,7 +947,7 @@ main {
   width: 800px;
 
 
-  grid-template-columns: 380px 210px 300px;
+  grid-template-columns: 300px 210px 300px;
   grid-template-rows: 300px 900px 1fr 1fr 1fr;
 
   height: 500px;

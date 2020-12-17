@@ -313,11 +313,8 @@ export default {
       myBid: 0,
       rounds: 1,
       myName: "",
-<<<<<<< HEAD
-      theWinner: null
-=======
+      theWinner: null,
       isPlaying: null
->>>>>>> 7161d857f0152eb2a88c45adae0cf9b3b5cb1cef
     }
   },
   computed: {

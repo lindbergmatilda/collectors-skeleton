@@ -59,6 +59,7 @@ Data.prototype.createRoom = function(roomId, playerCount, lang) {
   let room = {};
   room.players = {};
   room.playerList = [];
+  room.theWinner= null;
   room.colourList = ["#9D6FCD","#328EDA","#ED8E14","#49C528"];
   room.rounds = 1;
   room.lang = lang;
@@ -320,6 +321,21 @@ Data.prototype.countPoints = function(roomId, playerId, marketValues) {
       valuePoints += Math.floor(room.playerList[i].money / 3);
       room.playerList[i].points = valuePoints;
     }
+  }
+}
+
+Data.prototype.whoWon = function(roomId){
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+    var winner = 0;
+    for (let i=0; i<room.playerList.length; i++){
+      if (room.playerList[i].points > winner){
+        winner = room.playerList[i].points;
+        room.theWinner = room.playerList[i];
+      }
+    }
+    console.log("dröm", room.theWinner, "dröm");
+    return room.theWinner;
   }
 }
 

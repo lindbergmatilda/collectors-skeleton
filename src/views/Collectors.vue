@@ -22,11 +22,13 @@
       </button>
     </div>
     <div class="endGame">
-      <button v-if="players[playerId]" :disabled="!endGame()" @click="countPoints">
+      <button v-if="players[playerId]"  @click="countPoints">
         {{ labels.theEnd }}
       </button>
     </div>
-      <div class="theWinner" id="theWinner" >The WINNER is:</div>
+      <div v-if="players[playerId]" class="theWinner" id="theWinner" >Find out who won</div>
+      <button v-if="players[playerId]" class="winner" id="winner" @click="winner">WINNER</button>
+      <div v-if="theWinner" class="whoWon" id="whoWon"> GRATTIS {{theWinner.name}}</div>
       <div id="overlay"></div>
 
 
@@ -71,7 +73,7 @@
 
 
 
-            <div class="youritems">
+            <div class="youritems" v-if="players[playerId]">
                     {{ labels.items }}
 
                       <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
@@ -79,7 +81,7 @@
                       </div>
               </div>
 
-            <div class="yourskills">
+            <div class="yourskills" v-if="players[playerId]">
                       {{ labels.skills }}
                       <br>Har försökt lägga till bilder här ist för ord. Gick bajs. Har lagt in bilder med alla skills och döpt dem till rätt namn men får det ej att funka
                       <img id="picskill" src="/images/bottle.png" width="60">
@@ -91,7 +93,7 @@
                       </div>
             </div>
 
-            <div class="other">
+            <div class="other" v-if="players[playerId]">
               HEHO Här kanske vi ska snygga upp: *coins *knapp där man kan se sitt secretcard *den inkomst man får per runda
                *snyggare antal moves kvar :) :) :)<hr>
              {{ labels.bottles }}{{players[playerId].bottles}} <br>
@@ -312,7 +314,8 @@ export default {
       highestBid: null,
       myBid: 0,
       rounds: 1,
-      myName: ""
+      myName: "",
+      theWinner: null
     }
   },
   computed: {
@@ -373,6 +376,7 @@ export default {
     this.$store.state.socket.on('collectorsDonePlayed',
       function(d) {
         this.players = d.players;
+        this.theWinner = d.theWinner;
       }.bind(this)
     );
 
@@ -611,6 +615,16 @@ export default {
       });
       document.getElementById("overlay").style.visibility = "visible";
       document.getElementById("theWinner").style.visibility = "visible";
+      document.getElementById("winner").style.visibility = "visible";
+    },
+
+    winner: function(){
+      this.$store.state.socket.emit('collectorWon', {
+        roomId: this.$route.params.id
+      });
+      document.getElementById("theWinner").style.visibility = "hidden";
+      document.getElementById("winner").style.visibility = "hidden";
+      document.getElementById("whoWon").style.visibility = "visible";
     },
 
     refill: function() {
@@ -1181,6 +1195,42 @@ button[disabled] {
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   pointer-events: all;
+}
+
+.winner{
+  visibility: hidden;
+  position: fixed;
+  top: 63%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid black;
+  z-index: 10;
+  background-color: gold;
+  width: 100px;
+  height: 100px;
+  color: black;
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 20px;
+  transition: all 0.4s ease 0s;
+}
+
+.whoWon{
+  visibility: hidden;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid black;
+  border-radius: 10px;
+  z-index: 10;
+  background-color: gold;
+  width: 400px;
+  height: 250px;
+  color: black;
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 80px;
+  transition: all 0.4s ease 0s;
+  text-align: center;
 }
 
 </style>

@@ -201,15 +201,17 @@ button[disabled]{
     background-color: #555;
     color: #fff;
     text-align: center;
-    border-radius: 6px;
+    border-radius: 10px;
+    border: 2px solid black;
     padding: 8px 0;
-    position: absolute;
+    position: fixed;
     z-index: 1;
-    bottom: 125%;
+    top: 50%;
     left: 50%;
+    transform: translate(-50%, -50%);
     margin-left: -60px;
     font-size: 15px;
-
+    max-width: 80%;
 }
 
 .popupSkill .skillhelp-text::after {

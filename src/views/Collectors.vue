@@ -26,6 +26,8 @@
         {{ labels.theEnd }}
       </button>
     </div>
+      <div class="theWinner" id="theWinner" >The WINNER is:</div>
+      <div id="overlay"></div>
 
 
     <hr>
@@ -607,6 +609,8 @@ export default {
         playerId: this.playerId,
         marketValues: this.marketValues
       });
+      document.getElementById("overlay").style.visibility = "visible";
+      document.getElementById("theWinner").style.visibility = "visible";
     },
 
     refill: function() {
@@ -1151,4 +1155,33 @@ button[disabled] {
     width: 90vw;
   }
 }
+
+.theWinner{
+  visibility: hidden;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid black;
+  border-radius: 10px;
+  z-index: 10;
+  background-color: white;
+  font-size: 100px;
+  max-width: 80%;
+  font-weight: bold;
+}
+
+#overlay{
+  visibility: hidden;
+  position: fixed;
+  opacity: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: all;
+}
+
 </style>

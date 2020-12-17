@@ -2,10 +2,12 @@
 <div>
   <center>
     <div class="label-auction">
-      <div class="popupAuction" @click='helpAuction()'>   ?   <span class="auctionhelp-text" id="auctionPopup"> Här kommer hjälptext :) </span>
+      <h2>{{ "AUCTION" }}</h2>
+    </div>
+    
+    <div class="popupAuction" @click='helpAuction()'> ? <span class="auctionhelp-text" id="auctionPopup"> Här kommer hjälptext :) </span>
 
-      </div>
-    <h2>{{ "AUCTION" }}</h2></div> <br>
+    </div>
 
   </center>
   <div class="item-left-right">
@@ -16,14 +18,14 @@
       </div>
     </div>
     <div class="left buttons">
-    <div v-for="(p, index) in placement" :key="index">
-      <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn() || auctionRunning" @click="placeBottle(p)">
-        ${{p.cost}}
-      </button>
-      <div v-if="p.playerId !== null">
-        {{p.playerId}}
+      <div v-for="(p, index) in placement" :key="index">
+        <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn() || auctionRunning" @click="placeBottle(p)">
+          ${{p.cost}}
+        </button>
+        <div v-if="p.playerId !== null">
+          {{p.playerId}}
+        </div>
       </div>
-    </div>
     </div>
   </div>
 </div>
@@ -72,10 +74,10 @@ export default {
     },
 
     isMyTurn: function() {
-      if(this.player.myTurn){
+      if (this.player.myTurn) {
         return true;
       }
-        return false;
+      return false;
     },
 
 
@@ -110,8 +112,6 @@ export default {
   grid-template-rows: 1fr;
 }
 
-
-
 .buttons {
   width: 70px;
   display: grid;
@@ -126,7 +126,7 @@ export default {
   margin-top: 30px;
 
   color: black;
-  text-transform:capitalize;
+  text-transform: capitalize;
   font-family: "Lexend Deca", sans-serif;
   font-size: 20px;
 
@@ -141,8 +141,8 @@ export default {
 
 .button:hover:enabled {
   text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
-  -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
-  -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
   transition: all 0.4s ease 0.2s;
   background: #ffc34d;
   width: 110px;
@@ -151,7 +151,7 @@ export default {
 }
 
 button:disabled,
-button[disabled]{
+button[disabled] {
   color: grey;
   opacity: 0.5;
 }
@@ -174,16 +174,16 @@ button[disabled]{
 .popupAuction {
   left: -140px;
   position: relative;
-    text-align: center;
-    background-color: #BCDBEA;
-    color: white;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    font-size: 19px;
-    line-height: 26px;
-    cursor: default;
-    margin: 10px;
+  text-align: center;
+  background-color: #BCDBEA;
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 19px;
+  line-height: 26px;
+  cursor: default;
+  margin: 10px;
 
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -192,24 +192,25 @@ button[disabled]{
 
 }
 
-.popupAuction:hover{
+.popupAuction:hover {
   font-size: 30px;
 }
+
 .popupAuction .auctionhelp-text {
 
-    visibility: hidden;
-    width: 160px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 8px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
-    font-size: 15px;
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  font-size: 15px;
 
 }
 
@@ -229,5 +230,6 @@ button[disabled]{
   -webkit-animation: fadeIn 1s;
   animation: fadeIn 1s;
 }
+
 
 </style>

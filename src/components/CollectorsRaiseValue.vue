@@ -103,15 +103,14 @@ export default {
 }
 .buttons {
   display: inline;
-  margin: 10px;
   align-self: top;
+    padding-left: 37px;
 
 }
 
 .button {
   width: 90px;
   height: 50px;
-  margin-top: -100px;
 
   color: black;
   text-transform:capitalize;

@@ -542,9 +542,16 @@ Data.prototype.payAuction= function(roomId, playerId, cost, card){
         else{
           cardValue +=1;
         }
-        room.players[playerId].discard.push(...c);
-        room.players[playerId].bid -= cardValue;
-        break;
+        if (cardValue>room.players[playerId].bid) {
+          room.players[playerId].hand.push(...c);
+          break;
+
+        }
+        else{
+          room.players[playerId].discard.push(...c);
+          room.players[playerId].bid -= cardValue;
+          break;
+        }
       }
     }
 
@@ -576,8 +583,23 @@ Data.prototype.secretCard = function(roomId, playerId, card){
 Data.prototype.payAuctionCard = function(roomId, playerId, cost){
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
+    let cardValue = 0;
     room.players[playerId].money -= cost;
     room.players[playerId].bid -= cost;
+    while (room.players[playerId].money<0) {
+      for (let i = 0; i < room.players[playerId].hand.length; i += 1) {
+        if (room.players[playerId].hand[i].skill.includes("VP")){
+          cardValue +=2;
+        }
+        else{
+          cardValue +=1;
+        }
+        room.players[playerId].money += cardValue;
+          let c = room.players[playerId].hand.splice(i, 1);
+          room.players[playerId].discard.push(...c);
+          i--;
+    }
+  }
     room.players[playerId].auctionWinner = false;
     console.log(cost, " status ", room.players[playerId]);
     return room.players;

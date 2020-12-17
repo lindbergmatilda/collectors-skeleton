@@ -137,7 +137,7 @@ export default {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  margin-left: 200px;
+  margin-left: 92px;
 }
 
 .button {

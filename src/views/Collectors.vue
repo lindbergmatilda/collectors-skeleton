@@ -178,15 +178,15 @@
               @placeBottle="placeBottle('market', $event)" />
           </div>
           <div class="rightvalue">
-            <h5>{{ labels.marketValues }} </h5>
+            <center><div class="labelmV"><h5>{{ labels.marketValues }} </h5></div></center>
             <img src="/images/movie.png" width="50"> x {{marketValues.movie}}
-            <hr class="blueline">
+
             <img src="/images/music.png" width="50"> x {{marketValues.music}}
-            <hr class="blueline">
+
             <img src="/images/penguin.png" width="50"> x {{marketValues.fastaval}}
-            <hr class="blueline">
+
             <img src="/images/robot.png" width="50"> x {{marketValues.figures}}
-            <hr class="blueline">
+
             <img src="/images/tech.png" width="50"> x {{marketValues.technology}}<br>
           </div>
         </div>
@@ -1044,7 +1044,7 @@ main {
 
 
   grid-template-columns: 300px 240px 300px;
-  grid-template-rows: 300px 840px 1fr 1fr 1fr;
+  grid-template-rows: 300px 860px 185px 1fr 1fr;
 
   height: 500px;
   margin: 60px;
@@ -1081,6 +1081,12 @@ main {
 
 .rightvalue {
   grid-area: right;
+  padding-top: 67px;
+}
+.labelmV {
+  border-bottom: 2px solid black;
+  border-left: 2px solid black;
+  border-top: 2px solid black;
 }
 
 .auction {

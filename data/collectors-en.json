@@ -20,7 +20,7 @@
 	"playerID": "PLAYER ID: ",
 	"bottles":"MOVES: ",
 	"cardUp":"CARD UP FOR AUCTION",
-	"marketValues":"MARKET VALUES",
+	"marketValues":"CURRENT MARKET VALUES",
 	"chooseSecret": "Choose your secret card",
 	"secretCard": "SecretCard",
 	"highestBid": "THE HIGHEST BID: ",

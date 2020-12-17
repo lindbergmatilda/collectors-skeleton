@@ -26,7 +26,8 @@
 	"highestBid": "THE HIGHEST BID: ",
 	"placeBid": "PLACE BID",
 	"skillHelp": "In the Skill Area you can buy a green skill from one of the cards in the area, it might get you one step closer to the great victory",
-	"currentPlayer": " is playing right now"
+	"currentPlayer": " is playing right now",
+	"showRound": "Round number:"
 
 
 }

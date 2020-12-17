@@ -970,8 +970,8 @@ main {
   width: 800px;
 
 
-  grid-template-columns: 300px 210px 300px;
-  grid-template-rows: 300px 900px 1fr 1fr 1fr;
+  grid-template-columns: 300px 250px 300px;
+  grid-template-rows: 300px 840px 1fr 1fr 1fr;
 
   height: 500px;
   margin: 60px;

@@ -16,11 +16,7 @@
         {{ labels.chooseSecret }}
       </button>
     </div>
-    <div class="refillbuttons">
-      <button v-if="players[playerId]" :disabled="!nextRound()"  @click="refill">
-        {{ labels.refill }}
-      </button>
-    </div>
+
     <div class="endGame">
       <button v-if="players[playerId]" :disabled="!endGame()" @click="countPoints">
         {{ labels.theEnd }}
@@ -32,9 +28,11 @@
     <input v-if="players[playerId]" type="text" v-model="myName" name="name" placeholder="Game Name">
     <button v-if="players[playerId]" @click="enterName()">CHANGE</button>
 
-    <span class="hiddenMessege" id="roundOverMessage">
-      {{labels.roundOverMessage}}
-    </span>
+    <div class="invisPopUp" >
+      <span class="messegePopUp" :disabled="!nextRound()" @click="refill()" id="roundOverMessage"  >
+        {{labels.roundOverMessage}}
+      </span>
+    </div>
 
     <hr>
 
@@ -44,69 +42,64 @@
 
       <div class="your-playerboard">
 
-            <div class="rubrik">
+        <div class="rubrik">
 
-              <center>
-                    <h2 v-if="players[playerId]">{{players[playerId].name}} <br>{{ labels.yourPlayerBoard}} </h2>
-              </center>
-              <hr>
+          <center>
+            <h2 v-if="players[playerId]">{{players[playerId].name}} <br>{{ labels.yourPlayerBoard}} </h2>
+          </center>
+          <hr>
 
-            </div>
+        </div>
 
-            <div class="hands">
+        <div class="hands">
 
-                    {{ labels.hand }}
+          {{ labels.hand }}
 
-                    <div class="handcards cardslots" v-if="players[playerId]">
-                      <CollectorsCard v-for="(card, index) in players[playerId].hand"
-                      :card="card"
-                      :availableAction="card.available"
-                      @doAction="handleAction(card)"
-                      :key="index" />
-                    </div>
+          <div class="handcards cardslots" v-if="players[playerId]">
+            <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="handleAction(card)" :key="index" />
+          </div>
 
-            </div>
+        </div>
 
 
 
-            <div class="youritems">
-                    {{ labels.items }}
+        <div class="youritems">
+          {{ labels.items }}
 
-                      <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
-                        {{itemInfo.item}}
-                      </div>
-              </div>
+          <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
+            {{itemInfo.item}}
+          </div>
+        </div>
 
-            <div class="yourskills">
-                      {{ labels.skills }}
-                      <br>Har försökt lägga till bilder här ist för ord. Gick bajs. Har lagt in bilder med alla skills och döpt dem till rätt namn men får det ej att funka
-                      <img id="picskill" src="/images/bottle.png" width="60">
-                      <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
-                        {{skillInfo.skill}}
-                        <!--<img id="picskill" src="/images/{{skillInfo.skill}}.png" width="50"> -->
+        <div class="yourskills">
+          {{ labels.skills }}
+          <br>Har försökt lägga till bilder här ist för ord. Gick bajs. Har lagt in bilder med alla skills och döpt dem till rätt namn men får det ej att funka
+          <img id="picskill" src="/images/bottle.png" width="60">
+          <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
+            {{skillInfo.skill}}
+            <!--<img id="picskill" src="/images/{{skillInfo.skill}}.png" width="50"> -->
 
 
-                      </div>
-            </div>
+          </div>
+        </div>
 
-            <div class="other">
-              HEHO Här kanske vi ska snygga upp: *coins *knapp där man kan se sitt secretcard *den inkomst man får per runda
-               *snyggare antal moves kvar :) :) :)<hr>
-             {{ labels.bottles }}{{players[playerId].bottles}} <br>
-             COINS: {{players[playerId].money}}<br>
+        <div class="other">
+          HEHO Här kanske vi ska snygga upp: *coins *knapp där man kan se sitt secretcard *den inkomst man får per runda
+          *snyggare antal moves kvar :) :) :)
+          <hr>
+          {{ labels.bottles }}{{players[playerId].bottles}} <br>
+          COINS: {{players[playerId].money}}<br>
 
-             <!-- SECRETCARD: -->
-             <div class="yourSecret" v-if="players[playerId]" @click='yourSecret()'> {{ labels.secretCard }}
-               <span class="secret-popUp" id="secretYours">
-                 <CollectorsCard v-for="(card, index) in players[playerId].secret"
-                 :card="card"
-                 :key="index" />
-               </span>
-             </div>
-            <div>
-             INCOME: {{players[playerId].income}}
-           </div>
-            </div>
+          <!-- SECRETCARD: -->
+          <div class="yourSecret" v-if="players[playerId]" @click='yourSecret()'> {{ labels.secretCard }}
+            <span class="secret-popUp" id="secretYours">
+              <CollectorsCard v-for="(card, index) in players[playerId].secret" :card="card" :key="index" />
+            </span>
+          </div>
+          <div>
+            INCOME: {{players[playerId].income}}
+          </div>
+        </div>
 
 
 
@@ -142,27 +135,13 @@
       <div class="gamezone">
 
         <div class="item">
-          <collectorsBuyItem v-if="players[playerId]"
-          :labels="labels"
-          :player="players[playerId]"
-          :itemsOnSale="itemsOnSale"
-          :marketValues="marketValues"
-          :placement="itemPlacement"
-          :auctionRunning="auctionRunning"
-          @buyItem="buyItem($event)"
-          @placeBottle="placeBottle('item', $event)" />
+          <collectorsBuyItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :itemsOnSale="itemsOnSale" :marketValues="marketValues" :placement="itemPlacement" :auctionRunning="auctionRunning" @buyItem="buyItem($event)"
+            @placeBottle="placeBottle('item', $event)" />
         </div>
 
         <div class="skill">
-          <CollectorsBuySkill v-if="players[playerId]"
-          :labels="labels"
-          :player="players[playerId]"
-          :skillsOnSale="skillsOnSale"
-          :marketValues="marketValues"
-          :placement="skillPlacement"
-          :auctionRunning="auctionRunning"
-          @buySkill="buySkill($event)"
-          @placeBottle="placeBottle('skill', $event)" />
+          <CollectorsBuySkill v-if="players[playerId]" :labels="labels" :player="players[playerId]" :skillsOnSale="skillsOnSale" :marketValues="marketValues" :placement="skillPlacement" :auctionRunning="auctionRunning" @buySkill="buySkill($event)"
+            @placeBottle="placeBottle('skill', $event)" />
         </div>
 
         <div class="value">
@@ -186,14 +165,8 @@
 
         <div class="auction">
           <div class="upper-auction">
-            <CollectorsAuctionItem v-if="players[playerId]"
-            :labels="labels"
-            :player="players[playerId]"
-            :auctionCards="auctionCards"
-            :placement="auctionPlacement"
-            :auctionRunning="auctionRunning"
-            @auctionItem="auctionItem($event)"
-            @placeBottle="placeBottle('auction', $event)" />
+            <CollectorsAuctionItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :auctionCards="auctionCards" :placement="auctionPlacement" :auctionRunning="auctionRunning" @auctionItem="auctionItem($event)"
+              @placeBottle="placeBottle('auction', $event)" />
           </div>
           <div class="lower-auction">
 
@@ -222,20 +195,13 @@
               <h5>{{ labels.cardUp }}</h5>
             </div>
             <div class="cardslots card-for-auction">
-              <CollectorsCard v-for="(card, index) in theAuctionItem"
-              :card="card"
-              :key="index" />
+              <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
             </div>
           </div>
         </div>
 
         <div class="work">
-          <CollectorsWorkArea v-if="players[playerId]"
-          :labels="labels"
-          :player="players[playerId]"
-          :placement="workPlacement"
-          :auctionRunning="auctionRunning"
-          @placeBottle="placeBottle('work',$event)" />
+          <CollectorsWorkArea v-if="players[playerId]" :labels="labels" :player="players[playerId]" :placement="workPlacement" :auctionRunning="auctionRunning" @placeBottle="placeBottle('work',$event)" />
         </div>
 
         <div class="theRest">
@@ -344,6 +310,8 @@ export default {
 
     this.$store.state.socket.on('collectorsInitialize',
       function(d) {
+
+
         this.labels = d.labels;
         this.players = d.players;
         this.itemsOnSale = d.itemsOnSale;
@@ -487,6 +455,10 @@ export default {
 
     this.$store.state.socket.on('collectorsRefilled',
       function(d) {
+
+        let messege = document.getElementById("roundOverMessage");
+        messege.classList.toggle('show');
+
         console.log("refill: ", this.rounds);
         this.players = d.players;
         this.itemsOnSale = d.itemsOnSale;
@@ -540,13 +512,12 @@ export default {
     },
 
     claimFirstPlayer: function() {
-      try{
+      try {
         this.$store.state.socket.emit('collectorsFirstPlayer', {
           roomId: this.$route.params.id,
           playerId: this.playerId
         });
-      }
-      catch(error){
+      } catch (error) {
         console.log("error")
       }
     },
@@ -559,7 +530,8 @@ export default {
           }
         }
       }
-    document.getElementById("roundOverMessage").style.visibility = "visible";
+      let messege = document.getElementById("roundOverMessage");
+      messege.classList.toggle('show');
       return true;
     },
 
@@ -567,7 +539,7 @@ export default {
       this.highlightHand(true);
     },
 
-    yourSecret: function(){
+    yourSecret: function() {
       var secret = document.getElementById('secretYours');
       secret.classList.toggle('show');
     },
@@ -581,11 +553,11 @@ export default {
       return false;
     },
 
-    playersReady: function () {
-      while(Object.keys(this.players).length < this.numberOfPlayers){
+    playersReady: function() {
+      while (Object.keys(this.players).length < this.numberOfPlayers) {
         return false;
       }
-        return true;
+      return true;
     },
 
     endGame: function() {
@@ -610,7 +582,6 @@ export default {
     },
 
     refill: function() {
-      document.getElementById("roundOverMessage").style.visibility = "hidden";
       this.$store.state.socket.emit('collectorsRefill', {
         roomId: this.$route.params.id,
         playerId: this.playerId
@@ -625,7 +596,7 @@ export default {
       });
     },
 
-    enterName: function(){
+    enterName: function() {
       var theName = this.myName;
       this.$store.state.socket.emit('collectorsChangeName', {
         roomId: this.$route.params.id,
@@ -643,13 +614,13 @@ export default {
       });
     },
 
-    playerMoney: function(){
-    return this.players[this.playerId].moneyCard;
-  },
+    playerMoney: function() {
+      return this.players[this.playerId].moneyCard;
+    },
 
-  recentBid: function(){
-    return  this.highestBid;
-  },
+    recentBid: function() {
+      return this.highestBid;
+    },
 
     canNotAfford: function() {
       if (this.players[this.playerId].moneyCard < this.highestBid) {
@@ -802,7 +773,6 @@ export default {
 </script>
 
 <style scoped>
-
 header {
   user-select: none;
   position: fixed;
@@ -827,11 +797,51 @@ main {
   font-family: "Lexend Deca", sans-serif;
 }
 
-.hiddenMessege{
-    visibility: hidden;
-    font-family: "Lexend Deca", sans-serif;
-    font-weight: bold;
-    color: black;
+.invisPopUp {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 20px;
+  font-size: 18px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.invisPopUp .messegePopUp {
+  visibility: hidden;
+  width: 500px;
+  font-size: 40px;
+  color: black;
+  background-color: #9BC0E5 ;
+  text-align: center;
+  border-style: solid;
+  border-radius: 10px;
+  border-color: #232425;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: 100px;
+}
+
+.invisPopUp .messegePopUp::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.invisPopUp .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
 }
 
 .yourSecret {
@@ -848,19 +858,19 @@ main {
 
 .yourSecret .secret-popUp {
 
-    visibility: hidden;
-    width: 160px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 8px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
-    font-size: 15px;
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  font-size: 15px;
 
 }
 
@@ -885,18 +895,18 @@ main {
   grid-area: your-board;
   display: grid;
   grid-template-areas:
- 'rubrik rubrik'
- 'hands rest'
- 'skills items';
- grid-template-rows: 1fr 3fr 2fr;
- grid-template-columns: 1fr 1fr;
- background-color: #e6e6ff;
- max-height: 500px;
+    'rubrik rubrik'
+    'hands rest'
+    'skills items';
+  grid-template-rows: 1fr 3fr 2fr;
+  grid-template-columns: 1fr 1fr;
+  background-color: #e6e6ff;
+  max-height: 500px;
 
- border: 1px solid lightgrey;
- margin-top: 60px;
- padding: 20px;
- border-radius: 70px;
+  border: 1px solid lightgrey;
+  margin-top: 60px;
+  padding: 20px;
+  border-radius: 70px;
 
 
 }
@@ -913,12 +923,12 @@ main {
   grid-area: items;
 }
 
-.hands{
+.hands {
   grid-area: hands;
   margin-bottom: 40px;
 }
 
-.other{
+.other {
   grid-area: rest;
 }
 
@@ -1027,7 +1037,7 @@ main {
 
 .auction-place {
   grid-area: altButtons;
-  margin:10px;
+  margin: 10px;
 }
 
 .highest-bid {
@@ -1041,10 +1051,10 @@ main {
 
 .card-for-auction {
   grid-area: card4auction;
-  background-color:  #ffe6b3;
+  background-color: #ffe6b3;
   padding-left: 10px;
   padding-top: 10px;
-  margin:10px;
+  margin: 10px;
   border: 10px dashed white;
 }
 
@@ -1104,6 +1114,7 @@ button[disabled] {
   padding: 25px;
   padding-left: 20px;
 }
+
 .altbutton2 {
   width: 40px;
   height: 40px;

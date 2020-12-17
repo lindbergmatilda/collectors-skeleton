@@ -9,6 +9,7 @@
 	"auctionItem": "Start an auction",
 	"firstPlayer": "I GO FIRST",
 	"refill": "Next round",
+	"roundOverMessage": "All players have used their bottles, start next round!",
 	"workArea": "Work Area",
 	"theEnd": "End Game and count points",
 	"yourPlayerBoard": "YOUR PLAYER BOARD",

@@ -6,6 +6,8 @@
       {{ labels.invite }}
       <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
     </p>
+    <p id = "rundaLapp" v-if="players[playerId]"> {{ labels.showRound }} {{this.rounds}} </p>
+
     <div class="firstbuttons">
       <button v-if="players[playerId]" :disabled="disableIGoFirst() || !playersReady()" @click="claimFirstPlayer">
         {{ labels.firstPlayer }}
@@ -26,9 +28,14 @@
         {{ labels.theEnd }}
       </button>
     </div>
-      <div class="theWinner" id="theWinner" >The WINNER is:</div>
-      <div id="overlay"></div>
 
+    <div class="yourSecret" v-if="players[playerId]" @click='yourSecret()'> {{ labels.secretCard }}
+      <span class="secret-popUp" id="secretYours">
+        <CollectorsCard v-for="(card, index) in players[playerId].secret"
+        :card="card"
+        :key="index" />
+      </span>
+    </div>
 
     <hr>
     <input v-if="players[playerId]" type="text" v-model="myName" name="name" placeholder="Game Name">
@@ -91,18 +98,13 @@
                *snyggare antal moves kvar :) :) :)<hr>
              {{ labels.bottles }}{{players[playerId].bottles}} <br>
              COINS: {{players[playerId].money}}<br>
-
-             <!-- SECRETCARD: -->
-             <div class="yourSecret" v-if="players[playerId]" @click='yourSecret()'> {{ labels.secretCard }}
-               <span class="secret-popUp" id="secretYours">
-                 <CollectorsCard v-for="(card, index) in players[playerId].secret"
-                 :card="card"
-                 :key="index" />
-               </span>
+             SECRETCARD:
+         <div v-for="(itemInfo, item) in players[playerId].secret" :key="item">
+               {{itemInfo.item}}<br>
              </div>
-            <div>
+
              INCOME: {{players[playerId].income}}
-           </div>
+
             </div>
 
 
@@ -558,7 +560,6 @@ export default {
       }
       return true;
     },
-
     chooseSecret: function() {
       this.highlightHand(true);
     },
@@ -603,8 +604,6 @@ export default {
         playerId: this.playerId,
         marketValues: this.marketValues
       });
-      document.getElementById("overlay").style.visibility = "visible";
-      document.getElementById("theWinner").style.visibility = "visible";
     },
 
     refill: function() {
@@ -829,7 +828,7 @@ main {
   display: inline-block;
   cursor: pointer;
   margin-left: 20px;
-  font-size: 18px;
+  font-size: 30px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -942,7 +941,7 @@ main {
   grid-area: gameboard;
   display: grid;
   grid-template-areas:
-    'item item auction '
+    'item item item '
     'skill work auction'
     'value value value'
     'thehand thehand thehand'
@@ -951,8 +950,8 @@ main {
   width: 800px;
 
 
-  grid-template-columns: 300px 210px 300px;
-  grid-template-rows: 300px 900px 1fr 1fr 1fr;
+  grid-template-columns: 380px 210px 320px;
+  grid-template-rows: 300px 1090px 1fr 1fr 1fr;
 
   height: 500px;
   margin: 60px;
@@ -964,6 +963,7 @@ main {
   background-color: #FFDBDB;
   border-top: 2px solid black;
   border-left: 2px solid black;
+  border-right: 2px solid black;
 }
 
 .skill {
@@ -995,10 +995,9 @@ main {
   grid-area: auction;
   display: grid;
   grid-template-areas: 'upper-auction''lower-auction';
-  grid-template-rows: 630px 300px;
+  grid-template-rows: 600px 300px;
   background-color: #FFFFDB;
   border-right: 2px solid black;
-  border-top: 2px solid black;
 }
 
 .upper-auction {
@@ -1009,7 +1008,7 @@ main {
 .lower-auction {
   grid-area: lower-auction;
   display: grid;
-  grid-template-areas: 'header header''card4auction bidButtons''altButtons altButtons';
+  grid-template-areas: 'header header''card4auction bidButtons''altButtons auction-info';
   grid-template-rows: 90px 240px 100px;
   grid-template-columns: 190px 100px;
 
@@ -1017,7 +1016,7 @@ main {
 
 .auction-place {
   grid-area: altButtons;
-  padding-top: 20px;
+  margin:10px;
 }
 
 .highest-bid {
@@ -1026,8 +1025,7 @@ main {
 
 .head-auction {
   grid-area: header;
-  padding-top: 30px;
-  padding-left: 28px;
+  padding: 14px;
 }
 
 .card-for-auction {
@@ -1054,6 +1052,8 @@ main {
 
 .altButtons {
   grid-area: bidButtons;
+  padding: 45px;
+  padding-left: 1px;
 
 
 }
@@ -1061,8 +1061,8 @@ main {
 .altButton {
   width: 50px;
   height: 50px;
-  margin: 25px;
-  margin-top: 10px;
+  margin: 40px;
+  margin-top: -100px;
   color: black;
   text-transform: capitalize;
   font-family: "Lexend Deca", sans-serif;
@@ -1135,38 +1135,10 @@ button[disabled] {
   z-index: 1;
 }
 
+
 @media screen and (max-width: 800px) {
   main {
     width: 90vw;
   }
 }
-
-.theWinner{
-  visibility: hidden;
-
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border: 2px solid black;
-  border-radius: 10px;
-  z-index: 10;
-  background-color: white;
-  font-size: 100px;
-  max-width: 80%;
-  font-weight: bold;
-}
-
-#overlay{
-  visibility: hidden;
-  position: fixed;
-  opacity: 1;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  pointer-events: all;
-}
-
 </style>

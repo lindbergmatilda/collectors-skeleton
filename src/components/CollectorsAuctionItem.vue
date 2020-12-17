@@ -115,7 +115,7 @@ export default {
 .buttons {
   width: 70px;
   display: grid;
-  grid-template-rows: repeat(auto-fill, 90px);
+  grid-template-rows: repeat(auto-fill, 130px);
 
 }
 
@@ -123,7 +123,7 @@ export default {
 .button {
   width: 90px;
   height: 50px;
-  margin-top: -100px;
+  margin-top: 30px;
 
   color: black;
   text-transform:capitalize;
@@ -172,7 +172,7 @@ button[disabled]{
 }
 
 .popupAuction {
-  left: -150px;
+  left: -140px;
   position: relative;
     text-align: center;
     background-color: #BCDBEA;

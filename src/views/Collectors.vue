@@ -952,7 +952,7 @@ main {
   grid-area: gameboard;
   display: grid;
   grid-template-areas:
-    'item item item '
+    'item item auction '
     'skill work auction'
     'value value value'
     'thehand thehand thehand'
@@ -962,7 +962,7 @@ main {
 
 
   grid-template-columns: 380px 210px 320px;
-  grid-template-rows: 300px 1090px 1fr 1fr 1fr;
+  grid-template-rows: 300px 900px 1fr 1fr 1fr;
 
   height: 500px;
   margin: 60px;
@@ -974,7 +974,6 @@ main {
   background-color: #FFDBDB;
   border-top: 2px solid black;
   border-left: 2px solid black;
-  border-right: 2px solid black;
 }
 
 .skill {
@@ -1009,6 +1008,7 @@ main {
   grid-template-rows: 600px 300px;
   background-color: #FFFFDB;
   border-right: 2px solid black;
+  border-top: 2px solid black;
 }
 
 .upper-auction {

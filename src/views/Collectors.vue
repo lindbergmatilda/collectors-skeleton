@@ -213,7 +213,7 @@
                 <div class="altbuttons2">
                   <button class="altbutton2" v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction() || canNotAfford()" @click="placeBid()">BID</button>
                   <button class="altbutton2" v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction()" @click="passBid()">PASS</button>
-                  <button class="altbutton2" v-if="players[playerId]" :disabled="!winnerAuction()" @click="payRestCoins()">PAYX</button>
+                  <button class="altbutton2" v-if="players[playerId]" :disabled="!winnerAuction()" @click="payRestCoins()">PAY</button>
                 </div>
               </center>
             </div>
@@ -424,7 +424,6 @@ export default {
         if (this.players[this.playerId].bid === 0) {
           this.highlightHand(false);
         }
-        this.isPlaying = this.whoIsPlaying();
       }.bind(this)
     );
 
@@ -445,6 +444,7 @@ export default {
         this.canIClaim = false;
         this.highestBid = null;
         this.auctionRunning = false;
+        this.isPlaying = this.whoIsPlaying();
       }.bind(this)
     );
 

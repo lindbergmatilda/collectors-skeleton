@@ -185,6 +185,7 @@ font-weight: bold;
 letter-spacing: -1px;
   color: #313131;
   -webkit-animation: colorchange 15s infinite alternate;
+  text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
 }
 
 @-webkit-keyframes colorchange {

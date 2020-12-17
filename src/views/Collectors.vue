@@ -11,6 +11,7 @@
         {{ labels.firstPlayer }}
       </button>
     </div>
+         <p v-if="players[playerId]"> {{ labels.showRound }} {{this.rounds}} </p>
     <div class="secretButton">
       <button v-if="players[playerId]" :disabled='this.chosenAction != "start"' @click="chooseSecret()">
         {{ labels.chooseSecret }}

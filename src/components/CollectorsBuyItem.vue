@@ -186,11 +186,13 @@ button[disabled]{
 .buy-item {
   grid-area:hej;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 20%);
+  grid-template-columns: repeat(auto-fill, 180px);
   transform: scale(0.4)translate(-12%, 0);
+  min-width: 900px;
   transform-origin: top;
   margin-top: -35px;
-  margin-left: -15px;
+  margin-left: -150px;
+
 
 
 

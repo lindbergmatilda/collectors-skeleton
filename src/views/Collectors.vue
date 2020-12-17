@@ -2,10 +2,10 @@
 <div>
   <main>
 
-    <p>
-      {{ labels.invite }}
+
+      <center>{{ labels.invite }}
       <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
-    </p>
+    </center>
     <div class="firstbuttons">
       <button v-if="players[playerId]" :disabled="disableIGoFirst() || !playersReady()" @click="claimFirstPlayer">
         {{ labels.firstPlayer }}
@@ -969,7 +969,7 @@ main {
   width: 800px;
 
 
-  grid-template-columns: 300px 250px 300px;
+  grid-template-columns: 300px 240px 300px;
   grid-template-rows: 300px 840px 1fr 1fr 1fr;
 
   height: 500px;
@@ -1022,6 +1022,7 @@ main {
 .upper-auction {
   grid-area: upper-auction;
   padding-left: 25px;
+
 }
 
 .lower-auction {
@@ -1044,7 +1045,6 @@ main {
 
 .head-auction {
   grid-area: header;
-  padding-top: 30px;
   padding-left: 28px;
 }
 
@@ -1185,6 +1185,10 @@ button[disabled] {
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   pointer-events: all;
+}
+
+.firstbuttons {
+
 }
 
 </style>

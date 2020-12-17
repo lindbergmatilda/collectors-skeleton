@@ -236,6 +236,7 @@ button[disabled]{
     margin-left: -60px;
     font-size: 15px;
 
+
 }
 
 .popupItem .itemhelp-text::after {

@@ -95,23 +95,25 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 .raise-value {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 130px);
+  grid-template-columns: repeat(auto-fill, 90px);
   transform: scale(0.4)translate(-25%, 0);
 
 }
 .buttons {
   display: inline;
   align-self: top;
-    padding-left: 37px;
+    padding-left: 30px;
+    display: inline-block;
 
 }
 
 .button {
   width: 90px;
   height: 50px;
-
+margin: 6px;
   color: black;
   text-transform:capitalize;
   font-family: "Lexend Deca", sans-serif;
@@ -119,7 +121,6 @@ export default {
 
   background: lightblue;
   border-radius: 20px;
-  display: inline-block;
   border: none;
   transition: all 0.4s ease 0s;
 

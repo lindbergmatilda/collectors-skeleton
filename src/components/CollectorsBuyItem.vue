@@ -26,7 +26,7 @@
       </button>
 
       <div id='placedBottle' v-if="p.playerId !== null">
-        {{p.playerId}}
+       {{ p.playerId }}
       </div>
     </div>
   </div>
@@ -126,9 +126,8 @@ export default {
 .item-placement {
   display: grid;
   grid-template-areas: 'hej' 'down';
-  grid-template-columns: 1fr;
-  grid-template-rows: 120px 170px;
-  transform-origin: top;
+  grid-template-columns: 500px;;
+  grid-template-rows: 140px 90px;
 }
 
 .buttons {
@@ -138,6 +137,7 @@ export default {
   display: -webkit-flex;
   display: flex;
   margin-left: 35px;
+
 }
 
 .button {
@@ -175,6 +175,7 @@ button[disabled]{
 .upper-grid {
 
   grid-area: hej;
+
 }
 
 .lower-grid {
@@ -186,10 +187,11 @@ button[disabled]{
   grid-area:hej;
   display: grid;
   grid-template-columns: repeat(auto-fill, 20%);
-  transform: scale(0.4)translate(-42%, 0);
+  transform: scale(0.4)translate(-12%, 0);
   transform-origin: top;
   margin-top: -35px;
-  margin-left: 90px;
+  margin-left: -15px;
+
 
 
 }

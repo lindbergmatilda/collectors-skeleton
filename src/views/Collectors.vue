@@ -27,13 +27,6 @@
       </button>
     </div>
 
-    <div class="yourSecret" v-if="players[playerId]" @click='yourSecret()'> {{ labels.secretCard }}
-      <span class="secret-popUp" id="secretYours">
-        <CollectorsCard v-for="(card, index) in players[playerId].secret"
-        :card="card"
-        :key="index" />
-      </span>
-    </div>
 
     <hr>
     <input v-if="players[playerId]" type="text" v-model="myName" name="name" placeholder="Game Name">
@@ -92,17 +85,22 @@
             </div>
 
             <div class="other">
-              HEHO Här kanske vi ska snygga upp: *coins *knapp där man kan se sitt secretcard *den inkomst man får per runda 
+              HEHO Här kanske vi ska snygga upp: *coins *knapp där man kan se sitt secretcard *den inkomst man får per runda
                *snyggare antal moves kvar :) :) :)<hr>
              {{ labels.bottles }}{{players[playerId].bottles}} <br>
              COINS: {{players[playerId].money}}<br>
-             SECRETCARD:
-         <div v-for="(itemInfo, item) in players[playerId].secret" :key="item">
-               {{itemInfo.item}}<br>
+
+             <!-- SECRETCARD: -->
+             <div class="yourSecret" v-if="players[playerId]" @click='yourSecret()'> {{ labels.secretCard }}
+               <span class="secret-popUp" id="secretYours">
+                 <CollectorsCard v-for="(card, index) in players[playerId].secret"
+                 :card="card"
+                 :key="index" />
+               </span>
              </div>
-
+            <div>
              INCOME: {{players[playerId].income}}
-
+           </div>
             </div>
 
 
@@ -827,7 +825,7 @@ main {
   display: inline-block;
   cursor: pointer;
   margin-left: 20px;
-  font-size: 30px;
+  font-size: 18px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

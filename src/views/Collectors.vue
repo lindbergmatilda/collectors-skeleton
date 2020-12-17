@@ -97,22 +97,24 @@
             </div>
 
             <div class="other" v-if="players[playerId]">
-              HEHO Här kanske vi ska snygga upp: *coins *knapp där man kan se sitt secretcard *den inkomst man får per runda
-               *snyggare antal moves kvar :) :) :)<hr>
-             {{ labels.bottles }}{{players[playerId].bottles}} <br>
-             COINS: {{players[playerId].money}}<br>
 
-             <!-- SECRETCARD: -->
-             <div class="yourSecret" v-if="players[playerId]" @click='yourSecret()'> {{ labels.secretCard }}
-               <span class="secret-popUp" id="secretYours">
-                 <CollectorsCard v-for="(card, index) in players[playerId].secret"
-                 :card="card"
-                 :key="index" />
-               </span>
-             </div>
+
+             {{ labels.bottles }}{{players[playerId].bottles}} <br><br>
+
             <div>
-             INCOME: {{players[playerId].income}}
+             Inkomst per runda: {{players[playerId].income}}
+           </div><br>
+          <center> <img class="coinpic" src="/images/coinpicss.png" width="70"> x {{players[playerId].money}} </center> <br>
+<br>
+           <!-- SECRETCARD: -->
+           <div class="yourSecret" v-if="players[playerId]" @click='yourSecret()'> {{ labels.secretCard }}
+             <span class="secret-popUp" id="secretYours">
+               <CollectorsCard v-for="(card, index) in players[playerId].secret"
+               :card="card"
+               :key="index" />
+             </span>
            </div>
+
             </div>
 
 
@@ -926,6 +928,7 @@ main {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  background-color: beige;
 }
 
 .yourSecret .secret-popUp {
@@ -970,10 +973,11 @@ main {
  'rubrik rubrik'
  'hands rest'
  'skills items';
- grid-template-rows: 1fr 3fr 2fr;
- grid-template-columns: 1fr 1fr;
+ grid-template-rows: 1fr 2fr 1fr;
+ grid-template-columns: 2fr 1fr;
  background-color: #e6e6ff;
  max-height: 500px;
+ max-width: 800px;
 
  border: 1px solid lightgrey;
  margin-top: 60px;
@@ -1135,6 +1139,10 @@ main {
   padding-top: 10px;
   margin:10px;
   border: 10px dashed white;
+}
+
+.coinpic {
+  boarder-radius: 50%;
 }
 
 .work {

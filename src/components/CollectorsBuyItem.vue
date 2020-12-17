@@ -137,7 +137,7 @@ export default {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  margin-left: 92px;
+  margin-left: 35px;
 }
 
 .button {
@@ -186,7 +186,7 @@ button[disabled]{
   grid-area:hej;
   display: grid;
   grid-template-columns: repeat(auto-fill, 20%);
-  transform: scale(0.4)translate(-25%, 0);
+  transform: scale(0.4)translate(-42%, 0);
   transform-origin: top;
   margin-top: -35px;
   margin-left: 90px;

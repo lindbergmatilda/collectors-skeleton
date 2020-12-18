@@ -7,16 +7,31 @@
       <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
     </center>
 
-
     <div class="game-name">
+
+      <button class="big-button" v-if="players[playerId]" @click="enterName()">CHANGE NAME</button>
       <input v-if="players[playerId]" type="text" v-model="myName" name="name" placeholder="NAME">
-      <button v-if="players[playerId]" @click="enterName()">CHANGE</button></div>
+    </div>
+
+
+<div class="secretButton">
+  <button class="big-button" v-if="players[playerId]" :disabled='this.chosenAction != "start"' @click="chooseSecret()">
+    {{ labels.chooseSecret }}
+  </button>
+</div>
 
 <div class="firstbuttons">
-  <button v-if="players[playerId]" :disabled="disableIGoFirst() || !playersReady()" @click="claimFirstPlayer">
+  <button class="big-button" v-if="players[playerId]" :disabled="disableIGoFirst() || !playersReady()" @click="claimFirstPlayer">
     {{ labels.firstPlayer }}
   </button>
 </div>
+
+    <div class="invisPopUp" >
+      <span class="messegePopUp" v-if="players[playerId]" :disabled="!nextRound()" @click="refill()" id="roundOverMessage"  >
+        {{labels.roundOverMessage}}
+      </span>
+    </div>
+    <hr>
 
 <div class="endGame">
   <button v-if="players[playerId]" @click="countPoints">
@@ -43,53 +58,63 @@
 </div>
 
 <div class="invisPopUp">
-  <span class="messegePopUp" v-if="players[playerId]" :disabled="!nextRound()" @click="refill()" id="roundOverMessage">
+  <span class="messegePopUp" :disabled="!nextRound()" @click="refill()" id="roundOverMessage">
     {{labels.roundOverMessage}}
   </span>
 </div>
 
-<div class="secretCard">
-  <span class="secretPopUp" v-if="players[playerId]" :disabled='this.chosenAction != "start"' @click="chooseSecret()" id="secretPopUp">
-    {{labels.chooseSecret}}
-  </span>
-</div>
+
+
 
 <div class="head">
-  <div v-if="players[playerId]" class="your-playerboard" :style='yourColour(playerId)'>
+
+
+
+  <div class="your-playerboard">
 
     <div class="rubrik">
+
       <center>
         <h2 v-if="players[playerId]">{{players[playerId].name}} <br>{{ labels.yourPlayerBoard}} </h2>
       </center>
       <hr>
+
     </div>
 
     <div class="hands">
+
       {{ labels.hand }}
+
       <div class="handcards cardslots" v-if="players[playerId]">
         <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="handleAction(card)" :key="index" />
       </div>
+
     </div>
 
 
 
     <div class="youritems" v-if="players[playerId]">
       {{ labels.items }}
+
       <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
         {{itemInfo.item}}
+      <!--  <img id="picitem" :src='showYourItem(item, itemInfo)' width="50"> -->
       </div>
     </div>
 
     <div class="yourskills" v-if="players[playerId]">
       {{ labels.skills }}
       <div v-for="(skillInfo, skill) in players[playerId].skills" :key='skill'>
-      <!--  {{skillInfo.skill}} -->
-       <img id="picskill" :src='showYourSkills(playerId)' width="50">
+    <!--  {{skillInfo.skill}} -->
+       <img id="picskill" :src='showYourSkills(skill, skillInfo)' width="50">
       </div>
     </div>
 
     <div class="other" v-if="players[playerId]">
+
+
       {{ labels.bottles }}{{players[playerId].bottles}} <br><br>
+
       <div>
         Inkomst per runda: {{players[playerId].income}}
       </div><br>
@@ -97,18 +122,29 @@
       <br>
       <!-- SECRETCARD: -->
       <div class="yourSecret" v-if="players[playerId]" @click='yourSecret()'> {{ labels.secretCard }}
+        <img src="/images/chest.png" width="50px">
         <span class="secret-popUp" id="secretYours">
           <CollectorsCard v-for="(card, index) in players[playerId].secret" :card="card" :key="index" />
         </span>
       </div>
+
     </div>
 
+
+
+
+
+
+
   </div>
+
+
 
       <div class="opponentsBoard">
         <h3> {{ labels.allPlayers }} </h3>
         <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']" :style='yourColour(playerId)'>
-          <h3>{{players[playerId].name}}</h3>
+          <h3>{{ labels.playerID }}{{playerId}} ({{players[playerId].name}})</h3>
+          <img src="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
           <h5> {{ labels.items }} </h5>
           <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
             {{itemInfo.item}}
@@ -377,7 +413,6 @@ export default {
         this.players = d.players;
         let highest = 0;
         for (let i = 0; i < Object.keys(this.players).length; i++) {
-          console.log("Här: ", );
           if (this.players[Object.keys(this.players)[i]].bid > highest) {
             highest = this.players[Object.keys(this.players)[i]].bid;
           }
@@ -427,7 +462,6 @@ export default {
 
     this.$store.state.socket.on('collectorsItemBought',
       function(d) {
-        console.log(this.players[d.playerId], "bought a card");
         this.players = d.players;
         this.itemsOnSale = d.itemsOnSale;
         this.isPlaying = this.whoIsPlaying();
@@ -437,7 +471,6 @@ export default {
 
     this.$store.state.socket.on('collectorsWorkedArea',
       function(d) {
-        console.log(d.playerId, "worked an area!");
         this.players = d.players;
         this.isPlaying = this.whoIsPlaying();
         this.chosenAction =null;
@@ -446,7 +479,6 @@ export default {
 
     this.$store.state.socket.on('collectorsSkillBought',
       function(d) {
-        console.log(d.playerId, "bought a skill");
         this.players = d.players;
         this.skillsOnSale = d.skillsOnSale;
         this.isPlaying = this.whoIsPlaying();
@@ -462,7 +494,6 @@ export default {
 
     this.$store.state.socket.on('collectorsRaisedValue',
       function(d) {
-        console.log(d.playerId, "raised a value");
         this.players = d.players;
         this.marketValues = d.marketValues;
         this.market = d.market;
@@ -474,12 +505,6 @@ export default {
 
     this.$store.state.socket.on('collectorsRefilled',
       function(d) {
-
-        let messege = document.getElementById("roundOverMessage");
-        messege.classList.toggle('show');
-
-
-        console.log("refill: ", this.rounds);
         this.players = d.players;
         this.itemsOnSale = d.itemsOnSale;
         this.skillsOnSale = d.skillsOnSale;
@@ -501,7 +526,6 @@ export default {
 
     this.$store.state.socket.on('collectorsItemAuctioned',
       function(d) {
-        console.log(d.playerId, "auctioned a card");
         this.players = d.players;
         this.auctionCards = d.auctionCards;
         this.theAuctionItem = d.theAuctionItem;
@@ -540,7 +564,7 @@ export default {
           playerId: this.playerId
         });
       } catch (error) {
-        console.log("error")
+        console.log("not working correctly")
       }
     },
 
@@ -581,13 +605,16 @@ yourColour: function(playerId){
   }
 },
 
-showYourSkills: function(playerId){
-  for(let i=0; this.players[playerId].skills.length; i++){
-    console.log(this.players[playerId].skills[i].skill);
-    var imgSrc = '/images/'+this.players[playerId].skills[i].skill+'.png';
-    console.log('Bilden som ska visas har länken', imgSrc);
-    return imgSrc;
-  }
+/*
+showYourItem: function(item, itemInfo){
+  var imgSrc = '/images/'+itemInfo.item+'.png';
+  return imgSrc;
+},
+*/
+
+showYourSkills: function(skill, skillInfo){
+  var imgSrc = '/images/'+skillInfo.skill+'.png';
+  return imgSrc;
 },
 
     disableIGoFirst: function() {
@@ -652,8 +679,8 @@ showYourSkills: function(playerId){
       });
     },
 
+//Ta bort draw card
     drawCard: function() {
-      console.log("")
       this.$store.state.socket.emit('collectorsDrawCard', {
         roomId: this.$route.params.id,
         playerId: this.playerId
@@ -754,7 +781,6 @@ showYourSkills: function(playerId){
     },
 
     buyItem: function(card) {
-      console.log("buyItem", card);
       this.$store.state.socket.emit('collectorsBuyItem', {
         roomId: this.$route.params.id,
         playerId: this.playerId,
@@ -773,7 +799,6 @@ showYourSkills: function(playerId){
     },
 
     auctionItem: function(card) {
-      console.log("auctionItem", card);
       this.chosenAction = null;
       this.$store.state.socket.emit('collectorsAuctionItem', {
         roomId: this.$route.params.id,
@@ -785,9 +810,6 @@ showYourSkills: function(playerId){
 
     secretCard: function(card) {
 
-      let messege = document.getElementById("secretPopUp");
-      messege.classList.toggle('show');
-
       this.chosenAction = null;
       this.$store.state.socket.emit("collectorsSecretCard", {
         roomId: this.$route.params.id,
@@ -798,7 +820,6 @@ showYourSkills: function(playerId){
     },
 
     raiseValue: function(card) {
-      console.log("raiseValue", card);
       this.chosenAction = null;
       this.$store.state.socket.emit('collectorsRaiseValue', {
         roomId: this.$route.params.id,
@@ -810,8 +831,6 @@ showYourSkills: function(playerId){
     },
 
     handleAction: function(card) {
-      console.log(this.chosenAction);
-
       if (this.chosenAction === "item") {
         this.buyItem(card);
       } else if (this.chosenAction === "skill") {
@@ -828,7 +847,6 @@ showYourSkills: function(playerId){
     },
 
     buySkill: function(card) {
-      console.log("buySkill", card);
       this.$store.state.socket.emit('collectorsBuySkill', {
         roomId: this.$route.params.id,
         playerId: this.playerId,
@@ -865,60 +883,11 @@ main {
   font-family: "Lexend Deca", sans-serif;
 }
 
-.secretCard{
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  margin-top: 40px;
-  margin-left: 150px;
-  font-size: 18px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.secretCard .secretPopUp{
-  visibility: visible;
-  width: 500px;
-  font-size: 40px;
-  color: black;
-  background-color: #9BC0E5;
-  text-align: center;
-  border-style: solid;
-  border-radius: 10px;
-  border-color: #232425;
-  padding: 8px 0;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: 100px;
-}
-
-.secretCard .secretPopUp::after{
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-}
-
-.secretCard .show{
-  visibility: hidden;
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s;
-}
-
 .invisPopUp {
   position: relative;
   display: inline-block;
   cursor: pointer;
-  margin-top: 40px;
-  margin-left: 150px;
+  margin-left: 20px;
   font-size: 18px;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -931,7 +900,7 @@ main {
   width: 500px;
   font-size: 40px;
   color: black;
-  background-color: #9BC0E5;
+  background-color:  #e6e6ff;
   text-align: center;
   border-style: solid;
   border-radius: 10px;
@@ -1022,7 +991,7 @@ main {
   max-height: 500px;
   max-width: 800px;
 
-  border: 5px solid lightgrey;
+  border: 1px solid lightgrey;
   margin-top: 60px;
   padding: 20px;
   border-radius: 70px;
@@ -1061,7 +1030,7 @@ main {
   margin: 60px;
   padding: 20px;
   display: grid;
-  grid-gap: 10px;
+  grid-gap: 40px;
   grid-template-columns: auto;
 }
 
@@ -1070,7 +1039,7 @@ main {
   border-radius: 40px;
   color: black;
   padding: 15px;
-  border: 1px solid black;
+  border: 5px solid black;
 }
 
 .gamezone {
@@ -1355,4 +1324,88 @@ button[disabled] {
   transition: all 0.4s ease 0s;
   text-align: center;
 }
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700");
+* {
+  box-sizing: border-box;
+}
+*::before, *::after {
+  box-sizing: border-box;
+}
+body {
+  font-family: 'OpenSans', sans-serif;
+  font-size: 1rem;
+  line-height: 2;
+  display: flex;
+          align-items: center;
+          justify-content: center;
+  margin: 0;
+  min-height: 100vh;
+  background: rgba(246, 241, 209);
+}
+button {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  font-size: 1.5rem;
+    color:rgb(106, 163, 137);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-family: inherit;
+}
+
+button.big-button {
+   padding: 1em 2em;
+   border: 2px solid rgb(106, 163, 137);
+  border-radius: 1em;
+  background: rgb(205, 255, 232);
+transform-style: preserve-3d;
+   transition: all 175ms cubic-bezier(0, 0, 1, 1);
+}
+button.big-button::before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgb(150, 232, 195);
+  border-radius: inherit;
+    box-shadow: 0 0 0 2px rgb(121, 186, 156), 0 0.75em 0 0  rgb(106, 163, 137);
+ transform: translate3d(0, 0.75em, -1em);
+     transition: all 175ms cubic-bezier(0, 0, 1, 1);
+}
+
+
+button.big-button:hover {
+  background: rgb(187, 232, 211);
+  transform: translate(0, 0.375em);
+}
+
+button.big-button:hover::before {
+  transform: translate3d(0, 0.75em, -1em);
+}
+
+button.big-button:active {
+            transform: translate(0em, 0.75em);
+}
+
+button.big-button:active::before {
+  transform: translate3d(0, 0, -1em);
+
+      box-shadow: 0 0 0 2px rgb(121, 186, 156), 0 0.25em 0 0 rgb(121, 186, 156);
+
+}
+
+button.big-button:disabled {
+  opacity: 0;
+}
+
+
 </style>

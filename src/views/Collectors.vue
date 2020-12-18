@@ -38,7 +38,7 @@
     <button v-if="players[playerId]" @click="enterName()">CHANGE</button>
 
     <div class="invisPopUp" >
-      <span class="messegePopUp" :disabled="!nextRound()" @click="refill()" id="roundOverMessage"  >
+      <span class="messegePopUp" v-if="players[playerId]" :disabled="!nextRound()" @click="refill()" id="roundOverMessage"  >
         {{labels.roundOverMessage}}
       </span>
     </div>

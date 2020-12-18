@@ -404,7 +404,6 @@ export default {
         this.players = d.players;
         let highest = 0;
         for (let i = 0; i < Object.keys(this.players).length; i++) {
-          console.log("Här: ", );
           if (this.players[Object.keys(this.players)[i]].bid > highest) {
             highest = this.players[Object.keys(this.players)[i]].bid;
           }
@@ -454,7 +453,6 @@ export default {
 
     this.$store.state.socket.on('collectorsItemBought',
       function(d) {
-        console.log(this.players[d.playerId], "bought a card");
         this.players = d.players;
         this.itemsOnSale = d.itemsOnSale;
         this.isPlaying = this.whoIsPlaying();
@@ -463,7 +461,6 @@ export default {
 
     this.$store.state.socket.on('collectorsWorkedArea',
       function(d) {
-        console.log(d.playerId, "worked an area!");
         this.players = d.players;
         this.isPlaying = this.whoIsPlaying();
       }.bind(this)
@@ -471,7 +468,6 @@ export default {
 
     this.$store.state.socket.on('collectorsSkillBought',
       function(d) {
-        console.log(d.playerId, "bought a skill");
         this.players = d.players;
         this.skillsOnSale = d.skillsOnSale;
         this.isPlaying = this.whoIsPlaying();
@@ -486,7 +482,6 @@ export default {
 
     this.$store.state.socket.on('collectorsRaisedValue',
       function(d) {
-        console.log(d.playerId, "raised a value");
         this.players = d.players;
         this.marketValues = d.marketValues;
         this.market = d.market;
@@ -497,8 +492,6 @@ export default {
 
     this.$store.state.socket.on('collectorsRefilled',
       function(d) {
-
-        console.log("refill: ", this.rounds);
         this.players = d.players;
         this.itemsOnSale = d.itemsOnSale;
         this.skillsOnSale = d.skillsOnSale;
@@ -520,7 +513,6 @@ export default {
 
     this.$store.state.socket.on('collectorsItemAuctioned',
       function(d) {
-        console.log(d.playerId, "auctioned a card");
         this.players = d.players;
         this.auctionCards = d.auctionCards;
         this.theAuctionItem = d.theAuctionItem;
@@ -558,7 +550,7 @@ export default {
           playerId: this.playerId
         });
       } catch (error) {
-        console.log("error")
+        console.log("not working correctly")
       }
     },
 
@@ -673,8 +665,8 @@ showYourSkills: function(skill, skillInfo){
       });
     },
 
+//Ta bort draw card
     drawCard: function() {
-      console.log("")
       this.$store.state.socket.emit('collectorsDrawCard', {
         roomId: this.$route.params.id,
         playerId: this.playerId
@@ -775,7 +767,6 @@ showYourSkills: function(skill, skillInfo){
     },
 
     buyItem: function(card) {
-      console.log("buyItem", card);
       this.$store.state.socket.emit('collectorsBuyItem', {
         roomId: this.$route.params.id,
         playerId: this.playerId,
@@ -794,7 +785,6 @@ showYourSkills: function(skill, skillInfo){
     },
 
     auctionItem: function(card) {
-      console.log("auctionItem", card);
       this.chosenAction = null;
       this.$store.state.socket.emit('collectorsAuctionItem', {
         roomId: this.$route.params.id,
@@ -816,7 +806,6 @@ showYourSkills: function(skill, skillInfo){
     },
 
     raiseValue: function(card) {
-      console.log("raiseValue", card);
       this.chosenAction = null;
       this.$store.state.socket.emit('collectorsRaiseValue', {
         roomId: this.$route.params.id,
@@ -828,8 +817,6 @@ showYourSkills: function(skill, skillInfo){
     },
 
     handleAction: function(card) {
-      console.log(this.chosenAction);
-
       if (this.chosenAction === "item") {
         this.buyItem(card);
       } else if (this.chosenAction === "skill") {
@@ -846,7 +833,6 @@ showYourSkills: function(skill, skillInfo){
     },
 
     buySkill: function(card) {
-      console.log("buySkill", card);
       this.$store.state.socket.emit('collectorsBuySkill', {
         roomId: this.$route.params.id,
         playerId: this.playerId,

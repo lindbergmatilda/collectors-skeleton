@@ -166,6 +166,8 @@ button[disabled]{
 
 .popupValue:hover{
   font-size: 30px;
+  cursor: pointer;
+  background-color: #5F9EA0;
 }
 
 .popupValue .valuehelp-text {

@@ -12,24 +12,11 @@
       <input v-if="players[playerId]" type="text" v-model="myName" name="name" placeholder="NAME">
       <button v-if="players[playerId]" @click="enterName()">CHANGE</button></div>
 
-<div class="secretButton">
-  <button v-if="players[playerId]" :disabled='this.chosenAction != "start"' @click="chooseSecret()">
-    {{ labels.chooseSecret }}
-  </button>
-</div>
-
 <div class="firstbuttons">
   <button v-if="players[playerId]" :disabled="disableIGoFirst() || !playersReady()" @click="claimFirstPlayer">
     {{ labels.firstPlayer }}
   </button>
 </div>
-
-    <div class="invisPopUp" >
-      <span class="messegePopUp" v-if="players[playerId]" :disabled="!nextRound()" @click="refill()" id="roundOverMessage"  >
-        {{labels.roundOverMessage}}
-      </span>
-    </div>
-    <hr>
 
 <div class="endGame">
   <button v-if="players[playerId]" @click="countPoints">
@@ -47,44 +34,38 @@
 <div v-if="players[playerId]"> {{ labels.showRound }} {{this.rounds}} </div>
 
 <div class="invisPopUp">
-  <span class="messegePopUp" :disabled="!nextRound()" @click="refill()" id="roundOverMessage">
+  <span class="messegePopUp" v-if="players[playerId]" :disabled="!nextRound()" @click="refill()" id="roundOverMessage">
     {{labels.roundOverMessage}}
   </span>
 </div>
 
-
-
+<div class="secretCard">
+  <span class="secretPopUp" v-if="players[playerId]" :disabled='this.chosenAction != "start"' @click="chooseSecret()" id="secretPopUp">
+    {{labels.chooseSecret}}
+  </span>
+</div>
 
 <div class="head">
-
-
-
   <div v-if="players[playerId]" class="your-playerboard" :style='yourColour(playerId)'>
 
     <div class="rubrik">
-
       <center>
         <h2 v-if="players[playerId]">{{players[playerId].name}} <br>{{ labels.yourPlayerBoard}} </h2>
       </center>
       <hr>
-
     </div>
 
     <div class="hands">
-
       {{ labels.hand }}
-
       <div class="handcards cardslots" v-if="players[playerId]">
         <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="handleAction(card)" :key="index" />
       </div>
-
     </div>
 
 
 
     <div class="youritems" v-if="players[playerId]">
       {{ labels.items }}
-
       <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
         {{itemInfo.item}}
       </div>
@@ -92,21 +73,14 @@
 
     <div class="yourskills" v-if="players[playerId]">
       {{ labels.skills }}
-      <br>Har försökt lägga till bilder här ist för ord. Gick bajs. Har lagt in bilder med alla skills och döpt dem till rätt namn men får det ej att funka
-      <img id="picskill" src="/images/bottle.png" width="60">
-      <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
-        {{skillInfo.skill}}
-        <!--<img id="picskill" src="/images/{{skillInfo.skill}}.png" width="50"> -->
-
-
+      <div v-for="(skillInfo, skill) in players[playerId].skills" :key='skill'>
+      <!--  {{skillInfo.skill}} -->
+       <img id="picskill" :src='showYourSkills(playerId)' width="50">
       </div>
     </div>
 
     <div class="other" v-if="players[playerId]">
-
-
       {{ labels.bottles }}{{players[playerId].bottles}} <br><br>
-
       <div>
         Inkomst per runda: {{players[playerId].income}}
       </div><br>
@@ -118,24 +92,14 @@
           <CollectorsCard v-for="(card, index) in players[playerId].secret" :card="card" :key="index" />
         </span>
       </div>
-
     </div>
 
-
-
-
-
-
-
   </div>
-
-
 
       <div class="opponentsBoard">
         <h3> {{ labels.allPlayers }} </h3>
         <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']" :style='yourColour(playerId)'>
-          <h3>{{ labels.playerID }}{{playerId}} ({{players[playerId].name}})</h3>
-          <img src="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
+          <h3>{{players[playerId].name}}</h3>
           <h5> {{ labels.items }} </h5>
           <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
             {{itemInfo.item}}
@@ -603,6 +567,15 @@ yourColour: function(playerId){
   }
 },
 
+showYourSkills: function(playerId){
+  for(let i=0; this.players[playerId].skills.length; i++){
+    console.log(this.players[playerId].skills[i].skill);
+    var imgSrc = '/images/'+this.players[playerId].skills[i].skill+'.png';
+    console.log('Bilden som ska visas har länken', imgSrc);
+    return imgSrc;
+  }
+},
+
     disableIGoFirst: function() {
       for (let i = 0; i < Object.keys(this.players).length; i++) {
         if (this.players[Object.keys(this.players)[i]].iStart != false) {
@@ -797,6 +770,10 @@ yourColour: function(playerId){
     },
 
     secretCard: function(card) {
+
+      let messege = document.getElementById("secretPopUp");
+      messege.classList.toggle('show');
+
       this.chosenAction = null;
       this.$store.state.socket.emit("collectorsSecretCard", {
         roomId: this.$route.params.id,
@@ -874,11 +851,60 @@ main {
   font-family: "Lexend Deca", sans-serif;
 }
 
+.secretCard{
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin-top: 40px;
+  margin-left: 150px;
+  font-size: 18px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.secretCard .secretPopUp{
+  visibility: visible;
+  width: 500px;
+  font-size: 40px;
+  color: black;
+  background-color: #9BC0E5;
+  text-align: center;
+  border-style: solid;
+  border-radius: 10px;
+  border-color: #232425;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: 100px;
+}
+
+.secretCard .secretPopUp::after{
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.secretCard .show{
+  visibility: hidden;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
 .invisPopUp {
   position: relative;
   display: inline-block;
   cursor: pointer;
-  margin-left: 20px;
+  margin-top: 40px;
+  margin-left: 150px;
   font-size: 18px;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -1021,7 +1047,7 @@ main {
   margin: 60px;
   padding: 20px;
   display: grid;
-  grid-gap: 40px;
+  grid-gap: 10px;
   grid-template-columns: auto;
 }
 
@@ -1030,7 +1056,7 @@ main {
   border-radius: 40px;
   color: black;
   padding: 15px;
-  border: 5px solid black;
+  border: 1px solid black;
 }
 
 .gamezone {
@@ -1263,7 +1289,7 @@ button[disabled] {
   border-radius: 10px;
   z-index: 10;
   background-color: white;
-  font-size: 80px;
+  font-size: 100px;
   max-width: 80%;
   font-weight: bold;
 }

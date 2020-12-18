@@ -113,19 +113,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-.work-area {
-display: grid;
-grid-template-aeas: 'pictures buttons';
-grid-template-columns: 1fr 2fr;
-
-
-}
-
-.workcard {
-  margin-top: 50px;
-
-}
-
 
 
 .buttons {
@@ -133,9 +120,9 @@ grid-template-columns: 1fr 2fr;
 
   display: grid;
   margin-left: 30px;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  grid-template-rows: repeat(auto-fill, 114px);
+  grid-template-rows: repeat(auto-fill, 70px);
+  grid-gap: 75px;
+  margin-top: 10px;
 }
 
 .button {
@@ -174,9 +161,7 @@ button[disabled]{
   opacity: 0.5;
 }
 
-.workcard {
-border: 0.5px solid black;
-}
+
 
 .popupWork {
   position: relative;
@@ -200,6 +185,8 @@ border: 0.5px solid black;
 
 .popupWork:hover{
   font-size: 30px;
+  cursor: pointer;
+  background-color: #5F9EA0;
 }
 
 .popupWork .workhelp-text {

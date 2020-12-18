@@ -3,256 +3,230 @@
   <main>
 
 
-      <center>{{ labels.invite }}
+    <center>{{ labels.invite }}
       <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
     </center>
-    <div class="firstbuttons">
-      <button v-if="players[playerId]" :disabled="disableIGoFirst() || !playersReady()" @click="claimFirstPlayer">
-        {{ labels.firstPlayer }}
-      </button>
+
+    <div class="game-name">
+      <input v-if="players[playerId]" type="text" v-model="myName" name="name" placeholder="NAME">
+      <button v-if="players[playerId]" @click="enterName()">CHANGE</button></div>
+
+<div class="secretButton">
+  <button v-if="players[playerId]" :disabled='this.chosenAction != "start"' @click="chooseSecret()">
+    {{ labels.chooseSecret }}
+  </button>
+</div>
+
+<div class="firstbuttons">
+  <button v-if="players[playerId]" :disabled="disableIGoFirst() || !playersReady()" @click="claimFirstPlayer">
+    {{ labels.firstPlayer }}
+  </button>
+</div>
+
+
+<div class="endGame">
+  <button v-if="players[playerId]" @click="countPoints">
+    {{ labels.theEnd }}
+  </button>
+</div>
+<div v-if="players[playerId]" class="theWinner" id="theWinner">Find out who won</div>
+<button v-if="players[playerId]" class="winner" id="winner" @click="winner">WINNER</button>
+<div v-if="theWinner" class="whoWon" id="whoWon"> GRATTIS {{theWinner.name}}</div>
+<div id="overlay"></div>
+
+<div class="currentPlayer">
+  <h5 v-if="isPlaying !== null"> {{isPlaying}} {{ labels.currentPlayer }} </h5>
+</div>
+<div v-if="players[playerId]"> {{ labels.showRound }} {{this.rounds}} </div>
+
+<div class="invisPopUp">
+  <span class="messegePopUp" :disabled="!nextRound()" @click="refill()" id="roundOverMessage">
+    {{labels.roundOverMessage}}
+  </span>
+</div>
+
+
+
+
+<div class="head">
+
+
+
+  <div class="your-playerboard">
+
+    <div class="rubrik">
+
+      <center>
+        <h2 v-if="players[playerId]">{{players[playerId].name}} <br>{{ labels.yourPlayerBoard}} </h2>
+      </center>
+      <hr>
+
     </div>
-         <p v-if="players[playerId]"> {{ labels.showRound }} {{this.rounds}} </p>
-    <div class="secretButton">
-      <button v-if="players[playerId]" :disabled='this.chosenAction != "start"' @click="chooseSecret()">
-        {{ labels.chooseSecret }}
-      </button>
+
+    <div class="hands">
+
+      {{ labels.hand }}
+
+      <div class="handcards cardslots" v-if="players[playerId]">
+        <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="handleAction(card)" :key="index" />
+      </div>
+
     </div>
 
-    <div class="endGame">
-      <button v-if="players[playerId]"  @click="countPoints">
-        {{ labels.theEnd }}
-      </button>
-    </div>
-      <div v-if="players[playerId]" class="theWinner" id="theWinner" >Find out who won</div>
-      <button v-if="players[playerId]" class="winner" id="winner" @click="winner">WINNER</button>
-      <div v-if="theWinner" class="whoWon" id="whoWon"> GRATTIS {{theWinner.name}}</div>
-      <div id="overlay"></div>
 
-    <div class="currentPlayer">
-      <h5 v-if="isPlaying !== null"> {{isPlaying}} {{ labels.currentPlayer }} </h5>
+
+    <div class="youritems" v-if="players[playerId]">
+      {{ labels.items }}
+
+      <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
+        {{itemInfo.item}}
+      </div>
     </div>
 
-    <hr>
-    <input v-if="players[playerId]" type="text" v-model="myName" name="name" placeholder="Game Name">
-    <button v-if="players[playerId]" @click="enterName()">CHANGE</button>
-
-    <div class="invisPopUp" >
-      <span class="messegePopUp" :disabled="!nextRound()" @click="refill()" id="roundOverMessage"  >
-        {{labels.roundOverMessage}}
-      </span>
-    </div>
-    <hr>
-
-
-
-    <div class="head">
-
-
-
-      <div class="your-playerboard">
-
-            <div class="rubrik">
-
-              <center>
-                    <h2 v-if="players[playerId]">{{players[playerId].name}} <br>{{ labels.yourPlayerBoard}} </h2>
-              </center>
-              <hr>
-
-            </div>
-
-            <div class="hands">
-
-                    {{ labels.hand }}
-
-                    <div class="handcards cardslots" v-if="players[playerId]">
-                      <CollectorsCard v-for="(card, index) in players[playerId].hand"
-                      :card="card"
-                      :availableAction="card.available"
-                      @doAction="handleAction(card)"
-                      :key="index" />
-                    </div>
-
-            </div>
-
-
-
-            <div class="youritems" v-if="players[playerId]">
-                    {{ labels.items }}
-
-                      <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
-                        {{itemInfo.item}}
-                      </div>
-              </div>
-
-            <div class="yourskills" v-if="players[playerId]">
-                      {{ labels.skills }}
-                      <br>Har försökt lägga till bilder här ist för ord. Gick bajs. Har lagt in bilder med alla skills och döpt dem till rätt namn men får det ej att funka
-                      <img id="picskill" src="/images/bottle.png" width="60">
-                      <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
-                        {{skillInfo.skill}}
-                        <!--<img id="picskill" src="/images/{{skillInfo.skill}}.png" width="50"> -->
-
-
-                      </div>
-            </div>
-
-            <div class="other" v-if="players[playerId]">
-
-
-             {{ labels.bottles }}{{players[playerId].bottles}} <br><br>
-
-            <div>
-             Inkomst per runda: {{players[playerId].income}}
-           </div><br>
-          <center> <img class="coinpic" src="/images/coinpicss.png" width="70"> x {{players[playerId].money}} </center> <br>
-<br>
-           <!-- SECRETCARD: -->
-           <div class="yourSecret" v-if="players[playerId]" @click='yourSecret()'> {{ labels.secretCard }}
-             <span class="secret-popUp" id="secretYours">
-               <CollectorsCard v-for="(card, index) in players[playerId].secret"
-               :card="card"
-               :key="index" />
-             </span>
-           </div>
-
-            </div>
-
-
-
-
-
+    <div class="yourskills" v-if="players[playerId]">
+      {{ labels.skills }}
+      <br>Har försökt lägga till bilder här ist för ord. Gick bajs. Har lagt in bilder med alla skills och döpt dem till rätt namn men får det ej att funka
+      <img id="picskill" src="/images/bottle.png" width="60">
+      <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
+        {{skillInfo.skill}}
+        <!--<img id="picskill" src="/images/{{skillInfo.skill}}.png" width="50"> -->
 
 
       </div>
+    </div>
+
+    <div class="other" v-if="players[playerId]">
 
 
+      {{ labels.bottles }}{{players[playerId].bottles}} <br><br>
 
-
-
-
-
-      <div class="opponentsBoard">
-        <h3> {{ labels.allPlayers }} </h3>
-        <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
-          <h3>{{ labels.playerID }}{{playerId}} ({{players[playerId].name}})</h3>
-          <img src="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
-          <h5> {{ labels.items }} </h5>
-          <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
-            {{itemInfo.item}}
-          </div>
-          <h5> {{ labels.skills }} </h5>
-          <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
-            {{skillInfo.skill}}
-          </div>
-          <h5> {{ labels.bottles }}{{players[playerId].bottles}} </h5>
-        </div>
+      <div>
+        Inkomst per runda: {{players[playerId].income}}
+      </div><br>
+      <center> <img class="coinpic" src="/images/coinpicss.png" width="70"> x {{players[playerId].money}} </center> <br>
+      <br>
+      <!-- SECRETCARD: -->
+      <div class="yourSecret" v-if="players[playerId]" @click='yourSecret()'> {{ labels.secretCard }}
+        <span class="secret-popUp" id="secretYours">
+          <CollectorsCard v-for="(card, index) in players[playerId].secret" :card="card" :key="index" />
+        </span>
       </div>
 
-      <div class="gamezone">
+    </div>
 
-        <div class="item">
-          <collectorsBuyItem v-if="players[playerId]"
-          :labels="labels"
-          :player="players[playerId]"
-          :itemsOnSale="itemsOnSale"
-          :marketValues="marketValues"
-          :placement="itemPlacement"
-          :auctionRunning="auctionRunning"
-          @buyItem="buyItem($event)"
-          @placeBottle="placeBottle('item', $event)" />
-        </div>
 
-        <div class="skill">
-          <CollectorsBuySkill v-if="players[playerId]"
-          :labels="labels"
-          :player="players[playerId]"
-          :skillsOnSale="skillsOnSale"
-          :marketValues="marketValues"
-          :placement="skillPlacement"
-          :auctionRunning="auctionRunning"
-          @buySkill="buySkill($event)"
-          @placeBottle="placeBottle('skill', $event)" />
-        </div>
 
-        <div class="value">
-          <div class="leftvalue">
-            <CollectorsRaiseValue v-if="players[playerId]" :labels="labels" :player="players[playerId]" :marketValues="marketValues" :placement="marketPlacement" :auctionRunning="auctionRunning" @raiseValue="raiseValue($event)"
-              @placeBottle="placeBottle('market', $event)" />
+
+
+
+
+  </div>
+
+
+
+
+
+
+
+  <div class="opponentsBoard">
+    <h3> {{ labels.allPlayers }} </h3>
+    <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
+      <h3>{{ labels.playerID }}{{playerId}} ({{players[playerId].name}})</h3>
+      <img src="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
+      <h5> {{ labels.items }} </h5>
+      <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
+        {{itemInfo.item}}
+      </div>
+      <h5> {{ labels.skills }} </h5>
+      <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
+        {{skillInfo.skill}}
+      </div>
+      <h5> {{ labels.bottles }}{{players[playerId].bottles}} </h5>
+    </div>
+  </div>
+
+  <div class="gamezone">
+
+    <div class="item">
+      <collectorsBuyItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :itemsOnSale="itemsOnSale" :marketValues="marketValues" :placement="itemPlacement" :auctionRunning="auctionRunning" @buyItem="buyItem($event)"
+        @placeBottle="placeBottle('item', $event)" />
+    </div>
+
+    <div class="skill">
+      <CollectorsBuySkill v-if="players[playerId]" :labels="labels" :player="players[playerId]" :skillsOnSale="skillsOnSale" :marketValues="marketValues" :placement="skillPlacement" :auctionRunning="auctionRunning" @buySkill="buySkill($event)"
+        @placeBottle="placeBottle('skill', $event)" />
+    </div>
+
+    <div class="value">
+      <div class="leftvalue">
+        <CollectorsRaiseValue v-if="players[playerId]" :labels="labels" :player="players[playerId]" :marketValues="marketValues" :placement="marketPlacement" :auctionRunning="auctionRunning" @raiseValue="raiseValue($event)"
+          @placeBottle="placeBottle('market', $event)" />
+      </div>
+      <div class="rightvalue">
+        <center>
+          <div class="labelmV">
+            <h5>{{ labels.marketValues }} </h5>
           </div>
-          <div class="rightvalue">
-            <center><div class="labelmV"><h5>{{ labels.marketValues }} </h5></div></center>
-            <img src="/images/movie.png" width="50"> x {{marketValues.movie}}
+        </center>
+        <img src="/images/movie.png" width="50"> x {{marketValues.movie}}
 
-            <img src="/images/music.png" width="50"> x {{marketValues.music}}
+        <img src="/images/music.png" width="50"> x {{marketValues.music}}
 
-            <img src="/images/penguin.png" width="50"> x {{marketValues.fastaval}}
+        <img src="/images/penguin.png" width="50"> x {{marketValues.fastaval}}
 
-            <img src="/images/robot.png" width="50"> x {{marketValues.figures}}
+        <img src="/images/robot.png" width="50"> x {{marketValues.figures}}
 
-            <img src="/images/tech.png" width="50"> x {{marketValues.technology}}<br>
-          </div>
-        </div>
-
-        <div class="auction">
-          <div class="upper-auction">
-            <CollectorsAuctionItem v-if="players[playerId]"
-            :labels="labels"
-            :player="players[playerId]"
-            :auctionCards="auctionCards"
-            :placement="auctionPlacement"
-            :auctionRunning="auctionRunning"
-            @auctionItem="auctionItem($event)"
-            @placeBottle="placeBottle('auction', $event)" />
-          </div>
-          <div class="lower-auction">
-
-            <div class="altButtons">
-              <button class="altButton" v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('item')">Place in item</button>
-              <button class="altButton" v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('skill')">Place in skill</button>
-              <button class="altButton" v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('market')">Add to market</button>
-            </div>
-
-            <div class="auction-place">
-              <center>
-                <div for="number">
-                  <h5 v-if="players[playerId]">{{ labels.placeBid }} </h5>
-                  <h5 v-if="players[playerId] && this.auctionRunning">{{ labels.highestBid }} {{highestBid}}</h5>
-                </div>
-                <input v-if="players[playerId]" type="number" v-model="myBid" name="bid" :min="recentBid()" :max="playerMoney()" placeholder="Place your bid">
-                <div class="altbuttons2">
-                  <button class="altbutton2" v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction() || canNotAfford()" @click="placeBid()">BID</button>
-                  <button class="altbutton2" v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction()" @click="passBid()">PASS</button>
-                  <button class="altbutton2" v-if="players[playerId]" :disabled="!winnerAuction()" @click="payRestCoins()">PAY</button>
-                </div>
-              </center>
-            </div>
-
-            <div class="head-auction">
-              <h5>{{ labels.cardUp }}</h5>
-            </div>
-            <div class="cardslots card-for-auction">
-              <CollectorsCard v-for="(card, index) in theAuctionItem"
-              :card="card"
-              :key="index" />
-            </div>
-          </div>
-        </div>
-
-        <div class="work">
-          <CollectorsWorkArea v-if="players[playerId]"
-          :labels="labels"
-          :player="players[playerId]"
-          :placement="workPlacement"
-          :auctionRunning="auctionRunning"
-          @placeBottle="placeBottle('work',$event)" />
-        </div>
-
-        <div class="theRest">
-        </div>
-
+        <img src="/images/tech.png" width="50"> x {{marketValues.technology}}<br>
       </div>
     </div>
-  </main>
+
+    <div class="auction">
+      <div class="upper-auction">
+        <CollectorsAuctionItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :auctionCards="auctionCards" :placement="auctionPlacement" :auctionRunning="auctionRunning" @auctionItem="auctionItem($event)"
+          @placeBottle="placeBottle('auction', $event)" />
+      </div>
+      <div class="lower-auction">
+
+        <div class="altButtons">
+          <button class="altButton" v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('item')">Place in item</button>
+          <button class="altButton" v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('skill')">Place in skill</button>
+          <button class="altButton" v-if="players[playerId]" :disabled="!canIClaim" @click="claimAuctionCard('market')">Add to market</button>
+        </div>
+
+        <div class="auction-place">
+          <center>
+            <div for="number">
+              <h5 v-if="players[playerId]">{{ labels.placeBid }} </h5>
+              <h5 v-if="players[playerId] && this.auctionRunning">{{ labels.highestBid }} {{highestBid}}</h5>
+            </div>
+            <input v-if="players[playerId]" type="number" v-model="myBid" name="bid" :min="recentBid()" :max="playerMoney()" placeholder="Place your bid">
+            <div class="altbuttons2">
+              <button class="altbutton2" v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction() || canNotAfford()" @click="placeBid()">BID</button>
+              <button class="altbutton2" v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction()" @click="passBid()">PASS</button>
+              <button class="altbutton2" v-if="players[playerId]" :disabled="!winnerAuction()" @click="payRestCoins()">PAY</button>
+            </div>
+          </center>
+        </div>
+
+        <div class="head-auction">
+          <h5>{{ labels.cardUp }}</h5>
+        </div>
+        <div class="cardslots card-for-auction">
+          <CollectorsCard v-for="(card, index) in theAuctionItem" :card="card" :key="index" />
+        </div>
+      </div>
+    </div>
+
+    <div class="work">
+      <CollectorsWorkArea v-if="players[playerId]" :labels="labels" :player="players[playerId]" :placement="workPlacement" :auctionRunning="auctionRunning" @placeBottle="placeBottle('work',$event)" />
+    </div>
+
+    <div class="theRest">
+    </div>
+
+  </div>
+</div>
+</main>
 </div>
 </template>
 
@@ -564,22 +538,21 @@ export default {
     },
 
     claimFirstPlayer: function() {
-      try{
+      try {
         this.$store.state.socket.emit('collectorsFirstPlayer', {
           roomId: this.$route.params.id,
           playerId: this.playerId
         });
-      }
-      catch(error){
+      } catch (error) {
         console.log("error")
       }
     },
 
-    whoIsPlaying: function(){
-      for (let i=0;  i<Object.keys(this.players).length; i++ ){
-        if ( this.players[Object.keys(this.players)[i]].myTurn === true ){
-            return this.players[Object.keys(this.players)[i]].name;
-          }
+    whoIsPlaying: function() {
+      for (let i = 0; i < Object.keys(this.players).length; i++) {
+        if (this.players[Object.keys(this.players)[i]].myTurn === true) {
+          return this.players[Object.keys(this.players)[i]].name;
+        }
       }
     },
 
@@ -601,7 +574,7 @@ export default {
       this.highlightHand(true);
     },
 
-    yourSecret: function(){
+    yourSecret: function() {
       var secret = document.getElementById('secretYours');
       secret.classList.toggle('show');
     },
@@ -615,11 +588,11 @@ export default {
       return false;
     },
 
-    playersReady: function () {
-      while(Object.keys(this.players).length < this.numberOfPlayers){
+    playersReady: function() {
+      while (Object.keys(this.players).length < this.numberOfPlayers) {
         return false;
       }
-        return true;
+      return true;
     },
 
     endGame: function() {
@@ -646,7 +619,7 @@ export default {
       document.getElementById("winner").style.visibility = "visible";
     },
 
-    winner: function(){
+    winner: function() {
       this.$store.state.socket.emit('collectorWon', {
         roomId: this.$route.params.id
       });
@@ -670,7 +643,7 @@ export default {
       });
     },
 
-    enterName: function(){
+    enterName: function() {
       var theName = this.myName;
       this.$store.state.socket.emit('collectorsChangeName', {
         roomId: this.$route.params.id,
@@ -688,13 +661,13 @@ export default {
       });
     },
 
-    playerMoney: function(){
-    return this.players[this.playerId].moneyCard;
-  },
+    playerMoney: function() {
+      return this.players[this.playerId].moneyCard;
+    },
 
-  recentBid: function(){
-    return  this.highestBid;
-  },
+    recentBid: function() {
+      return this.highestBid;
+    },
 
     canNotAfford: function() {
       if (this.players[this.playerId].moneyCard < this.highestBid) {
@@ -847,7 +820,6 @@ export default {
 </script>
 
 <style scoped>
-
 header {
   user-select: none;
   position: fixed;
@@ -889,7 +861,7 @@ main {
   width: 500px;
   font-size: 40px;
   color: black;
-  background-color: #9BC0E5 ;
+  background-color: #9BC0E5;
   text-align: center;
   border-style: solid;
   border-radius: 10px;
@@ -934,19 +906,19 @@ main {
 
 .yourSecret .secret-popUp {
 
-    visibility: hidden;
-    width: 160px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 8px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
-    font-size: 15px;
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  font-size: 15px;
 
 }
 
@@ -971,19 +943,19 @@ main {
   grid-area: your-board;
   display: grid;
   grid-template-areas:
- 'rubrik rubrik'
- 'hands rest'
- 'skills items';
- grid-template-rows: 1fr 2fr 1fr;
- grid-template-columns: 2fr 1fr;
- background-color: #e6e6ff;
- max-height: 500px;
- max-width: 800px;
+    'rubrik rubrik'
+    'hands rest'
+    'skills items';
+  grid-template-rows: 1fr 2fr 1fr;
+  grid-template-columns: 2fr 1fr;
+  background-color: #e6e6ff;
+  max-height: 500px;
+  max-width: 800px;
 
- border: 1px solid lightgrey;
- margin-top: 60px;
- padding: 20px;
- border-radius: 70px;
+  border: 1px solid lightgrey;
+  margin-top: 60px;
+  padding: 20px;
+  border-radius: 70px;
 
 
 }
@@ -1000,12 +972,12 @@ main {
   grid-area: items;
 }
 
-.hands{
+.hands {
   grid-area: hands;
   margin-bottom: 40px;
 }
 
-.other{
+.other {
   grid-area: rest;
 }
 
@@ -1088,6 +1060,7 @@ main {
   grid-area: right;
   padding-top: 67px;
 }
+
 .labelmV {
   border-bottom: 2px solid black;
   border-left: 2px solid black;
@@ -1135,10 +1108,10 @@ main {
 
 .card-for-auction {
   grid-area: card4auction;
-  background-color:  #ffe6b3;
+  background-color: #ffe6b3;
   padding-left: 10px;
   padding-top: 10px;
-  margin:10px;
+  margin: 10px;
   border: 10px dashed white;
 }
 
@@ -1200,6 +1173,7 @@ button[disabled] {
   padding: 25px;
   padding-left: 20px;
 }
+
 .altbutton2 {
   width: 40px;
   height: 40px;
@@ -1248,7 +1222,7 @@ button[disabled] {
   }
 }
 
-.theWinner{
+.theWinner {
   visibility: hidden;
 
   position: fixed;
@@ -1264,7 +1238,7 @@ button[disabled] {
   font-weight: bold;
 }
 
-#overlay{
+#overlay {
   visibility: hidden;
   position: fixed;
   opacity: 1;
@@ -1276,7 +1250,7 @@ button[disabled] {
   pointer-events: all;
 }
 
-.winner{
+.winner {
   visibility: hidden;
   position: fixed;
   top: 63%;
@@ -1293,7 +1267,7 @@ button[disabled] {
   transition: all 0.4s ease 0s;
 }
 
-.whoWon{
+.whoWon {
   visibility: hidden;
   position: fixed;
   top: 50%;
@@ -1311,5 +1285,4 @@ button[disabled] {
   transition: all 0.4s ease 0s;
   text-align: center;
 }
-
 </style>

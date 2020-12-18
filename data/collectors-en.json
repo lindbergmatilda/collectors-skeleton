@@ -21,13 +21,13 @@
 	"bottles":"MOVES: ",
 	"cardUp":"CARD UP FOR AUCTION",
 	"marketValues":"CURRENT MARKET VALUES",
-	"chooseSecret": "Choose your secret card",
-	"secretCard": "SecretCard",
+	"chooseSecret": "CHOOSE YOUR SECRET CARD",
+	"secretCard": "SECRET CARD",
 	"highestBid": "THE HIGHEST BID: ",
 	"placeBid": "PLACE BID",
 	"skillHelp": "In the Skill Area you can buy a green skill from one of the cards in the area, it might get you one step closer to the great victory",
-	"currentPlayer": " is playing right now",
-	"showRound": "Round number:"
+	"currentPlayer": " IS PLAYING",
+	"showRound": "ROUND: "
 
 
 }

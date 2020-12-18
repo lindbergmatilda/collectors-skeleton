@@ -11,7 +11,7 @@
 	"refill": "Nästa runda",
 	"roundOverMessage": "Alla spelare har förbrukat sina flaskor, starta nästa runda!",
 	"workArea": "Arbetsplats",
-	"theEnd": "Avsluta spelet och räkna poäng",
+	"theEnd": "AVSLUTA SPELET",
 	"yourPlayerBoard": "DITT SPELBRÄDE",
 	"hand": "HAND: ",
 	"items": "ITEMS: ",
@@ -21,12 +21,12 @@
 	"bottles":"ANTAL DRAG: ",
 	"cardUp":"KORT FÖR AUKTION",
 	"marketValues": "MARKNADSVÄRDEN",
-	"chooseSecret": "Välj ditt hemliga kort",
+	"chooseSecret": "VÄLJ HEMLIGT KORT",
 	"highestBid": "HÖGSTA BUDET ÄR: ",
 	"secretCard": "HEMLIGA KORTET",
 	"placeBid": "BUDA",
 	"skillHelp": "I Skill-området kan du köpa en grön skill från ett av korten i området, skillen kan hjälpa dig att kamma hem segern!",
-	"currentPlayer": " spelar just nu",
-	"showRound": "Runda nummer:"
+	"currentPlayer": " SPELAR JUST NU",
+	"showRound": "RUNDA: "
 
 }

@@ -869,7 +869,7 @@ main {
   width: 500px;
   font-size: 40px;
   color: black;
-  background-color: #9BC0E5;
+  background-color:  #e6e6ff;
   text-align: center;
   border-style: solid;
   border-radius: 10px;
@@ -917,7 +917,7 @@ main {
   width: 500px;
   font-size: 40px;
   color: black;
-  background-color: #9BC0E5;
+  background-color:  #e6e6ff;
   text-align: center;
   border-style: solid;
   border-radius: 10px;

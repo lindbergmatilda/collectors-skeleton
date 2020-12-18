@@ -37,28 +37,34 @@
 </div>
 <div v-if="players[playerId]"> {{ labels.showRound }} {{this.rounds}} </div>
 
-<div class="invisPopUp">
+<div v-if="players[playerId]" class="actionInfo">
+  <h5 v-if="players[playerId].myturn==true && chosenAction == null">  {{ labels.moveActionInfo }} </h5>
+  <h5 v-if="players[playerId].myturn==true && chosenAction == 'item'"> {{ labels.itemActionInfo }} </h5>
+  <h5 v-if="players[playerId].myturn==true && chosenAction == 'skill'">  {{ labels.skillActionInfo }} </h5>
+  <h5 v-if="players[playerId].myturn==true && chosenAction == 'auction'">  {{ labels.auctionActionInfo }} </h5>
+  <h5 v-if="players[playerId].myturn==true && chosenAction == 'pay'">  {{ labels.payActionInfo }} </h5>
+
+</div>
+
+<div v-if="players[playerId]" class="invisPopUp">
   <span class="messegePopUp" :disabled="!nextRound()" @click="refill()" id="roundOverMessage">
     {{labels.roundOverMessage}}
   </span>
 </div>
 
-
-
+<div class="auctionPopUp">
+  <span class="auctionMessage" id="auctionMessageId">
+    {{labels.auctionMessage}}
+  </span>
+</div>
 
 <div class="head">
-
-
-
   <div class="your-playerboard">
-
     <div class="rubrik">
-
       <center>
         <h2 v-if="players[playerId]">{{players[playerId].name}} <br>{{ labels.yourPlayerBoard}} </h2>
       </center>
       <hr>
-
     </div>
 
     <div class="hands">
@@ -78,14 +84,15 @@
 
       <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
         {{itemInfo.item}}
+        <img id="picitem" :src='showYourItem(item, itemInfo)' width="50">
       </div>
     </div>
 
     <div class="yourskills" v-if="players[playerId]">
       {{ labels.skills }}
       <div v-for="(skillInfo, skill) in players[playerId].skills" :key='skill'>
-      <!--  {{skillInfo.skill}} -->
-       <img id="picskill" :src='showYourSkills(playerId)' width="50">
+    <!--  {{skillInfo.skill}} -->
+       <img id="picskill" :src='showYourSkills(skill, skillInfo)' width="50">
       </div>
     </div>
 
@@ -101,6 +108,7 @@
       <br>
       <!-- SECRETCARD: -->
       <div class="yourSecret" v-if="players[playerId]" @click='yourSecret()'> {{ labels.secretCard }}
+        <img src="/images/chest.png" width="50px">
         <span class="secret-popUp" id="secretYours">
           <CollectorsCard v-for="(card, index) in players[playerId].secret" :card="card" :key="index" />
         </span>
@@ -423,7 +431,6 @@ export default {
         this.players = d.players;
         let highest = 0;
         for (let i = 0; i < Object.keys(this.players).length; i++) {
-          console.log("Här: ", );
           if (this.players[Object.keys(this.players)[i]].bid > highest) {
             highest = this.players[Object.keys(this.players)[i]].bid;
           }
@@ -458,6 +465,9 @@ export default {
 
     this.$store.state.socket.on('collectorsClaimedCard',
       function(d) {
+
+        let messege = document.getElementById("auctionMessageId");
+        messege.classList.toggle('show');
         //this has been refactored to not single out one player's cards
         //better to update the state of all cards
         this.players = d.players;
@@ -473,27 +483,27 @@ export default {
 
     this.$store.state.socket.on('collectorsItemBought',
       function(d) {
-        console.log(this.players[d.playerId], "bought a card");
         this.players = d.players;
         this.itemsOnSale = d.itemsOnSale;
         this.isPlaying = this.whoIsPlaying();
+        this.chosenAction =null;
       }.bind(this)
     );
 
     this.$store.state.socket.on('collectorsWorkedArea',
       function(d) {
-        console.log(d.playerId, "worked an area!");
         this.players = d.players;
         this.isPlaying = this.whoIsPlaying();
+        this.chosenAction =null;
       }.bind(this)
     );
 
     this.$store.state.socket.on('collectorsSkillBought',
       function(d) {
-        console.log(d.playerId, "bought a skill");
         this.players = d.players;
         this.skillsOnSale = d.skillsOnSale;
         this.isPlaying = this.whoIsPlaying();
+        this.chosenAction =null;
       }.bind(this)
     );
 
@@ -505,23 +515,17 @@ export default {
 
     this.$store.state.socket.on('collectorsRaisedValue',
       function(d) {
-        console.log(d.playerId, "raised a value");
         this.players = d.players;
         this.marketValues = d.marketValues;
         this.market = d.market;
         this.auctionCards = d.auctionCards;
         this.isPlaying = this.whoIsPlaying();
+        this.chosenAction =null;
       }.bind(this)
     );
 
     this.$store.state.socket.on('collectorsRefilled',
       function(d) {
-
-        let messege = document.getElementById("roundOverMessage");
-        messege.classList.toggle('show');
-
-
-        console.log("refill: ", this.rounds);
         this.players = d.players;
         this.itemsOnSale = d.itemsOnSale;
         this.skillsOnSale = d.skillsOnSale;
@@ -543,11 +547,14 @@ export default {
 
     this.$store.state.socket.on('collectorsItemAuctioned',
       function(d) {
-        console.log(d.playerId, "auctioned a card");
+        let messege = document.getElementById("auctionMessageId");
+        messege.classList.toggle('show');
+
         this.players = d.players;
         this.auctionCards = d.auctionCards;
         this.theAuctionItem = d.theAuctionItem;
         this.auctionRunning = true;
+        this.chosenAction =null;
       }.bind(this)
     );
   },
@@ -585,7 +592,7 @@ export default {
           playerId: this.playerId
         });
       } catch (error) {
-        console.log("error")
+        console.log("not working correctly")
       }
     },
 
@@ -624,6 +631,18 @@ yourColour: function(playerId){
   if(this.players[playerId].colour){
     return "border-color:"+this.players[playerId].colour;
   }
+},
+
+
+showYourItem: function(item, itemInfo){
+  var imgSrc = '/images/item-'+itemInfo.item+'.png';
+  return imgSrc;
+},
+
+
+showYourSkills: function(skill, skillInfo){
+  var imgSrc = '/images/'+skillInfo.skill+'.png';
+  return imgSrc;
 },
 
     disableIGoFirst: function() {
@@ -688,8 +707,8 @@ yourColour: function(playerId){
       });
     },
 
+//Ta bort draw card
     drawCard: function() {
-      console.log("")
       this.$store.state.socket.emit('collectorsDrawCard', {
         roomId: this.$route.params.id,
         playerId: this.playerId
@@ -790,7 +809,6 @@ yourColour: function(playerId){
     },
 
     buyItem: function(card) {
-      console.log("buyItem", card);
       this.$store.state.socket.emit('collectorsBuyItem', {
         roomId: this.$route.params.id,
         playerId: this.playerId,
@@ -809,7 +827,6 @@ yourColour: function(playerId){
     },
 
     auctionItem: function(card) {
-      console.log("auctionItem", card);
       this.chosenAction = null;
       this.$store.state.socket.emit('collectorsAuctionItem', {
         roomId: this.$route.params.id,
@@ -820,6 +837,7 @@ yourColour: function(playerId){
     },
 
     secretCard: function(card) {
+
       this.chosenAction = null;
       this.$store.state.socket.emit("collectorsSecretCard", {
         roomId: this.$route.params.id,
@@ -829,7 +847,6 @@ yourColour: function(playerId){
     },
 
     raiseValue: function(card) {
-      console.log("raiseValue", card);
       this.chosenAction = null;
       this.$store.state.socket.emit('collectorsRaiseValue', {
         roomId: this.$route.params.id,
@@ -841,8 +858,6 @@ yourColour: function(playerId){
     },
 
     handleAction: function(card) {
-      console.log(this.chosenAction);
-
       if (this.chosenAction === "item") {
         this.buyItem(card);
       } else if (this.chosenAction === "skill") {
@@ -859,7 +874,6 @@ yourColour: function(playerId){
     },
 
     buySkill: function(card) {
-      console.log("buySkill", card);
       this.$store.state.socket.emit('collectorsBuySkill', {
         roomId: this.$route.params.id,
         playerId: this.playerId,
@@ -895,13 +909,12 @@ main {
 
   font-family: "Lexend Deca", sans-serif;
 }
-
-.secretCard{
+.auctionPopUp{
   position: relative;
   display: inline-block;
   cursor: pointer;
-  margin-top: 40px;
-  margin-left: 150px;
+  margin-left: 85px;
+  margin-bottom: -40px;
   font-size: 18px;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -909,8 +922,8 @@ main {
   user-select: none;
 }
 
-.secretCard .secretPopUp{
-  visibility: visible;
+.auctionPopUp .auctionMessage{
+  visibility: hidden;
   width: 500px;
   font-size: 40px;
   color: black;
@@ -925,9 +938,10 @@ main {
   bottom: 125%;
   left: 50%;
   margin-left: 100px;
+  margin-bottom: 10px;
 }
 
-.secretCard .secretPopUp::after{
+.auctionPopUp .auctionMessage::after{
   content: "";
   position: absolute;
   top: 100%;
@@ -938,11 +952,12 @@ main {
   border-color: #555 transparent transparent transparent;
 }
 
-.secretCard .show{
-  visibility: hidden;
+.auctionPopUp .show {
+  visibility: visible;
   -webkit-animation: fadeIn 1s;
   animation: fadeIn 1s;
 }
+
 
 .invisPopUp {
   position: relative;
@@ -1170,7 +1185,8 @@ main {
 .auction {
   grid-area: auction;
   display: grid;
-  grid-template-areas: 'upper-auction''lower-auction';
+  grid-template-areas: 'upper-auction'
+                       'lower-auction';
   grid-template-rows: 630px 300px;
   background-color: #FFFFDB;
   border-right: 2px solid black;
@@ -1520,6 +1536,29 @@ button.big-button:disabled {
 
   color: orange;
   transition: all 0.3s linear 0.2s;
+
+}
+
+@media screen and (max-width: 800px) {
+  .gamezone {
+
+    grid-template-areas:
+      'item item auction '
+      'skill work auction'
+      'value value value'
+      'thehand thehand thehand'
+      'rest rest rest';
+    width: 60%;
+
+
+    grid-template-columns: 1.25fr 1fr 1.25fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+
+  }
+
+  .auction {
+    grid-template-rows: 3fr 1fr;
+  }
 
 }
 

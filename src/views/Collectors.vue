@@ -48,6 +48,15 @@
 </div>
 <div v-if="players[playerId]"> {{ labels.showRound }} {{this.rounds}} </div>
 
+<div class="actionInfo">
+  <h5 v-if="players[playerId].myturn=true && this.chosenAction == null">  {{ labels.moveActionInfo }} </h5>
+  <h5 v-if="players[playerId].myturn=true && chosenAction == 'item'"> {{ labels.itemActionInfo }} </h5>
+  <h5 v-if="players[playerId].myturn=true && chosenAction == 'skill'">  {{ labels.skillActionInfo }} </h5>
+  <h5 v-if="players[playerId].myturn=true && chosenAction == 'auction'">  {{ labels.auctionActionInfo }} </h5>
+  <h5 v-if="players[playerId].myturn=true && chosenAction == 'pay'">  {{ labels.payActionInfo }} </h5>
+
+</div>
+
 <div class="invisPopUp">
   <span class="messegePopUp" :disabled="!nextRound()" @click="refill()" id="roundOverMessage">
     {{labels.roundOverMessage}}
@@ -456,6 +465,7 @@ export default {
         this.players = d.players;
         this.itemsOnSale = d.itemsOnSale;
         this.isPlaying = this.whoIsPlaying();
+        this.chosenAction =null;
       }.bind(this)
     );
 
@@ -463,6 +473,7 @@ export default {
       function(d) {
         this.players = d.players;
         this.isPlaying = this.whoIsPlaying();
+        this.chosenAction =null;
       }.bind(this)
     );
 
@@ -471,6 +482,7 @@ export default {
         this.players = d.players;
         this.skillsOnSale = d.skillsOnSale;
         this.isPlaying = this.whoIsPlaying();
+        this.chosenAction =null;
       }.bind(this)
     );
 
@@ -487,6 +499,7 @@ export default {
         this.market = d.market;
         this.auctionCards = d.auctionCards;
         this.isPlaying = this.whoIsPlaying();
+        this.chosenAction =null;
       }.bind(this)
     );
 
@@ -517,6 +530,7 @@ export default {
         this.auctionCards = d.auctionCards;
         this.theAuctionItem = d.theAuctionItem;
         this.auctionRunning = true;
+        this.chosenAction =null;
       }.bind(this)
     );
   },

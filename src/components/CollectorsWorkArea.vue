@@ -72,23 +72,18 @@ export default {
 
     imgSource: function(index){
       if(index === 0){
-        console.log("index är 0");
         return "/images/GET2.png"
       }
       else if(index === 1){
-        console.log("index är 1");
         return "/images/GET1.png"
       }
       else if (index === 2){
-        console.log("index är 2");
           return "/images/TWOCARDS.png"
       }
       else if(index === 3){
-        console.log("index är 3");
           return "/images/1STPLAYER.png"
       }
       else if(index === 4){
-        console.log("index är 4");
           return "/images/extra.png"
       }
     },

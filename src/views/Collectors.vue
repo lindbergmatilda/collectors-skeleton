@@ -6,6 +6,7 @@
       <center>{{ labels.invite }}
       <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
     </center>
+
     <div class="firstbuttons">
       <button v-if="players[playerId]" :disabled="disableIGoFirst() || !playersReady()" @click="claimFirstPlayer">
         {{ labels.firstPlayer }}
@@ -126,14 +127,9 @@
       </div>
 
 
-
-
-
-
-
       <div class="opponentsBoard">
         <h3> {{ labels.allPlayers }} </h3>
-        <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
+        <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']" :style='yourColour(playerId)'>
           <h3>{{ labels.playerID }}{{playerId}} ({{players[playerId].name}})</h3>
           <img src="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
           <h5> {{ labels.items }} </h5>
@@ -605,6 +601,12 @@ export default {
       secret.classList.toggle('show');
     },
 
+yourColour: function(playerId){
+  if(this.players[playerId].colour){
+    return "border-color:"+this.players[playerId].colour;
+  }
+},
+
     disableIGoFirst: function() {
       for (let i = 0; i < Object.keys(this.players).length; i++) {
         if (this.players[Object.keys(this.players)[i]].iStart != false) {
@@ -1027,7 +1029,7 @@ main {
   border-radius: 40px;
   color: black;
   padding: 15px;
-  border: 2px solid black;
+  border: 5px solid black;
 }
 
 .gamezone {

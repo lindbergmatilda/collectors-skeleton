@@ -89,6 +89,7 @@
 
       <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
         {{itemInfo.item}}
+      <!--  <img id="picitem" :src='showYourItem(item, itemInfo)' width="50"> -->
       </div>
     </div>
 
@@ -600,6 +601,13 @@ yourColour: function(playerId){
     return "border-color:"+this.players[playerId].colour;
   }
 },
+
+/*
+showYourItem: function(item, itemInfo){
+  var imgSrc = '/images/'+itemInfo.item+'.png';
+  return imgSrc;
+},
+*/
 
 showYourSkills: function(skill, skillInfo){
   var imgSrc = '/images/'+skillInfo.skill+'.png';

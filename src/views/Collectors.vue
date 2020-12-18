@@ -78,9 +78,9 @@
       {{ labels.skills }}
       <br>Har försökt lägga till bilder här ist för ord. Gick bajs. Har lagt in bilder med alla skills och döpt dem till rätt namn men får det ej att funka
       <img id="picskill" src="/images/bottle.png" width="60">
-      <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
-        {{skillInfo.skill}}
-        <!--<img id="picskill" src="/images/{{skillInfo.skill}}.png" width="50"> -->
+      <div v-for="(skillInfo, skill) in players[playerId].skills" :key='skill'>
+      <!--  {{skillInfo.skill}} -->
+       <img id="picskill" :src='showYourSkills(playerId)' width="50">
       </div>
     </div>
 
@@ -570,6 +570,15 @@ export default {
 yourColour: function(playerId){
   if(this.players[playerId].colour){
     return "border-color:"+this.players[playerId].colour;
+  }
+},
+
+showYourSkills: function(playerId){
+  for(let i=0; this.players[playerId].skills.length; i++){
+    console.log(this.players[playerId].skills[i].skill);
+    var imgSrc = '/images/'+this.players[playerId].skills[i].skill+'.png';
+    console.log('Bilden som ska visas har länken', imgSrc);
+    return imgSrc;
   }
 },
 

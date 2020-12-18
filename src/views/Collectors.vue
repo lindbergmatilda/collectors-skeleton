@@ -209,6 +209,19 @@
 
   </div>
 </div>
+
+
+<div class="lightbox">
+  <div class="iframeContainer">
+    <div class="toolbarLB">
+      <span class="closeLB" @click="lightBoxClose()">x</span>
+    </div>
+  </div>
+</div>
+
+
+
+
 </main>
 </div>
 </template>
@@ -500,6 +513,10 @@ export default {
 
   methods: {
 
+    lightBoxClose: function() {
+  document.querySelector(".lightbox").classList.add("closed");
+},
+
 
     selectAll: function(n) {
       n.target.select();
@@ -765,7 +782,7 @@ showYourSkills: function(playerId){
     },
 
     secretCard: function(card) {
-      
+
       let messege = document.getElementById("secretPopUp");
       messege.classList.toggle('show');
 
@@ -1336,4 +1353,34 @@ button[disabled] {
   transition: all 0.4s ease 0s;
   text-align: center;
 }
+
+.lightbox {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, .5)
+}
+.toolbarLB {
+  text-align: right;
+  padding: 3px;
+}
+.closeLB {
+  color: red;
+  cursor: pointer;
+}
+.lightbox .iframeContainer {
+  vertical-align: middle;
+  background: #CCC;
+  padding: 2px;
+}
+.lightbox.closed {
+  display: none;
+}
+
+
 </style>

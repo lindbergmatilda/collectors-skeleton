@@ -7,24 +7,39 @@
       <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
     </center>
 
-
     <div class="game-name">
+
+      <button class="big-button" v-if="players[playerId]" @click="enterName()">CHANGE NAME</button>
       <input v-if="players[playerId]" type="text" v-model="myName" name="name" placeholder="NAME">
-      <button v-if="players[playerId]" @click="enterName()">CHANGE</button></div>
+    </div>
+
+
+<div class="secretButton">
+  <button class="big-button" v-if="players[playerId]" :disabled='this.chosenAction != "start"' @click="chooseSecret()">
+    {{ labels.chooseSecret }}
+  </button>
+</div>
 
 <div class="firstbuttons">
-  <button v-if="players[playerId]" :disabled="disableIGoFirst() || !playersReady()" @click="claimFirstPlayer">
+  <button class="big-button" v-if="players[playerId]" :disabled="disableIGoFirst() || !playersReady()" @click="claimFirstPlayer">
     {{ labels.firstPlayer }}
   </button>
 </div>
+
+    <div class="invisPopUp" >
+      <span class="messegePopUp" v-if="players[playerId]" :disabled="!nextRound()" @click="refill()" id="roundOverMessage"  >
+        {{labels.roundOverMessage}}
+      </span>
+    </div>
+    <hr>
 
 <div class="endGame">
   <button v-if="players[playerId]" @click="countPoints">
     {{ labels.theEnd }}
   </button>
 </div>
-<div v-if="players[playerId]" class="theWinner" id="theWinner">Find out who won</div>
-<button v-if="players[playerId]" class="winner" id="winner" @click="winner">WINNER</button>
+<div class="theWinner" id="theWinner">Find out who won</div>
+<button class="winner" id="winner" @click="winner">WINNER</button>
 <div v-if="theWinner" class="whoWon" id="whoWon"> GRATTIS {{theWinner.name}}</div>
 <div id="overlay"></div>
 
@@ -34,38 +49,44 @@
 <div v-if="players[playerId]"> {{ labels.showRound }} {{this.rounds}} </div>
 
 <div class="invisPopUp">
-  <span class="messegePopUp" v-if="players[playerId]" :disabled="!nextRound()" @click="refill()" id="roundOverMessage">
+  <span class="messegePopUp" :disabled="!nextRound()" @click="refill()" id="roundOverMessage">
     {{labels.roundOverMessage}}
   </span>
 </div>
 
-<div class="secretCard">
-  <span class="secretPopUp" v-if="players[playerId]" :disabled='this.chosenAction != "start"' @click="chooseSecret()" id="secretPopUp">
-    {{labels.chooseSecret}}
-  </span>
-</div>
+
+
 
 <div class="head">
-  <div v-if="players[playerId]" class="your-playerboard" :style='yourColour(playerId)'>
+
+
+
+  <div class="your-playerboard">
 
     <div class="rubrik">
+
       <center>
         <h2 v-if="players[playerId]">{{players[playerId].name}} <br>{{ labels.yourPlayerBoard}} </h2>
       </center>
       <hr>
+
     </div>
 
     <div class="hands">
+
       {{ labels.hand }}
+
       <div class="handcards cardslots" v-if="players[playerId]">
         <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="handleAction(card)" :key="index" />
       </div>
+
     </div>
 
 
 
     <div class="youritems" v-if="players[playerId]">
       {{ labels.items }}
+
       <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
         {{itemInfo.item}}
       </div>
@@ -80,7 +101,10 @@
     </div>
 
     <div class="other" v-if="players[playerId]">
+
+
       {{ labels.bottles }}{{players[playerId].bottles}} <br><br>
+
       <div>
         Inkomst per runda: {{players[playerId].income}}
       </div><br>
@@ -92,14 +116,24 @@
           <CollectorsCard v-for="(card, index) in players[playerId].secret" :card="card" :key="index" />
         </span>
       </div>
+
     </div>
 
+
+
+
+
+
+
   </div>
+
+
 
       <div class="opponentsBoard">
         <h3> {{ labels.allPlayers }} </h3>
         <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']" :style='yourColour(playerId)'>
-          <h3>{{players[playerId].name}}</h3>
+          <h3>{{ labels.playerID }}{{playerId}} ({{players[playerId].name}})</h3>
+          <img src="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
           <h5> {{ labels.items }} </h5>
           <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
             {{itemInfo.item}}
@@ -111,28 +145,19 @@
           <h5> {{ labels.bottles }}{{players[playerId].bottles}} </h5>
         </div>
       </div>
-
-  <div class="opponentsBoard">
-    <h3> {{ labels.allPlayers }} </h3>
-    <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
-      <h3>{{players[playerId].name}}</h3>
-      <h5> {{ labels.items }} </h5>
-      <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
-        {{itemInfo.item}}
-      </div>
-      <h5> {{ labels.skills }} </h5>
-      <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
-        {{skillInfo.skill}}
-      </div>
-      <h5> {{ labels.bottles }}{{players[playerId].bottles}} </h5>
-    </div>
-  </div>
-
+<!--låg en likadan opponentsBoard hör-->
   <div class="gamezone">
 
     <div class="item">
-      <collectorsBuyItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :itemsOnSale="itemsOnSale" :marketValues="marketValues" :placement="itemPlacement" :auctionRunning="auctionRunning" @buyItem="buyItem($event)"
-        @placeBottle="placeBottle('item', $event)" />
+      <collectorsBuyItem v-if="players[playerId]"
+      :labels="labels"
+      :player="players[playerId]"
+      :itemsOnSale="itemsOnSale"
+      :marketValues="marketValues"
+      :placement="itemPlacement"
+      :auctionRunning="auctionRunning"
+      @buyItem="buyItem($event)"
+      @placeBottle="placeBottle('item', $event)" />
     </div>
 
     <div class="skill">
@@ -353,6 +378,14 @@ export default {
       function(d) {
         this.players = d.players;
         this.theWinner = d.theWinner;
+        this.showEnd();
+      }.bind(this)
+    );
+
+    this.$store.state.socket.on('collectorGotMedalj',
+      function(d) {
+        this.players = d;
+        this.showWinner();
       }.bind(this)
     );
 
@@ -585,15 +618,6 @@ yourColour: function(playerId){
   }
 },
 
-showYourSkills: function(playerId){
-  for(let i=0; this.players[playerId].skills.length; i++){
-    console.log(this.players[playerId].skills[i].skill);
-    var imgSrc = '/images/'+this.players[playerId].skills[i].skill+'.png';
-    console.log('Bilden som ska visas har länken', imgSrc);
-    return imgSrc;
-  }
-},
-
     disableIGoFirst: function() {
       for (let i = 0; i < Object.keys(this.players).length; i++) {
         if (this.players[Object.keys(this.players)[i]].iStart != false) {
@@ -629,18 +653,24 @@ showYourSkills: function(playerId){
         playerId: this.playerId,
         marketValues: this.marketValues
       });
-      document.getElementById("overlay").style.visibility = "visible";
-      document.getElementById("theWinner").style.visibility = "visible";
-      document.getElementById("winner").style.visibility = "visible";
+    },
+
+    showEnd: function(){
+        document.getElementById("overlay").style.visibility = "visible";
+        document.getElementById("theWinner").style.visibility = "visible";
+        document.getElementById("winner").style.visibility = "visible";
+    },
+
+    showWinner: function(){
+      document.getElementById("theWinner").style.visibility = "hidden";
+      document.getElementById("winner").style.visibility = "hidden";
+      document.getElementById("whoWon").style.visibility = "visible";
     },
 
     winner: function() {
       this.$store.state.socket.emit('collectorWon', {
         roomId: this.$route.params.id
       });
-      document.getElementById("theWinner").style.visibility = "hidden";
-      document.getElementById("winner").style.visibility = "hidden";
-      document.getElementById("whoWon").style.visibility = "visible";
     },
 
     refill: function() {
@@ -881,7 +911,7 @@ main {
   width: 500px;
   font-size: 40px;
   color: black;
-  background-color: #9BC0E5;
+  background-color:  #e6e6ff;
   text-align: center;
   border-style: solid;
   border-radius: 10px;
@@ -915,8 +945,7 @@ main {
   position: relative;
   display: inline-block;
   cursor: pointer;
-  margin-top: 40px;
-  margin-left: 150px;
+  margin-left: 20px;
   font-size: 18px;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -929,7 +958,7 @@ main {
   width: 500px;
   font-size: 40px;
   color: black;
-  background-color: #9BC0E5;
+  background-color:  #e6e6ff;
   text-align: center;
   border-style: solid;
   border-radius: 10px;
@@ -1020,7 +1049,7 @@ main {
   max-height: 500px;
   max-width: 800px;
 
-  border: 5px solid lightgrey;
+  border: 1px solid lightgrey;
   margin-top: 60px;
   padding: 20px;
   border-radius: 70px;
@@ -1059,7 +1088,7 @@ main {
   margin: 60px;
   padding: 20px;
   display: grid;
-  grid-gap: 10px;
+  grid-gap: 40px;
   grid-template-columns: auto;
 }
 
@@ -1068,7 +1097,7 @@ main {
   border-radius: 40px;
   color: black;
   padding: 15px;
-  border: 1px solid black;
+  border: 5px solid black;
 }
 
 .gamezone {
@@ -1352,6 +1381,88 @@ button[disabled] {
   font-size: 80px;
   transition: all 0.4s ease 0s;
   text-align: center;
+}
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700");
+* {
+  box-sizing: border-box;
+}
+*::before, *::after {
+  box-sizing: border-box;
+}
+body {
+  font-family: 'OpenSans', sans-serif;
+  font-size: 1rem;
+  line-height: 2;
+  display: flex;
+          align-items: center;
+          justify-content: center;
+  margin: 0;
+  min-height: 100vh;
+  background: rgba(246, 241, 209);
+}
+button {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  font-size: 1.5rem;
+    color:rgb(106, 163, 137);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-family: inherit;
+}
+
+button.big-button {
+   padding: 1em 2em;
+   border: 2px solid rgb(106, 163, 137);
+  border-radius: 1em;
+  background: rgb(205, 255, 232);
+transform-style: preserve-3d;
+   transition: all 175ms cubic-bezier(0, 0, 1, 1);
+}
+button.big-button::before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgb(150, 232, 195);
+  border-radius: inherit;
+    box-shadow: 0 0 0 2px rgb(121, 186, 156), 0 0.75em 0 0  rgb(106, 163, 137);
+ transform: translate3d(0, 0.75em, -1em);
+     transition: all 175ms cubic-bezier(0, 0, 1, 1);
+}
+
+
+button.big-button:hover {
+  background: rgb(187, 232, 211);
+  transform: translate(0, 0.375em);
+}
+
+button.big-button:hover::before {
+  transform: translate3d(0, 0.75em, -1em);
+}
+
+button.big-button:active {
+            transform: translate(0em, 0.75em);
+}
+
+button.big-button:active::before {
+  transform: translate3d(0, 0, -1em);
+
+      box-shadow: 0 0 0 2px rgb(121, 186, 156), 0 0.25em 0 0 rgb(121, 186, 156);
+
+}
+
+button.big-button:disabled {
+  opacity: 0;
 }
 
 .lightbox {

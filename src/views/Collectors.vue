@@ -59,7 +59,7 @@
 
 
 
-  <div class="your-playerboard">
+  <div v-if="players[playerId]" class="your-playerboard" :style='yourColour(playerId)'>
 
     <div class="rubrik">
 
@@ -981,7 +981,7 @@ main {
   max-height: 500px;
   max-width: 800px;
 
-  border: 1px solid lightgrey;
+  border: 5px solid lightgrey;
   margin-top: 60px;
   padding: 20px;
   border-radius: 70px;

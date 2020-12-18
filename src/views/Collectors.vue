@@ -7,17 +7,6 @@
       <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
     </center>
 
-    <div class="firstbuttons">
-      <button v-if="players[playerId]" :disabled="disableIGoFirst() || !playersReady()" @click="claimFirstPlayer">
-        {{ labels.firstPlayer }}
-      </button>
-    </div>
-         <p v-if="players[playerId]"> {{ labels.showRound }} {{this.rounds}} </p>
-    <div class="secretButton">
-      <button v-if="players[playerId]" :disabled='this.chosenAction != "start"' @click="chooseSecret()">
-        {{ labels.chooseSecret }}
-      </button>
-    </div>
 
     <div class="game-name">
       <input v-if="players[playerId]" type="text" v-model="myName" name="name" placeholder="NAME">

@@ -54,22 +54,19 @@
   </span>
 </div>
 
-
-
+<div class="auctionPopUp">
+  <span class="auctionMessage" id="auctionMessageId">
+    {{labels.auctionMessage}}
+  </span>
+</div>
 
 <div class="head">
-
-
-
   <div class="your-playerboard">
-
     <div class="rubrik">
-
       <center>
         <h2 v-if="players[playerId]">{{players[playerId].name}} <br>{{ labels.yourPlayerBoard}} </h2>
       </center>
       <hr>
-
     </div>
 
     <div class="hands">
@@ -437,6 +434,9 @@ export default {
 
     this.$store.state.socket.on('collectorsClaimedCard',
       function(d) {
+
+        let messege = document.getElementById("auctionMessageId");
+        messege.classList.toggle('show');
         //this has been refactored to not single out one player's cards
         //better to update the state of all cards
         this.players = d.players;
@@ -518,6 +518,9 @@ export default {
 
     this.$store.state.socket.on('collectorsItemAuctioned',
       function(d) {
+        let messege = document.getElementById("auctionMessageId");
+        messege.classList.toggle('show');
+
         console.log(d.playerId, "auctioned a card");
         this.players = d.players;
         this.auctionCards = d.auctionCards;
@@ -873,6 +876,55 @@ main {
 
   font-family: "Lexend Deca", sans-serif;
 }
+.auctionPopUp{
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 85px;
+  margin-bottom: -40px;
+  font-size: 18px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.auctionPopUp .auctionMessage{
+  visibility: hidden;
+  width: 500px;
+  font-size: 40px;
+  color: black;
+  background-color:  #e6e6ff;
+  text-align: center;
+  border-style: solid;
+  border-radius: 10px;
+  border-color: #232425;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: 100px;
+  margin-bottom: 10px;
+}
+
+.auctionPopUp .auctionMessage::after{
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.auctionPopUp .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
 
 .invisPopUp {
   position: relative;

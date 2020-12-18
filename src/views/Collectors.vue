@@ -7,18 +7,7 @@
       <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
     </center>
 
-    <div class="game-name">
 
-      <button class="big-button" v-if="players[playerId]" @click="enterName()">CHANGE NAME</button>
-      <input v-if="players[playerId]" type="text" v-model="myName" name="name" placeholder="NAME">
-    </div>
-
-
-<div class="secretButton">
-  <button class="big-button" v-if="players[playerId]" :disabled='this.chosenAction != "start"' @click="chooseSecret()">
-    {{ labels.chooseSecret }}
-  </button>
-</div>
 
 <div class="firstbuttons">
   <button class="big-button" v-if="players[playerId]" :disabled="disableIGoFirst() || !playersReady()" @click="claimFirstPlayer">
@@ -132,8 +121,7 @@
       <div class="opponentsBoard">
         <h3> {{ labels.allPlayers }} </h3>
         <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']" :style='yourColour(playerId)'>
-          <h3>{{ labels.playerID }}{{playerId}} ({{players[playerId].name}})</h3>
-          <img src="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
+          <h3>{{players[playerId].name}}</h3>
           <h5> {{ labels.items }} </h5>
           <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
             {{itemInfo.item}}
@@ -239,7 +227,27 @@
 <div class="lightbox">
   <div class="iframeContainer">
     <div class="toolbarLB">
-      <span class="closeLB" @click="lightBoxClose()">x</span>
+
+      <div class="game-name">
+
+
+       <center> <input class="input1" v-if="players[playerId]" type="text" v-model="myName" name="name" placeholder='PLAYER NAME'>
+    </center>  </div>
+<br>
+
+  <div class="secretButton">
+    <button class="big-button" v-if="players[playerId]" :disabled='this.chosenAction != "start"' @click="chooseSecret()">
+      {{ labels.chooseSecret }}
+    </button>
+  </div>
+
+  <br><br>
+  <div class="handcards cardslots" v-if="players[playerId]">
+    <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="handleAction(card)" :key="index" />
+  </div>
+
+
+<button class="big-button play" v-if="players[playerId]" @click="enterName(); lightBoxClose()" > {{labels.startgame}}</button>
     </div>
   </div>
 </div>
@@ -812,16 +820,11 @@ yourColour: function(playerId){
     },
 
     secretCard: function(card) {
-
-      let messege = document.getElementById("secretPopUp");
-      messege.classList.toggle('show');
-
       this.chosenAction = null;
       this.$store.state.socket.emit("collectorsSecretCard", {
         roomId: this.$route.params.id,
         playerId: this.playerId,
         card: card
-
       });
     },
 
@@ -1041,8 +1044,8 @@ main {
   display: grid;
   grid-template-areas:
     'rubrik rubrik'
-    'hands rest'
-    'skills items';
+    'hands hand'
+    'skillsitems rest';
   grid-template-rows: 1fr 2fr 1fr;
   grid-template-columns: 2fr 1fr;
   background-color: #e6e6ff;
@@ -1062,11 +1065,11 @@ main {
 }
 
 .yourskills {
-  grid-area: skills;
+  grid-area: skillsitems;
 }
 
 .youritems {
-  grid-area: items;
+  grid-area: skillsitems;
 }
 
 .hands {
@@ -1305,12 +1308,12 @@ button[disabled] {
   transform: scale(0.5)translate(-50%, -50%);
   transition: 0.2s;
   transition-timing-function: ease-out;
-  z-index: 0;
+  z-index: 1;
 }
 
 .cardslots div:hover {
   transform: scale(1)translate(-25%, 0);
-  z-index: 1;
+  z-index: 2;
 }
 
 @media screen and (max-width: 800px) {
@@ -1474,24 +1477,50 @@ button.big-button:disabled {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, .5)
+  background: rgba(0, 0, 0, .5);
+
 }
 .toolbarLB {
-  text-align: right;
+  text-align: left;
   padding: 3px;
 }
-.closeLB {
-  color: red;
-  cursor: pointer;
-}
+
+
+
 .lightbox .iframeContainer {
   vertical-align: middle;
   background: #CCC;
-  padding: 2px;
+  padding: 30px;
+
 }
 .lightbox.closed {
   display: none;
 }
 
+.input1 {
+  font-size: 16px;
+  font-size: max(16px, 1em);
+  font-family: inherit;
+  padding: 0.25em 0.5em;
+  background-color: #fff;
+  border-radius: 4px;
+  width: 410px;
+  height: 50px;
+}
+.play{
+  position: relative;
+  z-index: 0;
+  margin-top: 6em;
+  margin-bottom: 2em;
+
+
+}
+
+.play:hover{
+
+  color: orange;
+  transition: all 0.3s linear 0.2s;
+
+}
 
 </style>

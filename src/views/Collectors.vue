@@ -113,6 +113,7 @@
       <br>
       <!-- SECRETCARD: -->
       <div class="yourSecret" v-if="players[playerId]" @click='yourSecret()'> {{ labels.secretCard }}
+        <img src="/images/chest.png" width="50px">
         <span class="secret-popUp" id="secretYours">
           <CollectorsCard v-for="(card, index) in players[playerId].secret" :card="card" :key="index" />
         </span>

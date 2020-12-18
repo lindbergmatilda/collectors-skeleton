@@ -24,13 +24,6 @@
   </button>
 </div>
 
-    <div class="invisPopUp" >
-      <span class="messegePopUp" v-if="players[playerId]" :disabled="!nextRound()" @click="refill()" id="roundOverMessage"  >
-        {{labels.roundOverMessage}}
-      </span>
-    </div>
-    <hr>
-
 <div class="endGame">
   <button v-if="players[playerId]" @click="countPoints">
     {{ labels.theEnd }}
@@ -56,35 +49,26 @@
 
 
 <div class="head">
-
-
-
   <div v-if="players[playerId]" class="your-playerboard" :style='yourColour(playerId)'>
 
     <div class="rubrik">
-
       <center>
         <h2 v-if="players[playerId]">{{players[playerId].name}} <br>{{ labels.yourPlayerBoard}} </h2>
       </center>
       <hr>
-
     </div>
 
     <div class="hands">
-
       {{ labels.hand }}
-
       <div class="handcards cardslots" v-if="players[playerId]">
         <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="handleAction(card)" :key="index" />
       </div>
-
     </div>
 
 
 
     <div class="youritems" v-if="players[playerId]">
       {{ labels.items }}
-
       <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
         {{itemInfo.item}}
       </div>
@@ -97,16 +81,11 @@
       <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
         {{skillInfo.skill}}
         <!--<img id="picskill" src="/images/{{skillInfo.skill}}.png" width="50"> -->
-
-
       </div>
     </div>
 
     <div class="other" v-if="players[playerId]">
-
-
       {{ labels.bottles }}{{players[playerId].bottles}} <br><br>
-
       <div>
         Inkomst per runda: {{players[playerId].income}}
       </div><br>
@@ -118,18 +97,9 @@
           <CollectorsCard v-for="(card, index) in players[playerId].secret" :card="card" :key="index" />
         </span>
       </div>
-
     </div>
 
-
-
-
-
-
-
   </div>
-
-
 
       <div class="opponentsBoard">
         <h3> {{ labels.allPlayers }} </h3>
@@ -148,6 +118,22 @@
         </div>
       </div>
 
+  <div class="opponentsBoard">
+    <h3> {{ labels.allPlayers }} </h3>
+    <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
+      <h3>{{ labels.playerID }}{{playerId}} ({{players[playerId].name}})</h3>
+      <img src="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
+      <h5> {{ labels.items }} </h5>
+      <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
+        {{itemInfo.item}}
+      </div>
+      <h5> {{ labels.skills }} </h5>
+      <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
+        {{skillInfo.skill}}
+      </div>
+      <h5> {{ labels.bottles }}{{players[playerId].bottles}} </h5>
+    </div>
+  </div>
 
   <div class="gamezone">
 
@@ -1243,7 +1229,7 @@ button[disabled] {
   border-radius: 10px;
   z-index: 10;
   background-color: white;
-  font-size: 80px;
+  font-size: 100px;
   max-width: 80%;
   font-weight: bold;
 }

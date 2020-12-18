@@ -149,25 +149,6 @@
       </div>
 
 
-
-
-  <div class="opponentsBoard">
-    <h3> {{ labels.allPlayers }} </h3>
-    <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
-      <h3>{{ labels.playerID }}{{playerId}} ({{players[playerId].name}})</h3>
-      <img src="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
-      <h5> {{ labels.items }} </h5>
-      <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
-        {{itemInfo.item}}
-      </div>
-      <h5> {{ labels.skills }} </h5>
-      <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
-        {{skillInfo.skill}}
-      </div>
-      <h5> {{ labels.bottles }}{{players[playerId].bottles}} </h5>
-    </div>
-  </div>
-
   <div class="gamezone">
 
     <div class="item">
@@ -1262,7 +1243,7 @@ button[disabled] {
   border-radius: 10px;
   z-index: 10;
   background-color: white;
-  font-size: 100px;
+  font-size: 80px;
   max-width: 80%;
   font-weight: bold;
 }

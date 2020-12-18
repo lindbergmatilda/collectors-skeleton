@@ -89,14 +89,15 @@
 
       <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
         {{itemInfo.item}}
+      <!--  <img id="picitem" :src='showYourItem(item, itemInfo)' width="50"> -->
       </div>
     </div>
 
     <div class="yourskills" v-if="players[playerId]">
       {{ labels.skills }}
       <div v-for="(skillInfo, skill) in players[playerId].skills" :key='skill'>
-      <!--  {{skillInfo.skill}} -->
-       <img id="picskill" :src='showYourSkills(playerId)' width="50">
+    <!--  {{skillInfo.skill}} -->
+       <img id="picskill" :src='showYourSkills(skill, skillInfo)' width="50">
       </div>
     </div>
 
@@ -112,6 +113,7 @@
       <br>
       <!-- SECRETCARD: -->
       <div class="yourSecret" v-if="players[playerId]" @click='yourSecret()'> {{ labels.secretCard }}
+        <img src="/images/chest.png" width="50px">
         <span class="secret-popUp" id="secretYours">
           <CollectorsCard v-for="(card, index) in players[playerId].secret" :card="card" :key="index" />
         </span>
@@ -496,10 +498,6 @@ export default {
     this.$store.state.socket.on('collectorsRefilled',
       function(d) {
 
-        let messege = document.getElementById("roundOverMessage");
-        messege.classList.toggle('show');
-
-
         console.log("refill: ", this.rounds);
         this.players = d.players;
         this.itemsOnSale = d.itemsOnSale;
@@ -599,6 +597,18 @@ yourColour: function(playerId){
   if(this.players[playerId].colour){
     return "border-color:"+this.players[playerId].colour;
   }
+},
+
+/*
+showYourItem: function(item, itemInfo){
+  var imgSrc = '/images/'+itemInfo.item+'.png';
+  return imgSrc;
+},
+*/
+
+showYourSkills: function(skill, skillInfo){
+  var imgSrc = '/images/'+skillInfo.skill+'.png';
+  return imgSrc;
 },
 
     disableIGoFirst: function() {
@@ -796,9 +806,6 @@ yourColour: function(playerId){
 
     secretCard: function(card) {
 
-      let messege = document.getElementById("secretPopUp");
-      messege.classList.toggle('show');
-
       this.chosenAction = null;
       this.$store.state.socket.emit("collectorsSecretCard", {
         roomId: this.$route.params.id,
@@ -874,54 +881,6 @@ main {
   max-width: 2000px;
 
   font-family: "Lexend Deca", sans-serif;
-}
-
-.secretCard{
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  margin-top: 40px;
-  margin-left: 150px;
-  font-size: 18px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.secretCard .secretPopUp{
-  visibility: visible;
-  width: 500px;
-  font-size: 40px;
-  color: black;
-  background-color:  #e6e6ff;
-  text-align: center;
-  border-style: solid;
-  border-radius: 10px;
-  border-color: #232425;
-  padding: 8px 0;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: 100px;
-}
-
-.secretCard .secretPopUp::after{
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-}
-
-.secretCard .show{
-  visibility: hidden;
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s;
 }
 
 .invisPopUp {

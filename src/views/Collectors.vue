@@ -69,7 +69,7 @@
 
     <div class="hands">
 
-      {{ labels.hand }}
+    <h4>  {{ labels.hand }}</h4>
 
       <div class="handcards cardslots" v-if="players[playerId]">
         <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="handleAction(card)" :key="index" />
@@ -80,19 +80,19 @@
 
 
     <div class="youritems" v-if="players[playerId]">
-      {{ labels.items }}
+  <h4>   {{ labels.items }} </h4>
 
       <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
-        {{itemInfo.item}}
-        <img id="picitem" :src='showYourItem(item, itemInfo)' width="50">
+
+        <img id="picitem" :src='showYourItem(item, itemInfo)' width="60">
       </div>
     </div>
 
     <div class="yourskills" v-if="players[playerId]">
-      {{ labels.skills }}
+  <h4>    {{ labels.skills }}</h4>
       <div v-for="(skillInfo, skill) in players[playerId].skills" :key='skill'>
     <!--  {{skillInfo.skill}} -->
-       <img id="picskill" :src='showYourSkills(skill, skillInfo)' width="50">
+       <img id="picskill" :src='showYourSkills(skill, skillInfo)' width="40">
       </div>
     </div>
 
@@ -132,13 +132,14 @@
           <h3>{{players[playerId].name}}</h3>
           <h5> {{ labels.items }} </h5>
           <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
-            {{itemInfo.item}}
+            <img id="picitem" :src='showYourItem(item, itemInfo)' width="60">
           </div>
           <h5> {{ labels.skills }} </h5>
           <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
-            {{skillInfo.skill}}
+            <img id="picskill" :src='showYourSkills(skill, skillInfo)' width="40">
           </div>
           <h5> {{ labels.bottles }}{{players[playerId].bottles}} </h5>
+
         </div>
       </div>
 <!--låg en likadan opponentsBoard hör-->
@@ -561,6 +562,14 @@ export default {
 
   methods: {
 
+  changeColor: function(playerId) {
+            document.getElementById(
+              "Myelement").style.backgroundColor =
+                this.players[playerId].colour;
+        },
+
+
+
     lightBoxClose: function() {
   document.querySelector(".lightbox").classList.add("closed");
 },
@@ -905,9 +914,8 @@ main {
     'bottom-grid bottom-grid';
   grid-template-columns: 3fr 2fr;
   grid-template-rows: 1fr 1fr 1fr;
-  max-width: 2000px;
-
   font-family: "Lexend Deca", sans-serif;
+
 }
 .auctionPopUp{
   position: relative;
@@ -925,19 +933,19 @@ main {
 .auctionPopUp .auctionMessage{
   visibility: hidden;
   width: 500px;
-  font-size: 40px;
+  font-size: 2em;
   color: black;
   background-color:  #e6e6ff;
   text-align: center;
   border-style: solid;
   border-radius: 10px;
   border-color: #232425;
-  padding: 8px 0;
+  padding: 1em 0;
   position: absolute;
   z-index: 1;
   bottom: 125%;
   left: 50%;
-  margin-left: 100px;
+  margin-left: 4em;
   margin-bottom: 10px;
 }
 
@@ -1058,14 +1066,15 @@ main {
   grid-area: your-board;
   display: grid;
   grid-template-areas:
-    'rubrik rubrik'
-    'hands hand'
-    'skillsitems rest';
-  grid-template-rows: 1fr 2fr 1fr;
-  grid-template-columns: 2fr 1fr;
+    'rubrik rubrik rubrik'
+    'hands hands hands'
+    'skills items rest';
+  grid-template-rows: 1fr 2fr 2fr;
+  grid-template-columns: 1fr 1fr 2fr;
   background-color: #e6e6ff;
-  max-height: 500px;
-  max-width: 800px;
+  max-height: 700px;
+  min-width: 400px;
+  max-width: 600px;
 
   border: 1px solid lightgrey;
   margin-top: 60px;
@@ -1080,11 +1089,11 @@ main {
 }
 
 .yourskills {
-  grid-area: skillsitems;
+  grid-area: skills;
 }
 
 .youritems {
-  grid-area: skillsitems;
+  grid-area: items;
 }
 
 .hands {
@@ -1094,6 +1103,7 @@ main {
 
 .other {
   grid-area: rest;
+  margin: 15px;
 }
 
 
@@ -1106,16 +1116,16 @@ main {
   margin: 60px;
   padding: 20px;
   display: grid;
-  grid-gap: 40px;
+  grid-gap: 10px;
   grid-template-columns: auto;
 }
 
 .box {
-  background-color: lightgrey;
+  background-color: white;
   border-radius: 40px;
   color: black;
   padding: 15px;
-  border: 5px solid black;
+  border: 1px solid black;
 }
 
 .gamezone {
@@ -1558,6 +1568,10 @@ button.big-button:disabled {
 
   .auction {
     grid-template-rows: 3fr 1fr;
+  }
+
+  #Myelement{
+
   }
 
 }

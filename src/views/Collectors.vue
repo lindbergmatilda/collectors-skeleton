@@ -12,12 +12,6 @@
       <input v-if="players[playerId]" type="text" v-model="myName" name="name" placeholder="NAME">
       <button v-if="players[playerId]" @click="enterName()">CHANGE</button></div>
 
-<div class="secretButton">
-  <button v-if="players[playerId]" :disabled='this.chosenAction != "start"' @click="chooseSecret()">
-    {{ labels.chooseSecret }}
-  </button>
-</div>
-
 <div class="firstbuttons">
   <button v-if="players[playerId]" :disabled="disableIGoFirst() || !playersReady()" @click="claimFirstPlayer">
     {{ labels.firstPlayer }}
@@ -40,13 +34,16 @@
 <div v-if="players[playerId]"> {{ labels.showRound }} {{this.rounds}} </div>
 
 <div class="invisPopUp">
-  <span class="messegePopUp" :disabled="!nextRound()" @click="refill()" id="roundOverMessage">
+  <span class="messegePopUp" v-if="players[playerId]" :disabled="!nextRound()" @click="refill()" id="roundOverMessage">
     {{labels.roundOverMessage}}
   </span>
 </div>
 
-
-
+<div class="secretCard">
+  <span class="secretPopUp" v-if="players[playerId]" :disabled='this.chosenAction != "start"' @click="chooseSecret()" id="secretPopUp">
+    {{labels.chooseSecret}}
+  </span>
+</div>
 
 <div class="head">
   <div v-if="players[playerId]" class="your-playerboard" :style='yourColour(playerId)'>
@@ -76,8 +73,6 @@
 
     <div class="yourskills" v-if="players[playerId]">
       {{ labels.skills }}
-      <br>Har försökt lägga till bilder här ist för ord. Gick bajs. Har lagt in bilder med alla skills och döpt dem till rätt namn men får det ej att funka
-      <img id="picskill" src="/images/bottle.png" width="60">
       <div v-for="(skillInfo, skill) in players[playerId].skills" :key='skill'>
       <!--  {{skillInfo.skill}} -->
        <img id="picskill" :src='showYourSkills(playerId)' width="50">
@@ -770,6 +765,10 @@ showYourSkills: function(playerId){
     },
 
     secretCard: function(card) {
+      
+      let messege = document.getElementById("secretPopUp");
+      messege.classList.toggle('show');
+
       this.chosenAction = null;
       this.$store.state.socket.emit("collectorsSecretCard", {
         roomId: this.$route.params.id,
@@ -847,11 +846,60 @@ main {
   font-family: "Lexend Deca", sans-serif;
 }
 
+.secretCard{
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin-top: 40px;
+  margin-left: 150px;
+  font-size: 18px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.secretCard .secretPopUp{
+  visibility: visible;
+  width: 500px;
+  font-size: 40px;
+  color: black;
+  background-color: #9BC0E5;
+  text-align: center;
+  border-style: solid;
+  border-radius: 10px;
+  border-color: #232425;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: 100px;
+}
+
+.secretCard .secretPopUp::after{
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.secretCard .show{
+  visibility: hidden;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
 .invisPopUp {
   position: relative;
   display: inline-block;
   cursor: pointer;
-  margin-left: 20px;
+  margin-top: 40px;
+  margin-left: 150px;
   font-size: 18px;
   -webkit-user-select: none;
   -moz-user-select: none;

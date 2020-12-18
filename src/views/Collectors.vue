@@ -550,9 +550,6 @@ export default {
       this.chosenPlacementCost = $event.cost;
       this.chosenAction = action;
       this.chosenPosition = $event.position;
-      if (action == 'work') {
-        this.workAction($event.position);
-      }
       this.$store.state.socket.emit('collectorsPlaceBottle', {
         roomId: this.$route.params.id,
         playerId: this.playerId,
@@ -560,6 +557,9 @@ export default {
         cost: $event.cost,
         position: $event.position
       });
+      if (action == 'work') {
+        this.workAction($event.position);
+      }
     },
 
     claimFirstPlayer: function() {

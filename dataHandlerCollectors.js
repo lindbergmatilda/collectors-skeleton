@@ -913,13 +913,7 @@ for(let i = 0; i<room.players[playerId].skills.length; i++){
       }
 
       else if (position === 1 ) {
-        room.players[playerId].bottleAmount -=1;
-        for (let i=room.players[playerId].bottles.length; i>0; i--){
-          if (room.players[playerId].bottles[i]===1){
-            room.players[playerId].bottles[i]=0;
-            break;
-          }
-        }
+        room.players[playerId].money +=1;
       }
 
       else if (position === 2) {

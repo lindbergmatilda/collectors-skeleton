@@ -48,6 +48,15 @@
 </div>
 <div v-if="players[playerId]"> {{ labels.showRound }} {{this.rounds}} </div>
 
+<div class="actionInfo">
+  <h5 v-if="players[playerId].myturn=true && this.chosenAction == null">  {{ labels.moveActionInfo }} </h5>
+  <h5 v-if="players[playerId].myturn=true && chosenAction == 'item'"> {{ labels.itemActionInfo }} </h5>
+  <h5 v-if="players[playerId].myturn=true && chosenAction == 'skill'">  {{ labels.skillActionInfo }} </h5>
+  <h5 v-if="players[playerId].myturn=true && chosenAction == 'auction'">  {{ labels.auctionActionInfo }} </h5>
+  <h5 v-if="players[playerId].myturn=true && chosenAction == 'pay'">  {{ labels.payActionInfo }} </h5>
+
+</div>
+
 <div class="invisPopUp">
   <span class="messegePopUp" :disabled="!nextRound()" @click="refill()" id="roundOverMessage">
     {{labels.roundOverMessage}}
@@ -86,6 +95,7 @@
 
       <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
         {{itemInfo.item}}
+        <img id="picitem" :src='showYourItem(item, itemInfo)' width="50">
       </div>
     </div>
 
@@ -109,6 +119,7 @@
       <br>
       <!-- SECRETCARD: -->
       <div class="yourSecret" v-if="players[playerId]" @click='yourSecret()'> {{ labels.secretCard }}
+        <img src="/images/chest.png" width="50px">
         <span class="secret-popUp" id="secretYours">
           <CollectorsCard v-for="(card, index) in players[playerId].secret" :card="card" :key="index" />
         </span>
@@ -399,7 +410,6 @@ export default {
         this.players = d.players;
         let highest = 0;
         for (let i = 0; i < Object.keys(this.players).length; i++) {
-          console.log("Här: ", );
           if (this.players[Object.keys(this.players)[i]].bid > highest) {
             highest = this.players[Object.keys(this.players)[i]].bid;
           }
@@ -452,27 +462,27 @@ export default {
 
     this.$store.state.socket.on('collectorsItemBought',
       function(d) {
-        console.log(this.players[d.playerId], "bought a card");
         this.players = d.players;
         this.itemsOnSale = d.itemsOnSale;
         this.isPlaying = this.whoIsPlaying();
+        this.chosenAction =null;
       }.bind(this)
     );
 
     this.$store.state.socket.on('collectorsWorkedArea',
       function(d) {
-        console.log(d.playerId, "worked an area!");
         this.players = d.players;
         this.isPlaying = this.whoIsPlaying();
+        this.chosenAction =null;
       }.bind(this)
     );
 
     this.$store.state.socket.on('collectorsSkillBought',
       function(d) {
-        console.log(d.playerId, "bought a skill");
         this.players = d.players;
         this.skillsOnSale = d.skillsOnSale;
         this.isPlaying = this.whoIsPlaying();
+        this.chosenAction =null;
       }.bind(this)
     );
 
@@ -484,19 +494,17 @@ export default {
 
     this.$store.state.socket.on('collectorsRaisedValue',
       function(d) {
-        console.log(d.playerId, "raised a value");
         this.players = d.players;
         this.marketValues = d.marketValues;
         this.market = d.market;
         this.auctionCards = d.auctionCards;
         this.isPlaying = this.whoIsPlaying();
+        this.chosenAction =null;
       }.bind(this)
     );
 
     this.$store.state.socket.on('collectorsRefilled',
       function(d) {
-
-        console.log("refill: ", this.rounds);
         this.players = d.players;
         this.itemsOnSale = d.itemsOnSale;
         this.skillsOnSale = d.skillsOnSale;
@@ -521,11 +529,11 @@ export default {
         let messege = document.getElementById("auctionMessageId");
         messege.classList.toggle('show');
 
-        console.log(d.playerId, "auctioned a card");
         this.players = d.players;
         this.auctionCards = d.auctionCards;
         this.theAuctionItem = d.theAuctionItem;
         this.auctionRunning = true;
+        this.chosenAction =null;
       }.bind(this)
     );
   },
@@ -559,7 +567,7 @@ export default {
           playerId: this.playerId
         });
       } catch (error) {
-        console.log("error")
+        console.log("not working correctly")
       }
     },
 
@@ -599,6 +607,13 @@ yourColour: function(playerId){
     return "border-color:"+this.players[playerId].colour;
   }
 },
+
+
+showYourItem: function(item, itemInfo){
+  var imgSrc = '/images/item-'+itemInfo.item+'.png';
+  return imgSrc;
+},
+
 
 showYourSkills: function(skill, skillInfo){
   var imgSrc = '/images/'+skillInfo.skill+'.png';
@@ -667,8 +682,8 @@ showYourSkills: function(skill, skillInfo){
       });
     },
 
+//Ta bort draw card
     drawCard: function() {
-      console.log("")
       this.$store.state.socket.emit('collectorsDrawCard', {
         roomId: this.$route.params.id,
         playerId: this.playerId
@@ -769,7 +784,6 @@ showYourSkills: function(skill, skillInfo){
     },
 
     buyItem: function(card) {
-      console.log("buyItem", card);
       this.$store.state.socket.emit('collectorsBuyItem', {
         roomId: this.$route.params.id,
         playerId: this.playerId,
@@ -788,7 +802,6 @@ showYourSkills: function(skill, skillInfo){
     },
 
     auctionItem: function(card) {
-      console.log("auctionItem", card);
       this.chosenAction = null;
       this.$store.state.socket.emit('collectorsAuctionItem', {
         roomId: this.$route.params.id,
@@ -810,7 +823,6 @@ showYourSkills: function(skill, skillInfo){
     },
 
     raiseValue: function(card) {
-      console.log("raiseValue", card);
       this.chosenAction = null;
       this.$store.state.socket.emit('collectorsRaiseValue', {
         roomId: this.$route.params.id,
@@ -822,8 +834,6 @@ showYourSkills: function(skill, skillInfo){
     },
 
     handleAction: function(card) {
-      console.log(this.chosenAction);
-
       if (this.chosenAction === "item") {
         this.buyItem(card);
       } else if (this.chosenAction === "skill") {
@@ -840,7 +850,6 @@ showYourSkills: function(skill, skillInfo){
     },
 
     buySkill: function(card) {
-      console.log("buySkill", card);
       this.$store.state.socket.emit('collectorsBuySkill', {
         roomId: this.$route.params.id,
         playerId: this.playerId,

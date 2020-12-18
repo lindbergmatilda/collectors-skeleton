@@ -24,13 +24,6 @@
   </button>
 </div>
 
-    <div class="invisPopUp" >
-      <span class="messegePopUp" v-if="players[playerId]" :disabled="!nextRound()" @click="refill()" id="roundOverMessage"  >
-        {{labels.roundOverMessage}}
-      </span>
-    </div>
-    <hr>
-
 <div class="endGame">
   <button v-if="players[playerId]" @click="countPoints">
     {{ labels.theEnd }}
@@ -56,35 +49,26 @@
 
 
 <div class="head">
-
-
-
-  <div class="your-playerboard">
+  <div v-if="players[playerId]" class="your-playerboard" :style='yourColour(playerId)'>
 
     <div class="rubrik">
-
       <center>
         <h2 v-if="players[playerId]">{{players[playerId].name}} <br>{{ labels.yourPlayerBoard}} </h2>
       </center>
       <hr>
-
     </div>
 
     <div class="hands">
-
       {{ labels.hand }}
-
       <div class="handcards cardslots" v-if="players[playerId]">
         <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="handleAction(card)" :key="index" />
       </div>
-
     </div>
 
 
 
     <div class="youritems" v-if="players[playerId]">
       {{ labels.items }}
-
       <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
         {{itemInfo.item}}
       </div>
@@ -101,10 +85,7 @@
     </div>
 
     <div class="other" v-if="players[playerId]">
-
-
       {{ labels.bottles }}{{players[playerId].bottles}} <br><br>
-
       <div>
         Inkomst per runda: {{players[playerId].income}}
       </div><br>
@@ -116,18 +97,9 @@
           <CollectorsCard v-for="(card, index) in players[playerId].secret" :card="card" :key="index" />
         </span>
       </div>
-
     </div>
 
-
-
-
-
-
-
   </div>
-
-
 
       <div class="opponentsBoard">
         <h3> {{ labels.allPlayers }} </h3>
@@ -145,9 +117,6 @@
           <h5> {{ labels.bottles }}{{players[playerId].bottles}} </h5>
         </div>
       </div>
-
-
-
 
   <div class="opponentsBoard">
     <h3> {{ labels.allPlayers }} </h3>
@@ -988,7 +957,7 @@ main {
   max-height: 500px;
   max-width: 800px;
 
-  border: 1px solid lightgrey;
+  border: 5px solid lightgrey;
   margin-top: 60px;
   padding: 20px;
   border-radius: 70px;

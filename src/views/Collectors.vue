@@ -797,9 +797,6 @@ showYourSkills: function(skill, skillInfo){
 
     secretCard: function(card) {
 
-      let messege = document.getElementById("secretPopUp");
-      messege.classList.toggle('show');
-
       this.chosenAction = null;
       this.$store.state.socket.emit("collectorsSecretCard", {
         roomId: this.$route.params.id,

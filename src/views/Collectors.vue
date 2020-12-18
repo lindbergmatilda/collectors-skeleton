@@ -385,6 +385,7 @@ export default {
     this.$store.state.socket.on('collectorsClaimedFirstPlayer',
       function(d) {
         this.players = d;
+        this.isPlaying = this.whoIsPlaying();
       }.bind(this)
     );
 

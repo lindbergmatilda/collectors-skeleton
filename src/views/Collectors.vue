@@ -95,8 +95,8 @@
     <div class="yourskills" v-if="players[playerId]">
       {{ labels.skills }}
       <div v-for="(skillInfo, skill) in players[playerId].skills" :key='skill'>
-      <!--  {{skillInfo.skill}} -->
-       <img id="picskill" :src='showYourSkills(playerId)' width="50">
+    <!--  {{skillInfo.skill}} -->
+       <img id="picskill" :src='showYourSkills(skill, skillInfo)' width="50">
       </div>
     </div>
 
@@ -595,6 +595,11 @@ yourColour: function(playerId){
   if(this.players[playerId].colour){
     return "border-color:"+this.players[playerId].colour;
   }
+},
+
+showYourSkills: function(skill, skillInfo){
+  var imgSrc = '/images/'+skillInfo.skill+'.png';
+  return imgSrc;
 },
 
     disableIGoFirst: function() {

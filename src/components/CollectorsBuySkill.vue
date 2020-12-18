@@ -191,7 +191,8 @@ button[disabled]{
 
 .popupSkill:hover{
   font-size: 30px;
-}
+  cursor: pointer;
+  background-color: #5F9EA0;}
 
 .popupSkill .skillhelp-text {
 

@@ -104,8 +104,7 @@
       <div class="opponentsBoard">
         <h3> {{ labels.allPlayers }} </h3>
         <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']" :style='yourColour(playerId)'>
-          <h3>{{ labels.playerID }}{{playerId}} ({{players[playerId].name}})</h3>
-          <img src="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
+          <h3>{{players[playerId].name}}</h3>
           <h5> {{ labels.items }} </h5>
           <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
             {{itemInfo.item}}
@@ -121,8 +120,7 @@
   <div class="opponentsBoard">
     <h3> {{ labels.allPlayers }} </h3>
     <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
-      <h3>{{ labels.playerID }}{{playerId}} ({{players[playerId].name}})</h3>
-      <img src="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
+      <h3>{{players[playerId].name}}</h3>
       <h5> {{ labels.items }} </h5>
       <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
         {{itemInfo.item}}
@@ -987,7 +985,7 @@ main {
   margin: 60px;
   padding: 20px;
   display: grid;
-  grid-gap: 40px;
+  grid-gap: 10px;
   grid-template-columns: auto;
 }
 
@@ -996,7 +994,7 @@ main {
   border-radius: 40px;
   color: black;
   padding: 15px;
-  border: 5px solid black;
+  border: 1px solid black;
 }
 
 .gamezone {

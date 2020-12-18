@@ -36,8 +36,8 @@
     {{ labels.theEnd }}
   </button>
 </div>
-<div v-if="players[playerId]" class="theWinner" id="theWinner">Find out who won</div>
-<button v-if="players[playerId]" class="winner" id="winner" @click="winner">WINNER</button>
+<div class="theWinner" id="theWinner">Find out who won</div>
+<button class="winner" id="winner" @click="winner">WINNER</button>
 <div v-if="theWinner" class="whoWon" id="whoWon"> GRATTIS {{theWinner.name}}</div>
 <div id="overlay"></div>
 
@@ -147,13 +147,19 @@
           <h5> {{ labels.bottles }}{{players[playerId].bottles}} </h5>
         </div>
       </div>
-
-
+<!--låg en likadan opponentsBoard hör-->
   <div class="gamezone">
 
     <div class="item">
-      <collectorsBuyItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :itemsOnSale="itemsOnSale" :marketValues="marketValues" :placement="itemPlacement" :auctionRunning="auctionRunning" @buyItem="buyItem($event)"
-        @placeBottle="placeBottle('item', $event)" />
+      <collectorsBuyItem v-if="players[playerId]"
+      :labels="labels"
+      :player="players[playerId]"
+      :itemsOnSale="itemsOnSale"
+      :marketValues="marketValues"
+      :placement="itemPlacement"
+      :auctionRunning="auctionRunning"
+      @buyItem="buyItem($event)"
+      @placeBottle="placeBottle('item', $event)" />
     </div>
 
     <div class="skill">
@@ -361,6 +367,14 @@ export default {
       function(d) {
         this.players = d.players;
         this.theWinner = d.theWinner;
+        this.showEnd();
+      }.bind(this)
+    );
+
+    this.$store.state.socket.on('collectorGotMedalj',
+      function(d) {
+        this.players = d;
+        this.showWinner();
       }.bind(this)
     );
 
@@ -624,18 +638,24 @@ yourColour: function(playerId){
         playerId: this.playerId,
         marketValues: this.marketValues
       });
-      document.getElementById("overlay").style.visibility = "visible";
-      document.getElementById("theWinner").style.visibility = "visible";
-      document.getElementById("winner").style.visibility = "visible";
+    },
+
+    showEnd: function(){
+        document.getElementById("overlay").style.visibility = "visible";
+        document.getElementById("theWinner").style.visibility = "visible";
+        document.getElementById("winner").style.visibility = "visible";
+    },
+
+    showWinner: function(){
+      document.getElementById("theWinner").style.visibility = "hidden";
+      document.getElementById("winner").style.visibility = "hidden";
+      document.getElementById("whoWon").style.visibility = "visible";
     },
 
     winner: function() {
       this.$store.state.socket.emit('collectorWon', {
         roomId: this.$route.params.id
       });
-      document.getElementById("theWinner").style.visibility = "hidden";
-      document.getElementById("winner").style.visibility = "hidden";
-      document.getElementById("whoWon").style.visibility = "visible";
     },
 
     refill: function() {

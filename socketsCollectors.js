@@ -63,6 +63,13 @@ function sockets(io, socket, data) {
     );
   });
 
+  socket.on('collectorWon', function(d){
+    io.to(d.roomId).emit('collectorGotMedalj', {
+      players: data.getPlayers(d.roomId)
+    }
+  );
+});
+
     socket.on('collectorsPlaceBid', function(d){
       data.placeBid(d.roomId, d.playerId, d.theBid)
       io.to(d.roomId).emit('collectorsPlacedBid', {

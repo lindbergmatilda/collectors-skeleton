@@ -4,7 +4,7 @@
     <div class="label-auction">
       <h2>{{ "AUCTION" }}</h2>
     </div>
-    
+
     <div class="popupAuction" @click='helpAuction()'> ? <span class="auctionhelp-text" id="auctionPopup"> Här kommer hjälptext :) </span>
 
     </div>
@@ -194,6 +194,9 @@ button[disabled] {
 
 .popupAuction:hover {
   font-size: 30px;
+  cursor: pointer;
+  background-color: #5F9EA0;
+
 }
 
 .popupAuction .auctionhelp-text {

@@ -75,9 +75,9 @@
       {{ labels.skills }}
       <br>Har försökt lägga till bilder här ist för ord. Gick bajs. Har lagt in bilder med alla skills och döpt dem till rätt namn men får det ej att funka
       <img id="picskill" src="/images/bottle.png" width="60">
-      <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
-        {{skillInfo.skill}}
-        <!--<img id="picskill" src="/images/{{skillInfo.skill}}.png" width="50"> -->
+      <div v-for="(skillInfo, skill) in players[playerId].skills" :key='skill'>
+      <!--  {{skillInfo.skill}} -->
+       <img id="picskill" :src='showYourSkills(playerId)' width="50">
       </div>
     </div>
 
@@ -101,8 +101,7 @@
       <div class="opponentsBoard">
         <h3> {{ labels.allPlayers }} </h3>
         <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']" :style='yourColour(playerId)'>
-          <h3>{{ labels.playerID }}{{playerId}} ({{players[playerId].name}})</h3>
-          <img src="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
+          <h3>{{players[playerId].name}}</h3>
           <h5> {{ labels.items }} </h5>
           <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
             {{itemInfo.item}}
@@ -118,8 +117,7 @@
   <div class="opponentsBoard">
     <h3> {{ labels.allPlayers }} </h3>
     <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
-      <h3>{{ labels.playerID }}{{playerId}} ({{players[playerId].name}})</h3>
-      <img src="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
+      <h3>{{players[playerId].name}}</h3>
       <h5> {{ labels.items }} </h5>
       <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
         {{itemInfo.item}}
@@ -569,6 +567,15 @@ export default {
 yourColour: function(playerId){
   if(this.players[playerId].colour){
     return "border-color:"+this.players[playerId].colour;
+  }
+},
+
+showYourSkills: function(playerId){
+  for(let i=0; this.players[playerId].skills.length; i++){
+    console.log(this.players[playerId].skills[i].skill);
+    var imgSrc = '/images/'+this.players[playerId].skills[i].skill+'.png';
+    console.log('Bilden som ska visas har länken', imgSrc);
+    return imgSrc;
   }
 },
 
@@ -1037,7 +1044,7 @@ main {
   margin: 60px;
   padding: 20px;
   display: grid;
-  grid-gap: 40px;
+  grid-gap: 10px;
   grid-template-columns: auto;
 }
 
@@ -1046,7 +1053,7 @@ main {
   border-radius: 40px;
   color: black;
   padding: 15px;
-  border: 5px solid black;
+  border: 1px solid black;
 }
 
 .gamezone {

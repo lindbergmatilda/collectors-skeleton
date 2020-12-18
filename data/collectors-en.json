@@ -27,7 +27,13 @@
 	"placeBid": "PLACE BID",
 	"skillHelp": "In the Skill Area you can buy a green skill from one of the cards in the area, it might get you one step closer to the great victory",
 	"currentPlayer": " IS PLAYING",
-	"showRound": "ROUND: "
+	"showRound": "ROUND: ",
+	"moveActionInfo": "Make a move",
+	"itemActionInfo": "Choose an item",
+	"skillActionInfo": "Choose a skill",
+	"auctionActionInfo": "Choose a card to auction",
+	"payActionInfo": "Choose cards to pay with and/or money",
+	"auctionMessage": "AUCTION IS RUNNING!"
 
 
 }

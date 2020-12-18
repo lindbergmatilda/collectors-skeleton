@@ -27,6 +27,12 @@
 	"placeBid": "BUDA",
 	"skillHelp": "I Skill-området kan du köpa en grön skill från ett av korten i området, skillen kan hjälpa dig att kamma hem segern!",
 	"currentPlayer": " SPELAR JUST NU",
-	"showRound": "RUNDA: "
+	"showRound": "RUNDA: ",
+	"moveActionInfo": "Gör ett move",
+	"itemActionInfo": "Välj ett item du vill köpa",
+	"skillActionInfo": "Välj en skill du vill köpa",
+	"auctionActionInfo": "Välj ett kort att lägga på auction",
+	"payActionInfo": "Välj kort att betala med eller från pengar direkt",
+	"auctionMessage": "AUKTION PÅGÅR!"
 
 }

@@ -48,16 +48,16 @@
 </div>
 <div v-if="players[playerId]"> {{ labels.showRound }} {{this.rounds}} </div>
 
-<div class="actionInfo">
-  <h5 v-if="players[playerId].myturn=true && this.chosenAction == null">  {{ labels.moveActionInfo }} </h5>
-  <h5 v-if="players[playerId].myturn=true && chosenAction == 'item'"> {{ labels.itemActionInfo }} </h5>
-  <h5 v-if="players[playerId].myturn=true && chosenAction == 'skill'">  {{ labels.skillActionInfo }} </h5>
-  <h5 v-if="players[playerId].myturn=true && chosenAction == 'auction'">  {{ labels.auctionActionInfo }} </h5>
-  <h5 v-if="players[playerId].myturn=true && chosenAction == 'pay'">  {{ labels.payActionInfo }} </h5>
+<div v-if="players[playerId]" class="actionInfo">
+  <h5 v-if="players[playerId].myturn==true && chosenAction == null">  {{ labels.moveActionInfo }} </h5>
+  <h5 v-if="players[playerId].myturn==true && chosenAction == 'item'"> {{ labels.itemActionInfo }} </h5>
+  <h5 v-if="players[playerId].myturn==true && chosenAction == 'skill'">  {{ labels.skillActionInfo }} </h5>
+  <h5 v-if="players[playerId].myturn==true && chosenAction == 'auction'">  {{ labels.auctionActionInfo }} </h5>
+  <h5 v-if="players[playerId].myturn==true && chosenAction == 'pay'">  {{ labels.payActionInfo }} </h5>
 
 </div>
 
-<div class="invisPopUp">
+<div v-if="players[playerId]" class="invisPopUp">
   <span class="messegePopUp" :disabled="!nextRound()" @click="refill()" id="roundOverMessage">
     {{labels.roundOverMessage}}
   </span>

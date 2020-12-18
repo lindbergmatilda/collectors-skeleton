@@ -222,6 +222,8 @@ button[disabled]{
 
 .popupItem:hover{
   font-size: 30px;
+  cursor: pointer;
+  background-color: #5F9EA0;
 }
 
 .popupItem .itemhelp-text {

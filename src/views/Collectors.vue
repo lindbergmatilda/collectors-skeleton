@@ -497,10 +497,6 @@ export default {
     this.$store.state.socket.on('collectorsRefilled',
       function(d) {
 
-        let messege = document.getElementById("roundOverMessage");
-        messege.classList.toggle('show');
-
-
         console.log("refill: ", this.rounds);
         this.players = d.players;
         this.itemsOnSale = d.itemsOnSale;
@@ -809,9 +805,6 @@ showYourSkills: function(skill, skillInfo){
 
     secretCard: function(card) {
 
-      let messege = document.getElementById("secretPopUp");
-      messege.classList.toggle('show');
-
       this.chosenAction = null;
       this.$store.state.socket.emit("collectorsSecretCard", {
         roomId: this.$route.params.id,
@@ -887,54 +880,6 @@ main {
   max-width: 2000px;
 
   font-family: "Lexend Deca", sans-serif;
-}
-
-.secretCard{
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  margin-top: 40px;
-  margin-left: 150px;
-  font-size: 18px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.secretCard .secretPopUp{
-  visibility: visible;
-  width: 500px;
-  font-size: 40px;
-  color: black;
-  background-color:  #e6e6ff;
-  text-align: center;
-  border-style: solid;
-  border-radius: 10px;
-  border-color: #232425;
-  padding: 8px 0;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: 100px;
-}
-
-.secretCard .secretPopUp::after{
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-}
-
-.secretCard .show{
-  visibility: hidden;
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s;
 }
 
 .invisPopUp {

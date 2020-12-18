@@ -74,8 +74,8 @@
     <div class="yourskills" v-if="players[playerId]">
       {{ labels.skills }}
       <div v-for="(skillInfo, skill) in players[playerId].skills" :key='skill'>
-      <!--  {{skillInfo.skill}} -->
-       <img id="picskill" :src='showYourSkills(playerId)' width="50">
+    <!--  {{skillInfo.skill}} -->
+       <img id="picskill" :src='showYourSkills(skill, skillInfo)' width="50">
       </div>
     </div>
 
@@ -568,13 +568,9 @@ yourColour: function(playerId){
   }
 },
 
-showYourSkills: function(playerId){
-  for(let i=0; this.players[playerId].skills.length; i++){
-    console.log(this.players[playerId].skills[i].skill);
-    var imgSrc = '/images/'+this.players[playerId].skills[i].skill+'.png';
-    console.log('Bilden som ska visas har länken', imgSrc);
-    return imgSrc;
-  }
+showYourSkills: function(skill, skillInfo){
+  var imgSrc = '/images/'+skillInfo.skill+'.png';
+  return imgSrc;
 },
 
     disableIGoFirst: function() {
@@ -765,7 +761,7 @@ showYourSkills: function(playerId){
     },
 
     secretCard: function(card) {
-      
+
       let messege = document.getElementById("secretPopUp");
       messege.classList.toggle('show');
 

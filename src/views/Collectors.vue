@@ -7,6 +7,18 @@
       <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
     </center>
 
+    <div class="firstbuttons">
+      <button v-if="players[playerId]" :disabled="disableIGoFirst() || !playersReady()" @click="claimFirstPlayer">
+        {{ labels.firstPlayer }}
+      </button>
+    </div>
+         <p v-if="players[playerId]"> {{ labels.showRound }} {{this.rounds}} </p>
+    <div class="secretButton">
+      <button v-if="players[playerId]" :disabled='this.chosenAction != "start"' @click="chooseSecret()">
+        {{ labels.chooseSecret }}
+      </button>
+    </div>
+
     <div class="game-name">
       <input v-if="players[playerId]" type="text" v-model="myName" name="name" placeholder="NAME">
       <button v-if="players[playerId]" @click="enterName()">CHANGE</button></div>
@@ -23,6 +35,12 @@
   </button>
 </div>
 
+    <div class="invisPopUp" >
+      <span class="messegePopUp" v-if="players[playerId]" :disabled="!nextRound()" @click="refill()" id="roundOverMessage"  >
+        {{labels.roundOverMessage}}
+      </span>
+    </div>
+    <hr>
 
 <div class="endGame">
   <button v-if="players[playerId]" @click="countPoints">
@@ -124,6 +142,22 @@
 
 
 
+      <div class="opponentsBoard">
+        <h3> {{ labels.allPlayers }} </h3>
+        <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']" :style='yourColour(playerId)'>
+          <h3>{{ labels.playerID }}{{playerId}} ({{players[playerId].name}})</h3>
+          <img src="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
+          <h5> {{ labels.items }} </h5>
+          <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
+            {{itemInfo.item}}
+          </div>
+          <h5> {{ labels.skills }} </h5>
+          <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
+            {{skillInfo.skill}}
+          </div>
+          <h5> {{ labels.bottles }}{{players[playerId].bottles}} </h5>
+        </div>
+      </div>
 
 
 
@@ -579,6 +613,12 @@ export default {
       secret.classList.toggle('show');
     },
 
+yourColour: function(playerId){
+  if(this.players[playerId].colour){
+    return "border-color:"+this.players[playerId].colour;
+  }
+},
+
     disableIGoFirst: function() {
       for (let i = 0; i < Object.keys(this.players).length; i++) {
         if (this.players[Object.keys(this.players)[i]].iStart != false) {
@@ -1000,7 +1040,7 @@ main {
   border-radius: 40px;
   color: black;
   padding: 15px;
-  border: 2px solid black;
+  border: 5px solid black;
 }
 
 .gamezone {

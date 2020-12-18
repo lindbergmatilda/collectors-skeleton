@@ -14,7 +14,7 @@
     <div class="buttons">
       <div v-for="(p, index) in placement" :key="index">
       <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn() ||auctionRunning" @click="placeBottle(p)">
-        ${{p.cost}}
+        <img  :src="imgSource(index)" width="120"/>
       </button>
       <div v-if="p.playerId !== null">
         {{p.playerId}}
@@ -22,13 +22,14 @@
     </div>
     </div>
 
-    <div class="pictures">
+  <!--  <div class="pictures">
       <img class="workcard GET2" src="/images/GET2.png" width="120"><br>
       <img class="workcard GET1" src="/images/GET1.png" width="120"><br>
       <img class="workcard twocards" src="/images/TWOCARDS.png" width="120"><br>
       <img class="workcard firstPLAYER" src="/images/1STPLAYER.png" width="120"><br>
       <img class="workcard extracoin" src="/images/extra.png" width="120"><br>
     </div>
+  -->
 
 
 
@@ -67,6 +68,29 @@ export default {
           minCost = cost
         }
       return (this.player.money < minCost);
+    },
+
+    imgSource: function(index){
+      if(index === 0){
+        console.log("index är 0");
+        return "/images/GET2.png"
+      }
+      else if(index === 1){
+        console.log("index är 1");
+        return "/images/GET1.png"
+      }
+      else if (index === 2){
+        console.log("index är 2");
+          return "/images/TWOCARDS.png"
+      }
+      else if(index === 3){
+        console.log("index är 3");
+          return "/images/1STPLAYER.png"
+      }
+      else if(index === 4){
+        console.log("index är 4");
+          return "/images/extra.png"
+      }
     },
 
     isMyTurn: function() {
@@ -110,11 +134,12 @@ grid-template-columns: 1fr 2fr;
   display: grid;
   margin-left: 30px;
   margin-top: 50px;
+  margin-bottom: 50px;
   grid-template-rows: repeat(auto-fill, 114px);
 }
 
 .button {
-  width:  57px;
+  width:  135px;
   height: 58px;
 
   color: black;

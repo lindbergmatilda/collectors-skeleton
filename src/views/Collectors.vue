@@ -76,8 +76,6 @@
 
     <div class="yourskills" v-if="players[playerId]">
       {{ labels.skills }}
-      <br>Har försökt lägga till bilder här ist för ord. Gick bajs. Har lagt in bilder med alla skills och döpt dem till rätt namn men får det ej att funka
-      <img id="picskill" src="/images/bottle.png" width="60">
       <div v-for="(skillInfo, skill) in players[playerId].skills" :key='skill'>
       <!--  {{skillInfo.skill}} -->
        <img id="picskill" :src='showYourSkills(playerId)' width="50">

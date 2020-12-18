@@ -1150,7 +1150,8 @@ main {
 .auction {
   grid-area: auction;
   display: grid;
-  grid-template-areas: 'upper-auction''lower-auction';
+  grid-template-areas: 'upper-auction'
+                       'lower-auction';
   grid-template-rows: 630px 300px;
   background-color: #FFFFDB;
   border-right: 2px solid black;
@@ -1447,6 +1448,30 @@ button.big-button:active::before {
 button.big-button:disabled {
   opacity: 0;
 }
+
+@media screen and (max-width: 800px) {
+  .gamezone {
+
+    grid-template-areas:
+      'item item auction '
+      'skill work auction'
+      'value value value'
+      'thehand thehand thehand'
+      'rest rest rest';
+    width: 60%;
+
+
+    grid-template-columns: 1.25fr 1fr 1.25fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+
+  }
+
+  .auction {
+    grid-template-rows: 3fr 1fr;
+  }
+
+}
+
 
 
 </style>

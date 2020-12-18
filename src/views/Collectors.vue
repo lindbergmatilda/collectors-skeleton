@@ -38,8 +38,8 @@
     {{ labels.theEnd }}
   </button>
 </div>
-<div v-if="players[playerId]" class="theWinner" id="theWinner">Find out who won</div>
-<button v-if="players[playerId]" class="winner" id="winner" @click="winner">WINNER</button>
+<div class="theWinner" id="theWinner">Find out who won</div>
+<button class="winner" id="winner" @click="winner">WINNER</button>
 <div v-if="theWinner" class="whoWon" id="whoWon"> GRATTIS {{theWinner.name}}</div>
 <div id="overlay"></div>
 
@@ -94,13 +94,9 @@
 
     <div class="yourskills" v-if="players[playerId]">
       {{ labels.skills }}
-      <br>Har försökt lägga till bilder här ist för ord. Gick bajs. Har lagt in bilder med alla skills och döpt dem till rätt namn men får det ej att funka
-      <img id="picskill" src="/images/bottle.png" width="60">
-      <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
-        {{skillInfo.skill}}
-        <!--<img id="picskill" src="/images/{{skillInfo.skill}}.png" width="50"> -->
-
-
+      <div v-for="(skillInfo, skill) in players[playerId].skills" :key='skill'>
+      <!--  {{skillInfo.skill}} -->
+       <img id="picskill" :src='showYourSkills(playerId)' width="50">
       </div>
     </div>
 
@@ -149,32 +145,19 @@
           <h5> {{ labels.bottles }}{{players[playerId].bottles}} </h5>
         </div>
       </div>
-
-
-
-
-  <div class="opponentsBoard">
-    <h3> {{ labels.allPlayers }} </h3>
-    <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']">
-      <h3>{{ labels.playerID }}{{playerId}} ({{players[playerId].name}})</h3>
-      <img src="https://www.bestseller.se/wp-content/uploads/2017/05/Malou_von_Sivers_400x400px.jpg" width="110">
-      <h5> {{ labels.items }} </h5>
-      <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
-        {{itemInfo.item}}
-      </div>
-      <h5> {{ labels.skills }} </h5>
-      <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
-        {{skillInfo.skill}}
-      </div>
-      <h5> {{ labels.bottles }}{{players[playerId].bottles}} </h5>
-    </div>
-  </div>
-
+<!--låg en likadan opponentsBoard hör-->
   <div class="gamezone">
 
     <div class="item">
-      <collectorsBuyItem v-if="players[playerId]" :labels="labels" :player="players[playerId]" :itemsOnSale="itemsOnSale" :marketValues="marketValues" :placement="itemPlacement" :auctionRunning="auctionRunning" @buyItem="buyItem($event)"
-        @placeBottle="placeBottle('item', $event)" />
+      <collectorsBuyItem v-if="players[playerId]"
+      :labels="labels"
+      :player="players[playerId]"
+      :itemsOnSale="itemsOnSale"
+      :marketValues="marketValues"
+      :placement="itemPlacement"
+      :auctionRunning="auctionRunning"
+      @buyItem="buyItem($event)"
+      @placeBottle="placeBottle('item', $event)" />
     </div>
 
     <div class="skill">
@@ -382,6 +365,14 @@ export default {
       function(d) {
         this.players = d.players;
         this.theWinner = d.theWinner;
+        this.showEnd();
+      }.bind(this)
+    );
+
+    this.$store.state.socket.on('collectorGotMedalj',
+      function(d) {
+        this.players = d;
+        this.showWinner();
       }.bind(this)
     );
 
@@ -645,18 +636,24 @@ yourColour: function(playerId){
         playerId: this.playerId,
         marketValues: this.marketValues
       });
-      document.getElementById("overlay").style.visibility = "visible";
-      document.getElementById("theWinner").style.visibility = "visible";
-      document.getElementById("winner").style.visibility = "visible";
+    },
+
+    showEnd: function(){
+        document.getElementById("overlay").style.visibility = "visible";
+        document.getElementById("theWinner").style.visibility = "visible";
+        document.getElementById("winner").style.visibility = "visible";
+    },
+
+    showWinner: function(){
+      document.getElementById("theWinner").style.visibility = "hidden";
+      document.getElementById("winner").style.visibility = "hidden";
+      document.getElementById("whoWon").style.visibility = "visible";
     },
 
     winner: function() {
       this.$store.state.socket.emit('collectorWon', {
         roomId: this.$route.params.id
       });
-      document.getElementById("theWinner").style.visibility = "hidden";
-      document.getElementById("winner").style.visibility = "hidden";
-      document.getElementById("whoWon").style.visibility = "visible";
     },
 
     refill: function() {
@@ -798,6 +795,10 @@ yourColour: function(playerId){
     },
 
     secretCard: function(card) {
+
+      let messege = document.getElementById("secretPopUp");
+      messege.classList.toggle('show');
+
       this.chosenAction = null;
       this.$store.state.socket.emit("collectorsSecretCard", {
         roomId: this.$route.params.id,
@@ -875,6 +876,54 @@ main {
   font-family: "Lexend Deca", sans-serif;
 }
 
+.secretCard{
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin-top: 40px;
+  margin-left: 150px;
+  font-size: 18px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.secretCard .secretPopUp{
+  visibility: visible;
+  width: 500px;
+  font-size: 40px;
+  color: black;
+  background-color:  #e6e6ff;
+  text-align: center;
+  border-style: solid;
+  border-radius: 10px;
+  border-color: #232425;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: 100px;
+}
+
+.secretCard .secretPopUp::after{
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.secretCard .show{
+  visibility: hidden;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
 .invisPopUp {
   position: relative;
   display: inline-block;
@@ -892,7 +941,7 @@ main {
   width: 500px;
   font-size: 40px;
   color: black;
-  background-color: #9BC0E5;
+  background-color:  #e6e6ff;
   text-align: center;
   border-style: solid;
   border-radius: 10px;

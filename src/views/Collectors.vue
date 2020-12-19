@@ -1076,10 +1076,10 @@ main {
   min-width: 400px;
   max-width: 600px;
 
-  border: 1px solid lightgrey;
+  border-radius: 10%;
   margin-top: 60px;
   padding: 20px;
-  border-radius: 70px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 
 }
@@ -1113,11 +1113,13 @@ main {
   font-family: "Lexend Deca", sans-serif;
   color: black;
   grid-area: other-boards;
-  margin: 60px;
+  margin: 10px;
   padding: 20px;
   display: grid;
   grid-gap: 10px;
   grid-template-columns: auto;
+  max-width: 400px;
+  max-height: 200px;
 }
 
 .box {
@@ -1125,7 +1127,7 @@ main {
   border-radius: 40px;
   color: black;
   padding: 15px;
-  border: 1px solid black;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .gamezone {
@@ -1151,27 +1153,25 @@ main {
   height: 500px;
   margin: 60px;
   color: black;
+
 }
 
 .item {
   grid-area: item;
   background-color: #FFDBDB;
-  border-top: 2px solid black;
-  border-left: 2px solid black;
+
 }
 
 .skill {
   grid-area: skill;
   background-color: #EDFFDB;
-  border-left: 2px solid black;
+  
 }
 
 .value {
   grid-area: value;
   background-color: #DBFFED;
-  border-bottom: 2px solid black;
-  border-left: 2px solid black;
-  border-right: 2px solid black;
+
   display: grid;
   grid-template-areas: 'left right';
   grid-template-columns: 1fr 1fr;
@@ -1199,8 +1199,7 @@ main {
                        'lower-auction';
   grid-template-rows: 630px 300px;
   background-color: #FFFFDB;
-  border-right: 2px solid black;
-  border-top: 2px solid black;
+
 }
 
 .upper-auction {

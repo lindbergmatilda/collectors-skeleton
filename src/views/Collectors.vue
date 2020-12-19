@@ -1076,11 +1076,10 @@ main {
   min-width: 400px;
   max-width: 600px;
 
-  border: 1px solid lightgrey;
+  border-radius: 10%;
   margin-top: 60px;
   padding: 20px;
-  border-radius: 70px;
-
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
 
@@ -1125,7 +1124,7 @@ main {
   border-radius: 40px;
   color: black;
   padding: 15px;
-  border: 1px solid black;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .gamezone {
@@ -1148,9 +1147,9 @@ main {
   grid-template-columns: 300px 240px 300px;
   grid-template-rows: 300px 860px 185px 1fr 1fr;
 
-  height: 500px;
-  margin: 60px;
+margin: 30px;
   color: black;
+
 }
 
 .item {

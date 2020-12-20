@@ -3,9 +3,11 @@
   <main>
 
 
-    <center>{{ labels.invite }}
+
+
+    {{ labels.invite }}
       <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
-    </center>
+
 
 
 
@@ -20,13 +22,15 @@
         {{labels.roundOverMessage}}
       </span>
     </div>
+
+    <div class="endGame">
+      <button class="big-button" v-if="players[playerId]" @click="countPoints">
+        {{ labels.theEnd }}
+      </button>
+    </div>
     <hr>
 
-<div class="endGame">
-  <button v-if="players[playerId]" @click="countPoints">
-    {{ labels.theEnd }}
-  </button>
-</div>
+
 <div class="theWinner" id="theWinner">Find out who won</div>
 <button class="winner" id="winner" @click="winner">WINNER</button>
 <div v-if="theWinner" class="whoWon" id="whoWon"> GRATTIS {{theWinner.name}}</div>
@@ -35,7 +39,6 @@
 <div class="currentPlayer">
   <h5 v-if="isPlaying !== null"> {{isPlaying}} {{ labels.currentPlayer }} </h5>
 </div>
-<div v-if="players[playerId]"> {{ labels.showRound }} {{this.rounds}} </div>
 
 <div v-if="players[playerId]" class="actionInfo">
   <h5 v-if="players[playerId].myturn==true && chosenAction == null">  {{ labels.moveActionInfo }} </h5>
@@ -58,12 +61,15 @@
   </span>
 </div>
 
+
+
 <div class="head">
   <div class="your-playerboard">
     <div class="rubrik">
       <center>
         <h2 v-if="players[playerId]">{{players[playerId].name}} <br>{{ labels.yourPlayerBoard}} </h2>
       </center>
+      <div v-if="players[playerId]"> {{ labels.showRound }} {{this.rounds}} </div>
       <hr>
     </div>
 
@@ -140,12 +146,15 @@
           </div>
           <h5> {{ labels.bottles }}{{players[playerId].bottles}} </h5>
 
+
         </div>
       </div>
-<!--låg en likadan opponentsBoard hör-->
+
+
   <div class="gamezone">
 
     <div class="item">
+
       <collectorsBuyItem v-if="players[playerId]"
       :labels="labels"
       :player="players[playerId]"
@@ -1174,6 +1183,7 @@ margin: 30px;
   display: grid;
   grid-template-areas: 'left right';
   grid-template-columns: 1fr 1fr;
+  margin-bottom:-1em;
 }
 
 .leftvalue {
@@ -1183,6 +1193,7 @@ margin: 30px;
 .rightvalue {
   grid-area: right;
   padding-top: 67px;
+
 }
 
 .labelmV {
@@ -1417,24 +1428,13 @@ button[disabled] {
 *::before, *::after {
   box-sizing: border-box;
 }
-body {
-  font-family: 'OpenSans', sans-serif;
-  font-size: 1rem;
-  line-height: 2;
-  display: flex;
-          align-items: center;
-          justify-content: center;
-  margin: 0;
-  min-height: 100vh;
-  background: rgba(246, 241, 209);
-}
+
 button {
   position: relative;
   display: inline-block;
   cursor: pointer;
   outline: none;
   border: 0;
-  vertical-align: middle;
   text-decoration: none;
   font-size: 1.5rem;
     color:rgb(106, 163, 137);
@@ -1492,6 +1492,15 @@ button.big-button:disabled {
   opacity: 0;
 }
 
+.endGame{
+   top:0;
+   right:0;
+  margin-top:-135px;
+  scale:0.42;
+
+
+}
+
 .lightbox {
   position: fixed;
   top: 0;
@@ -1547,7 +1556,23 @@ button.big-button:disabled {
 
 }
 
+
+
+
 @media screen and (max-width: 800px) {
+
+  .head {
+      display: grid;
+      grid-template-areas:
+        'gameboard gameboard'
+        'your-board otherboards';
+
+      grid-template-columns: 3fr 2fr;
+      grid-template-rows: 1fr 1fr;
+
+
+  }
+
   .gamezone {
 
     grid-template-areas:

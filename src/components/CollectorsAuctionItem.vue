@@ -23,7 +23,7 @@
           ${{p.cost}}
         </button>
         <div v-if="p.playerId !== null">
-          {{p.playerId}}
+          
         </div>
       </div>
     </div>

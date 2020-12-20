@@ -126,30 +126,27 @@ export default {
 .item-placement {
   display: grid;
   grid-template-areas: 'hej' 'down';
-  grid-template-columns: 500px;;
-  grid-template-rows: 140px 90px;
+  grid-template-columns: 31.25em;; /* 500/16 */
+  grid-template-rows: 8.75em 5.625em; /* 140/16, 90/16 */
 }
 
 .buttons {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
-  margin-left: 35px;
+  margin-left: 2.188em; /* 35/16 */
+  margin-top: -1.4em;
 
 }
 
 .button {
-  width: 90px;
-  height: 50px;
+  width: 4.45em; /* 90/16 */
+  height: 3.125em; /* 50/16 */
   display: inline-block;
   color: black;
   text-transform:capitalize;
   font-family: "Lexend Deca", sans-serif;
-  font-size: 20px;
+  font-size: 1.25em; /* 20/16 */
   background: pink;
-  border-radius: 20px;
+  border-radius: 1.25em; /* 20/16 */
   border: none;
   transition: all 0.4s ease 0s;
 
@@ -157,12 +154,10 @@ export default {
 }
 
 .button:hover:enabled {
-  text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
-  -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
-  -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  text-shadow: 0em 0em 0.375em rgba(255, 255, 255, 1); /* 0/16, 0/16, 6/16 */
   transition: all 0.4s ease 0.2s;
 background: #ff9999;
-  width: 110px;
+  width: 5.5em; /* 110/16 */
 
 }
 
@@ -186,12 +181,12 @@ button[disabled]{
 .buy-item {
   grid-area:hej;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 180px);
+  grid-template-columns: repeat(auto-fill, 11.25em); /* 180/16 */
   transform: scale(0.4)translate(-12%, 0);
-  min-width: 900px;
+  min-width: 56.25em; /* 900/16 */
   transform-origin: top;
-  margin-top: -35px;
-  margin-left: -150px;
+  margin-top: -2.188em; /* -35/16 */
+  margin-left: -9.375em; /* -150/16 */
 
 
 
@@ -206,12 +201,12 @@ button[disabled]{
     background-color: #BCDBEA;
     color: white;
     border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    font-size: 19px;
-    line-height: 26px;
+    width: 1.5em; /* 24/16 */
+    height: 1.5em; /* 24/16 */
+    font-size: 1.188em; /* 19/16 */
+    line-height: 1.625em; /* 26/16 */
     cursor: default;
-    margin: 10px;
+    margin: 0.625em; /* 10/16 */
 
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -221,26 +216,27 @@ button[disabled]{
 }
 
 .popupItem:hover{
-  font-size: 30px;
+  font-size: 1.5em; /* 30/16 */
   cursor: pointer;
   background-color: #5F9EA0;
+  transition: all 0.4s ease 0.2s;
 }
 
 .popupItem .itemhelp-text {
 
     visibility: hidden;
-    width: 160px;
+    width: 10em; /* 160/16 */
     background-color: #555;
     color: #fff;
     text-align: center;
-    border-radius: 6px;
-    padding: 8px 0;
+    border-radius: 0.375em; /* 6/16 */
+    padding: 0.5em 0; /* 8/16 */
     position: absolute;
     z-index: 1;
     bottom: 125%;
     left: 50%;
-    margin-left: -60px;
-    font-size: 15px;
+    margin-left: -3.75em; /* -60/16 */
+    font-size: 0.938em; /* 15/16 */
 
 
 }
@@ -250,8 +246,8 @@ button[disabled]{
   position: absolute;
   top: 100%;
   left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
+  margin-left: -0.313em; /* -5/16 */
+  border-width: 0.313em; /* 5/16 */
   border-style: solid;
   border-color: #555 transparent transparent transparent;
 }

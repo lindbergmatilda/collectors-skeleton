@@ -114,7 +114,7 @@
       <br>
       <!-- SECRETCARD: -->
       <div class="yourSecret" v-if="players[playerId]" @click='yourSecret()'> {{ labels.secretCard }}
-        <img src="/images/chest.png" width="50px">
+        <img src="/images/chest.png" width="40px">
         <span class="secret-popUp" id="secretYours">
           <CollectorsCard v-for="(card, index) in players[playerId].secret" :card="card" :key="index" />
         </span>
@@ -248,7 +248,7 @@
 
       <div class="game-name">
 
-
+<h3> {{ labels.playerName }}: </h3>
        <center> <input class="input1" v-if="players[playerId]" type="text" v-model="myName" name="name" placeholder='PLAYER NAME'>
     </center>  </div>
 <br>
@@ -570,6 +570,18 @@ export default {
   },
 
   methods: {
+
+
+    numberOfMoves: function(playerId) {
+      var moves = 0;
+      for(var i = 0; i < this.players[playerId].bottles.length; i++) {
+        if(this.players[playerId].bottles[i] == 1){
+        moves++;}
+      }
+      document.getElementById("moves").innerHTML = moves;
+
+
+    },
 
   changeColor: function(playerId) {
             document.getElementById(
@@ -919,20 +931,20 @@ main {
   display: grid;
   grid-template-areas:
     'gameboard your-board'
-    'gameboard other-boards'
-    'bottom-grid bottom-grid';
+    'gameboard other-boards';
   grid-template-columns: 3fr 2fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   font-family: "Lexend Deca", sans-serif;
+
 
 }
 .auctionPopUp{
   position: relative;
   display: inline-block;
   cursor: pointer;
-  margin-left: 85px;
-  margin-bottom: -40px;
-  font-size: 18px;
+  margin-left: 5.313em; /* 85/16 */
+  margin-bottom: -2.5em; /* -40/16 */
+  font-size: 1.125em; /* 18/16 */
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -941,13 +953,13 @@ main {
 
 .auctionPopUp .auctionMessage{
   visibility: hidden;
-  width: 500px;
+  width: 31.25em; /* 500/16 */
   font-size: 2em;
   color: black;
   background-color:  #e6e6ff;
   text-align: center;
   border-style: solid;
-  border-radius: 10px;
+  border-radius: 0.625em; /* 10/16 */
   border-color: #232425;
   padding: 1em 0;
   position: absolute;
@@ -955,7 +967,7 @@ main {
   bottom: 125%;
   left: 50%;
   margin-left: 4em;
-  margin-bottom: 10px;
+  margin-bottom: 0.625em; /* 10/16 */
 }
 
 .auctionPopUp .auctionMessage::after{
@@ -963,8 +975,8 @@ main {
   position: absolute;
   top: 100%;
   left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
+  margin-left: -0.313em; /* -5/16 */
+  border-width: 0.313em; /* 5/16 */
   border-style: solid;
   border-color: #555 transparent transparent transparent;
 }
@@ -980,8 +992,8 @@ main {
   position: relative;
   display: inline-block;
   cursor: pointer;
-  margin-left: 20px;
-  font-size: 18px;
+  margin-left: 1.25em; /* 20/16 */
+  font-size: 1.125em; /* 18/16 */
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -990,20 +1002,20 @@ main {
 
 .invisPopUp .messegePopUp {
   visibility: hidden;
-  width: 500px;
-  font-size: 40px;
+  width: 31.25em; /* 500/16 */
+  font-size: 2.5em; /* 40/16 */
   color: black;
   background-color:  #e6e6ff;
   text-align: center;
   border-style: solid;
-  border-radius: 10px;
+  border-radius: 0.625em; /* 10/16 */
   border-color: #232425;
-  padding: 8px 0;
+  padding: 0.5em 0; /* 8/16 */
   position: absolute;
   z-index: 1;
   bottom: 125%;
   left: 50%;
-  margin-left: 100px;
+  margin-left: 6.25em; /* 100/16 */
 }
 
 .invisPopUp .messegePopUp::after {
@@ -1011,8 +1023,8 @@ main {
   position: absolute;
   top: 100%;
   left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
+  margin-left: -0.313em; /* -5/16 */
+  border-width: 0.313em; /* 5/16 */
   border-style: solid;
   border-color: #555 transparent transparent transparent;
 }
@@ -1027,8 +1039,8 @@ main {
   position: relative;
   display: inline-block;
   cursor: pointer;
-  margin-left: 20px;
-  font-size: 18px;
+  margin-left: 1.25em; /* 20/16 */
+  font-size: 1.125em; /* 18/16 */
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -1039,18 +1051,18 @@ main {
 .yourSecret .secret-popUp {
 
   visibility: hidden;
-  width: 160px;
+  width: 10em; /* 160/16 */
   background-color: #555;
   color: #fff;
   text-align: center;
-  border-radius: 6px;
-  padding: 8px 0;
+  border-radius: 0.375em; /* 6/16 */
+  padding: 0.5em 0; /* 8/16 */
   position: absolute;
   z-index: 1;
   bottom: 125%;
   left: 50%;
-  margin-left: -60px;
-  font-size: 15px;
+  margin-left: -3.75em; /* -60/16 */
+  font-size: 0.938em; /* 15/16 */
 
 }
 
@@ -1059,8 +1071,8 @@ main {
   position: absolute;
   top: 100%;
   left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
+  margin-left: -0.313em; /* -5/16 */
+  border-width: 0.313em; /* 5/16 */
   border-style: solid;
   border-color: #555 transparent transparent transparent;
 }
@@ -1078,18 +1090,18 @@ main {
     'rubrik rubrik rubrik'
     'hands hands hands'
     'skills items rest';
-  grid-template-rows: 1fr 2fr 2fr;
+  grid-template-rows: 1fr 3fr 2fr;
   grid-template-columns: 1fr 1fr 2fr;
   background-color: #e6e6ff;
-  max-height: 700px;
-  min-width: 400px;
-  max-width: 600px;
+  max-height: 43.75em; /* 700/16 */
+  min-width: 22em; /* 400/16 */
+  max-width: 34.5em; /* 600/16 */
 
   border-radius: 10%;
-  margin-top: 60px;
-  padding: 20px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
+  margin-top: 3.75em; /* 60/16 */
+  padding: 1.25em; /* 20/16 */
+  box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.2), 0 0.375em 1.25em 0 rgba(0, 0, 0, 0.19); /* 4/16, 8/16, 6/16, 20/16 */
+scale: 0.9;
 
 }
 
@@ -1107,12 +1119,12 @@ main {
 
 .hands {
   grid-area: hands;
-  margin-bottom: 40px;
+  margin-bottom: 5.5em; /* 40/16 */
 }
 
 .other {
   grid-area: rest;
-  margin: 15px;
+  margin: 0.938em; /* 15/16 */
 }
 
 
@@ -1122,21 +1134,21 @@ main {
   font-family: "Lexend Deca", sans-serif;
   color: black;
   grid-area: other-boards;
-  margin: 10px;
-  padding: 20px;
+  margin: 0.625em; /* 10/16 */
+  padding: 1.25em; /* 20/16 */
   display: grid;
-  grid-gap: 10px;
+  grid-gap: 0.625em; /* 10/16 */
   grid-template-columns: auto;
-  max-width: 400px;
-  max-height: 200px;
+  max-width: 25em; /* 400/16 */
+  max-height: 12.5em; /* 200/16 */
 }
 
 .box {
   background-color: white;
-  border-radius: 40px;
+  border-radius: 2.5em; /* 40/16 */
   color: black;
-  padding: 15px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 0.938em; /* 15/16 */
+  box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.2), 0 0.375em 1.25em 0 rgba(0, 0, 0, 0.19); /* 4/16, 8/16, 6/16, 20/16 */
 }
 
 .gamezone {
@@ -1149,18 +1161,17 @@ main {
   grid-template-areas:
     'item item auction '
     'skill work auction'
-    'value value value'
-    'thehand thehand thehand'
-    'rest rest rest';
-  max-width: 1000px;
-  width: 800px;
+    'value value value';
+  max-width: 62.5em; /* 1000/16 */
+  width: 50em; /* 800/16 */
 
 
-  grid-template-columns: 300px 240px 300px;
-  grid-template-rows: 300px 860px 185px 1fr 1fr;
+  grid-template-columns: 18.75em 15em 18.75em; /* 300/16, 240/16, 300/16 */
+  grid-template-rows: 18.75em 53.75em 11.563em; /* 300/16, 860/16, 185/16 */
 
-margin: 30px;
+margin: 1.875em; /* 30/16 */
   color: black;
+  scale: 0.9;
 
 }
 
@@ -1192,14 +1203,14 @@ margin: 30px;
 
 .rightvalue {
   grid-area: right;
-  padding-top: 67px;
+  padding-top: 4.188em; /* 67/16 */
 
 }
 
 .labelmV {
-  border-bottom: 2px solid black;
-  border-left: 2px solid black;
-  border-top: 2px solid black;
+  border-bottom: 0.125em solid black; /* 2/16 */
+  border-left: 0.125em solid black; /* 2/16 */
+  border-top: 0.125em solid black; /* 2/16 */
 }
 
 .auction {
@@ -1207,14 +1218,14 @@ margin: 30px;
   display: grid;
   grid-template-areas: 'upper-auction'
                        'lower-auction';
-  grid-template-rows: 630px 300px;
+  grid-template-rows: 39.375em 18.75em; /* 630/16, 300/16 */
   background-color: #FFFFDB;
 
 }
 
 .upper-auction {
   grid-area: upper-auction;
-  padding-left: 25px;
+  padding-left: 1.563em; /* 25/16 */
 
 }
 
@@ -1222,14 +1233,14 @@ margin: 30px;
   grid-area: lower-auction;
   display: grid;
   grid-template-areas: 'header header''card4auction bidButtons''altButtons altButtons';
-  grid-template-rows: 90px 240px 100px;
-  grid-template-columns: 190px 100px;
+  grid-template-rows: 5.625em 15em 6.25em; /* 90/16, 240/16, 100/16 */
+  grid-template-columns: 11.875em 6.25em; /* 190/16, 100/16 */
 
 }
 
 .auction-place {
   grid-area: altButtons;
-  padding-top: 20px;
+  padding-top: 1.25em; /* 20/16 */
 }
 
 .highest-bid {
@@ -1238,16 +1249,16 @@ margin: 30px;
 
 .head-auction {
   grid-area: header;
-  padding-left: 28px;
+  padding-left: 1.75em; /* 28/16 */
 }
 
 .card-for-auction {
   grid-area: card4auction;
   background-color: #ffe6b3;
-  padding-left: 10px;
-  padding-top: 10px;
-  margin: 10px;
-  border: 10px dashed white;
+  padding-left: 0.625em; /* 10/16 */
+  padding-top: 0.625em; /* 10/16 */
+  margin: 0.625em; /* 10/16 */
+  border: 0.625em dashed white; /* 10/16 */
 }
 
 .coinpic {
@@ -1262,7 +1273,7 @@ margin: 30px;
 
 .theRest {
   grid-area: rest;
-  border: 10px;
+  border: 0.625em; /* 10/16 */
   color: white;
 
 }
@@ -1274,27 +1285,27 @@ margin: 30px;
 }
 
 .altButton {
-  width: 50px;
-  height: 50px;
-  margin: 25px;
-  margin-top: 10px;
+  width: 6.125em; /* 50/16 */
+  height: 3.125em; /* 50/16 */
+  margin: 1.563em; /* 25/16 */
+  margin-top: 0.625em; /* 10/16 */
   color: black;
   text-transform: capitalize;
   font-family: "Lexend Deca", sans-serif;
-  font-size: 10px;
+  font-size: 0.625em; /* 10/16 */
   background: orange;
-  border-radius: 20px;
+  border-radius: 1.25em; /* 20/16 */
   border: none;
   transition: all 0.4s ease 0s;
 }
 
 .altButton:hover:enabled {
-  text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
-  -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
-  -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+  text-shadow: 0em 0em 0.375em rgba(255, 255, 255, 1); /* 0/16, 0/16, 6/16 */
+  -webkit-box-shadow: 0em 0.313em 2.5em -0.625em rgba(0, 0, 0, 0.57); /* 0/16, 5/16, 40/16, -10/16 */
+  -moz-box-shadow: 0em 0.313em 2.5em -0.625em rgba(0, 0, 0, 0.57); /* 0/16, 5/16, 40/16, -10/16 */
   transition: all 0.4s ease 0.2s;
   background: #ffc34d;
-  width: 100px;
+  width: 8.25em; /* 100/16 */
 }
 
 button:disabled,
@@ -1305,38 +1316,38 @@ button[disabled] {
 
 .altbuttons2 {
   grid-area: bidButtons;
-  padding: 25px;
-  padding-left: 20px;
+  padding: -1.563em; /* 25/16 */
+  padding-left: 1.25em; /* 20/16 */
 }
 
 .altbutton2 {
-  width: 40px;
-  height: 40px;
-  margin-top: -100px;
+  width: 3.5em; /* 40/16 */
+  height: 2.5em; /* 40/16 */
+  margin-top: -11.25em; /* -100/16 */
 
   color: black;
   text-transform: capitalize;
   font-family: "Lexend Deca", sans-serif;
-  font-size: 10px;
+  font-size: 0.625em; /* 10/16 */
   background: lightgrey;
-  border-radius: 20px;
+  border-radius: 1.25em; /* 20/16 */
   border: none;
   transition: all 0.4s ease 0s;
 }
 
 .altbutton2:hover:enabled {
-  text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
-  -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
-  -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+  text-shadow: 0em 0em 0.375em rgba(255, 255, 255, 1); /* 0/16, 0/16, 6/16 */
+  -webkit-box-shadow: 0em 0.313em 2.5em -0.625em rgba(0, 0, 0, 0.57); /* 0/16, 5/16, 40/16, -10/16 */
+  -moz-box-shadow: 0em 0.313em 2.5em -0.625em rgba(0, 0, 0, 0.57); /* 0/16, 5/16, 40/16, -10/16 */
   transition: all 0.4s ease 0.2s;
   background: #ffc34d;
-  font-size: 13px;
+  font-size: 0.813em; /* 13/16 */
 }
 
 .cardslots {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 70px);
-  grid-template-rows: repeat(auto-fill, 80px);
+  grid-template-columns: repeat(auto-fill, 4.375em); /* 70/16 */
+  grid-template-rows: repeat(auto-fill, 5em); /* 80/16 */
 }
 
 .cardslots div {
@@ -1351,7 +1362,7 @@ button[disabled] {
   z-index: 2;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 50em) { /* 800/16 */
   main {
     width: 90vw;
   }
@@ -1364,11 +1375,11 @@ button[disabled] {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 2px solid black;
-  border-radius: 10px;
+  border: 0.125em solid black; /* 2/16 */
+  border-radius: 0.625em; /* 10/16 */
   z-index: 10;
   background-color: white;
-  font-size: 100px;
+  font-size: 6.25em; /* 100/16 */
   max-width: 80%;
   font-weight: bold;
 }
@@ -1391,14 +1402,14 @@ button[disabled] {
   top: 63%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 2px solid black;
+  border: 0.125em solid black; /* 2/16 */
   z-index: 10;
   background-color: gold;
-  width: 100px;
-  height: 100px;
+  width: 6.25em; /* 100/16 */
+  height: 6.25em; /* 100/16 */
   color: black;
   font-family: "Lexend Deca", sans-serif;
-  font-size: 20px;
+  font-size: 1.25em; /* 20/16 */
   transition: all 0.4s ease 0s;
 }
 
@@ -1408,17 +1419,22 @@ button[disabled] {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 2px solid black;
-  border-radius: 10px;
+  border: 0.125em solid black; /* 2/16 */
+  border-radius: 0.625em; /* 10/16 */
   z-index: 10;
   background-color: gold;
-  width: 400px;
-  height: 250px;
+  width: 25em; /* 400/16 */
+  height: 15.625em; /* 250/16 */
   color: black;
   font-family: "Lexend Deca", sans-serif;
-  font-size: 80px;
+  font-size: 5em; /* 80/16 */
   transition: all 0.4s ease 0s;
   text-align: center;
+}
+
+.game-name {
+  font-size: 1.2em;
+    color:rgb(106, 163, 137);
 }
 
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700");
@@ -1436,7 +1452,7 @@ button {
   outline: none;
   border: 0;
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 1.2em;
     color:rgb(106, 163, 137);
   font-weight: 700;
   text-transform: uppercase;
@@ -1445,7 +1461,7 @@ button {
 
 button.big-button {
    padding: 1em 2em;
-   border: 2px solid rgb(106, 163, 137);
+   border: 0.125em solid rgb(106, 163, 137); /* 2/16 */
   border-radius: 1em;
   background: rgb(205, 255, 232);
 transform-style: preserve-3d;
@@ -1462,7 +1478,7 @@ button.big-button::before {
   bottom: 0;
   background: rgb(150, 232, 195);
   border-radius: inherit;
-    box-shadow: 0 0 0 2px rgb(121, 186, 156), 0 0.75em 0 0  rgb(106, 163, 137);
+    box-shadow: 0 0 0 0.125em rgb(121, 186, 156), 0 0.75em 0 0  rgb(106, 163, 137); /* 2/16 */
  transform: translate3d(0, 0.75em, -1em);
      transition: all 175ms cubic-bezier(0, 0, 1, 1);
 }
@@ -1484,7 +1500,7 @@ button.big-button:active {
 button.big-button:active::before {
   transform: translate3d(0, 0, -1em);
 
-      box-shadow: 0 0 0 2px rgb(121, 186, 156), 0 0.25em 0 0 rgb(121, 186, 156);
+      box-shadow: 0 0 0 0.125em rgb(121, 186, 156), 0 0.25em 0 0 rgb(121, 186, 156); /* 2/16 */
 
 }
 
@@ -1495,8 +1511,8 @@ button.big-button:disabled {
 .endGame{
    top:0;
    right:0;
-  margin-top:-135px;
-  scale:0.42;
+  margin-top:-7.813em; /* -125/16 */
+  scale:0.63;
 
 
 }
@@ -1510,12 +1526,12 @@ button.big-button:disabled {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, .5);
+  background: rgba(0, 0, 0, .8);
 
 }
 .toolbarLB {
   text-align: left;
-  padding: 3px;
+  padding: 0.188em; /* 3/16 */
 }
 
 
@@ -1523,7 +1539,7 @@ button.big-button:disabled {
 .lightbox .iframeContainer {
   vertical-align: middle;
   background: #CCC;
-  padding: 30px;
+  padding: 1.875em; /* 30/16 */
 
 }
 .lightbox.closed {
@@ -1531,14 +1547,14 @@ button.big-button:disabled {
 }
 
 .input1 {
-  font-size: 16px;
-  font-size: max(16px, 1em);
+  font-size: 1em;  /* 16/16 */
+  font-size: max(1em, 1em); /* 16/16 */
   font-family: inherit;
   padding: 0.25em 0.5em;
   background-color: #fff;
-  border-radius: 4px;
-  width: 410px;
-  height: 50px;
+  border-radius: 0.25em; /* 4/16 */
+  width: 25.625em; /* 410/16 */
+  height: 3.125em; /* 50/16 */
 }
 .play{
   position: relative;
@@ -1559,7 +1575,11 @@ button.big-button:disabled {
 
 
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 50em) { /* 800/16 */
+
+  .main {
+    scale: 0.2;
+  }
 
   .head {
       display: grid;
@@ -1578,14 +1598,12 @@ button.big-button:disabled {
     grid-template-areas:
       'item item auction '
       'skill work auction'
-      'value value value'
-      'thehand thehand thehand'
-      'rest rest rest';
+      'value value value';
     width: 60%;
 
 
     grid-template-columns: 1.25fr 1fr 1.25fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
 
   }
 

@@ -98,29 +98,29 @@ export default {
 
 .raise-value {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 90px);
+  grid-template-columns: repeat(auto-fill, 5.625em); /* 90/16 */
   transform: scale(0.4)translate(-25%, 0);
 
 }
 .buttons {
   display: inline;
   align-self: top;
-    padding-left: 30px;
+    padding-left: 1.875em; /* 30/16 */
     display: inline-block;
 
 }
 
 .button {
-  width: 90px;
-  height: 50px;
-margin: 6px;
+  width: 4.625em; /* 90/16 */
+  height: 3.125em; /* 50/16 */
+margin: 0.075em; /* 6/16 */
   color: black;
   text-transform:capitalize;
   font-family: "Lexend Deca", sans-serif;
-  font-size: 20px;
+  font-size: 1.25em; /* 20/16 */
 
   background: lightblue;
-  border-radius: 20px;
+  border-radius: 1.25em; /* 20/16 */
   border: none;
   transition: all 0.4s ease 0s;
 
@@ -128,12 +128,13 @@ margin: 6px;
 }
 
 .button:hover:enabled {
-  text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
-  -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
-  -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  text-shadow: 0em 0em 0.375em rgba(255, 255, 255, 1); /* 0/16, 0/16, 6/16 */
+  -webkit-box-shadow: 0em 0.313em 2.5em -0.625em rgba(0,0,0,0.57); /* 0/16, 5/16, 40/16, -10/16 */
+  -moz-box-shadow: 0em 0.313em 2.5em -0.625em rgba(0,0,0,0.57); /* 0/16, 5/16, 40/16, -10/16 */
   transition: all 0.4s ease 0.2s;
   background: #63b5cf;
-  width: 110px;
+  width: 5.875em; /* 110/16 */
+  
 
 
 }
@@ -145,17 +146,17 @@ button[disabled]{
 }
 
 .popupValue {
-  position: relative;
+  position: absolute;
     text-align: center;
     background-color: #BCDBEA;
     color: white;
     border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    font-size: 19px;
-    line-height: 26px;
+    width: 1.5em; /* 24/16 */
+    height: 1.5em; /* 24/16 */
+    font-size: 1.188em; /* 19/16 */
+    line-height: 1.625em; /* 26/16 */
     cursor: default;
-    margin: 10px;
+    margin: 0.625em; /* 10/16 */
 
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -165,26 +166,27 @@ button[disabled]{
 }
 
 .popupValue:hover{
-  font-size: 30px;
+  font-size: 1.5em; /* 30/16 */
   cursor: pointer;
   background-color: #5F9EA0;
+  transition: all 0.4s ease 0.2s;
 }
 
 .popupValue .valuehelp-text {
 
     visibility: hidden;
-    width: 160px;
+    width: 10em; /* 160/16 */
     background-color: #555;
     color: #fff;
     text-align: center;
-    border-radius: 6px;
-    padding: 8px 0;
+    border-radius: 0.375em; /* 6/16 */
+    padding: 0.5em 0; /* 8/16 */
     position: absolute;
     z-index: 1;
     bottom: 125%;
     left: 50%;
-    margin-left: -60px;
-    font-size: 15px;
+    margin-left: -3.75em; /* -60/16 */
+    font-size: 0.938em; /* 15/16 */
 
 }
 
@@ -193,8 +195,8 @@ button[disabled]{
   position: absolute;
   top: 100%;
   left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
+  margin-left: -0.313em; /* -5/16 */
+  border-width: 0.313em; /* 5/16 */
   border-style: solid;
   border-color: #555 transparent transparent transparent;
 }

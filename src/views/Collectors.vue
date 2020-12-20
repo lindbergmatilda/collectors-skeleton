@@ -205,7 +205,7 @@
               <h5 v-if="players[playerId] && this.auctionRunning">{{ labels.highestBid }} {{highestBid}}</h5>
             </div>
             <input v-if="players[playerId]" type="number" v-model="myBid" name="bid" :min="recentBid()" :max="playerMoney()" placeholder="Place your bid">
-            <div class="altbuttons2">
+            <div class="altbuttons2"><br><br>
               <button class="altbutton2" v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction() || canNotAfford()" @click="placeBid()">BID</button>
               <button class="altbutton2" v-if="players[playerId]" :disabled="!isMyAuctionTurn() || winnerAuction()" @click="passBid()">PASS</button>
               <button class="altbutton2" v-if="players[playerId]" :disabled="!winnerAuction()" @click="payRestCoins()">PAY</button>

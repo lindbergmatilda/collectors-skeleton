@@ -1150,8 +1150,7 @@ main {
   grid-template-columns: 300px 240px 300px;
   grid-template-rows: 300px 860px 185px 1fr 1fr;
 
-  height: 500px;
-  margin: 60px;
+margin: 30px;
   color: black;
 
 }
@@ -1165,7 +1164,7 @@ main {
 .skill {
   grid-area: skill;
   background-color: #EDFFDB;
-  
+
 }
 
 .value {

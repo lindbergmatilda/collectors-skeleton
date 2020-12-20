@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="mainItem">
   <center><h2>{{ "ITEM" }}</h2></center>
   <div class="popupItem" @click='helpItem()'>   ?   <span class="itemhelp-text" id="ItemPopup"> Här kommer hjälptext :) </span>
 
@@ -257,6 +257,8 @@ button[disabled]{
   -webkit-animation: fadeIn 1s;
   animation: fadeIn 1s;
 }
+
+
 
 
 

@@ -1,4 +1,7 @@
 <template>
+  <main>
+
+
 <div class="center">
   <div>
     <div class="upper-grid">
@@ -66,6 +69,7 @@
     </div>
   </div>
 </div>
+</main>
 </template>
 
 <script>
@@ -238,5 +242,16 @@ letter-spacing: -1px;
 
 .right {
   grid-area: right;
+}
+@media screen and (max-width: 600px) {
+
+  main {
+    scale: 0.6;
+    font-size: 120%;
+  }
+
+  #holder{
+    scale:120%;
+  }
 }
 </style>

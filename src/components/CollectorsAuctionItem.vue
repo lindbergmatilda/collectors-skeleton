@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="mainAuction">
   <center>
     <div class="label-auction">
       <h2>{{ "AUCTION" }}</h2>
@@ -234,6 +234,9 @@ button[disabled] {
   -webkit-animation: fadeIn 1s;
   animation: fadeIn 1s;
 }
+
+
+
 
 
 </style>

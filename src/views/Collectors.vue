@@ -239,7 +239,7 @@
     </div>
 
   </div>
-</div>
+
 
 
 <div class="lightbox">
@@ -271,7 +271,7 @@
 </div>
 
 
-
+</div>
 
 </main>
 </div>
@@ -925,6 +925,9 @@ header {
 
 main {
   user-select: none;
+  margin-right: auto;
+  margin-left: auto;
+  width:95em;
 }
 
 .head {
@@ -1096,6 +1099,7 @@ main {
   max-height: 43.75em; /* 700/16 */
   min-width: 22em; /* 400/16 */
   max-width: 34.5em; /* 600/16 */
+  margin: 1.075em;
 
   border-radius: 10%;
   margin-top: 3.75em; /* 60/16 */
@@ -1139,7 +1143,7 @@ scale: 0.9;
   display: grid;
   grid-gap: 0.625em; /* 10/16 */
   grid-template-columns: auto;
-  max-width: 25em; /* 400/16 */
+  max-width: 35em; /* 400/16 */
   max-height: 12.5em; /* 200/16 */
 }
 
@@ -1148,6 +1152,7 @@ scale: 0.9;
   border-radius: 2.5em; /* 40/16 */
   color: black;
   padding: 0.938em; /* 15/16 */
+  margin: 0.875em;
   box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.2), 0 0.375em 1.25em 0 rgba(0, 0, 0, 0.19); /* 4/16, 8/16, 6/16, 20/16 */
 }
 
@@ -1163,13 +1168,13 @@ scale: 0.9;
     'skill work auction'
     'value value value';
   max-width: 62.5em; /* 1000/16 */
-  width: 50em; /* 800/16 */
+/*  width: 50em;  800/16 */
 
 
   grid-template-columns: 18.75em 15em 18.75em; /* 300/16, 240/16, 300/16 */
   grid-template-rows: 18.75em 53.75em 11.563em; /* 300/16, 860/16, 185/16 */
 
-margin: 1.875em; /* 30/16 */
+margin: 0.875em; /* 30/16 */
   color: black;
   scale: 0.9;
 
@@ -1509,10 +1514,11 @@ button.big-button:disabled {
 }
 
 .endGame{
-   top:0;
-   right:0;
-  margin-top:-7.813em; /* -125/16 */
+  position:absolute;
+     top:0;
+     right:8em;
   scale:0.63;
+
 
 
 }
@@ -1575,7 +1581,7 @@ button.big-button:disabled {
 
 
 
-@media screen and (max-width: 50em) { /* 800/16 */
+@media screen and (max-width: 800px) {
 
   .main {
     scale: 0.2;
@@ -1585,7 +1591,7 @@ button.big-button:disabled {
       display: grid;
       grid-template-areas:
         'gameboard gameboard'
-        'your-board otherboards';
+        'your-board other-boards';
 
       grid-template-columns: 3fr 2fr;
       grid-template-rows: 1fr 1fr;
@@ -1593,27 +1599,44 @@ button.big-button:disabled {
 
   }
 
-  .gamezone {
-
-    grid-template-areas:
-      'item item auction '
-      'skill work auction'
-      'value value value';
-    width: 60%;
 
 
-    grid-template-columns: 1.25fr 1fr 1.25fr;
-    grid-template-rows: 1fr 1fr 1fr;
+}
+
+@media screen and (max-width: 600px) {
+
+  main {
+    scale: 0.50;
 
   }
 
-  .auction {
-    grid-template-rows: 3fr 1fr;
+  .head {
+      display: grid;
+      grid-template-areas:
+        'gameboard gameboard'
+        'your-board other-boards';
+
+      grid-template-columns: 3fr 2fr;
+      grid-template-rows: 1fr 1fr;
+
+
+
   }
 
-  #Myelement{
+  .your-playerboard {
+    width: 135%;
+  
 
   }
+
+.opponentsBoard{
+  width: 130%;
+  margin-left: 7em;
+
+}
+
+
+
 
 }
 

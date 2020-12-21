@@ -37,15 +37,18 @@
 <div id="overlay"></div>
 
 <div class="currentPlayer">
-  <h5 v-if="isPlaying !== null"> {{isPlaying}} {{ labels.currentPlayer }} </h5>
+  <h5 v-if="isPlaying !== null && auctionRunning == false"> {{isPlaying}} {{ labels.currentPlayer }} </h5>
 </div>
 
 <div v-if="players[playerId]" class="actionInfo">
-  <h5 v-if="players[playerId].myturn==true && chosenAction == null">  {{ labels.moveActionInfo }} </h5>
-  <h5 v-if="players[playerId].myturn==true && chosenAction == 'item'"> {{ labels.itemActionInfo }} </h5>
-  <h5 v-if="players[playerId].myturn==true && chosenAction == 'skill'">  {{ labels.skillActionInfo }} </h5>
-  <h5 v-if="players[playerId].myturn==true && chosenAction == 'auction'">  {{ labels.auctionActionInfo }} </h5>
-  <h5 v-if="players[playerId].myturn==true && chosenAction == 'pay'">  {{ labels.payActionInfo }} </h5>
+  <h5 v-if="players[playerId].myTurn==true && chosenAction ==null && auctionRunning == false"> {{ labels.moveActionInfo }} </h5>
+  <h5 v-else-if="players[playerId].myTurn==true && chosenAction == 'item'"> {{ labels.itemActionInfo }} </h5>
+  <h5 v-else-if="players[playerId].myTurn==true && chosenAction == 'skill'">  {{ labels.skillActionInfo }} </h5>
+  <h5 v-else-if="players[playerId].myTurn==true && chosenAction == 'auction'">  {{ labels.auctionActionInfo }} </h5>
+  <h5 v-else-if="players[playerId].auctionTurn==true && chosenAction == 'bid'">  {{ labels.bidActionInfo }} </h5>
+  <h5 v-else-if="players[playerId].auctionTurn==true && chosenAction == 'pay'">  {{ labels.payActionInfo }} </h5>
+  <h5 v-else-if="players[playerId].auctionTurn==true && chosenAction == 'placeCard'">  {{ labels.placeCardActionInfo }} </h5>
+
 
 </div>
 
@@ -464,6 +467,7 @@ export default {
         if (this.players[this.playerId].bid === 0) {
           this.highlightHand(false);
         }
+        this.chosenAction = "placeCard";
       }.bind(this)
     );
 
@@ -488,6 +492,7 @@ export default {
         this.highestBid = null;
         this.auctionRunning = false;
         this.isPlaying = this.whoIsPlaying();
+        this.chosenAction =null;
       }.bind(this)
     );
 
@@ -564,7 +569,7 @@ export default {
         this.auctionCards = d.auctionCards;
         this.theAuctionItem = d.theAuctionItem;
         this.auctionRunning = true;
-        this.chosenAction =null;
+        this.chosenAction ="bid";
       }.bind(this)
     );
   },
@@ -1625,7 +1630,7 @@ button.big-button:disabled {
 
   .your-playerboard {
     width: 135%;
-  
+
 
   }
 

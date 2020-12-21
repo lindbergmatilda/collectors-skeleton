@@ -33,6 +33,8 @@
 	"skillActionInfo": "Välj en skill du vill köpa",
 	"auctionActionInfo": "Välj ett kort att lägga på auction",
 	"payActionInfo": "Välj kort att betala med eller från pengar direkt",
+	"placeCardActionInfo": "Välj vart du vill placera ditt auktionkort",
+	"bidActionInfo": "Lägg ett bud eller stå över!",
 	"auctionMessage": "AUKTION PÅGÅR!",
 	"startgame":"SPELA COLLECTORS",
 	"playerName":"ANGE SPELARNAMN"

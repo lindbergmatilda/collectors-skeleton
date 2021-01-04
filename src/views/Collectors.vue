@@ -4,11 +4,10 @@
 
 
 
-
+<div class="invite-link">
     {{ labels.invite }}
       <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
-
-
+</div>
 
 
 <div class="firstbuttons">
@@ -17,18 +16,12 @@
   </button>
 </div>
 
-    <div class="invisPopUp" >
-      <span class="messegePopUp" v-if="players[playerId]" :disabled="!nextRound()" @click="refill()" id="roundOverMessage"  >
-        {{labels.roundOverMessage}}
-      </span>
-    </div>
+<div class="endGame">
+  <button class="big-button" v-if="players[playerId]" @click="countPoints">
+      {{ labels.theEnd }}
+    </button>
+  </div>
 
-    <div class="endGame">
-      <button class="big-button" v-if="players[playerId]" @click="countPoints">
-        {{ labels.theEnd }}
-      </button>
-    </div>
-    <hr>
 
 
 <div class="theWinner" id="theWinner">Find out who won</div>
@@ -107,8 +100,7 @@
 
     <div class="other" v-if="players[playerId]">
 
-
-      {{ labels.bottles }}{{players[playerId].bottles}} <br><br>
+      {{ labels.bottles }}{{numberOfMoves(playerId)}}<br><br>
 
       <div>
         Inkomst per runda: {{players[playerId].income}}
@@ -147,7 +139,7 @@
           <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
             <img id="picskill" :src='showYourSkills(skill, skillInfo)' width="40">
           </div>
-          <h5> {{ labels.bottles }}{{players[playerId].bottles}} </h5>
+          <h5> {{ labels.bottles }}{{numberOfMoves(playerId)}} </h5>
 
 
         </div>
@@ -556,6 +548,9 @@ export default {
         this.rounds = d.rounds;
         this.isPlaying = this.whoIsPlaying();
 
+        let messege = document.getElementById("roundOverMessage");
+        messege.classList.toggle('show');
+
       }.bind(this)
     );
 
@@ -579,21 +574,22 @@ export default {
 
     numberOfMoves: function(playerId) {
       var moves = 0;
+      if (this.players[playerId].bottles != null){
       for(var i = 0; i < this.players[playerId].bottles.length; i++) {
         if(this.players[playerId].bottles[i] == 1){
         moves++;}
       }
-      document.getElementById("moves").innerHTML = moves;
-
+      return moves;
+      }
 
     },
 
-  changeColor: function(playerId) {
+  /*changeColor: function(playerId) {
             document.getElementById(
               "Myelement").style.backgroundColor =
                 this.players[playerId].colour;
         },
-
+*/
 
 
     lightBoxClose: function() {
@@ -800,6 +796,7 @@ showYourSkills: function(skill, skillInfo){
 
     winnerAuction: function() {
       if (this.players[this.playerId].auctionWinner) {
+        document.getElementById("auctionMessageId").innerHTML = this.labels.auctionWinnerMessage;
         this.highlightHand(true);
         this.chosenAction = "pay";
         return true;
@@ -836,6 +833,7 @@ showYourSkills: function(skill, skillInfo){
 
     claimAuctionCard: function(buttonAction) {
       this.auctionRunning = false;
+      document.getElementById("auctionMessageId").innerHTML = this.labels.auctionMessage;
       this.$store.state.socket.emit('collectorsClaimCard', {
         roomId: this.$route.params.id,
         playerId: this.playerId,
@@ -1154,7 +1152,8 @@ scale: 0.9;
 
 .box {
   background-color: white;
-  border-radius: 2.5em; /* 40/16 */
+  border: 0.5em solid black;
+  border-radius: 2.5em;  /*40/16 */
   color: black;
   padding: 0.938em; /* 15/16 */
   margin: 0.875em;
@@ -1520,13 +1519,19 @@ button.big-button:disabled {
 
 .endGame{
   position:absolute;
-     top:0;
-     right:8em;
+     top:2.8em;
+     right:23em;
   scale:0.63;
-
-
-
 }
+
+.invite-link {
+  position:absolute;
+     top:4.5em;
+     right:42em;
+  scale:1.1;
+}
+
+
 
 .lightbox {
   position: fixed;
@@ -1628,10 +1633,33 @@ button.big-button:disabled {
 
   }
 
+  .lightbox {
+  scale: 0.9;
+  margin-right: auto;
+  margin-left: auto;
+  width: 1000px;
+  }
+
+
+
   .your-playerboard {
     width: 135%;
 
 
+  }
+
+  .endGame{
+    position:absolute;
+       top:3em;
+       right:-26em;
+    scale:0.63;
+
+  }
+  .invite-link {
+    position:absolute;
+       top:4.5em;
+       right:-7em;
+    scale:1.1;
   }
 
 .opponentsBoard{

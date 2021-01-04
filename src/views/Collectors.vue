@@ -1050,7 +1050,12 @@ main {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background-color: beige;
+
+}
+
+.yourSecret:hover{
+  scale:1.3;
+  transition: all 0.3s ease 0.3s;
 }
 
 .yourSecret .secret-popUp {

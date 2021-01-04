@@ -169,8 +169,8 @@ button[disabled]{
 }
 
 .popupSkill {
-  left: 1.99em; /* -130/16 */
-  position: absolute;
+  left: -6.8em; /* -130/16 */
+  position: relative;
     text-align: center;
     background-color: #BCDBEA;
     color: white;

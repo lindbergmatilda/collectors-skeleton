@@ -18,7 +18,7 @@
 	"skills": "SKILLS: ",
 	"allPlayers": "ALL PLAYERS",
 	"playerID": "PLAYER ID: ",
-	"bottles":"MOVES: ",
+	"bottles":"BOTTLES: ",
 	"cardUp":"CARD UP FOR AUCTION",
 	"marketValues":"CURRENT MARKET VALUES",
 	"chooseSecret": "CLICK HERE TO CHOOSE YOUR SECRET CARD",
@@ -36,6 +36,7 @@
 	"placeCardActionInfo": "Choose where you want to place the auction card",
 	"bidActionInfo": "Place a bid or pass!",
 	"auctionMessage": "AUCTION IN PROGRESS!",
+	"auctionWinnerMessage": "YOU WON THE AUCTION! Pay and select location for the card",
 	"startgame": "CLICK HERE TO JOIN THE GAME",
 	"playerName":"ENTER PLAYER NAME"
 }

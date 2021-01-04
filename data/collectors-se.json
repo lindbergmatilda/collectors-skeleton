@@ -18,7 +18,7 @@
 	"skills": "SKILLS: ",
 	"allPlayers": "ALLA SPELARE",
 	"playerID": "SPELAR ID: ",
-	"bottles":"ANTAL DRAG: ",
+	"bottles":"ANTAL FLASKOR: ",
 	"cardUp":"KORT FÖR AUKTION",
 	"marketValues": "MARKNADSVÄRDEN",
 	"chooseSecret": "KLICKA HÄR OCH VÄLJ ETT HEMLIGT KORT",
@@ -36,6 +36,7 @@
 	"placeCardActionInfo": "Välj vart du vill placera ditt auktionkort",
 	"bidActionInfo": "Lägg ett bud eller stå över!",
 	"auctionMessage": "AUKTION PÅGÅR!",
+	"auctionWinnerMessage": "DU VANN AUKTIONEN! Betala och välj plats för kortet",
 	"startgame":"KLICKA FÖR ATT GÅ MED I SPELET",
 	"playerName":"ANGE SPELARNAMN"
 

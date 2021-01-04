@@ -28,7 +28,7 @@
 	"skillHelp": "I Skill-området kan du köpa en grön skill från ett av korten i området, skillen kan hjälpa dig att kamma hem segern!",
 	"currentPlayer": " SPELAR JUST NU",
 	"showRound": "RUNDA: ",
-	"moveActionInfo": "Gör ett move",
+	"moveActionInfo": "Gör ett drag",
 	"itemActionInfo": "Välj ett item du vill köpa",
 	"skillActionInfo": "Välj en skill du vill köpa",
 	"auctionActionInfo": "Välj ett kort att lägga på auction",
@@ -38,6 +38,9 @@
 	"auctionMessage": "AUKTION PÅGÅR!",
 	"auctionWinnerMessage": "DU VANN AUKTIONEN! Betala och välj plats för kortet",
 	"startgame":"KLICKA FÖR ATT GÅ MED I SPELET",
-	"playerName":"ANGE SPELARNAMN"
-
+	"playerName":"ANGE SPELARNAMN",
+	"helpItem":"Köp ett rött item från item-området eller från din hand till din unika samling",
+	"helpAuction":"",
+	"helpWork":"",
+	"helpMarket": "hello"
 }

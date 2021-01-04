@@ -5,7 +5,7 @@
       <h2>{{ "AUCTION" }}</h2>
     </div>
 
-    <div class="popupAuction" @click='helpAuction()'> ? <span class="auctionhelp-text" id="auctionPopup"> Här kommer hjälptext :) </span>
+    <div class="popupAuction" @click='helpAuction()'> ? <span class="auctionhelp-text" id="auctionPopup"> {{labels.helpAuction}} </span>
 
     </div>
 
@@ -20,7 +20,15 @@
     <div class="left buttons">
       <div v-for="(p, index) in placement" :key="index">
         <button class="button" v-if="p.playerId===null" :disabled="cannotAfford(p.cost) || !isMyTurn() || auctionRunning" @click="placeBottle(p)">
+          <p v-if= "p.cost<0">
+          +${{gainMoney(p.cost)}}
+        </p>
+        <p v-else-if= "p.cost==0">
           ${{p.cost}}
+        </p>
+          <p v-else>
+            -${{p.cost}}
+          </p>
         </button>
         <div v-if="p.playerId !== null">
 
@@ -78,6 +86,11 @@ export default {
         return true;
       }
       return false;
+    },
+
+    gainMoney: function(money) {
+      money = money*-1;
+      return money;
     },
 
 
@@ -203,7 +216,7 @@ button[disabled] {
 .popupAuction .auctionhelp-text {
 
   visibility: hidden;
-  width: 10em; /* 160/16 */
+  width: 35em; /* 160/16 */
   background-color: #555;
   color: #fff;
   text-align: center;

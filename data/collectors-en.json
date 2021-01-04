@@ -38,5 +38,9 @@
 	"auctionMessage": "AUCTION IN PROGRESS!",
 	"auctionWinnerMessage": "YOU WON THE AUCTION! Pay and select location for the card",
 	"startgame": "CLICK HERE TO JOIN THE GAME",
-	"playerName":"ENTER PLAYER NAME"
+	"playerName":"ENTER PLAYER NAME",
+	"helpItem":"Buy an red item from the item area or from your hand to your unique collection",
+	"helpAuction":"",
+	"helpWork":"hello ",
+	"helpMarket": "hello"
 }

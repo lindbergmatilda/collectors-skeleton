@@ -653,8 +653,10 @@ export default {
           }
         }
       }
-      let messege = document.getElementById("roundOverMessage");
-      messege.classList.toggle('show');
+      if(this.rounds < 4){
+        let messege = document.getElementById("roundOverMessage");
+        messege.classList.toggle('show');
+      }
       return true;
     },
 

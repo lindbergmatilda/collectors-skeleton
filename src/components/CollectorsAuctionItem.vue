@@ -5,7 +5,7 @@
       <h2>{{ "AUCTION" }}</h2>
     </div>
 
-    <div class="popupAuction" @click='helpAuction()'> ? <span class="auctionhelp-text" id="auctionPopup"> Här kommer hjälptext :) </span>
+    <div class="popupAuction" @click='helpAuction()'> ? <span class="auctionhelp-text" id="auctionPopup"> {{labels.helpAuction}} </span>
 
     </div>
 
@@ -203,7 +203,7 @@ button[disabled] {
 .popupAuction .auctionhelp-text {
 
   visibility: hidden;
-  width: 10em; /* 160/16 */
+  width: 35em; /* 160/16 */
   background-color: #555;
   color: #fff;
   text-align: center;

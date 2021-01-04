@@ -1692,14 +1692,14 @@ button.big-button:disabled {
 
   .endGame{
     position:absolute;
-       top: 4em;
-       right: 25em;
+       top: 1em;
+       right: -28em;
     scale:0.63;
 
   }
   .invite-link {
     position:absolute;
-       top:10em;
+       top:2em;
        right:-15em;
     scale:1.1;
   }

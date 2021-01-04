@@ -334,7 +334,6 @@ Data.prototype.whoWon = function(roomId){
         room.theWinner = room.playerList[i];
       }
     }
-    console.log("dröm", room.theWinner, "dröm");
     return room.theWinner;
   }
 }
@@ -576,7 +575,6 @@ Data.prototype.secretCard = function(roomId, playerId, card){
     for(let i = 0; i<room.playerList.length; i++){
       room.playerList[i].colour = room.colourList[i];
     }
-    console.log("spelarna: ", room.players);
   }
 }
 
@@ -601,7 +599,6 @@ Data.prototype.payAuctionCard = function(roomId, playerId, cost){
     }
   }
     room.players[playerId].auctionWinner = false;
-    console.log(cost, " status ", room.players[playerId]);
     return room.players;
   }
 }

@@ -125,7 +125,6 @@ socket.on('payAuctionRestCoins', function(d){
     });
 
     socket.on('collectorsBuySkill', function(d) {
-      console.log("socket blir anropad");
       data.buySkill(d.roomId, d.playerId, d.card, d.cost)
       io.to(d.roomId).emit('collectorsSkillBought', {
           playerId: d.playerId,

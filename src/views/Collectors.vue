@@ -1550,21 +1550,21 @@ button.big-button:disabled {
 .endGame{
   position:absolute;
      top:0.9em;
-     right:3em;
+     right:-3em;
   scale:0.63;
 }
 
 .invite-link {
   position:absolute;
      top:1.5em;
-     right:38em;
+     right:41em;
   scale:1.1;
 }
 
 .firstbuttons{
   position:absolute;
      top:1.5em;
-     right:14em;
+     right:13.5em;
   scale:1.1;
 }
 

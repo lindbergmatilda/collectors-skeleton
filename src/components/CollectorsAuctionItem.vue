@@ -214,18 +214,18 @@ button[disabled] {
 .popupAuction .auctionhelp-text {
 
   visibility: hidden;
-  width: 35em; /* 160/16 */
   background-color: #555;
   color: #fff;
   text-align: center;
   border-radius: 0.375em; /* 6/16 */
   padding: 0.5em 0; /* 8/16 */
-  position: absolute;
+  position: fixed;
   z-index: 1;
-  bottom: 125%;
-  left: 50%;
+  top: 40%;
+  left: -25%;
   margin-left: -3.75em; /* -60/16 */
   font-size: 0.938em; /* 15/16 */
+  scale:0.45;
 
 }
 

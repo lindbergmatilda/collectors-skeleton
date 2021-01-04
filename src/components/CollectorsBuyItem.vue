@@ -1,7 +1,7 @@
 <template>
 <div class="mainItem">
   <center><h2>{{ "ITEM" }}</h2></center>
-  <div class="popupItem" @click='helpItem()'>   ?   <span class="itemhelp-text" id="ItemPopup"> Här kommer hjälptext :) </span>
+  <div class="popupItem" @click='helpItem()'>   ?   <span class="itemhelp-text" id="ItemPopup"> {{labels.helpItem}} <img class="helpPic" src="/images/itempic.png" > </span>
 
   </div>
 
@@ -220,7 +220,8 @@ button[disabled]{
     font-size: 1.188em; /* 19/16 */
     line-height: 1.625em; /* 26/16 */
     cursor: default;
-    margin: 0.625em; /* 10/16 */
+    margin: 1.25em; /* 10/16 */
+    margin-top: -1em;
 
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -239,20 +240,25 @@ button[disabled]{
 .popupItem .itemhelp-text {
 
     visibility: hidden;
-    width: 10em; /* 160/16 */
+
     background-color: #555;
     color: #fff;
     text-align: center;
-    border-radius: 0.375em; /* 6/16 */
+    border-radius: 0.625em; /* 10/16 */
+    border: 0.125em solid black; /* 2/16 */
     padding: 0.5em 0; /* 8/16 */
-    position: absolute;
+    position: fixed;
     z-index: 1;
-    bottom: 125%;
+    top: 50%;
     left: 50%;
+    transform: translate(-50%, -50%);
     margin-left: -3.75em; /* -60/16 */
     font-size: 0.938em; /* 15/16 */
+    max-width: 80%;
+}
 
-
+.popupItem .itemhelp-text .helpPic{
+  width: 45em;
 }
 
 .popupItem .itemhelp-text::after {

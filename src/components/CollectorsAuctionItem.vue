@@ -78,7 +78,6 @@ export default {
     placeBottle: function(p) {
       this.$emit('placeBottle', p);
       this.highlightAvailableCards(p.cost);
-      console.log(" kostnaden är " + p.cost);
     },
 
     isMyTurn: function() {
@@ -107,7 +106,6 @@ export default {
 
     auctionItem: function(card) {
       if (card.available) {
-        console.log("hejsan autionItem funkar");
         this.$emit('auctionItem', card)
         this.highlightAvailableCards()
       }

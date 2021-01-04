@@ -21,7 +21,7 @@
 	"bottles":"ANTAL DRAG: ",
 	"cardUp":"KORT FÖR AUKTION",
 	"marketValues": "MARKNADSVÄRDEN",
-	"chooseSecret": "VÄLJ HEMLIGT KORT",
+	"chooseSecret": "KLICKA HÄR OCH VÄLJ ETT HEMLIGT KORT",
 	"highestBid": "HÖGSTA BUDET ÄR: ",
 	"secretCard": "HEMLIGA KORTET",
 	"placeBid": "BUDA",
@@ -36,7 +36,7 @@
 	"placeCardActionInfo": "Välj vart du vill placera ditt auktionkort",
 	"bidActionInfo": "Lägg ett bud eller stå över!",
 	"auctionMessage": "AUKTION PÅGÅR!",
-	"startgame":"SPELA COLLECTORS",
+	"startgame":"KLICKA FÖR ATT GÅ MED I SPELET",
 	"playerName":"ANGE SPELARNAMN"
 
 }

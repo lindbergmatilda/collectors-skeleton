@@ -1517,13 +1517,19 @@ button.big-button:disabled {
 
 .endGame{
   position:absolute;
-     top:0;
-     right:8em;
+     top:2.8em;
+     right:23em;
   scale:0.63;
-
-
-
 }
+
+.invite-link {
+  position:absolute;
+     top:4.5em;
+     right:42em;
+  scale:1.1;
+}
+
+
 
 .lightbox {
   position: fixed;

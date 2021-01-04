@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div class="popupValue" @click='helpValue()'>   ?   <span class="valuehelp-text" id="ValuePopup"> Här kommer hjälptext :) </span>
+  <div class="popupValue" @click='helpValue()'>   ?   <span class="valuehelp-text" id="ValuePopup"> {{labels.helpMarket}} </span>
 
   </div>
 <center>  <h2>{{ "MARKET" }}</h2> </center> <br>

@@ -38,10 +38,10 @@
 	"auctionWinnerMessage": "YOU WON THE AUCTION! Pay and select location for the card",
 	"startgame": "CLICK HERE TO JOIN THE GAME",
 	"playerName":"ENTER PLAYER NAME",
-	"helpSkill": "In the Skill Area you can buy a green skill from one of the cards in the area, it might get you one step closer to the great victory",
-	"helpItem":"In the Item Area you can buy an red item from the item area or from your hand to your unique collection",
+	"helpSkill": "In Skill Area you can buy a green skill from one of the cards in the area. It might get you one step closer to the great victory",
+	"helpItem":"In Item Area you can buy an red item from the item area or from your hand to your unique collection",
 	"helpItemExtra":"You must pay $1 per card in the Market pool with same symbol ",
-	"helpAuction":" This is how it works when an auction is in progress!",
+	"helpAuction":"This is how it works when an auction is in progress!",
 	"helpWork":"In Work Area you can do one of the following options!",
-	"helpMarket": "hello"
+	"helpMarket": "In Market Area you can rasie value for an item."
 }

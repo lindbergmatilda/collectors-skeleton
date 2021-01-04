@@ -5,7 +5,7 @@
       <h2>{{ "AUCTION" }}</h2>
     </div>
 
-    <div class="popupAuction" @click='helpAuction()'> ? <span class="auctionhelp-text" id="auctionPopup"> {{labels.helpAuction}} <img src="/images/auctionpic.png" ></span>
+    <div class="popupAuction" @click='helpAuction()'> ? <span class="auctionhelp-text" id="auctionPopup"> {{labels.helpAuction}} <img src="/images/auctionpic.png" width='950em'></span>
 
     </div>
 
@@ -221,11 +221,12 @@ button[disabled] {
   padding: 0.5em 0; /* 8/16 */
   position: fixed;
   z-index: 1;
-  top: 40%;
-  left: -25%;
+  top: 10%;
+  left: 15%;
+  border: 0.125em solid black; /* 2/16 */
   margin-left: -3.75em; /* -60/16 */
   font-size: 0.938em; /* 15/16 */
-  scale:0.45;
+
 
 }
 

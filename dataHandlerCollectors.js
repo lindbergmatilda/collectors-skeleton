@@ -906,7 +906,7 @@ for(let i = 0; i<room.players[playerId].skills.length; i++){
   }
 
       if (position === 0 ) {
-        room.players[playerId].income+=2;
+        room.players[playerId].money+=2;
       }
 
       else if (position === 1 ) {

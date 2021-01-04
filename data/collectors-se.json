@@ -25,7 +25,6 @@
 	"highestBid": "HÖGSTA BUDET ÄR: ",
 	"secretCard": "VISA DITT HEMLIGA KORT",
 	"placeBid": "BUDA",
-	"skillHelp": "I Skill-området kan du köpa en grön skill från ett av korten i området, skillen kan hjälpa dig att kamma hem segern!",
 	"currentPlayer": " SPELAR JUST NU",
 	"showRound": "RUNDA: ",
 	"moveActionInfo": "Gör ett drag",
@@ -39,9 +38,10 @@
 	"auctionWinnerMessage": "DU VANN AUKTIONEN! Betala och välj plats för kortet",
 	"startgame":"KLICKA FÖR ATT GÅ MED I SPELET",
 	"playerName":"ANGE SPELARNAMN",
-	"helpItem":"Köp ett rött item från item-området eller från din hand till din unika samling",
+	"helpSkill": "I Skill-området kan du köpa en grön skill från ett av korten i området. Skillen kan hjälpa dig att kamma hem segern!",
+	"helpItem":"I Item-området kan du köpa ett rött item från item-området eller från din hand till din unika samling",
 	"helpItemExtra":"Du måste betala $1 per kort i Market området med samma symbol",
-	"helpAuction":"",
-	"helpWork":"",
+	"helpAuction":"Så här funkar det när en auction börjar!",
+	"helpWork":"I Work-området kan du göra ett av följande alternativ:",
 	"helpMarket": "hello"
 }

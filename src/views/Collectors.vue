@@ -550,6 +550,9 @@ export default {
         this.rounds = d.rounds;
         this.isPlaying = this.whoIsPlaying();
 
+        let messege = document.getElementById("roundOverMessage");
+        messege.classList.toggle('show');
+
       }.bind(this)
     );
 

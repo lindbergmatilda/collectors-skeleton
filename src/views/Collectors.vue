@@ -1699,7 +1699,7 @@ button.big-button:disabled {
   }
   .invite-link {
     position:absolute;
-       top:0.5em;
+       top:10em;
        right:-15em;
     scale:1.1;
   }

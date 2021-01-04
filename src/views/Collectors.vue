@@ -4,11 +4,10 @@
 
 
 
-
+<div class="invite-link">
     {{ labels.invite }}
       <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
-
-
+</div>
 
 
 <div class="firstbuttons">
@@ -22,7 +21,7 @@
       {{ labels.theEnd }}
     </button>
   </div>
-<hr>
+
 
 
 <div class="theWinner" id="theWinner">Find out who won</div>
@@ -1639,6 +1638,20 @@ button.big-button:disabled {
     width: 135%;
 
 
+  }
+
+  .endGame{
+    position:absolute;
+       top:3em;
+       right:-26em;
+    scale:0.63;
+
+  }
+  .invite-link {
+    position:absolute;
+       top:4.5em;
+       right:-7em;
+    scale:1.1;
   }
 
 .opponentsBoard{

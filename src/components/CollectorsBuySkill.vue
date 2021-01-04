@@ -224,7 +224,7 @@ button[disabled]{
     transform: translate(-50%, -50%);
     margin-left: -3.75em; /* -60/16 */
     font-size: 0.938em; /* 15/16 */
-    max-width: 80%;
+    margin-left: 5em;
 }
 
 .popupSkill .skillhelp-text::after {

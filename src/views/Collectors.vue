@@ -1556,7 +1556,7 @@ button.big-button:disabled {
 
 .invite-link {
   position:absolute;
-     top:0em;
+     top:1.5em;
      right:38em;
   scale:1.1;
 }

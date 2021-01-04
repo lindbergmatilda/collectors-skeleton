@@ -25,7 +25,6 @@
 	"secretCard": "SHOW YOUR SECRET CARD",
 	"highestBid": "THE HIGHEST BID: ",
 	"placeBid": "PLACE BID",
-	"skillHelp": "In the Skill Area you can buy a green skill from one of the cards in the area, it might get you one step closer to the great victory",
 	"currentPlayer": " IS PLAYING",
 	"showRound": "ROUND: ",
 	"moveActionInfo": "Make a move",
@@ -39,9 +38,10 @@
 	"auctionWinnerMessage": "YOU WON THE AUCTION! Pay and select location for the card",
 	"startgame": "CLICK HERE TO JOIN THE GAME",
 	"playerName":"ENTER PLAYER NAME",
-	"helpItem":"Buy an red item from the item area or from your hand to your unique collection",
+	"helpSkill": "In the Skill Area you can buy a green skill from one of the cards in the area, it might get you one step closer to the great victory",
+	"helpItem":"In the Item Area you can buy an red item from the item area or from your hand to your unique collection",
 	"helpItemExtra":"You must pay $1 per card in the Market pool with same symbol ",
-	"helpAuction":"",
-	"helpWork":"hello ",
+	"helpAuction":" This is how it works when an auction is in progress!",
+	"helpWork":"In Work Area you can do one of the following options!",
 	"helpMarket": "hello"
 }

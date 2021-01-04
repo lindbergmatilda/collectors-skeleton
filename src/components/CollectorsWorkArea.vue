@@ -1,7 +1,7 @@
 <template>
 <div>
     <center><h2>{{ "WORK" }}</h2></center>
-  <div class="popupWork" @click='helpWork()'> ? <span class="workhelp-text" id="workPopup"> {{labels.helpWork}} <img src="/images/workpic.png" ></span>
+  <div class="popupWork" @click='helpWork()'> ? <span class="workhelp-text" id="workPopup"> {{labels.helpWork}} <div> <img src="/images/workpic.png" width='950em'></div></span>
 
   </div>
 
@@ -172,7 +172,7 @@ button[disabled]{
     cursor: default;
     margin: 1.25em; /* 10/16 */
     margin-top: -2.1em;
-
+    margin-top: -1em;
 
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -191,7 +191,6 @@ button[disabled]{
 .popupWork .workhelp-text {
 
     visibility: hidden;
-    width: 10em; /* 160/16 */
     background-color: #555;
     color: #fff;
     text-align: center;

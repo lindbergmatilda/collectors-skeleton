@@ -5,7 +5,7 @@
       <h2>{{ "AUCTION" }}</h2>
     </div>
 
-    <div class="popupAuction" @click='helpAuction()'> ? <span class="auctionhelp-text" id="auctionPopup"> {{labels.helpAuction}} <img src="/images/auctionpic.png" width='950em'></span>
+    <div class="popupAuction" @click='helpAuction()'> ? <span class="auctionhelp-text" id="auctionPopup"> {{labels.helpAuction}} <div> <img src="/images/auctionpic.png" width='950em'> </div></span>
 
     </div>
 

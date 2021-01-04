@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div class="popupValue" @click='helpValue()'>   ?   <span class="valuehelp-text" id="ValuePopup"> {{labels.helpMarket}} <img src="/images/marketpic.png" ></span>
+  <div class="popupValue" @click='helpValue()'>   ?   <span class="valuehelp-text" id="ValuePopup"> {{labels.helpMarket}} <div><img src="/images/marketpic.png" width='950em'></div></span>
 
   </div>
 <center>  <h2>{{ "MARKET" }}</h2> </center> <br>
@@ -188,7 +188,6 @@ button[disabled]{
 .popupValue .valuehelp-text {
 
     visibility: hidden;
-    width: 10em; /* 160/16 */
     background-color: #555;
     color: #fff;
     text-align: center;

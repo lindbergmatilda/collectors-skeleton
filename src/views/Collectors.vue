@@ -17,18 +17,12 @@
   </button>
 </div>
 
-    <div class="invisPopUp" >
-      <span class="messegePopUp" v-if="players[playerId]" :disabled="!nextRound()" @click="refill()" id="roundOverMessage"  >
-        {{labels.roundOverMessage}}
-      </span>
-    </div>
-
-    <div class="endGame">
-      <button class="big-button" v-if="players[playerId]" @click="countPoints">
-        {{ labels.theEnd }}
-      </button>
-    </div>
-    <hr>
+<div class="endGame">
+  <button class="big-button" v-if="players[playerId]" @click="countPoints">
+      {{ labels.theEnd }}
+    </button>
+  </div>
+<hr>
 
 
 <div class="theWinner" id="theWinner">Find out who won</div>

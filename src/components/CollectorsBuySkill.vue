@@ -82,7 +82,6 @@ export default {
     placeBottle: function(p) {
       this.$emit('placeBottle', p);
       this.highlightAvailableCards(p.cost);
-      console.log(" kostnaden är " + p.cost);
     },
 
     highlightAvailableCards: function(cost = 100) {
@@ -99,7 +98,6 @@ export default {
 
     buySkill: function(card) {
       if (card.available) {
-        console.log("hejsan buyskill funkar");
         this.$emit('buySkill', card)
         this.highlightAvailableCards()
       }
@@ -182,8 +180,13 @@ button[disabled]{
 }
 
 .popupSkill {
+<<<<<<< HEAD
+  left: -6.8em; /* -130/16 */
+  position: relative;
+=======
   left: 11em; /* -130/16 */
   position: absolute;
+>>>>>>> 741243db42edc89ea36dc4227b4c9d8f811f54ec
     text-align: center;
     background-color: #BCDBEA;
     color: white;

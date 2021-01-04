@@ -29,9 +29,15 @@
 <div v-if="theWinner" class="whoWon" id="whoWon"> GRATTIS {{theWinner.name}}</div>
 <div id="overlay"></div>
 
-<div class="currentPlayer">
-  <h5 v-if="isPlaying !== null && auctionRunning == false"> {{isPlaying}} {{ labels.currentPlayer }} </h5>
-</div>
+
+<div class="actiontextbox">
+    <div class="currentPlayer">
+      <h5 v-if="isPlaying !== null && auctionRunning == false"> {{isPlaying}} {{ labels.currentPlayer }} </h5>
+    </div>
+
+
+
+
 
 <div v-if="players[playerId]" class="actionInfo">
   <h5 v-if="players[playerId].myTurn==true && chosenAction ==null && auctionRunning == false"> {{ labels.moveActionInfo }} </h5>
@@ -42,7 +48,7 @@
   <h5 v-else-if="players[playerId].auctionTurn==true && chosenAction == 'pay'">  {{ labels.payActionInfo }} </h5>
   <h5 v-else-if="players[playerId].auctionTurn==true && chosenAction == 'placeCard'">  {{ labels.placeCardActionInfo }} </h5>
 
-
+</div>
 </div>
 
 <div v-if="players[playerId]" class="invisPopUp">
@@ -238,10 +244,12 @@
 
 
 <div class="lightbox">
+
   <div class="iframeContainer">
     <div class="toolbarLB">
 
       <div class="game-name">
+
 
 <h3> {{ labels.playerName }}: </h3>
        <center> <input class="input1" v-if="players[playerId]" type="text" v-model="myName" name="name" placeholder='PLAYER NAME'>
@@ -255,14 +263,16 @@
   </div>
 
   <br><br>
-  <div class="handcards cardslots" v-if="players[playerId]">
+  <div class="handcards cardslots cardslotsecret" v-if="players[playerId]">
     <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="handleAction(card)" :key="index" />
   </div>
+
 
 
 <button class="big-button play" v-if="players[playerId]" @click="enterName(); lightBoxClose()" > {{labels.startgame}}</button>
     </div>
   </div>
+
 </div>
 
 
@@ -935,6 +945,19 @@ main {
   width:95em;
 }
 
+.actiontextbox {
+  background-color: white;
+  opacity: 0.85;
+  padding: 0.7em;
+  box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.2), 0 0.375em 1.25em 0 rgba(0, 0, 0, 0.19); /* 4/16, 8/16, 6/16, 20/16 */
+  border-radius: 0.5em;
+  max-width: 100em;
+  min-width: 20em;
+  position: fixed;
+  -webkit-backface-visibility: hidden;
+  z-index: 10;
+}
+
 .head {
   display: grid;
   grid-template-areas:
@@ -1048,12 +1071,17 @@ main {
   display: inline-block;
   cursor: pointer;
   margin-left: 1.25em; /* 20/16 */
-  font-size: 1.125em; /* 18/16 */
+  font-size: 0.925em; /* 18/16 */
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background-color: beige;
+
+}
+
+.yourSecret:hover{
+  scale:1.3;
+  transition: all 0.3s ease 0.3s;
 }
 
 .yourSecret .secret-popUp {
@@ -1369,7 +1397,7 @@ button[disabled] {
 }
 
 .cardslots div:hover {
-  transform: scale(1)translate(-25%, 0);
+  transform: scale(1)translate(-0.5%, 0%);
   z-index: 2;
 }
 
@@ -1463,7 +1491,7 @@ button {
   outline: none;
   border: 0;
   text-decoration: none;
-  font-size: 1.2em;
+  font-size: 0.9em;
     color:rgb(106, 163, 137);
   font-weight: 700;
   text-transform: uppercase;
@@ -1548,7 +1576,7 @@ button.big-button:disabled {
 
 }
 .toolbarLB {
-  text-align: left;
+  text-align: center;
   padding: 0.188em; /* 3/16 */
 }
 
@@ -1560,6 +1588,12 @@ button.big-button:disabled {
   padding: 1.875em; /* 30/16 */
 
 }
+
+.cardslotsecret {
+  margin-left: 5em;
+}
+
+
 .lightbox.closed {
   display: none;
 }
@@ -1577,8 +1611,9 @@ button.big-button:disabled {
 .play{
   position: relative;
   z-index: 0;
-  margin-top: 6em;
+  margin-top: 8.5em;
   margin-bottom: 2em;
+  scale: 1.4;
 
 
 }
@@ -1620,6 +1655,12 @@ button.big-button:disabled {
   main {
     scale: 0.50;
 
+  }
+
+  .actiontextbox{
+    scale:0.5;
+    position: fixed;
+    -webkit-backface-visibility: hidden;
   }
 
   .head {
@@ -1668,6 +1709,8 @@ button.big-button:disabled {
   margin-left: 7em;
 
 }
+
+
 
 
 

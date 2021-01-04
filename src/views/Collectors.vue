@@ -1521,15 +1521,15 @@ button.big-button:disabled {
 
 .endGame{
   position:absolute;
-     top:2.8em;
+     top:0em;
      right:23em;
   scale:0.63;
 }
 
 .invite-link {
   position:absolute;
-     top:4.5em;
-     right:42em;
+     top:2.5em;
+     right:52em;
   scale:1.1;
 }
 
@@ -1647,20 +1647,19 @@ button.big-button:disabled {
   .your-playerboard {
     width: 135%;
 
-
   }
 
   .endGame{
     position:absolute;
-       top:3em;
-       right:-26em;
+       top: 4em;
+       right: 25em;
     scale:0.63;
 
   }
   .invite-link {
     position:absolute;
-       top:4.5em;
-       right:-7em;
+       top:8em;
+       right:-15em;
     scale:1.1;
   }
 

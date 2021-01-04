@@ -222,7 +222,8 @@ button[disabled] {
   position: fixed;
   z-index: 1;
   top: 10%;
-  left: -25%;
+  left: 15%;
+  border: 0.125em solid black; /* 2/16 */
   margin-left: -3.75em; /* -60/16 */
   font-size: 0.938em; /* 15/16 */
 

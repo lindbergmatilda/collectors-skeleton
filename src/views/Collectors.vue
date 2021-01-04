@@ -1154,7 +1154,8 @@ scale: 0.9;
 
 .box {
   background-color: white;
-  border-radius: 2.5em; /* 40/16 */
+  border: 0.5em solid black;
+  border-radius: 2.5em;  /*40/16 */
   color: black;
   padding: 0.938em; /* 15/16 */
   margin: 0.875em;

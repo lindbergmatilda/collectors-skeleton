@@ -3,7 +3,7 @@
 
   <center>
         <h2>{{ "SKILL" }}</h2>
-    <div class="popupSkill" @click='helpSkill()'>   ?   <span class="skillhelp-text" id="SkillPopup"> {{labels.skillHelp}} <img src="/images/skillInfo.png" > </span>
+    <div class="popupSkill" @click='helpSkill()'>   ?   <span class="skillhelp-text" id="SkillPopup"> {{labels.helpSkill}} <img src="/images/skillInfo.png" > </span>
 
     </div>
 
@@ -180,8 +180,8 @@ button[disabled]{
 }
 
 .popupSkill {
-  left: 2em; /* -130/16 */
-  position: absolute;
+  left: -6em; /* -130/16 */
+  position: relative;
     text-align: center;
     background-color: #BCDBEA;
     color: white;

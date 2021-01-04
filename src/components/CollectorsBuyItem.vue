@@ -1,7 +1,7 @@
 <template>
 <div class="mainItem">
   <center><h2>{{ "ITEM" }}</h2></center>
-  <div class="popupItem" @click='helpItem()'>   ?   <span class="itemhelp-text" id="ItemPopup"> {{labels.helpItem}} <img class="helpPic" src="/images/itempic.png" > </span>
+  <div class="popupItem" @click='helpItem()'>   ?   <span class="itemhelp-text" id="ItemPopup">  {{labels.helpItem}} <img class="helpPic" src="/images/itempic.png" > <div> {{labels.helpItemExtra}} </div> </span>
 
   </div>
 

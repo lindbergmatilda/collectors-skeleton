@@ -101,8 +101,7 @@
 
     <div class="other" v-if="players[playerId]">
 
-
-      {{ labels.bottles }}{{players[playerId].bottles}} <br><br>
+      {{ labels.bottles }}{{numberOfMoves(playerId)}}<br><br>
 
       <div>
         Inkomst per runda: {{players[playerId].income}}
@@ -141,7 +140,7 @@
           <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
             <img id="picskill" :src='showYourSkills(skill, skillInfo)' width="40">
           </div>
-          <h5> {{ labels.bottles }}{{players[playerId].bottles}} </h5>
+          <h5> {{ labels.bottles }}{{numberOfMoves(playerId)}} </h5>
 
 
         </div>
@@ -576,21 +575,22 @@ export default {
 
     numberOfMoves: function(playerId) {
       var moves = 0;
+      if (this.players[playerId].bottles != null){
       for(var i = 0; i < this.players[playerId].bottles.length; i++) {
         if(this.players[playerId].bottles[i] == 1){
         moves++;}
       }
-      document.getElementById("moves").innerHTML = moves;
-
+      return moves;
+      }
 
     },
 
-  changeColor: function(playerId) {
+  /*changeColor: function(playerId) {
             document.getElementById(
               "Myelement").style.backgroundColor =
                 this.players[playerId].colour;
         },
-
+*/
 
 
     lightBoxClose: function() {

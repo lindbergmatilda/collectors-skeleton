@@ -180,8 +180,8 @@ button[disabled]{
 }
 
 .popupSkill {
-  left: 11em; /* -130/16 */
-  position: absolute;
+  left: -6em; /* -130/16 */
+  position: relative;
     text-align: center;
     background-color: #BCDBEA;
     color: white;
@@ -201,7 +201,7 @@ button[disabled]{
 }
 
 .popupSkill:hover{
-  font-size: 1.4em; /* 30/16 */
+  font-size: 1.3em; /* 30/16 */
   cursor: pointer;
   background-color: #5F9EA0;
   transition: all 0.4s ease 0.2s;

@@ -134,7 +134,7 @@
 
 
       <div class="opponentsBoard">
-        <h3> {{ labels.allPlayers }} </h3>
+        <center><h3> {{ labels.allPlayers }} </h3></center>
         <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']" :style='yourColour(playerId)'>
           <h3>{{players[playerId].name}}</h3>
           <h5> {{ labels.items }} </h5>
@@ -1550,14 +1550,14 @@ button.big-button:disabled {
 .endGame{
   position:absolute;
      top:0em;
-     right:23em;
+     right:3em;
   scale:0.63;
 }
 
 .invite-link {
   position:absolute;
-     top:2.5em;
-     right:52em;
+     top:1.5em;
+     right:38em;
   scale:1.1;
 }
 
@@ -1692,14 +1692,14 @@ button.big-button:disabled {
 
   .endGame{
     position:absolute;
-       top: 4em;
-       right: 25em;
+       top: 1em;
+       right: -28em;
     scale:0.63;
 
   }
   .invite-link {
     position:absolute;
-       top:8em;
+       top:2em;
        right:-15em;
     scale:1.1;
   }

@@ -179,7 +179,7 @@ button[disabled]{
 }
 
 .popupValue:hover{
-  font-size: 1.5em; /* 30/16 */
+  font-size: 1.3em; /* 30/16 */
   cursor: pointer;
   background-color: #5F9EA0;
   transition: all 0.4s ease 0.2s;

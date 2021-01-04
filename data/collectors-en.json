@@ -21,7 +21,7 @@
 	"bottles":"MOVES: ",
 	"cardUp":"CARD UP FOR AUCTION",
 	"marketValues":"CURRENT MARKET VALUES",
-	"chooseSecret": "CHOOSE YOUR SECRET CARD",
+	"chooseSecret": "CLICK HERE TO CHOOSE YOUR SECRET CARD",
 	"secretCard": "SECRET CARD",
 	"highestBid": "THE HIGHEST BID: ",
 	"placeBid": "PLACE BID",
@@ -36,6 +36,6 @@
 	"placeCardActionInfo": "Choose where you want to place the auction card",
 	"bidActionInfo": "Place a bid or pass!",
 	"auctionMessage": "AUCTION IN PROGRESS!",
-	"startgame": "START GAME",
+	"startgame": "CLICK HERE TO JOIN THE GAME",
 	"playerName":"ENTER PLAYER NAME"
 }

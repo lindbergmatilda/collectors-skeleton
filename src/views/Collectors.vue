@@ -134,7 +134,7 @@
 
 
       <div class="opponentsBoard">
-        <h3> {{ labels.allPlayers }} </h3>
+        <center><h3> {{ labels.allPlayers }} </h3></center>
         <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']" :style='yourColour(playerId)'>
           <h3>{{players[playerId].name}}</h3>
           <h5> {{ labels.items }} </h5>

@@ -205,10 +205,10 @@ button[disabled] {
 }
 
 .popupAuction:hover{
-  font-size: 1.3em; /* 30/16 */
+  font-size: 1.2em; /* 30/16 */
   cursor: pointer;
   background-color: #5F9EA0;
-  transition: all 0.4s ease 0.2s;
+  transition: all 0.2s ease 0.1s;
 }
 
 .popupAuction .auctionhelp-text {

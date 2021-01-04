@@ -150,7 +150,7 @@ Data.prototype.createRoom = function(roomId, playerCount, lang) {
       position: 0
     },
     {
-      cost: -2,
+      cost: 2,
       playerId: null,
       position: 1
     },

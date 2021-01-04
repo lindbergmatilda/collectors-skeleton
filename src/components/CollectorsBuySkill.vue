@@ -3,7 +3,7 @@
 
   <center>
         <h2>{{ "SKILL" }}</h2>
-    <div class="popupSkill" @click='helpSkill()'>   ?   <span class="skillhelp-text" id="SkillPopup"> {{labels.helpSkill}} <img src="/images/skillInfo.png" > </span>
+    <div class="popupSkill" @click='helpSkill()'>   ?   <span class="skillhelp-text" id="SkillPopup"> {{labels.skillHelp}} <img src="/images/skillInfo.png" > </span>
 
     </div>
 
@@ -219,8 +219,8 @@ button[disabled]{
     padding: 0.5em 0; /* 8/16 */
     position: fixed;
     z-index: 1;
-    top: 50%;
-    left: 50%;
+    top: 20%;
+    left: 60%;
     transform: translate(-50%, -50%);
     margin-left: -3.75em; /* -60/16 */
     font-size: 0.938em; /* 15/16 */

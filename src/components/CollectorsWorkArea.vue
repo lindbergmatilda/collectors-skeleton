@@ -1,9 +1,7 @@
 <template>
 <div>
     <center><h2>{{ "WORK" }}</h2></center>
-
   <div class="popupWork" @click='helpWork()'> ? <span class="workhelp-text" id="workPopup"> {{labels.helpWork}} <img src="/images/workpic.png" ></span>
-
 
   </div>
 

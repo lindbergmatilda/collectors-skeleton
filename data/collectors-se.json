@@ -40,6 +40,7 @@
 	"startgame":"KLICKA FÖR ATT GÅ MED I SPELET",
 	"playerName":"ANGE SPELARNAMN",
 	"helpItem":"Köp ett rött item från item-området eller från din hand till din unika samling",
+	"helpItemExtra":"Du måste betala $1 per kort i Market området med samma symbol",
 	"helpAuction":"",
 	"helpWork":"",
 	"helpMarket": "hello"

@@ -40,6 +40,7 @@
 	"startgame": "CLICK HERE TO JOIN THE GAME",
 	"playerName":"ENTER PLAYER NAME",
 	"helpItem":"Buy an red item from the item area or from your hand to your unique collection",
+	"helpItemExtra":"You must pay $1 per card in the Market pool with same symbol ",
 	"helpAuction":"",
 	"helpWork":"hello ",
 	"helpMarket": "hello"

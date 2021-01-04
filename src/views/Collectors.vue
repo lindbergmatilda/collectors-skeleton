@@ -1549,19 +1549,24 @@ button.big-button:disabled {
 
 .endGame{
   position:absolute;
-     top:0em;
+     top:0.9em;
      right:3em;
   scale:0.63;
 }
 
 .invite-link {
   position:absolute;
-     top:1.5em;
+     top:0em;
      right:38em;
   scale:1.1;
 }
 
-
+.firstbuttons{
+  position:absolute;
+     top:1.5em;
+     right:14em;
+  scale:1.1;
+}
 
 .lightbox {
   position: fixed;
@@ -1693,14 +1698,21 @@ button.big-button:disabled {
   .endGame{
     position:absolute;
        top: 1em;
-       right: -28em;
+       right: -24.5em;
     scale:0.63;
 
   }
   .invite-link {
     position:absolute;
-       top:2em;
-       right:-15em;
+       top:4.5em;
+       right:-22em;
+    scale:1.1;
+  }
+
+  .firstbuttons{
+    position:absolute;
+       top:1.5em;
+       right:12em;
     scale:1.1;
   }
 

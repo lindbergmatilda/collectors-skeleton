@@ -36,6 +36,7 @@
 	"placeCardActionInfo": "Välj vart du vill placera ditt auktionkort",
 	"bidActionInfo": "Lägg ett bud eller stå över!",
 	"auctionMessage": "AUKTION PÅGÅR!",
+	"auctionWinnerMessage": "DU VANN AUKTIONEN! Betala och välj plats för kortet",
 	"startgame":"KLICKA FÖR ATT GÅ MED I SPELET",
 	"playerName":"ANGE SPELARNAMN"
 

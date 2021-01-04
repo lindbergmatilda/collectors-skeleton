@@ -797,6 +797,7 @@ showYourSkills: function(skill, skillInfo){
 
     winnerAuction: function() {
       if (this.players[this.playerId].auctionWinner) {
+        document.getElementById("auctionMessageId").innerHTML = this.labels.auctionWinnerMessage;
         this.highlightHand(true);
         this.chosenAction = "pay";
         return true;
@@ -833,6 +834,7 @@ showYourSkills: function(skill, skillInfo){
 
     claimAuctionCard: function(buttonAction) {
       this.auctionRunning = false;
+      document.getElementById("auctionMessageId").innerHTML = this.labels.auctionMessage;
       this.$store.state.socket.emit('collectorsClaimCard', {
         roomId: this.$route.params.id,
         playerId: this.playerId,

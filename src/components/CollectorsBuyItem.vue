@@ -249,12 +249,12 @@ button[disabled]{
     padding: 0.5em 0; /* 8/16 */
     position: fixed;
     z-index: 1;
-    top: 50%;
-    left: 50%;
+    top: 20%;
+    left: 60%;
     transform: translate(-50%, -50%);
     margin-left: -3.75em; /* -60/16 */
     font-size: 0.938em; /* 15/16 */
-  
+
 }
 
 .popupItem .itemhelp-text .helpPic{

@@ -1,11 +1,8 @@
 <template>
 <div>
     <center><h2>{{ "WORK" }}</h2></center>
-<<<<<<< HEAD
-  <div class="popupWork" @click='helpWork()'> ? <span class="workhelp-text" id="workPopup">{{labels.helpWork}} </span>
-=======
+
   <div class="popupWork" @click='helpWork()'> ? <span class="workhelp-text" id="workPopup"> <img src="/images/workpic.png" ></span>
->>>>>>> ddf9ff2e6fb4ab5f16127cae22600f41fa21aeab
 
   </div>
 

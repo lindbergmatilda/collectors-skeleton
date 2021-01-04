@@ -1655,10 +1655,11 @@ button.big-button:disabled {
 
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 680px) {
 
   main {
-    scale: 0.50;
+    scale: 0.9;
+    margin-top: -10em;
 
   }
 

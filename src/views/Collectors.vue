@@ -1626,6 +1626,15 @@ button.big-button:disabled {
 
   }
 
+  .lightbox {
+  scale: 0.9;
+  margin-right: auto;
+  margin-left: auto;
+  width: 1000px;
+  }
+
+
+
   .your-playerboard {
     width: 135%;
 

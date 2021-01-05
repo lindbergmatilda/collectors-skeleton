@@ -13,7 +13,7 @@
   <div class="item-left-right">
 
     <div class="right auction-item">
-      <div v-for="(card, index) in auctionCards" :key="index">
+      <div class="cardslots" v-for="(card, index) in auctionCards" :key="index">
         <CollectorsCard :card="card" :availableAction="card.available" @doAction="auctionItem(card)" />
       </div>
     </div>
@@ -182,6 +182,11 @@ button[disabled] {
   transform-origin: top;
 }
 
+.cardslots:hover {
+  transform: scale(2)translate(-0.5%, 0%);
+  z-index: 2;
+}
+
 .popupAuction {
   left: -5.75em; /* -140/16 */
 
@@ -203,6 +208,7 @@ button[disabled] {
   user-select: none;
 
 }
+
 
 .popupAuction:hover{
   font-size: 1.2em; /* 30/16 */

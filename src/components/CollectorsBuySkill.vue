@@ -11,7 +11,7 @@
   <div class="item-left-right">
 
     <div class="left buy-skill">
-      <div v-for="(card, index) in skillsOnSale" :key="index">
+      <div class="cardslots" v-for="(card, index) in skillsOnSale" :key="index">
         <CollectorsCard :card="card" :availableAction="card.available" @doAction="buySkill(card)" />
       </div>
     </div>
@@ -115,6 +115,11 @@ export default {
   grid-template-rows: 1fr;
 
 
+}
+
+.cardslots:hover {
+  transform: scale(2)translate(-0.5%, 0%);
+  z-index: 2;
 }
 
 .buttons {

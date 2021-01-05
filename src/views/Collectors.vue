@@ -24,9 +24,9 @@
 
 
 
-<div class="theWinner" id="theWinner">Find out who won</div>
-<button class="winner" id="winner" @click="winner">WINNER</button>
-<div v-if="theWinner" class="whoWon" id="whoWon"> GRATTIS {{theWinner.name}}</div>
+<div class="theWinner" id="theWinner"> {{ labels.findOutWinner }} </div>
+<button class="winner" id="winner" @click="winner"> {{ labels.winnerButton }} </button>
+<div v-if="theWinner" class="whoWon" id="whoWon"> {{ labels.congratz }} {{theWinner.name}} <img src="/images/trophy.jpg" width='500em'> </div>
 <div id="overlay"></div>
 
 
@@ -1494,13 +1494,16 @@ button[disabled] {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 0.125em solid black; /* 2/16 */
-  border-radius: 0.625em; /* 10/16 */
+  border: 0.125em solid gold; /* 2/16 */
+  border-radius: 0.5em; /* 10/16 */
   z-index: 10;
   background-color: white;
   font-size: 6.25em; /* 100/16 */
+  width: 10em; /* 400/16 */
+  height: 4.5em; /* 250/16 */
   max-width: 80%;
   font-weight: bold;
+  text-align: center;
 }
 
 #overlay {
@@ -1522,10 +1525,11 @@ button[disabled] {
   left: 50%;
   transform: translate(-50%, -50%);
   border: 0.125em solid black; /* 2/16 */
+  border-radius: 0.5em; /* 10/16 */
   z-index: 10;
   background-color: gold;
-  width: 6.25em; /* 100/16 */
-  height: 6.25em; /* 100/16 */
+  width: 8em; /* 100/16 */
+  height: 8em; /* 100/16 */
   color: black;
   font-family: "Lexend Deca", sans-serif;
   font-size: 1.25em; /* 20/16 */
@@ -1538,12 +1542,12 @@ button[disabled] {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 0.125em solid black; /* 2/16 */
+  border: 0.125em solid gold; /* 2/16 */
   border-radius: 0.625em; /* 10/16 */
   z-index: 10;
-  background-color: gold;
+  background-color: white;
   width: 12em; /* 400/16 */
-  height: 2em; /* 250/16 */
+  height: 6em; /* 250/16 */
   color: black;
   font-family: "Lexend Deca", sans-serif;
   font-size: 5em; /* 80/16 */

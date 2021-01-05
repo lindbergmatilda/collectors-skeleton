@@ -45,5 +45,8 @@
 	"helpAuction":"This is how it works when an auction is in progress!",
 	"helpWork":"In Work Area you can do one of the following options!",
 	"helpMarket": "In Market Area you can rasie value for an item.",
-	"helpYour":"Here is what you have on your unique playerboard!"
+	"helpYour":"Here is what you have on your unique playerboard!",
+	"findOutWinner" : "Find out who won",
+	"winnerButton": "CLICK HERE",
+	"congratz": "CONGRATULATIONS"
 }

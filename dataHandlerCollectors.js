@@ -986,7 +986,8 @@ Data.prototype.placeBottle = function(roomId, playerId, action, cost, position) 
     for (let i = 0; i < activePlacement.length; i += 1) {
       if (activePlacement[i].position === position &&
         activePlacement[i].playerId === null) {
-        activePlacement[i].playerId = playerId;
+          let name = room.players[playerId].name;
+        activePlacement[i].playerId = name;
         break;
       }
     }

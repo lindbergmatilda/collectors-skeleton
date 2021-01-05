@@ -24,9 +24,9 @@
 
 
 
-<div class="theWinner" id="theWinner">Find out who won</div>
-<button class="winner" id="winner" @click="winner">WINNER</button>
-<div v-if="theWinner" class="whoWon" id="whoWon"> GRATTIS {{theWinner.name}} <img src="/images/trophy.jpg" width='500em'> </div>
+<div class="theWinner" id="theWinner"> {{ labels.findOutWinner }} </div>
+<button class="winner" id="winner" @click="winner"> {{ labels.winnerButton }} </button>
+<div v-if="theWinner" class="whoWon" id="whoWon"> {{ labels.congratz }} {{theWinner.name}} <img src="/images/trophy.jpg" width='500em'> </div>
 <div id="overlay"></div>
 
 
@@ -1496,7 +1496,7 @@ button[disabled] {
   z-index: 10;
   background-color: white;
   font-size: 6.25em; /* 100/16 */
-  width: 12em; /* 400/16 */
+  width: 10em; /* 400/16 */
   height: 4.5em; /* 250/16 */
   max-width: 80%;
   font-weight: bold;

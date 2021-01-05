@@ -44,5 +44,8 @@
 	"helpItemExtra":"Du måste betala $1 per kort i Market området med samma symbol",
 	"helpAuction":"Så här funkar det när en auction börjar!",
 	"helpWork":"I Work-området kan du göra ett av följande alternativ:",
-	"helpMarket": "I Market-området kan du öka värdet på ett item"
+	"helpMarket": "I Market-området kan du öka värdet på ett item",
+	"findOutWinner" : "Få reda på vem som vann",
+	"winnerButton": "KLICKA HÄR",
+	"congratz": "GRATTIS"
 }

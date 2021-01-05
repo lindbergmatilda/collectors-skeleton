@@ -1046,7 +1046,8 @@ main {
   z-index: 1;
   bottom: 125%;
   left: 50%;
-  margin-left: 6.25em; /* 100/16 */
+  margin-left: 2em; /* 100/16 */
+  margin-bottom: -2.2em;
 }
 
 .invisPopUp .messegePopUp::after {
@@ -1651,8 +1652,6 @@ button.big-button:disabled {
 
   }
 
-
-
 }
 
 @media screen and (max-width: 680px) {
@@ -1722,11 +1721,6 @@ button.big-button:disabled {
   margin-left: 7em;
 
 }
-
-
-
-
-
 
 }
 

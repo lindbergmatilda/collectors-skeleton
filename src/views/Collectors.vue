@@ -143,12 +143,16 @@
         <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']" :style='yourColour(playerId)'>
           <h3>{{players[playerId].name}}</h3>
           <h5> {{ labels.items }} </h5>
-          <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
+          <div>
+          <span v-for="(itemInfo, item) in players[playerId].items" :key="item">
             <img id="picitem" :src='showYourItem(item, itemInfo)' width="60">
+          </span>
           </div>
           <h5> {{ labels.skills }} </h5>
-          <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
+          <div>
+          <span v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
             <img id="picskill" :src='showYourSkills(skill, skillInfo)' width="40">
+          </span>
           </div>
           <h5> {{ labels.bottles }}{{numberOfMoves(playerId)}} </h5>
 
@@ -1056,7 +1060,8 @@ main {
   z-index: 1;
   bottom: 125%;
   left: 50%;
-  margin-left: 6.25em; /* 100/16 */
+  margin-left: 2em; /* 100/16 */
+  margin-bottom: -2.2em;
 }
 
 .invisPopUp .messegePopUp::after {
@@ -1722,8 +1727,6 @@ button.big-button:disabled {
 
   }
 
-
-
 }
 
 @media screen and (max-width: 680px) {
@@ -1793,11 +1796,6 @@ button.big-button:disabled {
   margin-left: 7em;
 
 }
-
-
-
-
-
 
 }
 

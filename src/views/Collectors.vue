@@ -563,6 +563,7 @@ export default {
         this.skillPlacement = d.placements.skillPlacement;
         this.marketPlacement = d.placements.marketPlacement;
         this.auctionPlacement = d.placements.auctionPlacement;
+        this.workPlacement = d.placements.workPlacement;
 
         this.rounds = d.rounds;
         this.isPlaying = this.whoIsPlaying();

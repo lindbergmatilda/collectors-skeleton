@@ -67,6 +67,11 @@
 
 <div class="head">
   <div class="your-playerboard">
+
+    <div class="popupYour" @click='helpYour()'>   ?   <span class="yourhelp-text" id="YourPopup"> HIT SKA BILDEN hejhopp{{labels.helpYour}}</span>
+
+    </div>
+
     <div class="rubrik">
       <center>
         <h2 v-if="players[playerId]">{{players[playerId].name}} <br>{{ labels.yourPlayerBoard}} </h2>
@@ -138,12 +143,16 @@
         <div v-for="(playerInfo, playerId) in players" :key="playerId" :class="['box']" :style='yourColour(playerId)'>
           <h3>{{players[playerId].name}}</h3>
           <h5> {{ labels.items }} </h5>
-          <div v-for="(itemInfo, item) in players[playerId].items" :key="item">
+          <div>
+          <span v-for="(itemInfo, item) in players[playerId].items" :key="item">
             <img id="picitem" :src='showYourItem(item, itemInfo)' width="60">
+          </span>
           </div>
           <h5> {{ labels.skills }} </h5>
-          <div v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
+          <div>
+          <span v-for="(skillInfo, skill) in players[playerId].skills" :key="skill">
             <img id="picskill" :src='showYourSkills(skill, skillInfo)' width="40">
+          </span>
           </div>
           <h5> {{ labels.bottles }}{{numberOfMoves(playerId)}} </h5>
 
@@ -582,6 +591,11 @@ export default {
 
   methods: {
 
+    helpYour: function() {
+      var popupYour = document.getElementById('YourPopup');
+      popupYour.classList.toggle('show');
+
+    },
 
     numberOfMoves: function(playerId) {
       var moves = 0;
@@ -1146,6 +1160,67 @@ scale: 0.9;
 
 .rubrik {
   grid-area: rubrik;
+}
+
+.popupYour {
+  position: absolute;
+    text-align: center;
+    background-color: #BCDBEA;
+    color: white;
+    border-radius: 50%;
+    width: 1.5em; /* 24/16 */
+    height: 1.5em; /* 24/16 */
+    font-size: 1.188em; /* 19/16 */
+    line-height: 1.625em; /* 26/16 */
+    cursor: default;
+    margin: 1.825em; /* 10/16 */
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+}
+
+.popupYour:hover{
+  font-size: 1.3em; /* 30/16 */
+  cursor: pointer;
+  background-color: #5F9EA0;
+  transition: all 0.4s ease 0.2s;
+}
+
+.popupYour .yourhelp-text {
+
+    visibility: hidden;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 0.375em; /* 6/16 */
+    padding: 0.5em 0; /* 8/16 */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -3.75em; /* -60/16 */
+    font-size: 0.938em; /* 15/16 */
+
+}
+
+.popupYour .yourhelp-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -0.313em; /* -5/16 */
+  border-width: 0.313em; /* 5/16 */
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.popupYour .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
 }
 
 .yourskills {

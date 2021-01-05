@@ -754,6 +754,9 @@ Data.prototype.refillGameboard = function(roomId) {
     for (let i = 0; i < room.marketPlacement.length; i++) {
       room.marketPlacement[i].playerId = null;
     }
+    for (let i = 0; i < room.workPlacement.length; i++) {
+      room.workPlacement[i].playerId = null;
+    }
     room.rounds +=1;
   }
 }

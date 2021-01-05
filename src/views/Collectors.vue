@@ -1462,8 +1462,8 @@ button[disabled] {
   border-radius: 0.625em; /* 10/16 */
   z-index: 10;
   background-color: gold;
-  width: 25em; /* 400/16 */
-  height: 15.625em; /* 250/16 */
+  width: 12em; /* 400/16 */
+  height: 2em; /* 250/16 */
   color: black;
   font-family: "Lexend Deca", sans-serif;
   font-size: 5em; /* 80/16 */

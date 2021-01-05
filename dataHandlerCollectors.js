@@ -292,8 +292,10 @@ Data.prototype.countPoints = function(roomId, playerId, marketValues) {
   if (typeof room !== 'undefined') {
     for (let i = 0; i < room.playerList.length; i++) {
       let valuePoints = 0;
-      let dict = {music: 0, fastaval:0, technology:0, movie: 0, figures:0};
-      let allItems = false;
+      let dict        = {music: 0, fastaval:0, technology:0, movie: 0, figures:0};
+      let allItems    = false;
+      let secret      = room.playerList[i].secret.item;
+      dict[secret]    += 1;
       for (let j = 0; j < room.playerList[i].items.length; j++) {
         let theItem = room.playerList[i].items[j].item;
         dict[theItem] += 1;

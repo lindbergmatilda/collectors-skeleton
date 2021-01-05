@@ -109,7 +109,7 @@
       {{ labels.bottles }}{{numberOfMoves(playerId)}}<br><br>
 
       <div>
-        Inkomst per runda: {{players[playerId].income}}
+      {{ labels.income }} {{players[playerId].income}}
       </div><br>
       <center> <img class="coinpic" src="/images/coinpicss.png" width="70"> x {{players[playerId].money}} </center> <br>
       <br>

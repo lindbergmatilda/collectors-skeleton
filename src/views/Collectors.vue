@@ -47,6 +47,7 @@
   <h5 v-else-if="players[playerId].auctionTurn==true && chosenAction == 'bid'">  {{ labels.bidActionInfo }} </h5>
   <h5 v-else-if="players[playerId].auctionTurn==true && chosenAction == 'pay'">  {{ labels.payActionInfo }} </h5>
   <h5 v-else-if="players[playerId].auctionTurn==true && chosenAction == 'placeCard'">  {{ labels.placeCardActionInfo }} </h5>
+  <h5 v-if="!playersReady()"> {{labels.inviteInfo}}</h5>
 
 </div>
 </div>

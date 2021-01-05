@@ -668,6 +668,9 @@ export default {
           }
         }
       }
+      if (this.auctionRunning){
+        return false;
+      }
       if(this.rounds < 4){
         let messege = document.getElementById("roundOverMessage");
         messege.classList.toggle('show');
@@ -860,6 +863,7 @@ showYourSkills: function(skill, skillInfo){
 
     claimAuctionCard: function(buttonAction) {
       this.auctionRunning = false;
+      this.nextRound();
       document.getElementById("auctionMessageId").innerHTML = this.labels.auctionMessage;
       this.$store.state.socket.emit('collectorsClaimCard', {
         roomId: this.$route.params.id,

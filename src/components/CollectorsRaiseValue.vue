@@ -132,6 +132,7 @@ margin: 0.075em; /* 6/16 */
   font-family: "Lexend Deca", sans-serif;
   font-size: 1.25em; /* 20/16 */
 
+  cursor: default;
   background: lightblue;
   border-radius: 1.25em; /* 20/16 */
   border: none;
@@ -147,7 +148,7 @@ margin: 0.075em; /* 6/16 */
   transition: all 0.4s ease 0.2s;
   background: #63b5cf;
   width: 5.875em; /* 110/16 */
-
+  cursor: pointer;
 
 
 }

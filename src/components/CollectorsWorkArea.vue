@@ -112,7 +112,6 @@ export default {
 
 .buttons {
 
-
   display: grid;
   margin-left: 1.875em; /* 30/16 */
   grid-template-rows: repeat(auto-fill, 4.375em); /* 70/16 */
@@ -123,7 +122,7 @@ export default {
 .button {
   width:  9.738em; /* 135/16 */
   height: 3.625em; /* 58/16 */
-
+  cursor: default;
 
   color: black;
   text-transform:capitalize;
@@ -146,7 +145,7 @@ export default {
   transition: all 0.4s ease 0.2s;
   background: #cc80ff;
   font-size: 0.96em; /* 20/16 */
-
+  cursor: pointer;
 
 
 }

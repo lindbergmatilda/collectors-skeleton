@@ -145,6 +145,7 @@ export default {
   border-radius: 1.25em; /* 20/16 */
   border: none;
   transition: all 0.4s ease 0s;
+  cursor: default;
 
 
 }
@@ -156,6 +157,7 @@ export default {
   transition: all 0.4s ease 0.2s;
   background: #2eb82e;
   width: 4.975em; /* 110/16 */
+  cursor: pointer;
 
 
 }

@@ -135,6 +135,7 @@ export default {
   width: 5.625em; /* 90/16 */
   height: 3.125em; /* 50/16 */
   margin-top: 1.875em; /* 30/16 */
+  cursor: default;
 
   color: black;
   text-transform: capitalize;
@@ -157,7 +158,7 @@ export default {
   transition: all 0.4s ease 0.2s;
   background: #ffc34d;
   width: 6.875em; /* 110/16 */
-
+  cursor: pointer;
 
 }
 

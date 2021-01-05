@@ -19,6 +19,7 @@
 	"allPlayers": "ALLA SPELARE",
 	"playerID": "SPELAR ID: ",
 	"bottles":"ANTAL FLASKOR: ",
+	"income": "Inkomst per runda: ",
 	"cardUp":"KORT FÖR AUKTION",
 	"marketValues": "MARKNADSVÄRDEN",
 	"chooseSecret": "KLICKA HÄR OCH VÄLJ ETT HEMLIGT KORT",

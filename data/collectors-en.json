@@ -9,7 +9,7 @@
 	"auctionItem": "Start an auction",
 	"firstPlayer": "I GO FIRST",
 	"refill": "Next round",
-	"roundOverMessage": "All players have used their bottles, start next round!",
+	"roundOverMessage": "All players have used their bottles. Click here to start next round!",
 	"workArea": "Work Area",
 	"theEnd": "End Game and count points",
 	"yourPlayerBoard": "YOUR PLAYER BOARD",
@@ -44,5 +44,6 @@
 	"helpItemExtra":"You must pay $1 per card in the Market pool with same symbol ",
 	"helpAuction":"This is how it works when an auction is in progress!",
 	"helpWork":"In Work Area you can do one of the following options!",
-	"helpMarket": "In Market Area you can rasie value for an item."
+	"helpMarket": "In Market Area you can rasie value for an item.",
+	"helpYour":"Here is what you have on your unique playerboard!"
 }

@@ -9,7 +9,7 @@
 	"auctionItem": "Starta en auction",
 	"firstPlayer": "JAG BÖRJAR",
 	"refill": "Nästa runda",
-	"roundOverMessage": "Alla spelare har förbrukat sina flaskor, starta nästa runda!",
+	"roundOverMessage": "Alla spelare har förbrukat sina flaskor. Klicka här för att starta nästa runda!",
 	"workArea": "Arbetsplats",
 	"theEnd": "AVSLUTA SPELET",
 	"yourPlayerBoard": "DITT SPELBRÄDE",
@@ -44,5 +44,6 @@
 	"helpItemExtra":"Du måste betala $1 per kort i Market området med samma symbol",
 	"helpAuction":"Så här funkar det när en auction börjar!",
 	"helpWork":"I Work-området kan du göra ett av följande alternativ:",
-	"helpMarket": "I Market-området kan du öka värdet på ett item"
+	"helpMarket": "I Market-området kan du öka värdet på ett item",
+	"helpYour":"Det här har du på din unika spelarbräde!"
 }

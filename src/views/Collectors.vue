@@ -68,7 +68,7 @@
 <div class="head">
   <div class="your-playerboard">
 
-    <div class="popupYour" @click='helpYour()'>   ?   <span class="yourhelp-text" id="YourPopup"> HIT SKA BILDEN hejhopp{{labels.helpYour}}</span>
+    <div class="popupYour" @click='helpYour()'>   ?   <span class="yourhelp-text" id="YourPopup"> {{labels.helpYour}} <div><img  src="/images/playerpic.png" width="550em" ></div> </span>
 
     </div>
 
@@ -1191,18 +1191,21 @@ scale: 0.9;
 
 .popupYour .yourhelp-text {
 
-    visibility: hidden;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 0.375em; /* 6/16 */
-    padding: 0.5em 0; /* 8/16 */
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -3.75em; /* -60/16 */
-    font-size: 0.938em; /* 15/16 */
+  visibility: hidden;
+
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 0.625em; /* 10/16 */
+  border: 0.125em solid black; /* 2/16 */
+  padding: 0.5em 0; /* 8/16 */
+  position: fixed;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-left: -3.75em; /* -60/16 */
+  font-size: 0.938em; /* 15/16 */
 
 }
 

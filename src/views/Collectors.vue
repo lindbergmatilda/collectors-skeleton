@@ -117,10 +117,10 @@
       {{ labels.income }} {{players[playerId].income}}
       </div><br>
    <img class="coinpic" src="/images/coinpicss.png" width="60"> x {{players[playerId].money}} <br>
-      <br>
+      <br><br>
       <!-- SECRETCARD: -->
       <div class="yourSecret" v-if="players[playerId]" @click='yourSecret()'> {{labels.secretCard }}
-        <img src="/images/chest.png" width="35px">
+        <center><img src="/images/chest.png" width="35px"></center>
         <span class="secret-popUp" id="secretYours">
           <CollectorsCard v-for="(card, index) in players[playerId].secret" :card="card" :key="index" />
         </span>

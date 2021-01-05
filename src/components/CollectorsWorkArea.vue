@@ -196,7 +196,7 @@ button[disabled]{
     text-align: center;
     border-radius: 0.375em; /* 6/16 */
     padding: 0.5em 0; /* 8/16 */
-    position: absolute;
+    position: fixed;
     z-index: 1;
     bottom: 125%;
     left: 50%;

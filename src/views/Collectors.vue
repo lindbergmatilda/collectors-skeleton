@@ -1200,9 +1200,9 @@ scale: 0.9;
   border: 0.125em solid black; /* 2/16 */
   padding: 0.5em 0; /* 8/16 */
   position: fixed;
-  z-index: 1;
+  z-index: 3;
   top: 50%;
-  left: 50%;
+  left: 60%;
   transform: translate(-50%, -50%);
   margin-left: -3.75em; /* -60/16 */
   font-size: 0.938em; /* 15/16 */
@@ -1780,15 +1780,15 @@ button.big-button:disabled {
 
   .endGame{
     position:absolute;
-       top: 1em;
-       right: -24.5em;
+       top: 3em;
+       right: -15.5em;
     scale:0.63;
 
   }
   .invite-link {
     position:absolute;
        top:4.5em;
-       right:-22em;
+       right:6em;
     scale:1.1;
   }
 

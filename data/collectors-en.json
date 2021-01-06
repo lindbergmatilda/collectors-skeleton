@@ -1,7 +1,7 @@
 {
 	"draw": "Draw card",
 	"claim": "Claim the Auction Card",
-	"invite": "Invite other players with this link:",
+	"invite": "Click here to copy invitation link",
 	"endTurn": "End turn",
 	"buyItem": "Buy an item",
 	"buySkill": "Buy a skill",

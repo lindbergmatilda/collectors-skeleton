@@ -4,10 +4,18 @@
 
 
 
-<div class="invite-link">
-    {{ labels.invite }}
-      <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
-</div>
+
+
+    <div class="headline">
+      <center><h1>COLLECTORS</h1></center>
+    </div>
+
+
+
+
+<input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly" id="myInput" class="myInput">
+<button class="invite-button" @click="linkFunction()" >{{ labels.invite }}
+</button>
 
 
 <div class="firstbuttons">
@@ -30,6 +38,20 @@
 <div id="overlay"></div>
 
 
+
+
+<div v-if="players[playerId]" class="invisPopUp">
+  <span class="messegePopUp" :disabled="!nextRound()" @click="refill()" id="roundOverMessage">
+    {{labels.roundOverMessage}}
+  </span>
+</div>
+
+<div class="auctionPopUp">
+  <span class="auctionMessage" id="auctionMessageId">
+    {{labels.auctionMessage}}
+  </span>
+</div>
+
 <div class="actiontextbox">
     <div class="currentPlayer">
       <h5 v-if="isPlaying !== null && auctionRunning == false"> {{isPlaying}} {{ labels.currentPlayer }} </h5>
@@ -51,24 +73,12 @@
 </div>
 </div>
 
-<div v-if="players[playerId]" class="invisPopUp">
-  <span class="messegePopUp" :disabled="!nextRound()" @click="refill()" id="roundOverMessage">
-    {{labels.roundOverMessage}}
-  </span>
-</div>
-
-<div class="auctionPopUp">
-  <span class="auctionMessage" id="auctionMessageId">
-    {{labels.auctionMessage}}
-  </span>
-</div>
-
-
-
 <div class="head">
+
+
   <div class="your-playerboard">
 
-    <div class="popupYour" @click='helpYour()'>   ?   <span class="yourhelp-text" id="YourPopup"> {{labels.helpYour}} <div><img  src="/images/playerpic.png" width="550em" ></div> </span>
+    <div class="popupYour" @click='helpYour()'>   ?   <span class="yourhelp-text" id="YourPopup"> {{labels.helpYour}} <div><img  src="/images/playerpic.png" width="500em" ></div> </span>
 
     </div>
 
@@ -159,6 +169,8 @@
 
         </div>
       </div>
+
+
 
 
   <div class="gamezone">
@@ -591,6 +603,14 @@ export default {
 
   methods: {
 
+    linkFunction: function() {
+  var copyText = document.getElementById("myInput");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999)
+  document.execCommand("copy");
+  alert("Following link is copied to your clipboard: " + copyText.value);
+},
+
     helpYour: function() {
       var popupYour = document.getElementById('YourPopup');
       popupYour.classList.toggle('show');
@@ -953,6 +973,54 @@ header {
   pointer-events: none;
 }
 
+.headline {
+  padding:0.8em;
+  height: 2em;
+font-family: 'Helvetica Neue', sans-serif;
+font-size: 2em;
+font-weight: bold;
+letter-spacing: -1px;
+  color: #313131;
+  -webkit-animation: colorchange 15s infinite alternate;
+  text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+}
+
+@-webkit-keyframes colorchange {
+  0% {
+    color: #26A69A;
+  }
+  10% {
+    color: #8e44ad;
+  }
+  20% {
+    color: #1abc9c;
+  }
+  30% {
+    color: #d35400;
+  }
+  40% {
+    color: #26A69A;
+  }
+  50% {
+    color: #lightgrey;
+  }
+  60% {
+    color: #26A69A;
+  }
+  70% {
+    color: #2980b9;
+  }
+  80% {
+    color: #f1c40f;
+  }
+  90% {
+    color: #2980b9;
+  }
+  100% {
+    color: pink;
+  }
+}
+
 main {
   user-select: none;
   margin-right: auto;
@@ -960,18 +1028,52 @@ main {
   width:95em;
 }
 
+
+.invite-button {
+
+  top: -4em;
+  left: -7em;
+  background-color: pink;
+  color: #FFF;
+  border: 1px solid rgba(255,255,255,0.5);
+  font-weight: lighter;
+  padding:0.5em 2em;
+  width: 30em;
+}
+
+.invite-button:hover {
+  letter-spacing: 1px;
+
+}
+
+
+  .invite-button:hover::after {
+    opacity: 0;
+    transform: scale(0.1, 1);
+  }
+
+
+
+.myInput{
+  scale:0.001;
+}
+
+
 .actiontextbox {
   background-color: white;
   opacity: 0.85;
-  padding: 0.7em;
   box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.2), 0 0.375em 1.25em 0 rgba(0, 0, 0, 0.19); /* 4/16, 8/16, 6/16, 20/16 */
   border-radius: 0.5em;
-  max-width: 100em;
+  max-width: 28em;
   min-width: 20em;
-  position: fixed;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+
   -webkit-backface-visibility: hidden;
   z-index: 10;
 }
+
 
 .head {
   display: grid;
@@ -1200,7 +1302,7 @@ scale: 0.9;
   border: 0.125em solid black; /* 2/16 */
   padding: 0.5em 0; /* 8/16 */
   position: fixed;
-  z-index: 3;
+  z-index: 10;
   top: 50%;
   left: 60%;
   transform: translate(-50%, -50%);
@@ -1640,8 +1742,9 @@ button.big-button:disabled {
 
 .invite-link {
   position:absolute;
-     top:1.5em;
-     right:41em;
+  align-items: start;
+     top:8.5em;
+     padding-left: 4.7em;
   scale:1.1;
 }
 

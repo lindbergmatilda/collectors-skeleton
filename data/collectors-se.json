@@ -19,7 +19,7 @@
 	"allPlayers": "ALLA SPELARE",
 	"playerID": "SPELAR ID: ",
 	"bottles":"ANTAL FLASKOR: ",
-	"income": "Inkomst per runda: ",
+	"income": "INKOMST PER RUNDA: ",
 	"cardUp":"KORT FÖR AUKTION",
 	"marketValues": "MARKNADSVÄRDEN",
 	"chooseSecret": "KLICKA HÄR OCH VÄLJ ETT HEMLIGT KORT",
@@ -48,5 +48,6 @@
 	"helpYour":"Det här har du på din unika spelarbräde!",
 	"findOutWinner" : "Få reda på vem som vann",
 	"winnerButton": "KLICKA HÄR",
-	"congratz": "GRATTIS"
+	"congratz": "GRATTIS",
+	"inviteInfo": "BJUD IN FLER SPELARE FÖR ATT KÖRA COLLECTORS!"
 }

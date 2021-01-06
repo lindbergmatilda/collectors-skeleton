@@ -11,7 +11,7 @@
   <div class="item-left-right">
 
     <div class="left buy-skill">
-      <div v-for="(card, index) in skillsOnSale" :key="index">
+      <div class="cardslots" v-for="(card, index) in skillsOnSale" :key="index">
         <CollectorsCard :card="card" :availableAction="card.available" @doAction="buySkill(card)" />
       </div>
     </div>
@@ -117,6 +117,11 @@ export default {
 
 }
 
+.cardslots:hover {
+  transform: scale(2)translate(-0.5%, 0%);
+  z-index: 2;
+}
+
 .buttons {
   width: 4.375em; /* 70/16 */
   display: grid;
@@ -140,6 +145,7 @@ export default {
   border-radius: 1.25em; /* 20/16 */
   border: none;
   transition: all 0.4s ease 0s;
+  cursor: default;
 
 
 }
@@ -151,6 +157,7 @@ export default {
   transition: all 0.4s ease 0.2s;
   background: #2eb82e;
   width: 4.975em; /* 110/16 */
+  cursor: pointer;
 
 
 }

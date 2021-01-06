@@ -69,6 +69,7 @@
   <h5 v-else-if="players[playerId].auctionTurn==true && chosenAction == 'bid'">  {{ labels.bidActionInfo }} </h5>
   <h5 v-else-if="players[playerId].auctionTurn==true && chosenAction == 'pay'">  {{ labels.payActionInfo }} </h5>
   <h5 v-else-if="players[playerId].auctionTurn==true && chosenAction == 'placeCard'">  {{ labels.placeCardActionInfo }} </h5>
+  <h5 v-if="!playersReady()"> {{labels.inviteInfo}}</h5>
 
 </div>
 </div>
@@ -126,11 +127,11 @@
       <div>
       {{ labels.income }} {{players[playerId].income}}
       </div><br>
-      <center> <img class="coinpic" src="/images/coinpicss.png" width="70"> x {{players[playerId].money}} </center> <br>
-      <br>
+   <img class="coinpic" src="/images/coinpicss.png" width="60"> x {{players[playerId].money}} <br>
+      <br><br>
       <!-- SECRETCARD: -->
-      <div class="yourSecret" v-if="players[playerId]" @click='yourSecret()'> {{ labels.secretCard }}
-        <img src="/images/chest.png" width="40px">
+      <div class="yourSecret" v-if="players[playerId]" @click='yourSecret()'> {{labels.secretCard }}
+        <center><img src="/images/chest.png" width="35px"></center>
         <span class="secret-popUp" id="secretYours">
           <CollectorsCard v-for="(card, index) in players[playerId].secret" :card="card" :key="index" />
         </span>
@@ -688,6 +689,9 @@ export default {
           }
         }
       }
+      if (this.auctionRunning){
+        return false;
+      }
       if(this.rounds < 4){
         let messege = document.getElementById("roundOverMessage");
         messege.classList.toggle('show');
@@ -880,6 +884,7 @@ showYourSkills: function(skill, skillInfo){
 
     claimAuctionCard: function(buttonAction) {
       this.auctionRunning = false;
+      this.nextRound();
       document.getElementById("auctionMessageId").innerHTML = this.labels.auctionMessage;
       this.$store.state.socket.emit('collectorsClaimCard', {
         roomId: this.$route.params.id,

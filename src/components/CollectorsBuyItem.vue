@@ -11,7 +11,7 @@
 <div class="upper-grid">
   <div class="buy-item">
 
-    <div v-for="(card, index) in itemsOnSale" :key="index">
+    <div class="cardslots" v-for="(card, index) in itemsOnSale" :key="index">
       <CollectorsCard :card="card" :availableAction="card.available" @doAction="buyItem(card)" />
       {{ ItemCost(card) }}
     </div>
@@ -163,6 +163,7 @@ export default {
   border-radius: 1.25em; /* 20/16 */
   border: none;
   transition: all 0.4s ease 0s;
+  cursor: default;
 
 
 }
@@ -170,8 +171,9 @@ export default {
 .button:hover:enabled {
   text-shadow: 0em 0em 0.375em rgba(255, 255, 255, 1); /* 0/16, 0/16, 6/16 */
   transition: all 0.4s ease 0.2s;
-background: #ff9999;
+  background: #ff9999;
   width: 5.5em; /* 110/16 */
+  cursor: pointer;
 
 }
 
@@ -202,11 +204,12 @@ button[disabled]{
   margin-top: -2.188em; /* -35/16 */
   margin-left: -9.375em; /* -150/16 */
 
-
-
-
 }
 
+.cardslots:hover {
+  transform: scale(2)translate(-0.5%, 0%);
+  z-index: 2;
+}
 
 
 .popupItem {

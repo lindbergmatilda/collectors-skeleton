@@ -19,7 +19,7 @@
 	"allPlayers": "ALL PLAYERS",
 	"playerID": "PLAYER ID: ",
 	"bottles":"BOTTLES: ",
-	"income" : "Income each round: ",
+	"income" : "INCOME EACH ROUND: ",
 	"cardUp":"CARD UP FOR AUCTION",
 	"marketValues":"CURRENT MARKET VALUES",
 	"chooseSecret": "CLICK HERE TO CHOOSE YOUR SECRET CARD",
@@ -48,5 +48,6 @@
 	"helpYour":"Here is what you have on your unique playerboard!",
 	"findOutWinner" : "Find out who won",
 	"winnerButton": "CLICK HERE",
-	"congratz": "CONGRATULATIONS"
+	"congratz": "CONGRATULATIONS",
+	"inviteInfo": "INVITE MORE PLAYERS TO PLAY COLLECTORS!"
 }

@@ -1067,13 +1067,16 @@ main {
 .actiontextbox {
   background-color: white;
   opacity: 0.85;
+  padding: 0.1em 2em;
+  font-size: 0.7em;
   box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.2), 0 0.375em 1.25em 0 rgba(0, 0, 0, 0.19); /* 4/16, 8/16, 6/16, 20/16 */
   border-radius: 0.5em;
-  max-width: 28em;
+  max-width: 38em;
   min-width: 20em;
   position: -webkit-sticky;
-  position: sticky;
-  top: 0;
+  position: fixed;
+  top: 0.5em;
+  left: 48em;
 
   -webkit-backface-visibility: hidden;
   z-index: 10;
@@ -1088,6 +1091,7 @@ main {
   grid-template-columns: 3fr 2fr;
   grid-template-rows: 1fr 1fr;
   font-family: "Lexend Deca", sans-serif;
+
 
 
 }
@@ -1255,7 +1259,7 @@ main {
   max-height: 43.75em; /* 700/16 */
   min-width: 22em; /* 400/16 */
   max-width: 34.5em; /* 600/16 */
-  margin: 1.075em;
+  margin: -4.5em;
 
   border-radius: 10%;
   margin-top: 3.75em; /* 60/16 */
@@ -1365,6 +1369,8 @@ scale: 0.9;
   grid-template-columns: auto;
   max-width: 35em; /* 400/16 */
   max-height: 12.5em; /* 200/16 */
+  margin-left: -4.5em;
+
 }
 
 .box {
@@ -1740,8 +1746,8 @@ button.big-button:disabled {
 
 .endGame{
   position:absolute;
-     top:0.9em;
-     right:-3em;
+     top:-0.1em;
+     right:-1em;
   scale:0.63;
 }
 
